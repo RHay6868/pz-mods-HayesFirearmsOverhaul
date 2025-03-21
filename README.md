@@ -8,7 +8,7 @@ A custom firearm mod for **Project Zomboid**, replacing vanilla base firearms, a
 
 ---
 
-## 📦 **Installation**
+## 📦 **Steam Workshop Page**
 - **[Subscribe on Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2950018687)** for updates.
 
 ---
