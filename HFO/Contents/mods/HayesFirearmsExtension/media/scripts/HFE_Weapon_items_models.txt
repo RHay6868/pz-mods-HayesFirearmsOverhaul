@@ -70,16 +70,6 @@ module Base
 		mesh = weapons/ammo/AmmoBoxRifle,
 		texture = weapons/ammo/AmmoBox762x54r,
 	}
-	model Rounds792
-    {
-        mesh = weapons/ammo/Rounds792,
-		texture = weapons/ammo/Rounds792,
-    }
-	model AmmoBox792
-    {
-        mesh = weapons/ammo/AmmoBox792,
-		texture = weapons/ammo/AmmoBox792,
-    }
 	model Rounds792x33
     {
 		mesh = weapons/ammo/RoundsRifleVanilla,
@@ -103,83 +93,13 @@ module Base
 	model Rounds9x39
     {
 		mesh = weapons/ammo/Rounds9mm,
-		texture = weapons/ammo/Rounds9mm,
+		texture = weapons/ammo/Rounds9mm
 	}
 	model AmmoBox9x39
     {
 		mesh = weapons/ammo/AmmoBoxHandgun,
 		texture = weapons/ammo/AmmoBox9x39,
 	}
-	model Rounds12GaugeBirdshot
-	{
-		mesh = weapons/ammo/Rounds12Gauge,
-		texture = weapons/ammo/Rounds12GaugeBirdshot,
-	}
-	model AmmoBox12GaugeBirdshot
-    {
-		mesh = weapons/ammo/AmmoBoxShotgun,
-		texture = weapons/ammo/AmmoBox12GaugeBirdshot,
-	}
-	model Rounds12GaugeSlug
-	{
-		mesh = weapons/ammo/Rounds12Gauge,
-		texture = weapons/ammo/Rounds12GaugeSlug,
-	}
-	model AmmoBox12GaugeSlug
-    {
-		mesh = weapons/ammo/AmmoBoxShotgun,
-		texture = weapons/ammo/AmmoBox12GaugeSlug,
-	}
-	model RoundsCrossbowBolt
-    {
-        mesh = weapons/ammo/RoundsCrossbowBolt,
-		texture = Weapons/Firearm/CrossbowCompound,
-    }
-	model AmmoBoxCrossbowBolt
-    {
-        mesh = weapons/ammo/AmmoBoxCrossbowBolt,
-		texture = weapons/ammo/AmmoBoxCrossbowBolt,
-    }
-	model RoundsWoodCrossbowBolt
-    {
-        mesh = weapons/ammo/RoundsCrossbowBolt,
-		texture = Weapons/Firearm/WoodCrossbowCompound,
-    }
-	model AmmoBoxWoodCrossbowBolt
-    {
-        mesh = weapons/ammo/AmmoBoxCrossbowBolt,
-		texture = weapons/ammo/AmmoBoxWoodCrossbowBolt,
-    }
-	model RoundsMinieBall
-	{
-		mesh = weapons/ammo/RoundsMinieBall,
-		texture = weapons/ammo/RoundsMinieBall,
-	}
-	model AmmoBoxMinieBall
-    {
-        mesh = weapons/ammo/AmmoBoxHandgun,
-		texture = weapons/ammo/AmmoBoxMinieBall,
-    }
-	model RoundsBlunderbussBullets
-	{
-		mesh = weapons/ammo/RoundsBlunderbussBullets,
-		texture = weapons/ammo/RoundsBlunderbussBullets,
-	}
-	model AmmoBoxBlunderbussBullets
-    {
-        mesh = weapons/ammo/AmmoBoxShotgun,
-		texture = weapons/ammo/AmmoBoxBlunderbussBullets,
-    }
-	model RoundsBlowgunDart
-	{
-		mesh = weapons/ammo/RoundsBlowgunDart,
-		texture = weapons/ammo/RoundsBlowgunDart,
-	}
-	model AmmoBoxBlowgunDart
-    {
-        mesh = weapons/ammo/AmmoBoxRifle,
-		texture = weapons/ammo/AmmoBoxBlowgunDart,
-    }
 	model MagBox9mm
     {
 		mesh = weapons/ammo/MagBox9mm,
@@ -510,16 +430,6 @@ module Base
 		mesh = weapons/ammo/Mag762x54rStripper,
 		texture = weapons/ammo/Mag762x54rStripper,
 	}
-    model Mag792Clip
-	{
-		mesh = weapons/ammo/Mag792,
-		texture = Weapons/Firearm/FG42,
-	}
-	model Mag792Drum
-	{
-		mesh = weapons/ammo/Mag792Drum,
-		texture = Weapons/Firearm/MG42,
-	}
 	model Mag792x33
     {
 		mesh = weapons/ammo/Mag792x33,
@@ -569,26 +479,6 @@ module Base
     {
 		mesh = weapons/ammo/MagTheNailGun,
 		texture = weapons/ammo/MagTheNailGun,
-	}
-	model SpeedLoader5
-    {
-		mesh = weapons/ammo/SpeedLoader5,
-		texture = weapons/ammo/SpeedLoader5,
-	}
-	model SpeedLoader6
-    {
-		mesh = weapons/ammo/SpeedLoader6,
-		texture = weapons/ammo/SpeedLoader6,
-	}
-	model SpeedLoader7
-    {
-		mesh = weapons/ammo/SpeedLoader7,
-		texture = weapons/ammo/SpeedLoader7,
-	}
-	model SpeedLoader9
-    {
-		mesh = weapons/ammo/SpeedLoader9,
-		texture = weapons/ammo/SpeedLoader9,
 	}
 	model SkeletonizedStock
     {
@@ -725,6 +615,156 @@ module Base
 		mesh = weapons/parts/ShellHolder,
         texture = Weapons/Parts/ShellHolder,
 	}
+	model PlatingGold
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingGold,
+    }
+	model PlatingRainbow
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingRainbow,
+    }
+	model PlatingTan
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingTan,
+    }
+	model PlatingBlue
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingBlue,
+    }
+	model PlatingRed
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingRed,
+    }
+	model PlatingWhite
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingWhite,
+    }
+	model PlatingBlack
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingBlack,
+    }
+	model PlatingWoodStyled
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/WoodStyledPlating,
+    }
+	model PlatingPink
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingPink,
+    }
+	model PlatingCrabShell
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingCrabShell,
+    }
+	model PlatingYellow
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingYellow,
+    }
+	model PlatingGreen
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingGreen,
+    }
+	model PlatingRedWhite
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingRedWhite,
+    }
+	model PlatingGreenGold
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingGreenGold,
+    }
+	model PlatingSteelDamascus
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingSteelDamascus,
+    }
+	model PlatingSalvagedRage
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingSalvagedRage,
+    }
+	model PlatingZoidbergSpecial
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingZoidbergSpecial,
+    }
+	model PlatingShenron
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingShenron,
+    }
+	model PlatingNerf
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingNerf,
+    }
+	model PlatingSurvivalist
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingSurvivalist,
+    }
+	model PlatingMysteryMachine
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingMysteryMachine,
+    }
+	model PlatingPearl
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingPearl,
+    }
+	model PlatingAztec
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingAztec,
+    }
+	model PlatingBlackIce
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingBlackIce,
+    }
+	model PlatingTBD
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingTBD,
+    }
+	model FirearmCache
+	{
+        mesh = WorldItems/PistolCase,
+        texture = WorldItems/FirearmCache,
+	}
+	model 792Clip
+	{
+		mesh = weapons/ammo/792Clip,
+		texture = Weapons/Firearm/FG42,
+	}
+	model 792Drum
+	{
+		mesh = weapons/ammo/792Drum,
+		texture = Weapons/Firearm/MG42,
+	}
+	model 792Bullets
+    {
+        mesh = weapons/ammo/792Ammo,
+		texture = weapons/ammo/792Ammo,
+    }
+	model 792Box
+    {
+        mesh = weapons/ammo/792AmmoBox,
+		texture = weapons/ammo/792AmmoBox,
+    }
 	model IronSightsFG42
     {
         mesh = weapons/parts/IronSightsFG42,
@@ -735,141 +775,16 @@ module Base
 		mesh = weapons/parts/ScopeFG42,
 		texture = Weapons/Parts/ScopeFG42,
 	}
-	model GunPlatingGold
+	model CrossbowBolt
     {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingGold,
+        mesh = weapons/ammo/CrossbowBolt,
+		texture = Weapons/Firearm/CrossbowCompound,
     }
-	model GunPlatingRainbow
+	model CrossbowBoltPack
     {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingRainbow,
+        mesh = weapons/ammo/CrossbowBoltPack,
+		texture = weapons/ammo/CrossbowBoltPack,
     }
-	model GunPlatingTan
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingTan,
-    }
-	model GunPlatingBlue
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingBlue,
-    }
-	model GunPlatingRed
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingRed,
-    }
-	model GunPlatingWhiteCamo
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingWhite,
-    }
-	model GunPlatingMatteBlack
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingBlack,
-    }
-	model GunPlatingDarkCherry
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/CherryWood,
-    }
-	model GunPlatingWoodStyled
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/WoodStyledPlating,
-    }
-	model GunPlatingPink
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingPink,
-    }
-	model GunPlatingCrabShell
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingCrabShell,
-    }
-	model GunPlatingYellow
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingYellow,
-    }
-	model GunPlatingGreen
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingGreen,
-    }
-	model GunPlatingRedWhite
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingRedWhite,
-    }
-	model GunPlatingGreenGold
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingGreenGold,
-    }
-	model GunPlatingSteelDamascus
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingSteelDamascus,
-    }
-	model GunPlatingSalvagedRage
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingSalvagedRage,
-    }
-	model GunPlatingZoidbergSpecial
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingZoidbergSpecial,
-    }
-	model GunPlatingShenron
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingShenron,
-    }
-	model GunPlatingNerf
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingNerf,
-    }
-	model GunPlatingSurvivalist
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingSurvivalist,
-    }
-	model GunPlatingMysteryMachine
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingMysteryMachine,
-    }
-	model GunPlatingPearl
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingPearl,
-    }
-	model GunPlatingAztec
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingAztec,
-    }
-	model GunPlatingBlackIce
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingBlackIce,
-    }
-	model GunPlatingTBD
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingTBD,
-    }
-	model FirearmCache
-	{
-        mesh = WorldItems/PistolCase,
-        texture = WorldItems/FirearmCache,
-	}
 	model FG42Magazine_Ground
     {
         mesh = WorldItems/Magazine,

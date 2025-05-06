@@ -1,79 +1,48 @@
---============================================================--
---               HFO_SandboxOptions_Tweaker.lua               --
---============================================================--
--- Purpose:
---   Dynamically modifies base weapon stats (firearms + melee) based on
---   HFO sandbox settings, allowing server/client customization of damage,
---   range, and sound levels at game start.
---
--- Overview:
---   This file loads and caches base values for supported firearms
---   (including special _Melee variants), then applies stat scaling
---   using values pulled from HFO_SandboxUtils.
---
--- Core Features:
---   - Reads all HFO-defined firearms from HFO.Constants
---   - Applies stat scaling (damage, range, sound) via DoParam
---   - Supports melee conversion weapons (e.g. bipod-folded)
---   - Loads on OnGameStart` for early application
---   - Skips specific melee exceptions to prevent bad overrides
---
--- Responsibilities:
---   - Centralized application of custom stat tweaks
---   - Preserve and respect original values for fallback logic
---
--- Dependencies:
---   - HFO_SandboxUtils (for safe setting access)
---   - HFO_Constants (for list of mod weapons)
---   - HFO_Utils (for debug logging)
---
--- Notes:
---   - Intended to run only once on load no hot reload behavior
---   - Designed to be compatible with multiplayer/server play
---============================================================--
-
-
-require "HFO_Utils"
-require "HFO_SandboxUtils"
-require "HFO_Constants"
-
-HFO = HFO or {}
+local HFO = HFO or {}
 
 local firearmsStats = {}
 local meleeFirearmStats = {}
 
+local sVars = SandboxVars.HFO
+sVars.DamageStats = sVars.DamageStats or 10
+sVars.MeleeDamageStats = sVars.MeleeDamageStats or 0
+sVars.RangeStats = sVars.RangeStats or 10
+sVars.AngleStats = sVars.AngleStats or 10
+sVars.ConditionStats = sVars.ConditionStats or 10
+sVars.SoundStats = sVars.SoundStats or 10
 
----===========================================---
---    GATHER FIREARM INFO AND APPLY SETTINGS   --
----===========================================---
+local function initializeFirearmStats()
+    local gunWeaponNames = {
+        "Pistol", "Pistol2", "Pistol3", "Revolver_Short", "Revolver", "Revolver_Long",
+        "VarmintRifle", "HuntingRifle", "AssaultRifle", "AssaultRifle2", "Shotgun", "ShotgunSawnoff"
+    }
 
--- Pull all valid firearm names from Constants our single source of truth
-local function getAllFirearmNames()
-    local sv = HFO.SandboxUtils.get()
-    local result = {}
-
-    for subtype, sources in pairs(HFO.Constants.Items.Firearms or {}) do
-        for sourceMod, itemList in pairs(sources or {}) do
-            if sourceMod == "Base" or sv[sourceMod] == true then
-                for _, name in ipairs(itemList) do
-                    table.insert(result, "Base." .. name)
-                end
+    local function addGunItems(modName, weapons)
+        if getActivatedMods():contains(modName) then
+            for _, weapon in ipairs(weapons) do
+                table.insert(gunWeaponNames, weapon)
             end
         end
     end
 
-    return result
-end
+    addGunItems("HayesFirearmsExtension", {"Glock", "FiveSeven", "Luger", "WaltherPPK", "Makarov", "Derringer", "PLR16", "MosinNagantObrez", "AK74U", 
+        "AK74U_Folded", "FranchiLF57", "FranchiLF57_Folded", "MiniUzi", "MiniUzi_Folded", "P90", "PM63RAK", "PM63RAK_Grip",
+        "PM63RAK_Extended", "PM63RAK_GripExtended", "AK103", "AK74", "HenryRepeatingBigBoy", "GrozaOTs14", "M1918BAR", "M1918BAR_Bipod", 
+        "FG42", "FG42_Bipod", "M4A1", "ColtCavalryRevolver", "CrossbowCompound", "MG42", "MG42_Bipod",  
+        "TheNailGun", "OA93", "L2A1", "L2A1_Bipod", "EM2", "L85A1", "ASVal", "ASVal_Folded", "Galil", "Galil_Bipod", "VSSVintorez", "BeckerRevolver",
+        "M1Garand", "SIG550", "StG44", "MosinNagant", "BarrettM82A1", "BarrettM82A1_Bipod", "SVDDragunov", "Remington1100", "TrenchGun"
+    })
 
--- Cache original firearm stats that can be influenced by sandbox settings
-local function initializeFirearmStats()
-    for _, fullName in ipairs(getAllFirearmNames()) do
-        local weapon = ScriptManager.instance:getItem(fullName)
-        if weapon and weapon:isRanged() then
-            firearmsStats[fullName] = {
+    for _, weaponName in ipairs(gunWeaponNames) do
+        local weapon = ScriptManager.instance:getItem(weaponName)
+        if weapon ~= nil and weapon:getTypeString() == "Weapon" and weapon:isRanged() then
+            firearmsStats[weaponName] = {
                 minDamage = weapon:getMinDamage(),
                 maxDamage = weapon:getMaxDamage(),
                 maxRange = weapon:getMaxRange(),
+                minAngle = weapon:getMinAngle(),
+                conditionMax = weapon:getConditionMax(),
+                conditionLower = weapon:getConditionLowerChance(),
                 soundRadius = weapon:getSoundRadius(),
                 soundVolume = weapon:getSoundVolume(),
             }
@@ -81,86 +50,69 @@ local function initializeFirearmStats()
     end
 end
 
--- Cache melee stats for _Melee versions with exceptions that dont have melee types
+-- Function to initialize melee stats
 local function initializeMeleeStats()
     local meleeExceptions = {
-        ["Base.PM63RAK_Grip_Melee"] = true,
-        ["Base.PM63RAK_GripExtended_Melee"] = true,
-        ["Base.M1918BAR_Bipod_Melee"] = true,
-        ["Base.L2A1_Bipod_Melee"] = true,
-        ["Base.FG42_Bipod_Melee"] = true,
-        ["Base.MG42_Bipod_Melee"] = true,
-        ["Base.BarrettM82A1_Bipod_Melee"] = true,
-        ["Base.McMillanTAC50_Bipod_Melee"] = true,
-        ["Base.Galil_Bipod_Melee"] = true,
+        ["BarrettM82A1_Bipod_Melee"] = true,
+        ["M1918BAR_Bipod_Melee"] = true,
+        ["PM63RAK_GripExtended_Melee"] = true,
+        ["PM63RAK_Grip_Melee"] = true
     }
 
-    for fullName, _ in pairs(firearmsStats) do
-        local meleeName = fullName .. "_Melee"
-        if not meleeExceptions[meleeName] then
-            local melee = ScriptManager.instance:getItem(meleeName)
-            if melee then
-                meleeFirearmStats[meleeName] = {
-                    meleeMinDamage = melee:getMinDamage(),
-                    meleeMaxDamage = melee:getMaxDamage()
+    for weaponName, stats in pairs(firearmsStats) do
+        local meleeWeaponName = weaponName .. "_Melee"
+        if not meleeExceptions[meleeWeaponName] then
+            local weapon = ScriptManager.instance:getItem(meleeWeaponName)
+            if weapon ~= nil and weapon:getTypeString() == "Weapon" then
+                meleeFirearmStats[meleeWeaponName] = {
+                    meleeMinDamage = weapon:getMinDamage(),
+                    meleeMaxDamage = weapon:getMaxDamage(),
+                    meleeConditionMax = weapon:getConditionMax(),
+                    meleeConditionLower = weapon:getConditionLowerChance(),
                 }
             end
         end
     end
 end
 
--- Apply scaled firearm stats with proper clamping
-local function applyFirearmStats(weaponName, stats, sv)
+-- Function to apply stats to firearms
+local function applyStatsToFirearms(weaponName, firearmStats, sVars)
     local weapon = ScriptManager.instance:getItem(weaponName)
-    if not weapon then
-        HFO.Utils.debugLog("[HFO.Firearms] Missing item: " .. tostring(weaponName))
-        return
+    if weapon then
+        weapon:DoParam("MaxDamage = " .. math.max(0.4, math.floor(firearmStats.maxDamage * sVars.DamageStats) / 10))
+        weapon:DoParam("MinDamage = " .. math.max(0.1, math.floor(firearmStats.minDamage * sVars.DamageStats) / 10))
+        weapon:DoParam("MaxRange = " .. math.max(1, math.floor(firearmStats.maxRange * sVars.RangeStats / 10)))
+        weapon:DoParam("MinAngle = " .. math.min(1.100, math.max(0.610, math.floor(firearmStats.minAngle * sVars.AngleStats * 100) / 1000)))
+        weapon:DoParam("ConditionMax = " .. math.max(5, math.floor(firearmStats.conditionMax * sVars.ConditionStats / 10)))
+        weapon:DoParam("ConditionLowerChanceOneIn = " .. math.max(15, math.floor(firearmStats.conditionLower * sVars.ConditionStats / 10)))
+        weapon:DoParam("SoundRadius = " .. math.max(5, math.floor(firearmStats.soundRadius * sVars.SoundStats / 10)))
+        weapon:DoParam("SoundVolume = " .. math.max(5, math.floor(firearmStats.soundVolume * sVars.SoundStats / 10)))
     end
-
-    local minDamage = stats.minDamage or 0
-    local maxDamage = stats.maxDamage or 0
-    local maxRange = stats.maxRange or 0
-    local soundRadius = stats.soundRadius or 0
-    local soundVolume = stats.soundVolume or 0
-
-    weapon:DoParam("MinDamage = " .. math.max(0.1, math.floor(minDamage * sv.DamageStats) / 10))
-    weapon:DoParam("MaxDamage = " .. math.max(0.4, math.floor(maxDamage * sv.DamageStats) / 10))
-    weapon:DoParam("MaxRange = " .. math.max(1, math.floor(maxRange * sv.RangeStats / 10)))
-    weapon:DoParam("SoundRadius = " .. math.max(5, math.floor(soundRadius * sv.SoundStats / 10)))
-    weapon:DoParam("SoundVolume = " .. math.max(5, math.floor(soundVolume * sv.SoundStats / 10)))
 end
 
--- Apply scaled melee stats with proper clamping
-local function applyMeleeStats(weaponName, stats, sv)
+-- Function to apply stats to melee firearms
+local function applyStatsToMeleeFirearms(weaponName, meleeFirearmStats, sVars)
     local weapon = ScriptManager.instance:getItem(weaponName)
-    if not weapon then
-        HFO.Utils.debugLog("[HFO.Melee] Missing item: " .. tostring(weaponName))
-        return
+    if weapon then
+        weapon:DoParam("MaxDamage = " .. math.max(0.2, meleeFirearmStats.meleeMaxDamage + (sVars.MeleeDamageStats * 0.1)))
+        weapon:DoParam("MinDamage = " .. math.max(0.1, meleeFirearmStats.meleeMinDamage + (sVars.MeleeDamageStats * 0.1)))
+        weapon:DoParam("ConditionMax = " .. math.max(5, math.floor(meleeFirearmStats.meleeConditionMax * sVars.ConditionStats / 10)))
     end
-
-    local meleeMinDamage = stats.meleeMinDamage or 0
-    local meleeMaxDamage = stats.meleeMaxDamage or 0
-
-    weapon:DoParam("MinDamage = " .. math.max(0.1, meleeMinDamage + (sv.MeleeDamageStats * 0.1)))
-    weapon:DoParam("MaxDamage = " .. math.max(0.2, meleeMaxDamage + (sv.MeleeDamageStats * 0.1)))
 end
 
-
----===========================================---
---                 EVENT HOOKS                 --
----===========================================---
-
+-- Event handler for game start
 Events.OnGameStart.Add(function()
-    local sv = HFO.SandboxUtils.get()
-
+    --print("Starting firearm initialization...")
     initializeFirearmStats()
     initializeMeleeStats()
 
     for weaponName, stats in pairs(firearmsStats) do
-        applyFirearmStats(weaponName, stats, sv)
+        applyStatsToFirearms(weaponName, stats, sVars)
     end
 
-    for meleeName, stats in pairs(meleeFirearmStats) do
-        applyMeleeStats(meleeName, stats, sv)
+    for weaponName, stats in pairs(meleeFirearmStats) do
+        applyStatsToMeleeFirearms(weaponName, stats, sVars)
     end
+
+    --print("Firearm initialization complete.")
 end)

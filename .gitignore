@@ -1,27 +1,41 @@
-# OS junk
-.DS_Store
-Thumbs.db
-ehthumbs.db
-Desktop.ini
+# Compiled Lua sources
+luac.out
 
-# Editor & IDE settings
-.vscode/
-.idea/
-*.sublime-workspace
-*.sublime-project
-
-# Temporary & backup files
-*~
-*.bak
-*.tmp
-
-# Log files and runtime
-*.log
-logs/
-
-# Build artifacts (ZIPs or packs)
+# luarocks build files
+*.src.rock
 *.zip
+*.tar.gz
 
-# Steam Workshop or personal install paths (local only)
-Zomboid/mods/
-mods/**/modData/
+# Object files
+*.o
+*.os
+*.ko
+*.obj
+*.elf
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+*.def
+*.exp
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+

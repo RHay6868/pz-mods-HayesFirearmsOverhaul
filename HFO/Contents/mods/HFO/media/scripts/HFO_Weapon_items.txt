@@ -241,8 +241,7 @@ module Base
         MaxAmmo                 = 15,
         AmmoType                = Base.Bullets9mm,
         StaticModel             = Mag9mm,
-        GunType                 = Base.Pistol; Base.SIGSauer;
-                                Base.PM63RAK; Base.PM63RAK_Grip; Base.PM63RAK_Extended; Base.PM63RAK_GripExtended;,
+        GunType                 = Base.Pistol; Base.PM63RAK; Base.PM63RAK_Grip; Base.PM63RAK_Extended; Base.PM63RAK_GripExtended,
         WorldStaticModel        = Mag9mm,
     }
 
@@ -301,10 +300,8 @@ module Base
         Icon	                = Mag700Series,
         MaxAmmo                 = 3,
         AmmoType                = Base.308Bullets,
-        CompatibleAmmoType      = Base.762x51Bullets,
         StaticModel             = Mag700Series,
         GunType                 = Base.VarmintRifle; Base.HuntingRifle,
-        CompatibleGunType       = Base.L2A1; Base.L2A1_Bipod,
         WorldStaticModel        = Mag700Series,
     }
 

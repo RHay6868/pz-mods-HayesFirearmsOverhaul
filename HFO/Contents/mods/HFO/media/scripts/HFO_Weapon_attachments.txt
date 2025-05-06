@@ -60,7 +60,6 @@ module Base
         MetalValue          = 15,
         StaticModel         = Bayonet,
         WorldStaticModel    = Rifle_Bayonet_Ground,
-        AttachmentSlot      = bayonet,
         Tooltip             = Tooltip_Bayonet,
     }
 
@@ -81,7 +80,6 @@ module Base
         MetalValue          = 15,
         StaticModel         = BayonetImprovised,
         WorldStaticModel    = BayonetImprovised,
-        AttachmentSlot      = bayonet,
         Tooltip             = Tooltip_Bayonet,
     }
 
@@ -93,7 +91,7 @@ module Base
         DisplayName         = Gun Light,
         Icon                = Gun_Light,
         PartType            = Stock,
-        MountOn             = Pistol; Pistol2; Pistol3; SIGSauer;
+        MountOn             = Pistol; Pistol2; Pistol3;
                             Glock; FiveSeven; FranchiLF57; FranchiLF57_Folded;
                             MiniUzi; MiniUzi_Folded; P90; TheNailGun,
         WeightModifier      = 0.1,
@@ -102,7 +100,6 @@ module Base
         MetalValue          = 15,
         StaticModel         = GunLight,
         WorldStaticModel    = Handgun_Light_Ground,
-        AttachmentSlot      = gunlight,
         Tooltip             = Tooltip_GunLight,
     }
 
@@ -114,7 +111,7 @@ module Base
         DisplayName         = Laser,
         Icon                = Laser,
         PartType            = Stock,
-        MountOn             = Pistol; Pistol2; Pistol3; SIGSauer;
+        MountOn             = Pistol; Pistol2; Pistol3;
                             Glock; FiveSeven; FranchiLF57; FranchiLF57_Folded;
                             MiniUzi; MiniUzi_Folded; P90; TheNailGun,
         WeightModifier      = 0.2,
@@ -123,7 +120,6 @@ module Base
         MetalValue          = 15,
         StaticModel         = Laser,
         WorldStaticModel    = Handgun_Laser_Ground,
-        AttachmentSlot      = laser,
         Tooltip             = Tooltip_Laser,
     }
 
@@ -137,8 +133,8 @@ module Base
         DisplayName         = Iron Sight,
         Icon                = IronSight,
         PartType            = Scope,
-        MountOn             = Pistol; Pistol2; Pistol3; SIGSauer; RugerGP100;
-                            Revolver; Revolver_Long; Revolver_Short; ColtCavalryRevolver; HighStandardSentinel;
+        MountOn             = Pistol; Pistol2; Pistol3;
+                            Revolver; Revolver_Long; Revolver_Short; ColtCavalryRevolver;
                             Glock; FiveSeven; HuntingRifle; VarmintRifle;
                             AssaultRifle; AssaultRifle2; FranchiLF57; FranchiLF57_Folded;
                             MiniUzi; MiniUzi_Folded; M1918BAR,
@@ -147,7 +143,6 @@ module Base
         MetalValue          = 15,
         StaticModel         = IronSights,
         WorldStaticModel    = Rifle_IronSights_Ground,
-        AttachmentSlot      = scope,
         Tooltip             = Tooltip_IronSight,
     }
 
@@ -161,7 +156,7 @@ module Base
         PartType            = Scope,
         MountOn             = HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2; M4A1; EM2; L85A1;
                             PLR16; MosinNagantObrez; AK103; AK74; AK74U; AK74U_Folded; L2A1; L2A1_Bipod;
-                            CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; SIG550; MP28; VSSVintorez; ASVal; ASVal_Folded;
+                            CrossbowCompound; HenryRepeatingBigBoy; SIG550; MP28; VSSVintorez; ASVal; ASVal_Folded;
                             GrozaOTs14; M1Garand; StG44; MosinNagant; Galil; Galil_Bipod; SVDDragunov,
         WeightModifier      = 0.2,
         MaxRangeModifier    = 4,
@@ -170,7 +165,6 @@ module Base
         MetalValue          = 22,
         StaticModel         = x2Scope,
         WorldStaticModel    = Rifle_2XScope_Ground,
-        AttachmentSlot      = scope,
         Tooltip             = Tooltip_2xScope,
     }
 
@@ -183,7 +177,7 @@ module Base
         Icon                = x4Scope,
         PartType            = Scope,
         MountOn             = HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2; M4A1; VSSVintorez; ASVal; ASVal_Folded;
-                            AK103; AK74; AK74U; AK74U_Folded; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; SIG550; GrozaOTs14; EM2; L85A1;
+                            AK103; AK74; AK74U; AK74U_Folded; HenryRepeatingBigBoy; SIG550; GrozaOTs14; EM2; L85A1;
                             M1Garand; StG44; MosinNagant; BarrettM82A1; BarrettM82A1_Bipod; Galil; Galil_Bipod; SVDDragunov,
         WeightModifier      = 0.4,
         MaxRangeModifier    = 6,
@@ -192,7 +186,6 @@ module Base
         MetalValue          = 22,
         StaticModel         = x4Scope,
         WorldStaticModel    = Rifle_4XScope_Ground,
-        AttachmentSlot      = scope,
         Tooltip             = Tooltip_4xScope,
     }
 
@@ -204,7 +197,7 @@ module Base
         DisplayName         = 8x Scope,
         Icon                = x8Scope,
         PartType            = Scope,
-        MountOn             = HuntingRifle; VarmintRifle; AssaultRifle2; M4A1; M1Garand; Marlin39A;
+        MountOn             = HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2; M4A1;M1Garand;
                             MosinNagant; BarrettM82A1; BarrettM82A1_Bipod; Galil; Galil_Bipod; SVDDragunov,
         WeightModifier      = 0.8,
         MaxRangeModifier    = 8,
@@ -213,7 +206,6 @@ module Base
         MetalValue          = 22,
         StaticModel         = x8Scope,
         WorldStaticModel    = Rifle_8XScope_Ground,
-        AttachmentSlot      = scope,
         Tooltip             = Tooltip_8xScope,
     }
 
@@ -225,7 +217,7 @@ module Base
         DisplayName         = Red Dot,
         Icon                = Red_Dot,
         PartType            = Scope,
-        MountOn             = Pistol; Pistol2; Pistol3; SIGSauer; RugerGP100; HighStandardSentinel; 
+        MountOn             = Pistol; Pistol2; Pistol3; 
                             Revolver_Short; Revolver; Revolver_Long; ColtCavalryRevolver; Glock; FiveSeven;
                             FranchiLF57; FranchiLF57_Folded; MiniUzi; MiniUzi_Folded;
                             PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended,
@@ -235,7 +227,6 @@ module Base
         MetalValue          = 15,
         StaticModel         = RedDot,
         WorldStaticModel    = Handgun_RedDotScope_Ground,
-        AttachmentSlot      = reddot,
         Tooltip             = Tooltip_RedDot,
     }
 
@@ -252,7 +243,7 @@ module Base
         MountOn             = HuntingRifle; VarmintRifle; AssaultRifle2; 
                             Shotgun; DoubleBarrelShotgun; ShotgunSawnOff; DoubleBarrelShotgunSawnOff,
         WeightModifier      = -0.4,
-        ReloadSpeedModifier = 1.5,
+        ReloadTimeModifier  = -10,
         WorldStaticModel    = AmmoStrap_Ground,
         Tooltip             = Tooltip_AmmoStrap,
     }
@@ -268,7 +259,6 @@ module Base
         MountOn             = HuntingRifle; VarmintRifle; AssaultRifle2; 
                             Shotgun; DoubleBarrelShotgun,
         WeightModifier      = -0.8,
-        ReloadSpeedModifier = 1.5,
         Tooltip             = Tooltip_SlingAttachment,
     }
 		
@@ -299,17 +289,15 @@ module Base
         Icon                = RecoilPad,
         PartType            = RecoilPad,
         MountOn             = HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2; M4A1; 
-                            AK103; AK74; BrowningBLR; Shotgun; DoubleBarrelShotgun; Mossberg500; Chiappa1887;
-                            CrossbowCompound; Marlin39A; HenryRepeatingBigBoy; M1918BAR; M1Garand; SIG550; MosinNagant;
+                            AK103; AK74; Shotgun; DoubleBarrelShotgun;
+                            CrossbowCompound; HenryRepeatingBigBoy; M1918BAR; M1Garand; SIG550; MosinNagant;
                             BarrettM82A1; BarrettM82A1_Bipod; Galil; Galil_Bipod; SVDDragunov; Remington1100; TrenchGun,
         WeightModifier      = 0.05,
         AimingTimeModifier  = 5,
         RecoilDelayModifier = -1,
         AngleModifier       = -0.01,
-        ReloadSpeedModifier = 0.2,
         StaticModel         = RecoilPad,
         WorldStaticModel    = Rifle_RecoilPad_Ground,
-        AttachmentSlot      = recoilpad,
         Tooltip             = Tooltip_RecoilPad,
     }
 }

@@ -11,7 +11,7 @@ module Base
         DisplayName         = Suppressor [Pistol],
         Icon                = SuppressorPistol,
         PartType            = Canon,
-        MountOn             = Pistol; Pistol2; Pistol3; SIGSauer; JenningsJ22; OA93;
+        MountOn             = Pistol; Pistol2; Pistol3; OA93;
                             Glock; FiveSeven; Luger; WaltherPPK; Makarov; PLR16; MosinNagantObrez;
                             PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended,
         WeightModifier      = 0.20,
@@ -22,9 +22,7 @@ module Base
         MetalValue          = 5,
         StaticModel         = SuppressorPistol,
         WorldStaticModel    = SuppressorPistol,
-        AttachmentSlot      = barrelend,
         Tooltip             = Tooltip_SuppressorPistol,
-        Tags                = Suppressor,
     }	
 
     item SuppressorRifle
@@ -37,8 +35,8 @@ module Base
         PartType            = Canon,
         MountOn             = AssaultRifle; AssaultRifle2; M4A1; EM2; L85A1;
                             AK103; AK74; AK74U; AK74U_Folded; FranchiLF57; FranchiLF57_Folded;
-                            MiniUzi; MiniUzi_Folded; P90; SIG550; L2A1; L2A1_Bipod; Marlin39A;
-                            BrowningBLR; HenryRepeatingBigBoy; GrozaOTs14; StG44; MosinNagant; 
+                            MiniUzi; MiniUzi_Folded; P90; SIG550; L2A1; L2A1_Bipod;
+                            HenryRepeatingBigBoy; GrozaOTs14; StG44; MosinNagant; 
                             SVDDragunov,
         WeightModifier      = 0.25,
         DamageModifier      = -0.2,
@@ -49,9 +47,7 @@ module Base
         MetalValue          = 5,
         StaticModel         = SuppressorRifle,
         WorldStaticModel    = SuppressorRifle,
-        AttachmentSlot      = barrelend,
         Tooltip             = Tooltip_SuppressorRifle,
-        Tags                = Suppressor;barrelend,
     }
 
     item SuppressorSniper
@@ -72,9 +68,7 @@ module Base
         MetalValue          = 5,
         StaticModel         = SuppressorSniper,
         WorldStaticModel    = SuppressorSniper,
-        AttachmentSlot      = barrelend,
         Tooltip             = Tooltip_SuppressorSniper,
-        Tags                = Suppressor;barrelend,
     }	
 
     item SuppressorSniperWinter
@@ -95,9 +89,7 @@ module Base
         MetalValue          = 5,
         StaticModel         = SuppressorSniperWinter,
         WorldStaticModel    = SuppressorSniperWinter,
-        AttachmentSlot      = barrelend,
         Tooltip             = Tooltip_SuppressorSniperWrap,
-        Tags                = Suppressor;barrelend,
     }	
     
     item SuppressorSniperDesert
@@ -118,9 +110,7 @@ module Base
         MetalValue          = 5,
         StaticModel         = SuppressorSniperDesert,
         WorldStaticModel    = SuppressorSniperDesert,
-        AttachmentSlot      = barrelend,
         Tooltip             = Tooltip_SuppressorSniperWrap,
-        Tags                = Suppressor;barrelend,
     }	
 
     item SuppressorSniperWoodland
@@ -141,9 +131,7 @@ module Base
         MetalValue          = 5,
         StaticModel         = SuppressorSniperWoodland,
         WorldStaticModel    = SuppressorSniperWoodland,
-        AttachmentSlot      = barrelend,
         Tooltip             = Tooltip_SuppressorSniperWrap,
-        Tags                = Suppressor;barrelend,
     }	
 
     item Compensator
@@ -155,8 +143,8 @@ module Base
         Icon                = Compensator,
         PartType            = Canon,
         MountOn             = AssaultRifle; M4A1; EM2; L85A1;
-                            AK103; AK74; AK74U; AK74U_Folded; SIG550; OA93; L2A1; L2A1_Bipod; Marlin39A;
-                            BrowningBLR; HenryRepeatingBigBoy; StG44; Galil; Galil_Bipod; SVDDragunov, 
+                            AK103; AK74; AK74U; AK74U_Folded; SIG550; OA93; L2A1; L2A1_Bipod;
+                            HenryRepeatingBigBoy; StG44; Galil; Galil_Bipod; SVDDragunov, 
         WeightModifier      = 0.05,
         HitChanceModifier   = 3,
         AimingTimeModifier  = 5,
@@ -165,7 +153,6 @@ module Base
         MetalValue          = 5,
         StaticModel         = Compensator,
         WorldStaticModel    = Compensator,
-        AttachmentSlot      = barrelend,
         Tooltip             = Tooltip_Compensator,
     }
 
@@ -178,8 +165,8 @@ module Base
         Icon                = MuzzleBrake,
         PartType            = Canon,
         MountOn             = AssaultRifle; M4A1; EM2; L85A1;
-                            AK103; AK74; AK74U; AK74U_Folded; SIG550; OA93; L2A1; L2A1_Bipod; Marlin39A;
-                            BrowningBLR; HenryRepeatingBigBoy; StG44; Galil; Galil_Bipod; SVDDragunov, 
+                            AK103; AK74; AK74U; AK74U_Folded; SIG550; OA93; L2A1; L2A1_Bipod;
+                            HenryRepeatingBigBoy; StG44; Galil; Galil_Bipod; SVDDragunov, 
         WeightModifier      = 0.1,
         DamageModifier      = 0.2,
         HitChanceModifier   = 7,
@@ -187,7 +174,6 @@ module Base
         MetalValue          = 5,
         StaticModel         = MuzzleBrake,
         WorldStaticModel    = MuzzleBrake,
-        AttachmentSlot      = barrelend,
         Tooltip             = Tooltip_MuzzleBrake,
     }
 
@@ -199,7 +185,7 @@ module Base
         DisplayName         = Compensator [Handgun],
         Icon                = CompensatorHandgun,
         PartType            = Canon,
-        MountOn             = Pistol; Pistol2; Pistol3; SIGSauer; JenningsJ22; 
+        MountOn             = Pistol; Pistol2; Pistol3; 
                             Glock; FiveSeven; Luger; WaltherPPK; Makarov; PLR16,
         WeightModifier      = 0.05,
         HitChanceModifier   = 3,
@@ -209,7 +195,6 @@ module Base
         MetalValue          = 5,
         StaticModel         = CompensatorHandgun,
         WorldStaticModel    = CompensatorHandgun,
-        AttachmentSlot      = barrelend,
         Tooltip             = Tooltip_CompensatorHandgun,
     }
 
@@ -221,7 +206,7 @@ module Base
         DisplayName         = Muzzle Brake [Handgun],
         Icon                = MuzzleBrakeHandgun,
         PartType            = Canon,
-        MountOn             = Pistol; Pistol2; Pistol3; SIGSauer; JenningsJ22;
+        MountOn             = Pistol; Pistol2; Pistol3;
                             Glock; FiveSeven; Luger; WaltherPPK; Makarov; PLR16, 
         WeightModifier      = 0.08,
         DamageModifier      = 0.2,
@@ -230,7 +215,6 @@ module Base
         MetalValue          = 5,
         StaticModel         = MuzzleBrakeHandgun,
         WorldStaticModel    = MuzzleBrakeHandgun,
-        AttachmentSlot      = barrelend,
         Tooltip             = Tooltip_MuzzleBrakeHandgun,
     }
 
@@ -243,7 +227,7 @@ module Base
         DisplayName         = PEM Scope,
         Icon                = PEMScope,
         PartType            = Scope,
-        MountOn             = MosinNagantObrez; AK103; AK74; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; StG44; M1Garand; L85A1;
+        MountOn             = MosinNagantObrez; AK103; AK74; HenryRepeatingBigBoy; StG44; M1Garand; L85A1;
                             MosinNagant; BarrettM82A1; BarrettM82A1_Bipod; Galil; Galil_Bipod; SVDDragunov; 
                             VarmintRifle; HuntingRifle; AssaultRifle; AssaultRifle2; SIG550; M4A1;
                             VSSVintorez; ASVal; ASVal_Folded,
@@ -254,7 +238,6 @@ module Base
         MetalValue          = 20,
         StaticModel         = PEMScope,
         WorldStaticModel    = PEMScope,
-        AttachmentSlot      = scope,
         Tooltip             = Tooltip_PEMScope,
     }
 
@@ -266,7 +249,7 @@ module Base
         DisplayName         = PSO-1 Scope,
         Icon                = PSO1Scope,
         PartType            = Scope,
-        MountOn             = MosinNagantObrez; AK103; AK74; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; StG44; M1Garand; L85A1;
+        MountOn             = MosinNagantObrez; AK103; AK74; HenryRepeatingBigBoy; StG44; M1Garand; L85A1;
                             MosinNagant; BarrettM82A1; BarrettM82A1_Bipod; Galil; Galil_Bipod; SVDDragunov; 
                             VarmintRifle; HuntingRifle; AssaultRifle; AssaultRifle2; SIG550; M4A1;
                             VSSVintorez; ASVal; ASVal_Folded,
@@ -277,7 +260,6 @@ module Base
         MetalValue          = 20,
         StaticModel         = PSO1Scope,
         WorldStaticModel    = PSO1Scope,
-        AttachmentSlot      = scope,
         Tooltip             = Tooltip_PSO1Scope,
     }
 
@@ -289,7 +271,7 @@ module Base
         DisplayName         = Universal Optical Sight,
         Icon                = UniversalOpticalSight,
         PartType            = Scope,
-        MountOn             = MosinNagantObrez; AK103; AK74; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; GrozaOTs14; StG44; M1Garand; L85A1;
+        MountOn             = MosinNagantObrez; AK103; AK74; HenryRepeatingBigBoy; GrozaOTs14; StG44; M1Garand; L85A1;
                             MosinNagant; BarrettM82A1; BarrettM82A1_Bipod; Galil; Galil_Bipod; SVDDragunov; 
                             VarmintRifle; HuntingRifle; AssaultRifle; AssaultRifle2; SIG550; M4A1;
                             VSSVintorez; ASVal; ASVal_Folded; L2A1; L2A1_Bipod; EM2,
@@ -301,7 +283,6 @@ module Base
         MetalValue          = 12,
         StaticModel         = UniversalOpticalSight,
         WorldStaticModel    = UniversalOpticalSight,
-        AttachmentSlot      = scope,
         Tooltip             = Tooltip_UniversalOpticalSight,
     }
 
@@ -317,8 +298,8 @@ module Base
                             AssaultRifle; AssaultRifle2; M4A1; PLR16; MosinNagantObrez; EM2;
                             AK103; AK74; AK74U; AK74U_Folded; FranchiLF57; FranchiLF57_Folded;
                             MiniUzi; MiniUzi_Folded; P90; SIG550; OA93; MP28; L2A1; L2A1_Bipod;
-                            CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; M1918BAR; M1Garand; L85A1;
-                            PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended; Mossberg500; Chiappa1887;
+                            CrossbowCompound; HenryRepeatingBigBoy; M1918BAR; M1Garand; L85A1;
+                            PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended;
                             GrozaOTs14; StG44; MosinNagant; Remington1100; VSSVintorez; ASVal; ASVal_Folded,
         WeightModifier      = 0.3,
         HitChanceModifier   = 4,
@@ -327,7 +308,6 @@ module Base
         MetalValue          = 22,
         StaticModel         = HoloSight,
         WorldStaticModel    = HoloSight,
-        AttachmentSlot      = scope,
         Tooltip             = Tooltip_HoloSight,
     }
 
@@ -343,8 +323,8 @@ module Base
                             AssaultRifle; AssaultRifle2; M4A1; PLR16; MosinNagantObrez; EM2;
                             AK103; AK74; AK74U; AK74U_Folded; FranchiLF57; FranchiLF57_Folded;
                             MiniUzi; MiniUzi_Folded; SIG550; P90; OA93; MP28; L2A1; L2A1_Bipod;
-                            CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; M1918BAR; M1Garand; L85A1;
-                            PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended; Mossberg500; Chiappa1887;
+                            CrossbowCompound; HenryRepeatingBigBoy; M1918BAR; M1Garand; L85A1;
+                            PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended;
                             GrozaOTs14; StG44; MosinNagant; Remington1100; VSSVintorez; ASVal; ASVal_Folded,
         WeightModifier      = 0.35,	
         HitChanceModifier   = 5,
@@ -354,7 +334,6 @@ module Base
         MetalValue          = 12,
         StaticModel         = ReflexSight,
         WorldStaticModel    = ReflexSight,
-        AttachmentSlot      = scope,
         Tooltip             = Tooltip_ReflexSight,
     }
     
@@ -368,7 +347,7 @@ module Base
         PartType            = Scope,
         MountOn             = HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2; M4A1; EM2;
                             PLR16; AK103; AK74; AK74U; AK74U_Folded; SIG550; VSSVintorez; L85A1; 
-                            ASVal; ASVal_Folded;CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; M1Garand; 
+                            ASVal; ASVal_Folded;CrossbowCompound; HenryRepeatingBigBoy; M1Garand; 
                             OA93; L2A1; L2A1_Bipod; GrozaOTs14; StG44; MosinNagant; BarrettM82A1; 
                             BarrettM82A1_Bipod; Galil; Galil_Bipod; SVDDragunov,
         WeightModifier      = 0.45,	
@@ -378,7 +357,6 @@ module Base
         MetalValue          = 20,
         StaticModel         = ProOpticScope,
         WorldStaticModel    = ProOpticScope,
-        AttachmentSlot      = scope,
         Tooltip             = Tooltip_ProOpticScope,
     }
 
@@ -397,7 +375,6 @@ module Base
 		MetalValue          = 5,
 		StaticModel         = CarryHandle,
 		WorldStaticModel    = CarryHandle,
-        AttachmentSlot      = scope,
         Tooltip             = Tooltip_CarryHandle,
 	}
 
@@ -415,7 +392,6 @@ module Base
         MetalValue          = 18,
         StaticModel         = IronSightsFG42,
         WorldStaticModel    = IronSightsFG42,
-        AttachmentSlot      = scope,
         Tooltip             = Tooltip_IronSightsFG42,
     }
 
@@ -434,7 +410,6 @@ module Base
         MetalValue          = 18,
         StaticModel         = ScopeFG42,
         WorldStaticModel    = ScopeFG42,
-        AttachmentSlot      = scope,
         Tooltip             = Tooltip_ScopeFG42,
     }
 
@@ -450,7 +425,7 @@ module Base
         PartType            = Sling,
         MountOn             = AssaultRifle; M4A1; SIG550; L85A1;
                             Shotgun; DoubleBarrelShotgun; ShotgunSawnoff; DoubleBarrelShotgunSawnof;
-                            Remington1100; Mossberg500; TrenchGun; BeckerRevolver,
+                            Remington1100; TrenchGun; BeckerRevolver,
         WeightModifier      = -0.1,
         HitChanceModifier   = 5,
         RecoilDelayModifier = -2,								
@@ -458,7 +433,6 @@ module Base
         MetalValue          = 10,
         StaticModel         = VertGrip,
         WorldStaticModel    = VertGrip,
-        AttachmentSlot      = foregrip,
         Tooltip             = Tooltip_VertGrip,
     }
 
@@ -477,7 +451,6 @@ module Base
         MetalValue          = 10,
         StaticModel         = AngleGrip,
         WorldStaticModel    = AngleGrip,
-        AttachmentSlot      = anglegrip,
         Tooltip             = Tooltip_AngleGrip,
     }
 
@@ -489,17 +462,14 @@ module Base
         DisplayName         = Tactical Grip,
         Icon                = TacticalGrip,
         PartType            = Sling,
-        MountOn             = Pistol; Pistol2; Pistol3; SIGSauer; JenningsJ22; RugerGP100;
-                            Revolver; Revolver_Long; Revolver_Short; ColtCavalryRevolver; HighStandardSentinel;
+        MountOn             = Pistol; Pistol2; Pistol3;
+                            Revolver; Revolver_Long; Revolver_Short; ColtCavalryRevolver;
                             Glock; FiveSeven; Luger; WaltherPPK; Makarov; Derringer; PLR16, 
         WeightModifier      = 0.04,
         AimingTimeModifier  = 8,
         RecoilDelayModifier = -1,
         AngleModifier       = -0.01,
-        ReloadSpeedModifier = 1.4,
-        StaticModel         = TacticalGrip,
         WorldStaticModel    = TacticalGrip,
-        AttachmentSlot      = grip,
         Tooltip             = Tooltip_TacticalGrip,
     }
 		
@@ -529,7 +499,7 @@ module Base
         PartType            = Stock,
         MountOn             = AssaultRifle; M4A1; MosinNagantObrez; PLR16; EM2; L85A1;
                             AK103; AK74; AK74U; AK74U_Folded; SIG550; L2A1; L2A1_Bipod;
-                            CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; MP28; VSSVintorez; ASVal; ASVal_Folded;
+                            CrossbowCompound; HenryRepeatingBigBoy; MP28; VSSVintorez; ASVal; ASVal_Folded;
                             GrozaOTs14; StG44; MosinNagant; Galil; Galil_Bipod; SVDDragunov,
         WeightModifier      = 0.2,
         HitChanceModifier   = 5,
@@ -538,7 +508,6 @@ module Base
         MetalValue          = 15,
         StaticModel         = LaserRed,
         WorldStaticModel    = LaserRed,
-        AttachmentSlot      = side,
         Tooltip             = Tooltip_LaserDual,
     }
 
@@ -552,7 +521,7 @@ module Base
         PartType            = Stock,
         MountOn             = AssaultRifle; M4A1; MosinNagantObrez; PLR16; EM2; L85A1;
                             AK103; AK74; AK74U; AK74U_Folded; SIG550; L2A1; L2A1_Bipod;
-                            CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; MP28; VSSVintorez; ASVal; ASVal_Folded;
+                            CrossbowCompound; HenryRepeatingBigBoy; MP28; VSSVintorez; ASVal; ASVal_Folded;
                             GrozaOTs14; StG44; MosinNagant; Galil; Galil_Bipod; SVDDragunov,
         WeightModifier      = 0.2,
         HitChanceModifier   = 5,
@@ -561,7 +530,6 @@ module Base
         MetalValue          = 15,
         StaticModel         = LaserGreen,
         WorldStaticModel    = LaserGreen,
-        AttachmentSlot      = side,
         Tooltip             = Tooltip_LaserDual,
     }
 
@@ -575,7 +543,7 @@ module Base
         PartType            = Stock,
         MountOn             = AssaultRifle; M4A1; MosinNagantObrez; PLR16; EM2; L85A1;
                             AK103; AK74; AK74U; AK74U_Folded; SIG550; L2A1; L2A1_Bipod;
-                            CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; MP28; VSSVintorez; ASVal; ASVal_Folded;
+                            CrossbowCompound; HenryRepeatingBigBoy; MP28; VSSVintorez; ASVal; ASVal_Folded;
                             GrozaOTs14; StG44; MosinNagant; Galil; Galil_Bipod; SVDDragunov,
         WeightModifier      = 0.2,
         HitChanceModifier   = 5,
@@ -584,7 +552,6 @@ module Base
         MetalValue          = 15,
         StaticModel         = LaserNoLight,
         WorldStaticModel    = LaserNoLight,
-        AttachmentSlot      = side,
         Tooltip             = Tooltip_LaserDual,
     }
 
@@ -597,12 +564,12 @@ module Base
         Icon                = WeaponLight,
         PartType            = Stock,
         MountOn             = AssaultRifle; M4A1; Shotgun; ShotgunSawnoff; L2A1; L2A1_Bipod; EM2;
-                            Glock; SIGSauer; FiveSeven; MosinNagantObrez; PLR16; SIG550; MP28; VSSVintorez; 
+                            Glock; FiveSeven; MosinNagantObrez; PLR16; SIG550; MP28; VSSVintorez; 
                             ASVal; ASVal_Folded; AK103; AK74; AK74U; AK74U_Folded; FranchiLF57; L85A1;
                             FranchiLF57_Folded; OA93; MiniUzi; MiniUzi_Folded; P90; CrossbowCompound; 
-                            BrowningBLR; Marlin39A; HenryRepeatingBigBoy; TheNailGun; PM63RAK; PM63RAK_Grip; PM63RAK_Extended; 
+                            HenryRepeatingBigBoy; TheNailGun; PM63RAK; PM63RAK_Grip; PM63RAK_Extended; 
                             PM63RAK_GripExtended; GrozaOTs14; StG44; MosinNagant; BarrettM82A1; 
-                            BarrettM82A1_Bipod; Galil; Galil_Bipod; SVDDragunov; Remington1100; Mossberg500; Chiappa1887,
+                            BarrettM82A1_Bipod; Galil; Galil_Bipod; SVDDragunov; Remington1100,
         WeightModifier      = 0.15,
         MaxRangeModifier    = 1,
         HitChanceModifier   = 4,
@@ -610,7 +577,6 @@ module Base
         MetalValue          = 15,
         StaticModel         = WeaponLight,
         WorldStaticModel    = WeaponLight,
-        AttachmentSlot      = side,
         Tooltip             = Tooltip_WeaponLight,
     }
 
@@ -623,18 +589,17 @@ module Base
         Icon                = WeaponLightMedium,
         PartType            = Stock,
         MountOn             = AssaultRifle; M4A1; Shotgun; ShotgunSawnoff; VSSVintorez; ASVal; ASVal_Folded;
-                            Glock; SIGSauer; FiveSeven; MosinNagantObrez; PLR16; SIG550; OA93; MP28; L2A1; L2A1_Bipod;
+                            Glock; FiveSeven; MosinNagantObrez; PLR16; SIG550; OA93; MP28; L2A1; L2A1_Bipod;
                             AK103; AK74; AK74U; AK74U_Folded; FranchiLF57; FranchiLF57_Folded; EM2; L85A1;
-                            MiniUzi; MiniUzi_Folded; P90; CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy;
+                            MiniUzi; MiniUzi_Folded; P90; CrossbowCompound; HenryRepeatingBigBoy;
                             PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended;
-                            GrozaOTs14; StG44; MosinNagant; Remington1100; Mossberg500; Chiappa1887,
+                            GrozaOTs14; StG44; MosinNagant; Remington1100,
         WeightModifier      = 0.1,
         HitChanceModifier   = 2,
         AimingTimeModifier  = 2,
         MetalValue          = 22,
         StaticModel         = WeaponLightMedium,
         WorldStaticModel    = WeaponLightMedium,
-        AttachmentSlot      = side,
         Tooltip             = Tooltip_WeaponLightMedium,
     }
 
@@ -646,64 +611,17 @@ module Base
         DisplayName         = Shell Holder,
         Icon                = ShellHolder,
         PartType            = Stock,
-        MountOn             = Shotgun; DoubleBarrelShotgun; Remington1100; Mossberg500; 
-                            Chiappa1887; TrenchGun; BeckerRevolver,  
+        MountOn             = Shotgun; DoubleBarrelShotgun; Remington1100; TrenchGun; BeckerRevolver,  
         WeightModifier      = 0.2,
         AimingTimeModifier  = 5,
         ReloadTimeModifier  = -5,			
-        ReloadSpeedModifier = 1.6,
         MetalValue          = 5,
         StaticModel         = ShellHolder,
         WorldStaticModel    = ShellHolder,
-        AttachmentSlot      = stock,
         Tooltip             = Tooltip_ShellHolder,
     }
 
     /************************ CLIPS ************************/
-
-    item Mag22ExtSm
-    {
-        DisplayCategory     = Ammo,
-        CanStack	        = FALSE,
-        Weight              = 0.4,
-        Type                = WeaponPart,
-        DisplayName         = .22 LR Extended Magazine [20],
-        Icon                = Mag22ExtSm,
-        MaxAmmo             = 20,
-        AmmoType            = Base.22Bullets,
-        PartType            = Clip,
-        MountOn             = ,
-        StaticModel         = Mag22ExtSm,
-        GunType             = Base.Ruger1022, 
-        WeightModifier      = 0.4,
-        RecoilDelayModifier = 1,
-        AimingTimeModifier  = -3,
-        WorldStaticModel    = Mag22ExtSm_Ground,
-        AttachmentSlot      = drum,
-        Tooltip             = Tooltip_Mag22Ext,
-    }
-
-    item Mag22ExtLg
-    {
-        DisplayCategory     = Ammo,
-        CanStack	        = FALSE,
-        Weight              = 0.6,
-        Type                = WeaponPart,
-        DisplayName         = .22 LR Extended Magazine [30],
-        Icon                = Mag22ExtLg,
-        MaxAmmo             = 30,
-        AmmoType            = Base.22Bullets,
-        PartType            = Clip,
-        MountOn             = ,
-        StaticModel         = Mag22ExtLg,
-        GunType             = Base.Ruger1022, 
-        WeightModifier      = 0.6,
-        RecoilDelayModifier = 2,
-        AimingTimeModifier  = -5,
-        WorldStaticModel    = Mag22ExtLg_Ground,
-        AttachmentSlot      = drum,
-        Tooltip             = Tooltip_Mag22Ext,
-    }
 
     item Mag9ExtSm
     {
@@ -718,12 +636,11 @@ module Base
         PartType            = Clip,
         MountOn             = ,
         StaticModel         = Mag9ExtSm,
-        GunType             = Base.Pistol; Base.SIGSauer, 
+        GunType             = Base.Pistol, 
         WeightModifier      = 0.4,
         RecoilDelayModifier = 1,
         AimingTimeModifier  = -3,
         WorldStaticModel    = Mag9ExtSm_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag9Ext,
     }
 
@@ -740,12 +657,11 @@ module Base
         PartType            = Clip,
         MountOn             = ,
         StaticModel         = Mag9ExtLg,
-        GunType             = Base.Pistol; Base.SIGSauer, 
+        GunType             = Base.Pistol, 
         WeightModifier      = 0.6,
         RecoilDelayModifier = 2,
         AimingTimeModifier  = -5,
         WorldStaticModel    = Mag9ExtLg_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag9Ext,
     }
 
@@ -762,12 +678,11 @@ module Base
         PartType            = Clip,
         MountOn             = ,
         StaticModel         = Mag9Drum,
-        GunType             = Base.Pistol; Base.SIGSauer,
+        GunType             = Base.Pistol,
         WeightModifier      = 0.8,
         RecoilDelayModifier = 3,
         AimingTimeModifier  = -8,
         WorldStaticModel    = Mag9Drum_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag9Drum,
     }
 
@@ -789,7 +704,6 @@ module Base
         RecoilDelayModifier = 2,
         AimingTimeModifier  = -5,
         WorldStaticModel    = Mag57ExtLg_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag57Ext,
     }
 
@@ -811,7 +725,6 @@ module Base
         RecoilDelayModifier = 3,
         AimingTimeModifier  = -8,
         WorldStaticModel    = Mag57Drum_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag57Drum,
         
     }
@@ -834,7 +747,6 @@ module Base
         RecoilDelayModifier = 1,
         AimingTimeModifier  = -3,
         WorldStaticModel    = MagLugerExtSm_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_MagLugerExt,
     }
 
@@ -856,7 +768,6 @@ module Base
         RecoilDelayModifier = 2,
         AimingTimeModifier  = -5,
         WorldStaticModel    = MagLugerExtLg_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_MagLugerExt,
     }
 
@@ -878,7 +789,6 @@ module Base
         RecoilDelayModifier = 3,
         AimingTimeModifier  = -8,
         WorldStaticModel    = MagLugerDrum_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_MagLugerDrum,
     }
 
@@ -900,7 +810,6 @@ module Base
         RecoilDelayModifier = 1,
         AimingTimeModifier  = -3,
         WorldStaticModel    = Mag380ExtSm_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag380Ext,
     }
 
@@ -922,7 +831,6 @@ module Base
         RecoilDelayModifier = 2,
         AimingTimeModifier  = -5,
         WorldStaticModel    = Mag380ExtLg_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag380Ext,
     }
 
@@ -944,7 +852,6 @@ module Base
         RecoilDelayModifier = 3,
         AimingTimeModifier  = -8,
         WorldStaticModel    = Mag380Drum_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag380Drum,
     }
 
@@ -966,7 +873,6 @@ module Base
         RecoilDelayModifier = 1,
         AimingTimeModifier  = -3,
         WorldStaticModel    = Mag44ExtSm_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag44Ext,
     }
 
@@ -988,7 +894,6 @@ module Base
         RecoilDelayModifier = 2,
         AimingTimeModifier  = -5,
         WorldStaticModel    = Mag44ExtLg_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag44Ext,
     }
 
@@ -1010,7 +915,6 @@ module Base
         RecoilDelayModifier = 1,
         AimingTimeModifier  = -3,
         WorldStaticModel    = Mag45ExtSm_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag45Ext,
     }
 
@@ -1032,7 +936,6 @@ module Base
         RecoilDelayModifier = 2,
         AimingTimeModifier  = -5,
         WorldStaticModel    = Mag45ExtLg_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag45Ext,
     }
 
@@ -1049,12 +952,11 @@ module Base
         PartType            = Clip,
         MountOn             = ,
         StaticModel         = Mag45Drum,
-        GunType             = Base.Glock; Base.Pistol2; Base.ThompsonM1921,  
+        GunType             = Base.Glock; Base.Pistol2,  
         WeightModifier      = 0.8,
         RecoilDelayModifier = 3,
         AimingTimeModifier  = -8,
         WorldStaticModel    = Mag45Drum_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag45Drum,
     }
 
@@ -1076,7 +978,6 @@ module Base
         RecoilDelayModifier = 2,
         AimingTimeModifier  = -5,
         WorldStaticModel    = Mag223ExtLg_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag223Ext,
     }
 
@@ -1098,7 +999,6 @@ module Base
         RecoilDelayModifier = 1,
         AimingTimeModifier  = -3,
         WorldStaticModel    = MagMosinNagantExtSm_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_MagMosinNagantExt,
     }
 
@@ -1120,7 +1020,6 @@ module Base
         RecoilDelayModifier = 2,
         AimingTimeModifier  = -5,
         WorldStaticModel    = MagPM63RAKExtLg_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_MagPM63RAKExt,
     }
 
@@ -1142,7 +1041,6 @@ module Base
         RecoilDelayModifier = 1,
         AimingTimeModifier  = -3,
         WorldStaticModel    = MagM1GarandExtSm_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_MagM1GarandExt,
     }
 
@@ -1164,7 +1062,6 @@ module Base
         RecoilDelayModifier = 2,
         AimingTimeModifier  = -5,
         WorldStaticModel    = Mag3006ExtLg_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag3006Ext,
     }
 
@@ -1181,12 +1078,11 @@ module Base
         PartType            = Clip,
         MountOn             = ,
         StaticModel         = Mag308ExtSm,
-        GunType             = Base.HuntingRifle;Base.BrowningBLR,
+        GunType             = Base.HuntingRifle,
         WeightModifier      = 0.4,
         RecoilDelayModifier = 1,
         AimingTimeModifier  = -3,
         WorldStaticModel    = Mag308ExtSm_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag308Ext,
     }
 
@@ -1208,7 +1104,6 @@ module Base
         RecoilDelayModifier = 1,
         AimingTimeModifier  = -3,
         WorldStaticModel    = MagSVDExtSm_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_MagSVDExt,
     }
 
@@ -1218,19 +1113,18 @@ module Base
         CanStack	        = FALSE,
         Weight              = 0.4,
         Type                = WeaponPart,
-        DisplayName         = 7.62x51 Extended Magazine [20],
+        DisplayName         = 7.62x51 Small Magazine [20],
         Icon                = Mag762x51ExtSm,
         MaxAmmo             = 20,
         AmmoType            = Base.762x51Bullets,
         PartType            = Clip,
         MountOn             = ,
         StaticModel         = Mag762x51ExtSm,
-        GunType             = Base.Galil;Base.Galil_Bipod,
+        GunType             = Base.Galil;Base.Galil_Bipod;Base.EM2,
         WeightModifier      = 0.4,
         RecoilDelayModifier = 2,
         AimingTimeModifier  = -5,
         WorldStaticModel    = Mag762x51ExtSm_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag762x51ExtSm,
     }
 
@@ -1240,19 +1134,18 @@ module Base
         CanStack	        = FALSE,
         Weight              = 0.4,
         Type                = WeaponPart,
-        DisplayName         = 7.62x51 Extended Magazine [30],
+        DisplayName         = 7.62x51 Large Magazine [30],
         Icon                = Mag762x51ExtLg,
         MaxAmmo             = 30,
         AmmoType            = Base.762x51Bullets,
         PartType            = Clip,
         MountOn             = ,
         StaticModel         = Mag762x51ExtLg,
-        GunType             = Base.EM2,
+        GunType             = Base.EM2; Base.L2A1; Base.L2A1_Bipod,
         WeightModifier      = 0.4,
         RecoilDelayModifier = 1,
         AimingTimeModifier  = -3,
         WorldStaticModel    = Mag762x51ExtLg_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag762x51ExtLg,
     }
 
@@ -1274,7 +1167,6 @@ module Base
         RecoilDelayModifier = 1,
         AimingTimeModifier  = -3,
         WorldStaticModel    = Mag50BMGExtSm_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag50BMGExt,
     }
 
@@ -1296,7 +1188,6 @@ module Base
         RecoilDelayModifier = 2,
         AimingTimeModifier  = -5,
         WorldStaticModel    = MagMP28ExtLg_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_MagMP28ExtLg,
     }
 
@@ -1306,19 +1197,18 @@ module Base
         CanStack	        = FALSE,
         Weight              = 0.4,
         Type                = WeaponPart,
-        DisplayName         = 9x39 Extended Magazine [20],
+        DisplayName         = 9x39 Small Magazine [20],
         Icon                = Mag9x39ExtSm,
         MaxAmmo             = 20,
         AmmoType            = Base.9x39Bullets,
         PartType            = Clip,
         MountOn             = ,
         StaticModel         = Mag9x39ExtSm,
-        GunType             = Base.VSSVintorez,
+        GunType             = Base.ASVal;Base.VSSVintorez,
         WeightModifier      = 0.4,
         RecoilDelayModifier = 2,
         AimingTimeModifier  = -5,
         WorldStaticModel    = Mag9x39ExtSm_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag9x39ExtSm,
     }
 
@@ -1340,7 +1230,6 @@ module Base
         RecoilDelayModifier = 2,
         AimingTimeModifier  = -5,
         WorldStaticModel    = Mag9x39ExtLg_Ground,
-        AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag9x39ExtLg,
     }
 
@@ -1354,17 +1243,15 @@ module Base
         DisplayName         = Butt Stock Wrap,
         Icon                = ButtStockWrap,
         PartType            = RecoilPad,
-        MountOn             = HuntingRifle; VarmintRifle; AssaultRifle2; BrowningBLR; Marlin39A;
+        MountOn             = HuntingRifle; VarmintRifle; AssaultRifle2;
                             HenryRepeatingBigBoy; M1Garand; MosinNagant; SVDDragunov; BeckerRevolver,
         WeightModifier      = 0.04,
-        RecoilDelayModifier = -1,
         AimingTimeModifier  = 6,
+        RecoilDelayModifier = -1,
         HitChanceModifier   = 2,
         AngleModifier       = -0.01,
-        ReloadSpeedModifier = 1.1,
         StaticModel         = ButtStockWrap,
         WorldStaticModel    = ButtStockWrap,
-        AttachmentSlot      = buttstock,
         Tooltip             = Tooltip_ButtStockWrap,
     }
 
@@ -1373,12 +1260,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Tan Plating,
+        DisplayName         = Tan Plating for Firearms,
         Icon                = TanPlating,
         PartType            = RecoilPad,
         MountOn             = M4A1,
-        WorldStaticModel    = GunPlatingTan,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingTan,
+        Tooltip             = Tooltip_PlatingTan,
     }
 
     item BluePlating
@@ -1386,12 +1273,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Blue Plating,
+        DisplayName         = Blue Plating for Firearms,
         Icon                = BluePlating,
         PartType            = RecoilPad,
         MountOn             = M4A1,
-        WorldStaticModel    = GunPlatingBlue,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingBlue,
+        Tooltip             = Tooltip_PlatingBlue,
     }
 
     item RedPlating
@@ -1399,12 +1286,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Red Plating,
+        DisplayName         = Red Plating for Firearms,
         Icon                = RedPlating,
         PartType            = RecoilPad,
         MountOn             = M4A1,
-        WorldStaticModel    = GunPlatingRed,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingRed,
+        Tooltip             = Tooltip_PlatingRed,
     }
 
     item Colt1911PatriotPlating
@@ -1412,12 +1299,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Patriot Plating,
+        DisplayName         = Patriot Plating for Colt 1911,
         Icon                = BluePlating,
         PartType            = RecoilPad,
         MountOn             = Pistol2,
-        WorldStaticModel    = GunPlatingBlue,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingBlue,
+        Tooltip             = Tooltip_Colt1911PatriotPlating,
     }
 
     item GoldGunPlating
@@ -1425,13 +1312,13 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Gold Plating for Firearms,
+        DisplayName         = Gold Plating for Firearms,
         Icon                = GoldPlating,
         PartType            = RecoilPad,
         MountOn             = Revolver_Long; HenryRepeatingBigBoy; AK103; 
                             AK74; AK74U; AK74U_Folded; MiniUzi,
-        WorldStaticModel    = GunPlatingGold,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingGold,
+        Tooltip             = Tooltip_GoldPlating,
     }
 
     item DesertEagleGoldPlating
@@ -1439,12 +1326,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Gold Plating for Desert Eagle,
+        DisplayName         = Gold Plating for Desert Eagle,
         Icon                = GoldPlating,
         PartType            = RecoilPad,
         MountOn             = Pistol3,
-        WorldStaticModel    = GunPlatingGold,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingGold,
+        Tooltip             = Tooltip_DesertEagleGoldPlating,
     }
 
     item GoldShotgunPlating
@@ -1452,12 +1339,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Gold Plating,
+        DisplayName         = Gold Plating for Remington 1100,
         Icon                = GoldPlating,
         PartType            = RecoilPad,
         MountOn             = Remington1100,
-        WorldStaticModel    = GunPlatingGold,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingGold,
+        Tooltip             = Tooltip_Remington1100GoldPlating,
     }
 
     item RainbowPlating
@@ -1465,12 +1352,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Rainbow Plating,
+        DisplayName         = Rainbow Plating for Firearms,
         Icon                = RainbowPlating,
         PartType            = RecoilPad,
         MountOn             = AK103; AK74; AK74U; AK74U_Folded; MiniUzi,
-        WorldStaticModel    = GunPlatingRainbow,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingRainbow,
+        Tooltip             = Tooltip_RainbowPlating,
     }
 
     item RainbowAnodizedPlating
@@ -1478,12 +1365,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Rainbow Anodized Plating,
+        DisplayName         = Rainbow Anodized Plating for Remington 1100,
         Icon                = RainbowPlating,
         PartType            = RecoilPad,
         MountOn             = Remington1100,
-        WorldStaticModel    = GunPlatingRainbow,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingRainbow,
+        Tooltip             = Tooltip_RainbowAnodizedPlating,
     }
 
     item DZPlating
@@ -1491,14 +1378,14 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] DZ Plating for Firearms,
+        DisplayName         = DZ Plating for Firearms,
         Icon                = BluePlating,
         PartType            = RecoilPad,
         MountOn             = Pistol;
                             HuntingRifle; VarmintRifle;
                             FranchiLF57; FranchiLF57_Folded,
-        WorldStaticModel    = GunPlatingBlue,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingBlue,
+        Tooltip             = Tooltip_DZPlating,
     }
 
     item RemingtonRiflesDarkCherryStock
@@ -1506,12 +1393,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Dark Cherry Stock,
+        DisplayName         = Dark Cherry Stock for Remington Rifles,
         Icon                = DarkCherryStock,
         PartType            = RecoilPad,
         MountOn             = HuntingRifle; VarmintRifle,
-        WorldStaticModel    = GunPlatingDarkCherry,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = CherryWood,
+        Tooltip             = Tooltip_RemingtonRiflesDarkCherryStock,
     }
 
     item WinterCamoPlating
@@ -1519,12 +1406,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Winter Camo Plating,
+        DisplayName         = Winter Camo Plating for Firearms,
         Icon                = WhitePlating,
         PartType            = RecoilPad,
         MountOn             = AK74U; AK74U_Folded; AK74; AK103; SIG550; SVDDragunov; M4A1,
-        WorldStaticModel    = GunPlatingWhiteCamo,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingWhite,
+        Tooltip             = Tooltip_WinterCamoPlating,
     }
 
     item MatteBlackPlating
@@ -1532,12 +1419,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Matte Black Plating,
+        DisplayName         = Matte Black Plating for Firearms,
         Icon                = BlackPlating,
         PartType            = RecoilPad,
         MountOn             = ,
-        WorldStaticModel    = GunPlatingMatteBlack,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingBlack,
+        Tooltip             = Tooltip_MatteBlackPlating,
     }
 
     item WoodStyledPlating
@@ -1545,12 +1432,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Wood Style Plating ,
+        DisplayName         = Wood Style Plating for Firearms,
         Icon                = WoodStyledPlating,
         PartType            = RecoilPad,
         MountOn             = Remington1100,
-        WorldStaticModel    = GunPlatingWoodStyled,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingWoodStyled,
+        Tooltip             = Tooltip_WoodStyledPlating,
     }
 
     item PinkPlating
@@ -1558,12 +1445,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Pink Plating,
+        DisplayName         = Pink Plating for Firearms,
         Icon                = PinkPlating,
         PartType            = RecoilPad,
         MountOn             = Pistol; Revolver; HenryRepeatingBigBoy; Derringer; TrenchGun; P90; SIG550; M4A1,
-        WorldStaticModel    = GunPlatingPink,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingPink,
+        Tooltip             = Tooltip_PinkPlating,
     }
 
     item CrabShellPlating
@@ -1571,12 +1458,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Crab Shell Plating,
+        DisplayName         = Crab Shell Plating for Firearms,
         Icon                = CrabShellPlating,
         PartType            = RecoilPad,
         MountOn             = StG44; Luger,
-        WorldStaticModel    = GunPlatingCrabShell,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingCrabShell,
+        Tooltip             = Tooltip_CrabShellPlating,
     }
 
     item YellowPlating
@@ -1584,12 +1471,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Yellow Plating,
+        DisplayName         = Yellow Plating for Firearms,
         Icon                = YellowPlating,
         PartType            = RecoilPad,
         MountOn             = TrenchGun,
-        WorldStaticModel    = GunPlatingYellow,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingYellow,
+        Tooltip             = Tooltip_YellowPlating,
     }
 
     item GreenPlating
@@ -1597,12 +1484,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Green Plating,
+        DisplayName         = Green Plating for Firearms,
         Icon                = GreenPlating,
         PartType            = RecoilPad,
         MountOn             = PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended,
-        WorldStaticModel    = GunPlatingGreen,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingGreen,
+        Tooltip             = Tooltip_GreenPlating,
     }
 
     item RedWhitePlating
@@ -1610,12 +1497,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Red White Plating,
+        DisplayName         = Red White Plating for Firearms,
         Icon                = RedWhitePlating,
         PartType            = RecoilPad,
         MountOn             = CrossbowCompound; Remington1100,
-        WorldStaticModel    = GunPlatingRedWhite,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingRedWhite,
+        Tooltip             = Tooltip_RedWhitePlating,
     }
 
     item GreenGoldPlating
@@ -1623,12 +1510,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Green Gold Plating,
+        DisplayName         = Green Gold Plating for Firearms,
         Icon                = GreenGoldPlating,
         PartType            = RecoilPad,
         MountOn             = M1918BAR; M1918BAR_Bipod; SIG550,
-        WorldStaticModel    = GunPlatingGreenGold,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingGreenGold,
+        Tooltip             = Tooltip_GreenGoldPlating,
     }
 
     item SteelDamascusPlating
@@ -1636,12 +1523,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Steel Damascus Plating,
+        DisplayName         = Steel Damascus Plating for Barrett,
         Icon                = SteelDamascusPlating,
         PartType            = RecoilPad,
         MountOn             = BarrettM82A1; BarrettM82A1_Bipod,
-        WorldStaticModel    = GunPlatingSteelDamascus,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingSteelDamascus,
+        Tooltip             = Tooltip_SteelDamascusPlating,
     }
 
     item SalvagedRagePlating
@@ -1649,12 +1536,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Salvaged Rage Plating,
+        DisplayName         = Salvaged Rage Plating for Barrett,
         Icon                = SalvagedRagePlating,
         PartType            = RecoilPad,
         MountOn             = BarrettM82A1; BarrettM82A1_Bipod,
-        WorldStaticModel    = GunPlatingSalvagedRage,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingSalvagedRage,
+        Tooltip             = Tooltip_SalvagedRagePlating,
     }
 
     item ZoidbergSpecialPlating
@@ -1662,12 +1549,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Zoidberg Special Plating
+        DisplayName         = Zoidberg Special Plating for Barrett,
         Icon                = ZoidbergSpecialPlating,
         PartType            = RecoilPad,
         MountOn             = BarrettM82A1; BarrettM82A1_Bipod,
-        WorldStaticModel    = GunPlatingZoidbergSpecial,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingZoidbergSpecial,
+        Tooltip             = Tooltip_ZoidbergSpecialPlating,
     }
     
     item ShenronPlating
@@ -1675,12 +1562,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Shenron Plating,
+        DisplayName         = Shenron Plating for SIG SG 550,
         Icon                = ShenronPlating,
         PartType            = RecoilPad,
         MountOn             = SIG550,
-        WorldStaticModel    = GunPlatingShenron,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingShenron,
+        Tooltip             = Tooltip_ShenronPlating,
     }
 
     item NerfPlating
@@ -1688,12 +1575,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Nerf Plating,
+        DisplayName         = Nerf Plating for Colt Anaconda,
         Icon                = NerfPlating,
         PartType            = RecoilPad,
         MountOn             = Revolver_Long,
-        WorldStaticModel    = GunPlatingNerf,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingNerf,
+        Tooltip             = Tooltip_NerfPlating,
     }
 
     item BespokeEngravedPlating
@@ -1701,12 +1588,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Bespoke Engraved Plating,
+        DisplayName         = Bespoke Engraved Plating for SPR 220 Shotgun,
         Icon                = BlackPlating,
         PartType            = RecoilPad,
         MountOn             = DoubleBarrelShotgun; DoubleBarrelShotgunSawnoff,
-        WorldStaticModel    = GunPlatingMatteBlack,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingBlack,
+        Tooltip             = Tooltip_BespokeEngravedPlating,
     }
 
     item SurvivalistPlating
@@ -1714,12 +1601,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Survivalist Plating,
+        DisplayName         = Survivalist Plating for SVD Dragunov,
         Icon                = SurvivalistPlating,
         PartType            = RecoilPad,
         MountOn             = SVDDragunov,
-        WorldStaticModel    = GunPlatingSurvivalist,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingSurvivalist,
+        Tooltip             = Tooltip_SurvivalistPlating,
     }
 
     item MysteryMachinePlating
@@ -1727,12 +1614,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Mystery Machine Plating,
+        DisplayName         = Mystery Machine Plating for Desert Eagle,
         Icon                = MysteryMachinePlating,
         PartType            = RecoilPad,
         MountOn             = Pistol3,
-        WorldStaticModel    = GunPlatingMysteryMachine,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingMysteryMachine,
+        Tooltip             = Tooltip_MysteryMachinePlating,
     }
 
     item SalvagedBlackPlating
@@ -1740,12 +1627,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Salvaged Black Plating,
+        DisplayName         = Salvaged Black Plating for Desert Eagle,
         Icon                = SalvagedRagePlating,
         PartType            = RecoilPad,
         MountOn             = Pistol3,
-        WorldStaticModel    = GunPlatingSalvagedRage,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingSalvagedRage,
+        Tooltip             = Tooltip_SalvagedBlackPlating,
     }
 
     item PearlPlating
@@ -1753,12 +1640,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Pearl Plating,
+        DisplayName         = Pearl Plating for Beretta M9,
         Icon                = PearlPlating,
         PartType            = RecoilPad,
         MountOn             = Pistol,
-        WorldStaticModel    = GunPlatingPearl,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingPearl,
+        Tooltip             = Tooltip_PearlPlating,
     }
 
     item AztecPlating
@@ -1766,12 +1653,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Aztec Plating,
+        DisplayName         = Aztec Plating for Colt 1911,
         Icon                = AztecPlating,
         PartType            = RecoilPad,
         MountOn             = Pistol2,
-        WorldStaticModel    = GunPlatingAztec,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingAztec,
+        Tooltip             = Tooltip_AztecPlating,
     }
 
     item PlankPlating
@@ -1779,12 +1666,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Plank Plating,
+        DisplayName         = Plank Plating for P90,
         Icon                = WoodStyledPlating,
         PartType            = RecoilPad,
         MountOn             = P90,
-        WorldStaticModel    = GunPlatingWoodStyled,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingWoodStyled,
+        Tooltip             = Tooltip_PlankPlating,
     }
 
     item BlackIcePlating
@@ -1792,12 +1679,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Black Ice Plating,
+        DisplayName         = Black Ice Plating for P90,
         Icon                = BlackIcePlating,
         PartType            = RecoilPad,
         MountOn             = P90,
-        WorldStaticModel    = GunPlatingBlackIce,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingBlackIce,
+        Tooltip             = Tooltip_BlackIcePlating,
     }
 
     item BlackDeathPlating
@@ -1805,12 +1692,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Black Death Plating,
+        DisplayName         = Black Death Plating for Colt Calvary Revolver,
         Icon                = BlackPlating,
         PartType            = RecoilPad,
         MountOn             = ColtCavalryRevolver,
-        WorldStaticModel    = GunPlatingMatteBlack,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingBlack,
+        Tooltip             = Tooltip_BlackDeathPlating,
     }
 
     item OrnateIvoryPlating
@@ -1818,12 +1705,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Ornate Ivory Plating,
+        DisplayName         = Ornate Ivory Plating for Colt Calvary Revolver,
         Icon                = WhitePlating,
         PartType            = RecoilPad,
         MountOn             = ColtCavalryRevolver,
-        WorldStaticModel    = GunPlatingWhite,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingWhite,
+        Tooltip             = Tooltip_OrnateIvoryPlating,
     }
 
     item GildedAgePlating
@@ -1831,12 +1718,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Gilded Age Plating,
+        DisplayName         = Gilded Age Plating for Colt Calvary Revolver,
         Icon                = GoldPlating,
         PartType            = RecoilPad,
         MountOn             = ColtCavalryRevolver,
-        WorldStaticModel    = GunPlatingGold,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingGold,
+        Tooltip             = Tooltip_GildedAgePlating,
     }
 
     item TBDPlating
@@ -1844,12 +1731,12 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] TBD Plating,
+        DisplayName         = TBD Plating for Remington Model 870 Shotgun,
         Icon                = TBDPlating,
         PartType            = RecoilPad,
         MountOn             = Shotgun; ShotgunSawnoff,
-        WorldStaticModel    = GunPlatingTBD,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingTBD,
+        Tooltip             = Tooltip_TBDPlating,
     }
 
     item CannabisPlating
@@ -1857,11 +1744,11 @@ module Base
         DisplayCategory     = WeaponPart,
         Weight              = 0.05,
         Type                = WeaponPart,
-        DisplayName         = [CONVERT ME] Cannabis Plating,
+        DisplayName         = Cannabis Plating for M4A1,
         Icon                = GreenPlating,
         PartType            = RecoilPad,
         MountOn             = M4A1,
-        WorldStaticModel    = GunPlatingGreen,
-        Tooltip             = Tooltip_PlatingCONVERT,
+        WorldStaticModel    = PlatingGreen,
+        Tooltip             = Tooltip_CannabisPlating,
     }
 }

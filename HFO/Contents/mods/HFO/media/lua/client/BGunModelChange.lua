@@ -121,66 +121,6 @@ function BWTweaks:changeModelByAttachmentAndRoundChambered(fullType, attachmentT
     });
 end
 
--- wrapper method: change model depending on chambered round and gunplating moddata value
--- example 1: set model when fiberglass stock is installed and nothing is in the chamber
--- BWTweaks:changeModelByAttachmentAndRoundChambered("Base.HuntingRifle", "TanPlating", false, "HuntingRifleFGS_NoMag");
-
-function BWTweaks:changeModelByGunPlatingAndRoundChambered(fullType, gunPlating, isChambered, model)
-    BWTweaks:changeModelBy(fullType, model, {
-        modDataKey = "GunPlating",
-        modDataValue = gunPlating,
-        chambered = isChambered,
-    });
-end
-
--- wrapper method: change model based on "gunplating" moddata value presence
--- example:
--- BWTweaks:changeModelByGunPlating("Base.M4A1", "TanPlating", "M4A1Tan");
-
-function BWTweaks:changeModelByGunPlating(fullType, gunPlating, model)
-    BWTweaks:changeModelBy(fullType, model, {
-        modDataKey = "GunPlating",
-        modDataValue = gunPlating,
-    });
-end
-
--- wrapper method: change model based on "gunplating" moddata value presence
--- example:
--- BWTweaks:changeModelByGunPlating("Base.M4A1", "TanPlating", "M4A1Tan");
-
-function BWTweaks:changeModelByGunPlatingAndAttachment(fullType, gunPlating, attachmentType, model)
-    BWTweaks:changeModelBy(fullType, model, {
-        modDataKey = "GunPlating",
-        modDataValue = gunPlating,
-        attachment = attachmentType,
-    });
-end
-
--- wrapper method: change model based on "gunplating" moddata value and magazine presence
--- example:
--- BWTweaks:changeModelByGunPlatingAndMagPresent("Base.M4A1", "TanPlating", true, "M4A1Tan");
-
-function BWTweaks:changeModelByGunPlatingAndMagPresent(fullType, gunPlating, isPresent, model)
-    BWTweaks:changeModelBy(fullType, model, {
-        modDataKey = "GunPlating",
-        modDataValue = gunPlating,
-        magazine = isPresent,
-    });
-end
-
--- wrapper method: change model based on "gunplating" moddata value, attachments, and magazine presence
--- example:
--- BWTweaks:changeModelByGunPlatingAndAttachmentAndMagPresent("Base.M4A1", "TanPlating", "Base.FiberglassStock" true, "M4A1Tan");
-
-function BWTweaks:changeModelByGunPlatingAndAttachmentAndMagPresent(fullType, gunPlating, attachmentType, isPresent, model)
-    BWTweaks:changeModelBy(fullType, model, {
-        modDataKey = "GunPlating",
-        modDataValue = gunPlating,
-        attachment = attachmentType,
-        magazine = isPresent,
-    });
-end
-
 -- check if part is installed by full type
 
 function BWTweaks:partIsInstalled(weapon, partType)
@@ -209,7 +149,6 @@ function BWTweaks:checkForModelChange(weapon)
         if BWTweaks["modelChanges"][fullType]
         then
             local newModel = nil;
-            local modData = weapon:getModData() or {};
 
             --print("processing model change conditions for weapon [" .. tostring(fullType) .. "]:");
 
@@ -257,22 +196,6 @@ function BWTweaks:checkForModelChange(weapon)
                     if not isChambered == config["criteria"]["chambered"]
                     then
                         --print("    -> chambered requirement not fulfilled");
-
-                        fitsConfig = false;
-                    end
-                end
-
-                if config["criteria"]["modDataKey"] ~= nil
-                then
-                    local key = config["criteria"]["modDataKey"];
-                    local expectedValue = config["criteria"]["modDataValue"];
-                    local actualValue = modData[key];
-
-                    --print("    - config depends on modData value: " .. tostring(key) .. " = " .. tostring(expectedValue) .. " vs. actual = " .. tostring(actualValue));
-
-                    if actualValue ~= expectedValue
-                    then
-                        --print("    -> modData requirement not fulfilled");
 
                         fitsConfig = false;
                     end
