@@ -2,6 +2,61 @@ module Base
 {
     /****************************** ITEM AMMOS ******************************/
 
+    item 22Bullets
+    {
+        DisplayCategory         = Ammo,
+        Count	                = 5,
+        Weight	                = 0.01,
+        Type	                = Normal,
+        DisplayName	            = .22 LR Round,
+        Icon	                = Rounds22,
+        MetalValue              = 1,
+        WorldStaticModel        = Rounds22,
+    }
+
+    item 22Box
+    {
+        DisplayCategory         = Ammo,
+        Weight	                = 0.25,
+        Type	                = Normal,
+        DisplayName	            = Box of .22 LR Rounds,
+        Icon	                = AmmoBox22,
+        MetalValue              = 30,
+        WorldStaticModel        = AmmoBox22,
+        PlaceOneSound           = BoxOfRoundsPlaceOne,
+        PlaceMultipleSound      = BoxOfRoundsPlaceAll,
+    }
+
+    item 22Clip
+    {
+        DisplayCategory         = Ammo,
+        CanStack	            = FALSE,
+        Weight	                = 0.05,
+        Type	                = Normal,
+        DisplayName	            = .22 LR Magazine,
+        Icon	                = Mag22,
+        MaxAmmo                 = 6,
+        AmmoType                = Base.22Bullets,
+        StaticModel             = Mag22,
+        GunType                 = Base.JenningsJ22,
+        WorldStaticModel        = Mag22,
+    }
+
+    item 22Clip10
+    {
+        DisplayCategory         = Ammo,
+        CanStack	            = FALSE,
+        Weight	                = 0.05,
+        Type	                = Normal,
+        DisplayName	            = .22 LR Magazine [10],
+        Icon	                = Mag22,
+        MaxAmmo                 = 10,
+        AmmoType                = Base.22Bullets,
+        StaticModel             = Mag22,
+        GunType                 = Base.Ruger1022,
+        WorldStaticModel        = Mag22,
+    }
+
     item 3006Bullets
     {
         DisplayCategory         = Ammo,
@@ -57,6 +112,23 @@ module Base
         WorldStaticModel        = Mag3006,
     }
 
+    item 308Clip5
+    {
+        DisplayCategory         = Ammo,
+        CanStack	            = FALSE,
+        Weight	                = 0.2,
+        Type	                = Normal,
+        DisplayName	            = .308 Magazine [5],
+        Icon	                = Mag700Series,
+        MaxAmmo                 = 5,
+        AmmoType                = Base.308Bullets,
+        CompatibleAmmoType      = Base.762x51Bullets,
+        StaticModel             = Mag700Series,
+        GunType                 = Base.BrowningBLR,
+        CompatibleGunType       = Base.L2A1; Base.L2A1_Bipod,
+        WorldStaticModel        = Mag700Series,
+    }
+
     item 380Bullets
     {
         DisplayCategory         = Ammo,
@@ -71,7 +143,7 @@ module Base
 
     item 380Box
     {
-        Weight	                = 0.14,
+        Weight	                = 0.125,
         Type	                = Normal,
         DisplayName	            = Box of .380 ACP Rounds,
         DisplayCategory         = Ammo,
@@ -112,7 +184,7 @@ module Base
     item 545Box
     {
         DisplayCategory         = Ammo,
-        Weight	                = 0.35,
+        Weight	                = 0.125,
         Type	                = Normal,
         DisplayName	            = Box of 5.45 Rounds,
         Icon	                = AmmoBox545,
@@ -151,10 +223,10 @@ module Base
 
     item 57Box
     {
+        DisplayCategory         = Ammo,
         Weight	                = 0.25,
         Type	                = Normal,
         DisplayName	            = Box of 5.7x28 Rounds,
-        DisplayCategory         = Ammo,
         Icon	                = AmmoBox57,
         MetalValue              = 30,
         WorldStaticModel        = AmmoBox57,
@@ -207,7 +279,7 @@ module Base
     item 762Box
     {
         DisplayCategory         = Ammo,
-        Weight	                = 0.5,
+        Weight	                = 0.25,
         Type	                = Normal,
         DisplayName	            = Box of 7.62 Rounds,
         Icon	                = AmmoBox762,
@@ -223,7 +295,7 @@ module Base
         CanStack	            = FALSE,
         Weight	                = 0.2,
         Type	                = Normal,
-        DisplayName	            = 7.62 Magazine,
+        DisplayName	            = 7.62x39 Magazine,
         Icon	                = Mag762,
         MaxAmmo                 = 30,
         AmmoType                = Base.762Bullets,
@@ -247,7 +319,7 @@ module Base
     item 762x51Box
     {
         DisplayCategory         = Ammo,
-        Weight	                = 0.5,
+        Weight	                = 0.25,
         Type	                = Normal,
         DisplayName	            = Box of 7.62x51 Rounds,
         Icon	                = AmmoBox762x51,
@@ -267,15 +339,47 @@ module Base
         Icon	                = Mag762x51,
         MaxAmmo                 = 10,
         AmmoType                = Base.762x51Bullets,
+        CompatibleAmmoType      = Base.308Bullets,
         StaticModel             = Mag762x51,
         GunType                 = Base.Galil; Base.Galil_Bipod,
+        CompatibleGunType       = Base.HuntingRifle,
         WorldStaticModel        = Mag762x51,
+    }
+
+    item 762x51Clip20
+    {
+        DisplayCategory         = Ammo,
+        CanStack	            = FALSE,
+        Weight	                = 0.2,
+        Type	                = Normal,
+        DisplayName	            = 7.62x51 Magazine [20],
+        Icon	                = Mag762x51ExtSm,
+        MaxAmmo                 = 20,
+        AmmoType                = Base.762x51Bullets,
+        StaticModel             = Mag762x51ExtSm,
+        GunType                 = Base.EM2,
+        WorldStaticModel        = Mag762x51ExtSm_Ground,
+    }
+
+    item 762x51Clip30
+    {
+        DisplayCategory         = Ammo,
+        CanStack	            = FALSE,
+        Weight	                = 0.2,
+        Type	                = Normal,
+        DisplayName	            = 7.62x51 Magazine [30],
+        Icon	                = Mag762x51ExtLg,
+        MaxAmmo                 = 30,
+        AmmoType                = Base.762x51Bullets,
+        StaticModel             = Mag762x51ExtLg,
+        GunType                 = Base.L2A1; Base.L2A1_Bipod,
+        WorldStaticModel        = Mag762x51ExtLg_Ground,
     }
 
     item 762x54rBullets
     {
         DisplayCategory         = Ammo,
-        Count	                = 5,
+        Count	                = 1,
         Weight	                = 0.02,
         Type	                = Normal,
         DisplayName	            = 7.62x54r Round,
@@ -287,7 +391,7 @@ module Base
     item 762x54rBox
     {
         DisplayCategory         = Ammo,
-        Weight	                = 0.4,
+        Weight	                = 0.45,
         Type	                = Normal,
         DisplayName	            = Box of 7.62x54r Rounds,
         Icon	                = AmmoBox762x54r,
@@ -330,57 +434,57 @@ module Base
 
     item 792Clip
     {
-        DisplayCategory     = Ammo,
-        Weight	            = 0.2,
-        Type	            = Normal,
-        DisplayName	        = 7.92 Magazine,
-        Icon	            = 792Clip,
-        MaxAmmo             = 20,
-        AmmoType            = 792Bullets,
-        GunType             = FG42,
-        CanStack	        = FALSE,
-		StaticModel         = 792Clip,
-        WorldStaticModel    = 792Clip,
+        DisplayCategory         = Ammo,
+        Weight                  = 0.2,
+        Type                    = Normal,
+        DisplayName             = 7.92 Magazine,
+        Icon                    = Mag792,
+        MaxAmmo                 = 20,
+        AmmoType                = 792Bullets,
+        GunType                 = FG42,
+        CanStack	            = FALSE,
+		StaticModel             = Mag792,
+        WorldStaticModel        = Mag792,
     }
 
     item 792Drum
     {
-        DisplayCategory     = Ammo,
-        Weight	            = 1.2,
-        Type	            = Normal,
-        DisplayName	        = 7.92 Drum,
-        Icon	            = 792Drum,
-        MaxAmmo             = 50,
-        AmmoType            = 792Bullets,
-        GunType             = MG42,
-        CanStack	        = FALSE,
-		StaticModel         = 792Drum,
-        WorldStaticModel    = 792Drum,
-    }
-
-    item 792Box
-    {
-        DisplayCategory     = Ammo,
-        Weight	            = 1,
-        Type	            = Normal,
-        DisplayName	        = Box of 7.92 Rounds,
-        Icon	            = 792AmmoBox,
-        MetalValue          = 40,
-        WorldStaticModel    = 792Box,
-        PlaceOneSound       = BoxOfRoundsPlaceOne,
-        PlaceMultipleSound  = BoxOfRoundsPlaceAll,
+        DisplayCategory         = Ammo,
+        Weight                  = 1.2,
+        Type                    = Normal,
+        DisplayName             = 7.92 Drum,
+        Icon                    = Mag792Drum,
+        MaxAmmo                 = 50,
+        AmmoType                = 792Bullets,
+        GunType                 = MG42,
+        CanStack	            = FALSE,
+		StaticModel             = Mag792Drum,
+        WorldStaticModel        = Mag792Drum,
     }
 
     item 792Bullets
     {
-        DisplayCategory     = Ammo,
-        Weight	            = 0.025,
-        Type	            = Normal,
-        DisplayName	        = 7.92 Rounds,
-        Icon	            = 792ammo,
-        Count	            = 5,
-        MetalValue          = 1,
-        WorldStaticModel    = 792Bullets,
+        DisplayCategory         = Ammo,
+        Weight                  = 0.025,
+        Type                    = Normal,
+        DisplayName             = 7.92 Rounds,
+        Icon                    = Rounds792,
+        Count                   = 5,
+        MetalValue              = 1,
+        WorldStaticModel        = Rounds792,
+    }
+
+    item 792Box
+    {
+        DisplayCategory         = Ammo,
+        Weight                  = 0.6,
+        Type                    = Normal,
+        DisplayName             = Box of 7.92 Rounds,
+        Icon                    = AmmoBox792,
+        MetalValue              = 40,
+        WorldStaticModel        = AmmoBox792,
+        PlaceOneSound           = BoxOfRoundsPlaceOne,
+        PlaceMultipleSound      = BoxOfRoundsPlaceAll,
     }
 
 	item 792x33Bullets
@@ -398,7 +502,7 @@ module Base
     item 792x33Box
     {
         DisplayCategory         = Ammo,
-        Weight	                = 0.5,
+        Weight	                = 0.25,
         Type	                = Normal,
         DisplayName	            = Box of 7.92x33 Rounds,
         Icon	                = AmmoBox792x33,
@@ -523,7 +627,7 @@ module Base
     item 9x39Box
     {
         DisplayCategory         = Ammo,
-        Weight	                = 0.5,
+        Weight	                = 0.25,
         Type	                = Normal,
         DisplayName	            = Box of 9x39 Rounds,
         Icon	                = AmmoBox9x39,
@@ -546,6 +650,21 @@ module Base
         StaticModel             = Mag9x39,
         GunType                 = Base.VSSVintorez,
         WorldStaticModel        = Mag9x39,
+    }
+
+    item 9x39Clip20
+    {
+        DisplayCategory         = Ammo,
+        CanStack	            = FALSE,
+        Weight	                = 0.2,
+        Type	                = Normal,
+        DisplayName	            = 9x39 Magazine,
+        Icon	                = Mag9x39ExtSm,
+        MaxAmmo                 = 20,
+        AmmoType                = Base.9x39Bullets,
+        StaticModel             = Mag9x39ExtSm,
+        GunType                 = Base.ASVal;Base.ASVal_Folded,
+        WorldStaticModel        = Mag9x39ExtSm_Ground,,
     }
 
     item 45Clip13
@@ -574,7 +693,7 @@ module Base
         MaxAmmo                 = 20,
         AmmoType                = Base.Bullets45,
         StaticModel             = MagBox9mm,
-        GunType                 = Base.MP28,
+        GunType                 = Base.MP28;Base.ThompsonM1921,
         WorldStaticModel        = MagBox9mm,
     }
 
@@ -593,6 +712,56 @@ module Base
         WorldStaticModel        = MagM14,
     }
 
+    item ShotgunShellsBirdshot
+	{
+	    DisplayCategory         = Ammo,
+		Count	                = 6,
+		Weight	                = 0.04,
+		Type	                = Normal,
+		DisplayName	            = 12g Shotgun Shells [Birdshot],
+		Icon	                = Rounds12GaugeBirdshot,
+		MetalValue              = 1,
+		WorldStaticModel        = Rounds12GaugeBirdshot,
+	}
+
+    item ShotgunShellsBirdshotBox
+    {
+        DisplayCategory         = Ammo,
+        Weight	                = 0.8,
+        Type	                = Normal,
+        DisplayName	            = Box of 12g Shotgun Shells [Birdshot],
+        Icon	                = AmmoBox12GaugeBirdshot,
+        MetalValue              = 24,
+        WorldStaticModel        = AmmoBox12GaugeBirdshot,
+        PlaceOneSound           = BoxOfShellsPlaceOne,
+        PlaceMultipleSound      = BoxOfShellsPlaceAll,
+    }
+
+    item ShotgunShellsSlug
+	{
+	    DisplayCategory         = Ammo,
+		Count	                = 6,
+		Weight	                = 0.04,
+		Type	                = Normal,
+		DisplayName	            = 12g Shotgun Shells [Slug],
+		Icon	                = Rounds12GaugeSlug,
+		MetalValue              = 1,
+		WorldStaticModel        = Rounds12GaugeSlug,
+	}
+
+    item ShotgunShellsSlugBox
+    {
+        DisplayCategory         = Ammo,
+        Weight	                = 0.8,
+        Type	                = Normal,
+        DisplayName	            = Box of 12g Shotgun Shells [Slug],
+        Icon	                = AmmoBox12GaugeSlug,
+        MetalValue              = 24,
+        WorldStaticModel        = AmmoBox12GaugeSlug,
+        PlaceOneSound           = BoxOfShellsPlaceOne,
+        PlaceMultipleSound      = BoxOfShellsPlaceAll,
+    }
+
     item TheNailGunClip
     {
         DisplayCategory         = Ammo,
@@ -608,29 +777,207 @@ module Base
         WorldStaticModel        = MagTheNailGun,
     }
 
-    item CrossbowBoltBox
-    {
-        DisplayCategory     = Ammo,
-        Weight	            = 0.3,
-        Type	            = Normal,
-        DisplayName	        = Pack of Crossbow Bolts,
-        Icon	            = CrossbowBoltPack,
-        MetalValue          = 40,
-        WorldStaticModel    = CrossbowBoltPack,
-        PlaceOneSound       = BoxOfRoundsPlaceOne,
-        PlaceMultipleSound  = BoxOfRoundsPlaceAll,
-    }
-
     item CrossbowBolt
     {
-        DisplayCategory     = Ammo,
-        Weight	            = 0.01,
-        Type	            = Normal,
-        DisplayName	        = Crossbow Bolt,
-        Icon	            = CrossbowBolt,
-        Count	            = 5,
-        MetalValue          = 1,
-        WorldStaticModel    = CrossbowBolt,
+        DisplayCategory         = Ammo,
+        Weight                  = 0.01,
+        Type                    = Normal,
+        DisplayName             = Crossbow Bolt,
+        Icon                    = RoundsCrossbowBolt,
+        Count                   = 1,
+        MetalValue              = 1,
+        WorldStaticModel        = RoundsCrossbowBolt,
+    }
+
+    item CrossbowBoltBox
+    {
+        DisplayCategory         = Ammo,
+        Weight                  = 0.25,
+        Type                    = Normal,
+        DisplayName             = Pack of Crossbow Bolts,
+        Icon                    = AmmoBoxCrossbowBolt,
+        MetalValue              = 40,
+        WorldStaticModel        = AmmoBoxCrossbowBolt,
+        PlaceOneSound           = BoxOfRoundsPlaceOne,
+        PlaceMultipleSound      = BoxOfRoundsPlaceAll,
+    }
+
+    item WoodCrossbowBolt
+    {
+        DisplayCategory         = Ammo,
+        Weight                  = 0.008,
+        Type                    = Normal,
+        DisplayName             = Wood Crossbow Bolt,
+        Icon                    = RoundsWoodCrossbowBolt,
+        Count                   = 1,
+        MetalValue              = 1,
+        WorldStaticModel        = RoundsWoodCrossbowBolt,
+    }
+
+    item WoodCrossbowBoltBox
+    {
+        DisplayCategory         = Ammo,
+        Weight                  = 0.2,
+        Type                    = Normal,
+        DisplayName             = Pack of Wood Crossbow Bolts,
+        Icon                    = AmmoBoxWoodCrossbowBolt,
+        MetalValue              = 40,
+        WorldStaticModel        = AmmoBoxWoodCrossbowBolt,
+        PlaceOneSound           = BoxOfRoundsPlaceOne,
+        PlaceMultipleSound      = BoxOfRoundsPlaceAll,
+    }
+
+    item MinieBall
+    {
+        DisplayCategory         = Ammo,
+        Count                   = 1,
+        Weight                  = 0.03,
+        Type                    = Normal,
+        DisplayName             = .58 Cal Minié Ball,
+        Icon                    = RoundsMinieBall,
+        MetalValue              = 2,
+        WorldStaticModel        = RoundsMinieBall,
+        Tooltip                 = Tooltip_MinieBall,
+    }
+
+    item MinieBallBox
+    {
+        DisplayCategory         = Ammo,
+        Weight                  = 0.75,
+        Type                    = Normal,
+        DisplayName             = Box of .58 Cal Minié Balls,
+        Icon                    = AmmoBoxMinieBall,
+        MetalValue              = 25,
+        WorldStaticModel        = AmmoBoxMinieBall,
+        PlaceOneSound           = BoxOfRoundsPlaceOne,
+        PlaceMultipleSound      = BoxOfRoundsPlaceAll,
+    }
+
+    item BlunderbussBullets
+    {
+        DisplayCategory         = Ammo,
+        Count                   = 5,
+        Weight                  = 0.04,
+        Type                    = Normal,
+        DisplayName             = Blunderbuss Pellets,
+        Icon                    = RoundsBlunderbussBullets,
+        MetalValue              = 2,
+        WorldStaticModel        = RoundsBlunderbussBullets,
+    }
+
+    item BlunderbussBulletsBox
+    {
+        DisplayCategory         = Ammo,
+        Weight                  = 1,
+        Type                    = Normal,
+        DisplayName             = Box of Blunderbuss Pellets,
+        Icon                    = AmmoBoxBlunderbussBullets,
+        MetalValue              = 25,
+        WorldStaticModel        = AmmoBoxBlunderbussBullets,
+        PlaceOneSound           = BoxOfRoundsPlaceOne,
+        PlaceMultipleSound      = BoxOfRoundsPlaceAll,
+    }
+
+    item BlowgunDart
+    {
+        DisplayCategory         = Ammo,
+        Count                   = 1,
+        Weight                  = 0.005,
+        Type                    = Normal,
+        DisplayName             = Blowgun Dart,
+        Icon                    = RoundsBlowgunDart,
+        MetalValue              = 1,
+        WorldStaticModel        = RoundsBlowgunDart,
+    }
+
+    item BlowgunDartBox
+    {
+        DisplayCategory         = Ammo,
+        Weight                  = 0.125,
+        Type                    = Normal,
+        DisplayName             = Pack of Blowgun Darts,
+        Icon                    = AmmoBoxBlowgunDart,
+        MetalValue              = 30,
+        WorldStaticModel        = AmmoBoxBlowgunDart,
+        PlaceOneSound           = BoxOfRoundsPlaceOne,
+        PlaceMultipleSound      = BoxOfRoundsPlaceAll,
+    }
+
+    /****************************** SPEED LOADERS *******************/
+    
+    item 22SpeedLoader
+    {
+        DisplayCategory         = Ammo,
+        CanStack	            = FALSE,
+        Weight	                = 0.2,
+        Type	                = Normal,
+        DisplayName	            = .22 LR Speed Loader,
+        Icon	                = SpeedLoader9,
+        MaxAmmo                 = 9,
+        AmmoType                = Base.22Bullets,
+        StaticModel             = SpeedLoader9,
+        SpeedLoadCompatible     = Base.HighStandardSentinel,
+        WorldStaticModel        = SpeedLoader9,
+    }
+
+    item 38SpeedLoader5
+    {
+        DisplayCategory         = Ammo,
+        CanStack	            = FALSE,
+        Weight	                = 0.2,
+        Type	                = Normal,
+        DisplayName	            = .38 Special Speed Loader [5 Round],
+        Icon	                = SpeedLoader5,
+        MaxAmmo                 = 5,
+        AmmoType                = Base.Bullets38,
+        StaticModel             = SpeedLoader5,
+        SpeedLoadCompatible     = Base.Revolver_Short,
+        WorldStaticModel        = SpeedLoader5,
+    }
+
+    item 38SpeedLoader7
+    {
+        DisplayCategory         = Ammo,
+        CanStack	            = FALSE,
+        Weight	                = 0.2,
+        Type	                = Normal,
+        DisplayName	            = .38 Special Speed Loader [7 Round],
+        Icon	                = SpeedLoader7,
+        MaxAmmo                 = 7,
+        AmmoType                = Base.Bullets38,
+        StaticModel             = SpeedLoader7,
+        SpeedLoadCompatible     = Base.RugerGP100,
+        WorldStaticModel        = SpeedLoader7,
+    }
+    
+    item 44SpeedLoader
+    {
+        DisplayCategory         = Ammo,
+        CanStack	            = FALSE,
+        Weight	                = 0.2,
+        Type	                = Normal,
+        DisplayName	            = .44 Magnum Speed Loader,
+        Icon	                = SpeedLoader6,
+        MaxAmmo                 = 6,
+        AmmoType                = Base.Bullets44,
+        StaticModel             = SpeedLoader6,
+        SpeedLoadCompatible     = Base.Revolver_Long,
+        WorldStaticModel        = SpeedLoader6,
+    }
+
+    item 45SpeedLoader
+    {
+        DisplayCategory         = Ammo,
+        CanStack	            = FALSE,
+        Weight	                = 0.2,
+        Type	                = Normal,
+        DisplayName	            = .45 ACP Speed Loader,
+        Icon	                = SpeedLoader6,
+        MaxAmmo                 = 6,
+        AmmoType                = Base.Bullets45,
+        StaticModel             = SpeedLoader6,
+        SpeedLoadCompatible     = Base.Revolver;Base.ColtCavalryRevolver,
+        WorldStaticModel        = SpeedLoader6,
     }
 
     /****************************** FIREARM CACHES *******************/
@@ -651,27 +998,485 @@ module Base
 
     item FG42RifleItemsMagazine
 	{
-        DisplayCategory     = SkillBook,
-		Weight	            = 0.1,
-        Type	            = Literature,
-		DisplayName	        = FG and MG 42 Recipes,
-		Icon	            = FG42Magazine,
-		TeachedRecipes      = Create FG 42 Paratrooper Rifle;Create Iron Sights for FG 42 Paratrooper Rifle;Create Scope for FG 42 Paratrooper Rifle;Make 7.92 Ammo;Create Magazine Clip for FG 42 Paratrooper Rifle;Create Drum Magazine for MG42;Create MG42,
-		StaticModel         = Magazine,
-		WorldStaticModel    = FG42Magazine_Ground,
-        Tooltip             = Tooltip_item_FG42ItemsMagazine,
+        DisplayCategory         = SkillBook,
+		Weight	                = 0.1,
+        Type	                = Literature,
+		DisplayName	            = FG and MG 42 Recipes,
+		Icon	                = FG42Magazine,
+		TeachedRecipes          = Create FG 42 Paratrooper Rifle;Create Iron Sights for FG 42 Paratrooper Rifle;Create Scope for FG 42 Paratrooper Rifle;Make 7.92 Ammo;Create Magazine Clip for FG 42 Paratrooper Rifle;Create Drum Magazine for MG42;Create MG42,
+		StaticModel             = Magazine,
+		WorldStaticModel        = FG42Magazine_Ground,
+        Tooltip                 = Tooltip_item_FG42ItemsMagazine,
 	}
 
     item CompoundCrossbowMagazine
 	{
-        DisplayCategory     = SkillBook,
-		Weight	            = 0.1,
-        Type	            = Literature,
-		DisplayName	        = Compound Crossbow Recipes,
-		Icon	            = CompoundCrossbowMagazine,
-		TeachedRecipes      = Craft Crossbow Bolts,
-		StaticModel         = Magazine,
-		WorldStaticModel    = CompoundCrossbowMagazine_Ground,
-        Tooltip             = Tooltip_item_CompoundCrossbowMagazine,
+        DisplayCategory         = SkillBook,
+		Weight	                = 0.1,
+        Type	                = Literature,
+		DisplayName	            = Compound Crossbow Recipes,
+		Icon	                = CompoundCrossbowMagazine,
+		TeachedRecipes          = Craft Crossbow Bolts,
+		StaticModel             = Magazine,
+		WorldStaticModel        = CompoundCrossbowMagazine_Ground,
+        Tooltip                 = Tooltip_item_CompoundCrossbowMagazine,
 	}
+
+    /****************************** GUN PLATING ******************************/
+
+    item GunPlatingTan
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Tan],
+        Icon                = GunPlatingTan,
+        WorldStaticModel    = GunPlatingTan,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingTan,
+    }
+
+    item GunPlatingBlue
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Blue],
+        Icon                = GunPlatingBlue,
+        WorldStaticModel    = GunPlatingBlue,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingBlue,
+    }
+
+    item GunPlatingRed
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Red],
+        Icon                = GunPlatingRed,
+        WorldStaticModel    = GunPlatingRed,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingRed,
+    }
+
+    item GunPlatingPatriot
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Patriot],
+        Icon                = GunPlatingBlue,
+        WorldStaticModel    = GunPlatingBlue,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingPatriot,
+    }
+
+    item GunPlatingGold
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Gold],
+        Icon                = GunPlatingGold,
+        WorldStaticModel    = GunPlatingGold,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingGold,
+    }
+
+    item GunPlatingGoldDE
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Gold Desert Eagle],
+        Icon                = GunPlatingGold,
+        WorldStaticModel    = GunPlatingGold,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingGoldDE,
+    }
+
+    item GunPlatingGoldShotgun
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Gold Shotgun],
+        Icon                = GunPlatingGold,
+        WorldStaticModel    = GunPlatingGold,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingGoldShotgun,
+    }
+
+    item GunPlatingRainbow
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Rainbow],
+        Icon                = GunPlatingRainbow,
+        WorldStaticModel    = GunPlatingRainbow,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingRainbow,
+    }
+
+    item GunPlatingRainbowAnodized
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Rainbow Anodized],
+        Icon                = GunPlatingRainbow,
+        WorldStaticModel    = GunPlatingRainbow,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingRainbowAnodized,
+    }
+
+    item GunPlatingDZ
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [DZ],
+        Icon                = GunPlatingBlue,
+        WorldStaticModel    = GunPlatingBlue,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingDZ,
+    }
+
+    item GunPlatingDarkCherry
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Dark Cherry],
+        Icon                = GunPlatingDarkCherry,
+        WorldStaticModel    = GunPlatingDarkCherry,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingDarkCherry,
+    }
+
+    item GunPlatingWinterCamo
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Winter Camo],
+        Icon                = GunPlatingWhiteCamo,
+        WorldStaticModel    = GunPlatingWhiteCamo,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingWinterCamo,
+    }
+
+    item GunPlatingMatteBlack
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Matte Black],
+        Icon                = GunPlatingMatteBlack,
+        WorldStaticModel    = GunPlatingMatteBlack,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingMatteBlack,
+    }
+
+    item GunPlatingWoodStyle
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Wood Style],
+        Icon                = GunPlatingWoodStyled,
+        WorldStaticModel    = GunPlatingWoodStyled,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingWoodStyle,
+    }
+
+    item GunPlatingPink
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Pink],
+        Icon                = GunPlatingPink,
+        WorldStaticModel    = GunPlatingPink,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingPink,
+    }
+
+    item GunPlatingCrabShell
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Crab Shell],
+        Icon                = GunPlatingCrabShell,
+        WorldStaticModel    = GunPlatingCrabShell,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingCrabShell,
+    }
+
+    item GunPlatingYellow
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Yellow],
+        Icon                = GunPlatingYellow,
+        WorldStaticModel    = GunPlatingYellow,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingYellow,
+    }
+
+    item GunPlatingGreen
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Green],
+        Icon                = GunPlatingGreen,
+        WorldStaticModel    = GunPlatingGreen,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingGreen,
+    }
+
+    item GunPlatingRedWhite
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Red White],
+        Icon                = GunPlatingRedWhite,
+        WorldStaticModel    = GunPlatingRedWhite,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingRedWhite,
+    }
+
+    item GunPlatingGreenGold
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Green Gold],
+        Icon                = GunPlatingGreenGold,
+        WorldStaticModel    = GunPlatingGreenGold,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingGreenGold,
+    }
+
+    item GunPlatingSteelDamascus
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Steel Damascus],
+        Icon                = GunPlatingSteelDamascus,
+        WorldStaticModel    = GunPlatingSteelDamascus,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingSteelDamascus,
+    }
+
+    item GunPlatingSalvagedRage
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Salvaged Rage],
+        Icon                = GunPlatingSalvagedRage,
+        WorldStaticModel    = GunPlatingSalvagedRage,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingSalvagedRage,
+    }
+
+    item GunPlatingZoidbergSpecial
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Zoidberg Special],
+        Icon                = GunPlatingZoidbergSpecial,
+        WorldStaticModel    = GunPlatingZoidbergSpecial,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingZoidbergSpecial,
+    }
+    
+    item GunPlatingShenron
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Shenron],
+        Icon                = GunPlatingShenron,
+        WorldStaticModel    = GunplatingShenron,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingShenron,
+    }
+
+    item GunPlatingNerf
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Nerf],
+        Icon                = GunPlatingNerf,
+        WorldStaticModel    = GunPlatingNerf,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingNerf,
+    }
+
+    item GunPlatingBespokeEngraved
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Bespoke Engraved],
+        Icon                = GunPlatingMatteBlack,
+        WorldStaticModel    = GunPlatingMatteBlack,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingBespokeEngraved,
+    }
+
+    item GunPlatingSurvivalist
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Survivalist],
+        Icon                = GunPlatingSurvivalist,
+        WorldStaticModel    = GunPlatingSurvivalist,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingSurvivalist,
+    }
+
+    item GunPlatingMysteryMachine
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Mystery Machine],
+        Icon                = GunPlatingMysteryMachine,
+        WorldStaticModel    = GunPlatingMysteryMachine,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingMysteryMachine,
+    }
+
+    item GunPlatingSalvagedBlack
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Salvaged Black],
+        Icon                = GunPlatingSalvagedRage,
+        WorldStaticModel    = GunPlatingSalvagedRage,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingSalvagedBlack,
+    }
+
+    item GunPlatingPearl
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Pearl],
+        Icon                = GunPlatingPearl,
+        WorldStaticModel    = GunPlatingPearl,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingPearl,
+    }
+
+    item GunPlatingAztec
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Aztec],
+        Icon                = GunPlatingAztec,
+        WorldStaticModel    = GunPlatingAztec,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingAztec,
+    }
+
+    item GunPlatingPlank
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Plank],
+        Icon                = GunPlatingWoodStyled,
+        WorldStaticModel    = GunPlatingWoodStyled,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingPlank,
+    }
+
+    item GunPlatingBlackIce
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Black Ice],
+        Icon                = GunPlatingBlackIce,
+        WorldStaticModel    = GunPlatingBlackIce,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingBlackIce,
+    }
+
+    item GunPlatingBlackDeath
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Black Death],
+        Icon                = GunPlatingMatteBlack,
+        WorldStaticModel    = GunPlatingMatteBlack,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingBlackDeath,
+    }
+
+    item GunPlatingOrnateIvory
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Ornate Ivory],
+        Icon                = GunPlatingWhiteCamo,
+        WorldStaticModel    = GunPlatingWhiteCamo,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingOrnateIvory,
+    }
+
+    item GunPlatingGildedAge
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Gilded Age],
+        Icon                = GunPlatingGold,
+        WorldStaticModel    = GunPlatingGold,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingGildedAge,
+    }
+
+    item GunPlatingTBD
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [TBD],
+        Icon                = GunPlatingTBD,
+        WorldStaticModel    = GunPlatingTBD,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingTBD,
+    }
+
+    item GunPlatingCannabis
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Cannabis],
+        Icon                = GunPlatingGreen,
+        WorldStaticModel    = GunPlatingGreen,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingCannabis,
+    }
 }

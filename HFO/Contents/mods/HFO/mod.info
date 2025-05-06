@@ -1,7 +1,6 @@
-name=Hayes Firearms Overhaul
-id=HayesFirearmsOverhaul
+name=Hayes Firearms Overhaul DEV TESTING
+id=HayesFirearmsOverhaulDEVTEST
+description=Full base game replacements
 
-description=An attempt to overhaul the vanilla guns and add more content
-
-poster=preview1.png
+poster=poster1.png
 icon=logo_mini.png

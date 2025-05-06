@@ -2,6 +2,31 @@ module Base
 {
     /****************************** AMMO BOX RECIPES ******************************/
 
+
+    recipe Open Box of .22 LR Ammo
+	{
+		22Box,
+
+		Result              : 22Bullets=6,
+		Sound               : PutItemInBag,
+        Time                : 25.0,
+		StopOnWalk          : False,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+	}
+
+	recipe Place .22 LR Ammo in Box
+	{
+		22Bullets=30,
+        
+		Result              : 22Box,
+		Sound               : PutItemInBag,
+        Time                : 25.0,
+		StopOnWalk          : False,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+	}
+
 	recipe Open Box of 30-06 SPRG Ammo
 	{
 		3006Box,
@@ -150,7 +175,7 @@ module Base
     {
         762x54rBox,
 
-        Result              : 762x54rBullets=5,
+        Result              : 762x54rBullets=25,
         Sound               : BoxOfRoundsOpenOne,
         Time                : 25.0,
 		StopOnWalk          : False,
@@ -242,34 +267,6 @@ module Base
         IsHidden            : True,
     }
 
-    recipe Make 7.62x54r Stripper Clip
-    {
-        762x54rBullets=5,
-
-        Result              : 762x54rStripperClip,
-        Sound               : BoxOfRoundsOpenOne,
-        Time                : 25.0,
-		StopOnWalk          : False,
-      	CanBeDoneFromFloor  : False,
-        IsHidden            : True,
-        OnCreate            : Recipe.OnCreate.FullyLoaded,
-    }
-
-    recipe Make into 762x54r Bullets
-    {
-        762x54rStripperClip,
-
-        Result              : 762x54rBullets,
-        RemoveResultItem    : True,
-        Sound               : BoxOfRoundsOpenOne,
-        Time                : 25.0,
-		StopOnWalk          : False,
-      	CanBeDoneFromFloor  : False,
-        IsHidden            : True,
-        OnTest	            : FullMag_Test,
-        OnCreate            : Recipe.OnCreate.UndoStripper,
-    }
-
     recipe Open Box of 9x39 Ammo
     {
         9x39Box,
@@ -294,11 +291,63 @@ module Base
         IsHidden            : True,
     }
 
+    recipe Open Box of Shotgun Shells [Birdshot]
+    {
+        ShotgunShellsBirdshotBox,
+
+        Result              : ShotgunShellsBirdshot=4,
+        Sound               : BoxOfShellsOpenOne,
+        Time                : 25.0,
+		StopOnWalk          : False,
+      	CanBeDoneFromFloor  : False,
+        Override            : True,
+        IsHidden            : True,
+    }
+
+    recipe Place Shotgun Shells in Box [Birdshot]
+    {
+        ShotgunShellsBirdshot=24,
+
+        Result              : ShotgunShellsBirdshotBox,
+        Sound               : BoxOfShellsOpenOne,
+        Time                : 25.0,
+		StopOnWalk          : False,
+      	CanBeDoneFromFloor  : False,
+        Override            : True,
+        IsHidden            : True,
+    }
+
+    recipe Open Box of Shotgun Shells [Slug]
+    {
+        ShotgunShellsSlugBox,
+
+        Result              : ShotgunShellsSlug=4,
+        Sound               : BoxOfShellsOpenOne,
+        Time                : 25.0,
+		StopOnWalk          : False,
+      	CanBeDoneFromFloor  : False,
+        Override            : True,
+        IsHidden            : True,
+    }
+
+    recipe Place Shotgun Shells in Box [Slug]
+    {
+        ShotgunShellsSlug=24,
+
+        Result              : ShotgunShellsSlugBox,
+        Sound               : BoxOfShellsOpenOne,
+        Time                : 25.0,
+		StopOnWalk          : False,
+      	CanBeDoneFromFloor  : False,
+        Override            : True,
+        IsHidden            : True,
+    }
+
 	recipe Unpack Bundle of Crossbow Bolts
 	{
 		CrossbowBoltBox,
 
-		Result              : CrossbowBolt=6,
+		Result              : CrossbowBolt=30,
         Time                : 5,
 		Sound               : PZ_PutInBag,
 		AnimNode            : Craft,
@@ -313,6 +362,116 @@ module Base
         Time                : 5,
 		Sound               : PZ_PutInBag,
 		AnimNode            : Craft,
+        IsHidden            : True,
+    }
+
+    recipe Unpack Bundle of Wood Crossbow Bolts
+	{
+		WoodCrossbowBoltBox,
+
+		Result              : WoodCrossbowBolt=30,
+        Time                : 5,
+		Sound               : PZ_PutInBag,
+		AnimNode            : Craft,
+        IsHidden            : True,
+	}
+
+	recipe Pack Bundle of Wood Crossbow Bolts
+	{
+		CrossbowBolt=30,
+        
+		Result              : WoodCrossbowBoltBox,
+        Time                : 5,
+		Sound               : PZ_PutInBag,
+		AnimNode            : Craft,
+        IsHidden            : True,
+    }
+
+    recipe Open Box of .58 Cal Minie Balls
+    {
+        MinieBallBox,
+        Result              : MinieBall=30,
+        Sound               : PutItemInBag,
+        Time                : 25.0,
+        StopOnWalk          : False,
+        CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Place .58 Cal Minie Balls in Box
+    {
+        MinieBall=30,
+        Result              : MinieBallBox,
+        Sound               : PutItemInBag,
+        Time                : 25.0,
+        StopOnWalk          : False,
+        CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Open Box of .58 Cal Minie Balls
+    {
+        MinieBallBox,
+        Result              : MinieBall=30,
+        Sound               : PutItemInBag,
+        Time                : 25.0,
+        StopOnWalk          : False,
+        CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Place .58 Cal Minie Balls in Box
+    {
+        MinieBall=30,
+        Result              : MinieBallBox,
+        Sound               : PutItemInBag,
+        Time                : 25.0,
+        StopOnWalk          : False,
+        CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Open Box of Blunderbuss Pellets
+    {
+        BlunderbussBulletsBox,
+        Result              : BlunderbussBullets=6,
+        Sound               : PutItemInBag,
+        Time                : 25.0,
+        StopOnWalk          : False,
+        CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Place Blunderbuss Pellets in Box
+    {
+        BlunderbussBullets=30,
+        Result              : BlunderbussBulletsBox,
+        Sound               : PutItemInBag,
+        Time                : 25.0,
+        StopOnWalk          : False,
+        CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Open Box of Blowgun Darts
+    {
+        BlowgunDartBox,
+        Result              : BlowgunDart=30,
+        Sound               : PutItemInBag,
+        Time                : 25.0,
+        StopOnWalk          : False,
+        CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Place Blowgun Darts in Box
+    {
+        BlowgunDart=30,
+        Result              : BlowgunDartBox,
+        Sound               : PutItemInBag,
+        Time                : 25.0,
+        StopOnWalk          : False,
+        CanBeDoneFromFloor  : False,
         IsHidden            : True,
     }
 
@@ -381,7 +540,7 @@ module Base
     recipe Saw Mosin Nagant
 	{
         MosinNagant,
-	   keep [Recipe.GetItemTypes.Saw],
+	    keep [Recipe.GetItemTypes.Saw],
 
         Result              : MosinNagantObrez,
         Sound               : Sawing,
@@ -427,7 +586,7 @@ module Base
 	/****************************** AMMO CREATION RECIPES ******************************/
     recipe Make 7.92 Ammo
     {
-        GunPowder=20,
+        GunPowder=200,
         SmallSheetMetal=4,
 		ScrapMetal=6,
 
@@ -441,20 +600,104 @@ module Base
 
     recipe Craft Crossbow Bolts 
     {
-        ScrapMetal=10,
-        Glue,
+        ScrapMetal=9,
+        Glue/Woodglue/Twine,
         keep [Recipe.GetItemTypes.SharpKnife],
         keep [Recipe.GetItemTypes.Hammer],
 
         Result               : CrossbowBolt=6,
-        Time:600,
-        Sound:Hammering,
-        Category             : HFA,
+        Time                 : 400,
+        Sound                : Hammering,
         AnimNode             : Disassemble,
         Prop1                : Hammer,
         CanBeDoneFromFloor   : false,
         NeedToBeLearn        : true,
     }
+
+    recipe Craft Wood Crossbow Bolts 
+    {
+        WoodenStick=6,
+        Glue/Woodglue/Twine,
+        keep [Recipe.GetItemTypes.SharpKnife],
+        keep [Recipe.GetItemTypes.Hammer],
+
+        Result               : WoodCrossbowBolt=6,
+        Time                 : 300,
+        Sound                : Hammering,
+        AnimNode             : Disassemble,
+        Prop1                : Hammer,
+        CanBeDoneFromFloor   : false,
+    }
+
+    recipe Craft Blunderbuss Ammo with Minie Balls
+    {
+        MinieBall=10,
+        Doodle/Newspaper/SheetPaper2,
+        GunPowder=100,
+
+        Result               : BlunderbussBullets,
+        Time                 : 150,
+        AnimNode             : Disassemble,
+        CanBeDoneFromFloor   : false,
+        IsHidden             : True,
+    }
+
+    recipe Craft Blunderbuss Ammo with Scrap Metal
+    {
+        ScrapMetal=20,
+        Doodle/Newspaper/SheetPaper2,
+        GunPowder=150,
+
+        Result               : BlunderbussBullets,
+        Time                 : 200,
+        AnimNode             : Disassemble,
+        CanBeDoneFromFloor   : false,
+        IsHidden             : True,
+    }
+
+    recipe Craft Blunderbuss Ammo with Nails
+    {
+        Nails=25,
+        Doodle/Newspaper/SheetPaper2,
+        GunPowder=200,
+
+        Result               : BlunderbussBullets,
+        Time                 : 250,
+        AnimNode             : Disassemble,
+        CanBeDoneFromFloor   : false,
+        IsHidden             : True,
+    }
+
+    recipe Craft Blunderbuss Ammo with Screws
+    {
+        Screws=25,
+        Doodle/Newspaper/SheetPaper2,
+        GunPowder=200,
+
+        Result               : BlunderbussBullets,
+        Time                 : 250,
+        AnimNode             : Disassemble,
+        CanBeDoneFromFloor   : false,
+        IsHidden             : True,
+    }
+
+    recipe Craft Blowgun Darts 
+    {
+        ScrapMetal=6,
+        Twine/Thread/Glue,
+        keep [Recipe.GetItemTypes.SharpKnife],
+        keep [Recipe.GetItemTypes.Hammer],
+
+        Result               : BlowgunDart=3,
+        Time                 : 300,
+        Sound                : Hammering,
+        AnimNode             : Disassemble,
+        Prop1                : Hammer,
+        CanBeDoneFromFloor   : false,
+        NeedToBeLearn        : true,
+    }
+
+
 /****************************** WEAPON ATTACHMENTS RECIPES ******************************/
 
     recipe Create Iron Sights for FG 42 Paratrooper Rifle
@@ -495,7 +738,7 @@ module Base
 
     recipe Create Magazine Clip for FG 42 Paratrooper Rifle
     {
-        762Clip/223Clip20/308Clip,
+        762Clip/308Clip,
         SmallSheetMetal=4,
         ScrapMetal=4,
         BlowTorch=6,
@@ -513,7 +756,7 @@ module Base
 
     recipe Create Drum Magazine for MG42
     {
-        762Clip/223Clip20/308Clip,
+        762Clip/308Clip,
         SmallSheetMetal=4,
         ScrapMetal=4,
         BlowTorch=6,
@@ -529,26 +772,7 @@ module Base
 		NeedToBeLearn       : true,
     } 
 
-    recipe Create Bipod for MG42
-    {
-        Bipod,
-        Screws=2,
-        SmallSheetMetal=2,
-        ScrapMetal=4,
-        BlowTorch=5,
-        keep [Recipe.GetItemTypes.Hammer],
-       	keep [Recipe.GetItemTypes.WeldingMask],
-
-        Result              : BipodMG42,
-		Time                : 140.0,
-	    Sound               : Hammering,
-       	SkillRequired       : MetalWelding=4,
-	   	Category            : HFA,
-		CanBeDoneFromFloor  : true,
-		NeedToBeLearn       : true,
-    }    
-
-	/****************************** CONVERSION OR CREATION RECIPES ******************************/
+	/****************************** CREATION RECIPES ******************************/
     recipe Create FG 42 Paratrooper Rifle
     {
         AssaultRifle2/AssaultRifle/HuntingRifle=2,
@@ -585,4 +809,420 @@ module Base
 		NeedToBeLearn       : True,
     }
 
+	/************************ TEMPORARY CONVERSION RECIPES ************************/
+
+    recipe Convert Tan Plating
+    {
+        TanPlating,
+
+        Result              : GunPlatingTan,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Blue Plating
+    {
+        BluePlating,
+
+        Result              : GunPlatingBlue,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Red Plating
+    {
+        RedPlating,
+
+        Result              : GunPlatingRed,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Pink Plating
+    {
+        PinkPlating,
+
+        Result              : GunPlatingPink,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Yellow Plating
+    {
+        YellowPlating,
+
+        Result              : GunPlatingYellow,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Green Plating
+    {
+        GreenPlating,
+
+        Result              : GunPlatingGreen,
+		Time                : 5.0,
+	   	Category            : HFA,
+        IsHidden            : True,
+    }
+
+    recipe Convert Red White Plating
+    {
+        RedWhitePlating,
+
+        Result              : GunPlatingRedWhite,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert GreenGold Plating
+    {
+        GreenGoldPlating,
+
+        Result              : GunPlatingGreenGold,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Winter Camo Plating
+    {
+        WinterCamoPlating,
+
+        Result              : GunPlatingWinterCamo,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Matte Black Plating
+    {
+        MatteBlackPlating,
+
+        Result              : GunPlatingMatteBlack,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Cannabis Plating
+    {
+        CannabisPlating,
+
+        Result              : GunPlatingCannabis,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Patriot Plating
+    {
+        Colt1911PatriotPlating,
+
+        Result              : GunPlatingPatriot,
+		Time                : 5.0,
+	   	Category            : HFA,
+        IsHidden            : True,
+    }
+
+    recipe Convert Steel Damascus Plating
+    {
+        SteelDamascusPlating,
+
+        Result              : GunPlatingSteelDamascus,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Salvaged Rage Plating
+    {
+        SalvagedRagePlating,
+
+        Result              : GunPlatingSalvagedRage,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Zoidberg Special Plating
+    {
+        ZoidbergSpecialPlating,
+
+        Result              : GunPlatingZoidbergSpecial,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Shenron Plating
+    {
+        ShenronPlating,
+
+        Result              : GunPlatingShenron,
+		Time                : 5.0,
+	   	Category            : HFA,
+        IsHidden            : True,
+    }
+
+    recipe Convert Nerf Plating
+    {
+        NerfPlating,
+
+        Result              : GunPlatingNerf,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Bespoke Engraved Plating
+    {
+        BespokeEngravedPlating,
+
+        Result              : GunPlatingBespokeEngraved,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }  
+
+    recipe Convert Survivalist Plating
+    {
+        SurvivalistPlating,
+
+        Result              : GunPlatingSurvivalist,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Mystery Machine Plating
+    {
+        MysteryMachinePlating,
+
+        Result              : GunPlatingMysteryMachine,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }  
+
+    recipe Convert Salvaged Black Plating
+    {
+        SalvagedBlackPlating,
+
+        Result              : GunPlatingSalvagedBlack,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Pearl Plating
+    {
+        PearlPlating,
+
+        Result              : GunPlatingPearl,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }  
+
+    recipe Convert Aztec Plating
+    {
+        AztecPlating,
+
+        Result              : GunPlatingAztec,
+		Time                : 5.0,
+	   	Category            : HFA,
+        IsHidden            : True,
+    }
+
+    recipe Convert Plank Plating
+    {
+        PlankPlating,
+
+        Result              : GunPlatingPlank,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }  
+
+    recipe Convert Black Ice Plating
+    {
+        BlackIcePlating,
+
+        Result              : GunPlatingBlackIce,
+		Time                : 5.0,
+	   	Category            : HFA,
+        IsHidden            : True,
+    }
+
+    recipe Convert Black Death Plating
+    {
+        BlackDeathPlating,
+
+        Result              : GunPlatingBlackDeath,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    } 
+
+    recipe Convert Ornate Ivory Plating
+    {
+        OrnateIvoryPlating,
+
+        Result              : GunPlatingOrnateIvory,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Gilded Age Plating
+    {
+        GildedAgePlating,
+
+        Result              : GunPlatingGildedAge,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    } 
+
+    recipe Convert TBD Plating
+    {
+        TBDPlating,
+
+        Result              : GunPlatingTBD,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    } 
+
+    recipe Convert Rainbow Plating
+    {
+        RainbowPlating,
+
+        Result              : GunPlatingRainbow,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    } 
+
+    recipe Convert Rainbow Anodized Plating
+    {
+        RainbowAnodizedPlating,
+
+        Result              : GunPlatingRainbowAnodized,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }  
+
+    recipe Convert Dark Cherry Plating
+    {
+        RemingtonRiflesDarkCherryStock,
+
+        Result              : GunPlatingDarkCherry,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    } 
+ 
+    recipe Convert Wood Style Plating
+    {
+        WoodStyledPlating,
+
+        Result              : GunPlatingWoodStyle,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    } 
+ 
+    recipe Convert Gold Plating
+    {
+        GoldGunPlating,
+
+        Result              : GunPlatingGold,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Desert Eagle Gold Plating
+    {
+        DesertEagleGoldPlating,
+
+        Result              : GunPlatingGoldDE,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Shotgun Gold Plating
+    {
+        GoldShotgunPlating,
+
+        Result              : GunPlatingGoldShotgun,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert Crabby Plating
+    {
+        CrabShellPlating,
+
+        Result              : GunPlatingCrabShell,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
+
+    recipe Convert DZ Plating
+    {
+        DZPlating,
+
+        Result              : GunPlatingDZ,
+		Time                : 5.0,
+	   	Category            : HFA,
+      	CanBeDoneFromFloor  : False,
+        IsHidden            : True,
+    }
  }
+
+
