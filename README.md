@@ -1,4 +1,6 @@
-# 🔫 Hayes Firearms Overhaul - HFO (Build 41 Legacy)
+# 🔫 Hayes Firearms Overhaul - HFO (DEV TESTING)
+
+## WARNING THIS IS A DEV TEST ENVIRONMENT NOT ALL FEATURES ARE IMPLEMENTED
 
 A full-scale custom firearm mod for **Project Zomboid**, replacing vanilla guns and introducing a modular, dynamic weapon system.
 
