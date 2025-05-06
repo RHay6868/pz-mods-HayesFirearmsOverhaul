@@ -225,7 +225,7 @@ module Base
         CanBeDoneFromFloor  : False,
         Override            : True,
         Obsolete            : True,
-        OnCreate            : ShotgunSawnoff_OnCreate,
+        OnCreate            : GeneralSawnWeapon_OnCreate,
 	}
 
 	recipe Saw Off Double Barrel Shotgun
@@ -241,7 +241,7 @@ module Base
         CanBeDoneFromFloor  : False,
         Override            : True,
         Obsolete            : True,
-        OnCreate            : DblBarrelhotgunSawnoff_OnCreate,
+        OnCreate            : GeneralSawnWeapon_OnCreate,
 	}
     
     /****************************** CACHE RECIPES ******************************/

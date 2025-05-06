@@ -67,6 +67,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = TRUE,
         /******************** ATTACHMENTS ********************/
+        GunPlatingOptions               = GunPlatingPink;GunPlatingPearl,
         ModelWeaponPart                 = SuppressorPistol SuppressorPistol barrelend barrelend,
         ModelWeaponPart                 = CompensatorHandgun CompensatorHandgun barrelend barrelend,
         ModelWeaponPart                 = MuzzleBrakeHandgun MuzzleBrakeHandgun barrelend barrelend,
@@ -145,6 +146,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = TRUE,
         /******************** ATTACHMENTS ********************/
+        GunPlatingOptions               = GunPlatingPatriot;GunPlatingAztec,
         ModelWeaponPart                 = SuppressorPistol SuppressorPistol barrelend barrelend,
         ModelWeaponPart                 = CompensatorHandgun CompensatorHandgun barrelend barrelend,
         ModelWeaponPart                 = MuzzleBrakeHandgun MuzzleBrakeHandgun barrelend barrelend,
@@ -222,6 +224,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = TRUE,
         /******************** ATTACHMENTS ********************/
+        GunPlatingOptions               = GunPlatingGoldDE;GunPlatingMysteryMachine;GunPlatingSalvagedRage,
         ModelWeaponPart                 = SuppressorPistol SuppressorPistol barrelend barrelend,
         ModelWeaponPart                 = CompensatorHandgun CompensatorHandgun barrelend barrelend,
         ModelWeaponPart                 = MuzzleBrakeHandgun MuzzleBrakeHandgun barrelend barrelend,
@@ -359,6 +362,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = TRUE,
         /******************** ATTACHMENTS ********************/
+        GunPlatingOptions               = GunPlatingPink,
         ModelWeaponPart                 = TacticalGrip TacticalGrip grip grip,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
         ModelWeaponPart                 = IronSight IronSight scope scope,
@@ -423,6 +427,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = TRUE,
         /******************** ATTACHMENTS ********************/
+        GunPlatingOptions               = GunPlatingGold;GunPlatingNerf,
         ModelWeaponPart                 = TacticalGrip TacticalGrip grip grip,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
         ModelWeaponPart                 = IronSight IronSight scope scope,
@@ -450,6 +455,7 @@ module Base
         /*MagazineType                  = Base.223Clip,*/
         AmmoBox                         = 223Box,
         MaxAmmo                         = 4,
+        AdditionalAmmoType              = Base.556Bullets,
         /******************** MODIFIERS ********************/
         SwingTime	                    = 2,
         MinimumSwingTime	            = 2,
@@ -491,15 +497,19 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = TRUE,
         /******************** ATTACHMENTS ********************/
+        GunPlatingOptions               = GunPlatingDZ;GunPlatingDarkCherry,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
+        ModelWeaponPart                 = PSO1Scope PSO1Scope scope scope,
+        ModelWeaponPart                 = UniversalOpticalSight UniversalOpticalSight scope scope,
         ModelWeaponPart                 = HoloSight HoloSight scope scope,
         ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
         ModelWeaponPart                 = x2Scope x2Scope scope scope,
         ModelWeaponPart                 = x4Scope x4Scope scope scope,       
         ModelWeaponPart                 = x8Scope x8Scope scope scope,  
         ModelWeaponPart                 = IronSight IronSight scope2 scope2,
+        ModelWeaponPart                 = SuppressorRifle SuppressorRifle barrelend barrelend,
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
         ModelWeaponPart                 = ButtStockWrap ButtStockWrap buttstock buttstock,
     }
@@ -524,6 +534,7 @@ module Base
         MagazineType                    = Base.308Clip,
         AmmoBox                         = 308Box,
         MaxAmmo                         = 3,
+        AdditionalAmmoType              = Base.762x51Bullets,
         MagBase                         = Base.308Clip,
         MagExtSm                        = Base.Mag308ExtSm,
         /******************** MODIFIERS ********************/
@@ -567,15 +578,19 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = TRUE,
         /******************** ATTACHMENTS ********************/
+        GunPlatingOptions               = GunPlatingDZ;GunPlatingDarkCherry,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
+        ModelWeaponPart                 = PSO1Scope PSO1Scope scope scope,
+        ModelWeaponPart                 = UniversalOpticalSight UniversalOpticalSight scope scope,
         ModelWeaponPart                 = HoloSight HoloSight scope scope,
         ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
         ModelWeaponPart                 = x2Scope x2Scope scope scope,
         ModelWeaponPart                 = x4Scope x4Scope scope scope,       
         ModelWeaponPart                 = x8Scope x8Scope scope scope,  
         ModelWeaponPart                 = IronSight IronSight scope2 scope2,
+        ModelWeaponPart                 = SuppressorRifle SuppressorRifle barrelend barrelend,
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
         ModelWeaponPart                 = ButtStockWrap ButtStockWrap buttstock buttstock,
         ModelWeaponPart                 = Mag308ExtSm Mag308ExtSm drum drum,
@@ -594,8 +609,8 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 25,
         AttachmentType                  = Rifle,
-        FireMode                        = Auto,
-        FireModePossibilities           = Auto/Single,
+        FireMode                        = Single,
+        FireModePossibilities           = Single/CustomBurst/FullAuto,
         MeleeSwap                       = Base.AssaultRifle,
         /******************** AMMO ********************/
         WeaponReloadType                = boltaction,
@@ -604,6 +619,7 @@ module Base
         AmmoBox                         = 556Box,
         ClipSize                        = 30,
         MaxAmmo                         = 30,
+        AdditionalAmmoType              = Base.223Bullets,
         /******************** MODIFIERS ********************/
         SwingTime	                    = 2,
         MinimumSwingTime	            = 2,
@@ -650,6 +666,8 @@ module Base
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
+        ModelWeaponPart                 = PSO1Scope PSO1Scope scope scope,
+        ModelWeaponPart                 = UniversalOpticalSight UniversalOpticalSight scope scope,
         ModelWeaponPart                 = HoloSight HoloSight scope scope,
         ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
         ModelWeaponPart                 = CarryHandle CarryHandle scope scope,
@@ -664,7 +682,7 @@ module Base
         ModelWeaponPart                 = x2Scope x2Scope scope scope,
         ModelWeaponPart                 = x4Scope x4Scope scope scope,
         ModelWeaponPart                 = IronSight IronSight scope2 scope2,
-        ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
+        ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad
     }
 
     item AssaultRifle2_Melee
@@ -680,6 +698,7 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 25,
         AttachmentType                  = Rifle,
+        FireMode                        = Single,
         MeleeSwap                       = Base.AssaultRifle2,
         /******************** AMMO ********************/
         WeaponReloadType                = boltaction,
@@ -736,6 +755,8 @@ module Base
         ModelWeaponPart                 = HoloSight HoloSight scope scope,
         ModelWeaponPart                 = ReflexSight ReflexSight scope scope,     
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
+        ModelWeaponPart                 = PSO1Scope PSO1Scope scope scope,
+        ModelWeaponPart                 = UniversalOpticalSight UniversalOpticalSight scope scope,
         ModelWeaponPart                 = x2Scope x2Scope scope scope,
         ModelWeaponPart                 = x4Scope x4Scope scope scope,
         ModelWeaponPart                 = x8Scope x8Scope scope scope,
@@ -766,6 +787,7 @@ module Base
         AmmoBox                         = ShotgunShellsBox,
         MaxAmmo                         = 6,
         ClipSize                        = 6,
+        AdditionalAmmoType              = Base.ShotgunShellsBirdshot;ShotgunShellsSlug,
         /******************** MODIFIERS ********************/
         SwingTime	                    = 5,
         MinimumSwingTime	            = 5,
@@ -807,6 +829,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = TRUE,
         /******************** ATTACHMENTS ********************/
+        GunPlatingOptions               = GunPlatingTBD,
         ModelWeaponPart                 = VertGrip VertGrip foregrip foregrip,
         ModelWeaponPart                 = ShellHolder ShellHolder stock stock, 
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
@@ -878,6 +901,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = TRUE,
         /******************** ATTACHMENTS ********************/
+        GunPlatingOptions               = GunPlatingBespokeEngraved,
         ModelWeaponPart                 = VertGrip VertGrip foregrip foregrip,
         ModelWeaponPart                 = ShellHolder ShellHolder stock stock, 
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
@@ -941,6 +965,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = TRUE,
         /******************** ATTACHMENTS ********************/
+        GunPlatingOptions               = GunPlatingTBD,
         ModelWeaponPart                 = VertGrip VertGrip foregrip foregrip,
         ModelWeaponPart                 = WeaponLight WeaponLight side side,
         ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
@@ -1005,6 +1030,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = TRUE,
         /******************** ATTACHMENTS ********************/
+        GunPlatingOptions               = GunPlatingBespokeEngraved,
         ModelWeaponPart                 = VertGrip VertGrip foregrip foregrip,
     }
 }

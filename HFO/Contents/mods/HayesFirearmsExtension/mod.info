@@ -1,5 +1,6 @@
-name=Hayes Firearms Extension
-id=HayesFirearmsExtension
+name=Hayes Firearms Extension DEV TESTING
+id=HayesFirearmsExtensionDEVTEST
+require=HayesFirearmsOverhaulDEVTEST
 description=An extension to Hayes Firearms Overhaul to include new firearms not found in vanilla.
 
 poster=poster1.png

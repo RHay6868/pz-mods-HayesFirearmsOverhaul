@@ -231,21 +231,6 @@ module Base
         mesh = weapons/parts/Rifle_RecoilPad,
         texture = weapons/parts/Rifle_RecoilPad,
     }
-	model PlatingGold
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingGold,
-    }
-	model PlatingBlue
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingBlue,
-    }
-	model CherryWood
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/CherryWood,
-    }
 	model ProOpticScope
     {
         mesh = weapons/parts/ProOpticScope,

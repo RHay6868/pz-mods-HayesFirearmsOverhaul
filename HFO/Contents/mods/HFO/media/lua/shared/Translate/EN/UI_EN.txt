@@ -2,10 +2,15 @@
 UI_EN = {
 
 UI_optionscreen_binding_HFO = "HFO - Hayes Firearms Overhaul",
+UI_optionscreen_binding_InnerVoice = "Inner Voice Feedback",
 UI_optionscreen_binding_MeleeMode = "Melee Mode",
 UI_optionscreen_binding_FoldUnfold = "Fold or Unfold",
 UI_optionscreen_binding_Integrated = "Integrated Attachment",
-UI_optionscreen_binding_FireMode = "Fire Mode",
+UI_optionscreen_binding_FireMode = "Fire Mode Next",
+UI_optionscreen_binding_FireModeReverse = "Fire Mode Prev",
 UI_optionscreen_binding_WeaponLight = "Weapon Light",
-UI_optionscreen_binding_SwapMagazine = "Swap Magazine",
+UI_optionscreen_binding_SwapMagazine = "Swap Magazine Next",
+UI_optionscreen_binding_SwapMagazineReverse = "Swap Magazine Prev",
+UI_optionscreen_binding_InspectWeapon = "Inspect Firearms",
+UI_optionscreen_binding_InnerVoiceToggle = "Toggle Inner Voice",
 }
