@@ -363,120 +363,97 @@ end
 
 
 ---===========================================---
---        STRIPPER CLIP CONFIG AND LOGIC       --
+--                STRIPPER CLIPS               --
 ---===========================================---
 
-local stripperClipAmmoConfig = {
-    ["762x54rBullets"] = { clipType = "762x54rStripperClip", maxPerClip = 5 },
-}
-
-local clipToAmmoType = {}
-for ammo, clipConfig in pairs(stripperClipAmmoConfig) do
-    clipToAmmoType[clipConfig.clipType] = ammo
-end
-
--- Pack bullets into as many stripper clips as possible
-local function createAllStripperClips(player, ammoType, clipType, maxPerClip)
+-- Make clip from bullets
+local function makeClip(player)
     local inv = player:getInventory()
-    local count = inv:getItemCount("Base." .. ammoType)
-    if count < 1 then return end
-
-    local fullClips = math.floor(count / maxPerClip)
-    local remaining = count % maxPerClip
-
-    -- Pack full clips
-    for i = 1, fullClips do
-        for j = 1, maxPerClip do
-            local bullet = inv:FindAndReturn("Base." .. ammoType)
-            if bullet then inv:Remove(bullet) end
-        end
-
-        local clip = InventoryItemFactory.CreateItem("Base." .. clipType)
-        clip:setCurrentAmmoCount(maxPerClip)
-        clip:setMaxAmmo(maxPerClip)
-        inv:AddItem(clip)
+    local bulletCount = inv:getItemCount("Base.762x54rBullets")
+    if bulletCount < 1 then return end
+    
+    local roundsToUse = math.min(bulletCount, 5)
+    
+    -- Remove bullets
+    for i = 1, roundsToUse do
+        local bullet = inv:FindAndReturn("Base.762x54rBullets")
+        if bullet then inv:Remove(bullet) end
     end
-
-    -- Pack remaining bullets (if any)
-    if remaining > 0 then
-        for i = 1, remaining do
-            local bullet = inv:FindAndReturn("Base." .. ammoType)
-            if bullet then inv:Remove(bullet) end
-        end
-
-        local clip = InventoryItemFactory.CreateItem("Base." .. clipType)
-        clip:setCurrentAmmoCount(remaining)
-        clip:setMaxAmmo(maxPerClip)
-        inv:AddItem(clip)
-    end
+    
+    -- Add clip
+    local clip = InventoryItemFactory.CreateItem("Base.762x54rStripperClip")
+    clip:setCurrentAmmoCount(roundsToUse)
+    clip:setMaxAmmo(5)
+    inv:AddItem(clip)
 end
 
--- Unpack all selected stripper clips
-local function unpackAllStripperClips(player, items)
+-- Break clip into bullets
+local function breakClip(player, clip)
     local inv = player:getInventory()
-    for i = 1, #items do
-        local clip = items[i]
-        if clip and instanceof(clip, "HandWeapon") then
-            local ammoType = clipToAmmoType[clip:getType()]
-            if ammoType then
-                local count = clip:getCurrentAmmoCount() or 1
-                for j = 1, count do
-                    inv:AddItem("Base." .. ammoType)
-                end
-                inv:Remove(clip)
-            end
+    local rounds = clip:getCurrentAmmoCount() or 0
+    
+    -- Add bullets back
+    for i = 1, rounds do
+        inv:AddItem("Base.762x54rBullets")
+    end
+    
+    -- Remove clip
+    inv:Remove(clip)
+end
+
+-- Remove all empty clips
+local function cleanupEmptyClips(player)
+    local inv = player:getInventory()
+    local items = inv:getItems()
+    
+    for i = items:size() - 1, 0, -1 do
+        local item = items:get(i)
+        if item and item:getFullType() == "Base.762x54rStripperClip" and item:getCurrentAmmoCount() == 0 then
+            inv:DoRemoveItem(item)
         end
     end
 end
 
--- Safely extract an InventoryItem from a context menu
-local function getInventoryItem(entry)
-    if instanceof(entry, "InventoryItem") then
-        return entry
-    elseif type(entry) == "table" and entry.items and #entry.items > 0 then
-        return entry.items[1]
-    end
-    return nil
-end
-
--- Context Menu fill
-local function onFillInventoryContextMenu(player, context, items)
-    local inv = getSpecificPlayer(player):getInventory()
-    local unpackableClipItems = {}
-
-    -- Check for all ammo types in stripperClipAmmoConfig
-    for ammoType, clipConfig in pairs(stripperClipAmmoConfig) do
-        if inv:getItemCount("Base." .. ammoType) >= 1 then
-            context:addOption("Pack all " .. ammoType .. " into Stripper Clips", nil, function()
-                createAllStripperClips(getSpecificPlayer(player), ammoType, clipConfig.clipType, clipConfig.maxPerClip)
+-- Context menu
+local function onStripperClipContextMenu(player, context, items)
+    -- Only show if we actually clicked on an item
+    if not items or #items == 0 then return end
+    
+    -- Extract the actual item
+    local item = items[1]
+    if item.items then item = item.items[1] end
+    if not item or not item.getFullType then return end
+    
+    -- Right-clicked on bullets
+    if item:getFullType() == "Base.762x54rBullets" then
+        local inv = getSpecificPlayer(player):getInventory()
+        local bulletCount = inv:getItemCount("Base.762x54rBullets")
+        if bulletCount > 0 then
+            local roundsToUse = math.min(bulletCount, 5)
+            context:addOption("Make Mosin Stripper Clip (" .. roundsToUse .. " rounds)", nil, function()
+                makeClip(getSpecificPlayer(player))
             end)
         end
+        return
     end
-
-    -- Check selected items for clip types to unpack
-    for i = 1, #items do
-        local entry = items[i]
-        local item = getInventoryItem(entry) 
     
-        if item and instanceof(item, "HandWeapon") then
-            local t = item:getType()
-            for _, clipConfig in pairs(stripperClipAmmoConfig) do
-                if t == clipConfig.clipType then
-                    table.insert(unpackableClipItems, item)
-                end
-            end
+    -- Right-clicked on clip
+    if item:getFullType() == "Base.762x54rStripperClip" then
+        if item:getCurrentAmmoCount() > 0 then
+            context:addOption("Break Down Mosin Stripper Clip (" .. item:getCurrentAmmoCount() .. " rounds)", nil, function()
+                breakClip(getSpecificPlayer(player), item)
+            end)
+        else
+            -- Right-clicked on empty clip, offer cleanup
+            context:addOption("Remove Empty Mosin Stripper Clips", nil, function()
+                cleanupEmptyClips(getSpecificPlayer(player))
+            end)
         end
-    end
-
-    if #unpackableClipItems > 0 then
-        context:addOption("Unpack all selected Stripper Clips", nil, function()
-            unpackAllStripperClips(getSpecificPlayer(player), unpackableClipItems)
-        end)
+        return
     end
 end
 
--- Register hook (vanilla compatible)
-Events.OnFillInventoryObjectContextMenu.Add(onFillInventoryContextMenu)
+Events.OnFillInventoryObjectContextMenu.Add(onStripperClipContextMenu)
 
 
 ---===========================================---

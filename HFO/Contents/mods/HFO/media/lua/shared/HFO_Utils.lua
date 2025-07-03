@@ -391,17 +391,26 @@ end
 
 function HFO.Utils.handleWeaponChamber(weapon, result, isToMelee)
     local wasChambered = weapon:haveChamber() and weapon:isRoundChambered()
-    weapon:getModData().HFO_WasChambered = wasChambered
     
-    if result:haveChamber() then
-        if not isToMelee and result:isAimedHandWeapon() then
-            result:setRoundChambered(wasChambered)
-        else
-            result:setRoundChambered(false) -- Melee mode or fallback case
+    if isToMelee then
+        -- Going TO melee: store the ranged weapon's chambered state for later
+        weapon:getModData().HFO_WasChambered = wasChambered
+        if result:haveChamber() then
+            result:setRoundChambered(false)
+        end
+    else
+        -- Going TO ranged: restore the original chambered state
+        if result:haveChamber() then
+            local storedChamberedState = weapon:getModData().HFO_WasChambered
+            if storedChamberedState ~= nil then
+                result:setRoundChambered(storedChamberedState)
+            else
+                result:setRoundChambered(wasChambered)
+            end
         end
     end
     
-    return wasChambered -- Return this in case the caller needs it
+    return wasChambered
 end
 
 
@@ -523,6 +532,62 @@ function HFO.Utils.getMagazineInfoMaps(md)
     }
 end
 
+
+---===========================================---
+--               AMMO INFO MAPS                --
+---===========================================---
+
+-- Get ammo display info for radial menus (following magazine pattern)
+function HFO.Utils.getAmmoInfoMaps(weapon)
+    if not weapon then return {} end
+    
+    local availableAmmoTypes = HFO.ReloadUtils.getAvailableAmmoTypes(getSpecificPlayer(0), weapon)
+    local nameMap = {}
+    local iconMap = {}
+    
+    for _, ammoType in ipairs(availableAmmoTypes) do
+        -- Try to get custom names first, then fall back to item display name
+        local displayName = nil
+        local iconName = nil
+        
+        -- Custom names and icons for common ammo types
+        if ammoType == "Base.ShotgunShells" then
+            displayName = getText("IGUI_HFO_Buckshot") or "Buckshot"
+            iconName = "Item_Rounds12GaugeBuck"
+        elseif ammoType == "Base.ShotgunShellsBirdshot" then
+            displayName = getText("IGUI_HFO_Birdshot") or "Birdshot"
+            iconName = "Item_Rounds12GaugeBirdshot"
+        elseif ammoType == "Base.ShotgunShellsSlug" then
+            displayName = getText("IGUI_HFO_Slug") or "Slug"
+            iconName = "Item_Rounds12GaugeSlug"
+        elseif ammoType == "Base.CrossbowBolt" then
+            displayName = getText("IGUI_HFO_MetalBolt") or "Metal Bolt"
+            iconName = "Item_RoundsCrossbowBolt"
+        elseif ammoType == "Base.WoodCrossbowBolt" then
+            displayName = getText("IGUI_HFO_WoodBolt") or "Wood Bolt"
+            iconName = "Item_RoundsWoodCrossbowBolt"
+        elseif ammoType == "Base.223Bullets" then
+            displayName = getText("IGUI_HFO_223") or ".223 Round"
+            iconName = "Item_Rounds223"
+        elseif ammoType == "Base.556Bullets" then
+            displayName = getText("IGUI_HFO_556") or "5.56 Round"
+            iconName = "Item_Rounds556"
+        else
+            -- Fallback to item script info
+            local item = getScriptManager():FindItem(ammoType)
+            displayName = item and item:getDisplayName() or ammoType
+            iconName = item and item:getIcon() or "Bullets"
+        end
+        
+        nameMap[ammoType] = displayName
+        iconMap[ammoType] = iconName
+    end
+    
+    return {
+        nameMap = nameMap,
+        iconMap = iconMap
+    }
+end
 
 ---===========================================---
 --     UI AND WEAPON STAT HELPER FUNCTIONS     --
@@ -764,6 +829,9 @@ function HFO.Utils.getRawWeaponStats(weapon, player, options)
         timesRepaired = weapon.getHaveBeenRepaired and (weapon:getHaveBeenRepaired() - 1) or 0,
 
         weight = weapon:getWeight(),
+
+        maxHits = weapon:getMaxHitCount() or 1,
+        projectileCount = weapon:getProjectileCount() or 1,
     }
 
     -- Ammo
@@ -841,6 +909,16 @@ function HFO.Utils.formatWeaponStats(rawStats)
     if rawStats.damage then
         add("Damage", rawStats.damage, "core", {formatted = rawStats.damage, raw = rawStats.damage})
     end
+
+    -- Max Hits - how many entities a projectile can hit
+    if rawStats.maxHits then
+        add("Max Hits", rawStats.maxHits, "core", {formatted = tostring(rawStats.maxHits), raw = rawStats.maxHits})
+    end
+
+    -- Projectile Count - how many projectiles fired per shot
+    if rawStats.projectileCount then
+        add("Projectile Count", rawStats.projectileCount, "core", {formatted = tostring(rawStats.projectileCount), raw = rawStats.projectileCount})
+    end    
 
     -- Now handle Sound Radius with the description in one place only
     if rawStats.soundRadius then
@@ -1098,131 +1176,121 @@ end
 
 
 ---===========================================---
---       AMMO INFO MAPS AND STAT UPDATES       --
+--             AMMO STAT SWAP SYSTEM           --
 ---===========================================---
 
--- Currently the next thing in development is configuring ammo caliber swapping
-
-HFO.Utils.AmmoTierIndex = {
-    -- Rifle rounds
-    ["Base.223Bullets"] = 1,
-    ["Base.556Bullets"] = 2,
-    ["Base.308Bullets"] = 3,
-    ["Base.762x51Bullets"] = 4,
-
-    -- Shotgun rounds
-    ["Base.ShotgunShellsBirdShot"] = 1,
-    ["Base.ShotgunShells"] = 2,
-    ["Base.ShotgunShellsSlugs"] = 3,
-
-    -- Crossbow bolts
-    ["Base.WoodCrossbowBolt"] = 1,
-    ["Base.CrossbowBolt"] = 2,
-}
-
-local function AmmoStats(stats)
-    return {
-        maxDamage = stats.maxDamage or 0,
-        minDamage = stats.minDamage or 0,
-        recoil = stats.recoil or 0,
-        penetration = stats.penetration or 0,
-        maxRange = stats.maxRange or 0,
-        stoppingPower = stats.stoppingPower or 0,
-        projectileCount = stats.projectileCount or 0,
-        criticalChance = stats.criticalChance or 0,
-        minAngle = stats.minAngle or 0,
-        maxHitCount = stats.maxHitCount or 0,
-        hitChance = stats.hitChance or 0
+-- Store original weapon stats when first swapping ammo
+function HFO.Utils.storeOriginalWeaponStats(weapon)
+    local md = weapon:getModData()
+    if md.OriginalStats then return end -- Already stored
+    
+    md.OriginalStats = {
+        AmmoType = weapon:getAmmoType(),
+        maxDamage = weapon:getMaxDamage(),
+        minDamage = weapon:getMinDamage(),
+        recoilDelay = weapon:getRecoilDelay(),
+        maxRange = weapon:getMaxRange(),
+        hitChance = weapon:getHitChance(),
+        maxHitCount = weapon:getMaxHitCount(),
+        projectileCount = weapon:getProjectileCount(),
+        minAngle = weapon:getMinAngle(),
+        piercingBullets = weapon:havePiercingBullets()
     }
 end
 
-HFO.Utils.AmmoProperties = {
-    -- Base modifiers for common ammo types that will be swappable
-    ["Base.223Bullets"] = AmmoStats{}, --Baseline 0 stats across the board
-    ["Base.556Bullets"] = AmmoStats{
-        minDamage = 0.1, maxDamage = 0.2, maxRange = 2, recoilDelay = 4, hitChance = 5,
-        criticalChance = 10, minAngle = -0.005
-    },
-    ["Base.308Bullets"] = AmmoStats{
-        minDamage = 0.2, maxDamage = 0.3, maxRange = 3, recoilDelay = 5, hitChance = 8,
-        criticalChance = 15, minAngle = -0.01
-    },
-    ["Base.762x51Bullets"] = AmmoStats{
-        minDamage = 0.3, maxDamage = 0.4, maxRange = 4, recoilDelay = 6, hitChance = 10,
-        criticalChance = 20, minAngle = -0.01
-    },
-    ["Base.ShotgunShells"] = AmmoStats{}, -- baseline for shotgun shells so whatever the gun stats are
-    ["Base.ShotgunShellsBirdShot"] = AmmoStats{
-        minDamage = -0.3, maxDamage = -0.3, maxRange = -3, recoilDelay = 10, hitChance = 10,
-        criticalChance = -10, minAngle = -0.02, projectileCount = 3, maxHitCount = 2
-    },
-    ["Base.ShotgunShellsSlugs"] = AmmoStats{
-        minDamage = 0.3, maxDamage = 0.3, maxRange = 5, recoilDelay = 5, hitChance = 30,
-        criticalChance = 20, minAngle = 0.04, projectileCount = 1, maxHitCount = 1
-    },
-    ["Base.CrossbowBolt"] = AmmoStats{}, -- baseline for crossbow bolts since this was the first made
-    ["Base.WoodCrossbowBolt"] = AmmoStats{
-        minDamage = -0.2, maxDamage = -0.2, maxRange = -1, recoilDelay = -3, hitChance = 5,
-        criticalChance = -10, minAngle = -0.005
-    }
-}
-
-
+-- Apply ammo-specific stat modifications
 function HFO.Utils.applyAmmoPropertiesToWeapon(weapon, newAmmoType)
+    if not weapon or not newAmmoType then return end
+    
+    -- Store original stats if not already done
+    HFO.Utils.storeOriginalWeaponStats(weapon)
+    
     local md = weapon:getModData()
     local originalStats = md.OriginalStats
-    local originalAmmoType = originalStats.OriginalAmmoType or weapon:getAmmoType()
-
-    local indexMap = HFO.Utils.AmmoTierIndex
-    local origIndex = indexMap[originalAmmoType] or 1
-    local newIndex = indexMap[newAmmoType] or 1
-    local indexRatio = newIndex / origIndex
-
-    local newProps = HFO.Utils.AmmoProperties[newAmmoType] or {}
-    local origProps = HFO.Utils.AmmoProperties[originalAmmoType] or {}
-
-    -- Defensive fill for all expected keys
-    for _, key in ipairs({
-        "maxDamage", "minDamage", "recoil", "penetration", "maxRange",
-        "stoppingPower", "criticalChance", "minAngle", "maxHitCount",
-        "hitChance", "projectileCount"
-    }) do
-        newProps[key] = newProps[key] or 0
-        origProps[key] = origProps[key] or 0
+    
+    -- Simple stat modifications based on ammo type
+    -- Using addition/subtraction to avoid rounding errors from multiplication
+    local ammoMods = {
+        -- Rifle calibers
+        ["Base.223Bullets"] = { -- baseline
+            damageAdjustment = 0.0,
+            rangeAdjustment = 0.0,
+            recoilAdjustment = 0,
+            hitChanceAdjustment = 0,
+            minAngleAdjustment = 0.0 -- baseline
+        },
+        ["Base.556Bullets"] = { -- slightly better
+            damageAdjustment = 0.1,
+            rangeAdjustment = 2.0,
+            recoilAdjustment = -4, -- negative = faster reload
+            hitChanceAdjustment = 5,
+            minAngleAdjustment = -0.005 -- tighter spread
+        },
+        
+        -- Shotgun shells
+        ["Base.ShotgunShells"] = { -- baseline buckshot
+            damageAdjustment = 0.0,
+            rangeAdjustment = 0.0,
+            recoilAdjustment = 0,
+            hitChanceAdjustment = 0,
+            projectileCount = 5,
+            minAngleAdjustment = 0.0 -- baseline
+        },
+        ["Base.ShotgunShellsBirdshot"] = { -- less damage, more spread
+            damageAdjustment = -0.3,
+            rangeAdjustment = -3.0,
+            recoilAdjustment = 10, -- positive = slower reload
+            hitChanceAdjustment = 10,
+            projectileCount = 8,
+            minAngleAdjustment = -0.02 -- wider spread for birdshot
+        },
+        ["Base.ShotgunShellsSlug"] = { -- single high-damage projectile
+            damageAdjustment = 0.3,
+            rangeAdjustment = 5.0,
+            recoilAdjustment = -5,
+            hitChanceAdjustment = 30,
+            projectileCount = 1,
+            minAngleAdjustment = 0.04 -- tighter for single projectile
+        },
+        
+        -- Crossbow bolts
+        ["Base.CrossbowBolt"] = { -- baseline
+            damageAdjustment = 0.0,
+            rangeAdjustment = 0.0,
+            recoilAdjustment = 0,
+            hitChanceAdjustment = 0,
+            minAngleAdjustment = 0.0 -- baseline
+        },
+        ["Base.WoodCrossbowBolt"] = { -- cheaper but less effective
+            damageAdjustment = -0.2,
+            rangeAdjustment = -1.0,
+            recoilAdjustment = 3,
+            hitChanceAdjustment = -5,
+            minAngleAdjustment = -0.005 -- slightly less accurate
+        }
+    }
+    
+    local mods = ammoMods[newAmmoType]
+    if not mods then return end -- Unknown ammo type
+    
+    -- Apply modifications using addition/subtraction from original stats
+    weapon:setMaxDamage(originalStats.maxDamage + mods.damageAdjustment)
+    weapon:setMinDamage(originalStats.minDamage + mods.damageAdjustment)
+    weapon:setMaxRange(originalStats.maxRange + mods.rangeAdjustment)
+    weapon:setRecoilDelay(originalStats.recoilDelay + mods.recoilAdjustment)
+    weapon:setHitChance(math.min(100, math.max(0, originalStats.hitChance + mods.hitChanceAdjustment)))
+    
+    -- Apply minAngle modification
+    if mods.minAngleAdjustment then
+        weapon:setMinAngle(originalStats.minAngle + mods.minAngleAdjustment)
     end
-
-    -- Utility: float scaling with clamping (damage, range)
-    local function scaleFloat(base, delta, ratio, exp, clampMin, clampMax)
-        local scaled = base * (1 + delta) * (ratio ^ (exp or 1))
-        return math.min(math.max(scaled, clampMin or 0), clampMax or scaled)
+    
+    -- Set projectile count if specified (this one is absolute, not additive)
+    if mods.projectileCount then
+        weapon:setProjectileCount(mods.projectileCount)
     end
-
-    -- Utility: int scaling with clamping (hit chance, stopping power)
-    local function scaleClampedInt(base, delta, ratio, exp, clampMin, clampMax)
-        local val = math.floor(base * (1 + delta) * (ratio ^ (exp or 1)))
-        return math.min(math.max(val, clampMin or 0), clampMax or val)
-    end
-
-    weapon:setMaxDamage(scaleFloat(originalStats.maxDamage, newProps.maxDamage - origProps.maxDamage, indexRatio, 1.2, 0, 4))
-    weapon:setMinDamage(scaleFloat(originalStats.minDamage, newProps.minDamage - origProps.minDamage, indexRatio, 1.2, 0, 4))
-    weapon:setRecoilDelay(math.max(7, math.floor(originalStats.recoilDelay * (1 + newProps.recoil - origProps.recoil) * (1 / indexRatio) ^ 1.1)))
-    weapon:setMaxRange(scaleFloat(originalStats.maxRange, newProps.maxRange - origProps.maxRange, indexRatio, 0.9))
-    weapon:setStopPower(scaleClampedInt(originalStats.stoppingPower, newProps.stoppingPower - origProps.stoppingPower, indexRatio, 1.1, 0, 100))
-    weapon:setCriticalChance(scaleClampedInt(originalStats.criticalChance, newProps.criticalChance - origProps.criticalChance, indexRatio, 0.8, 0, 100))
-    weapon:setHitChance(scaleClampedInt(originalStats.hitChance, newProps.hitChance - origProps.hitChance, indexRatio, 0.9, 0, 100))
-    weapon:setMaxHitCount(math.max(1, math.floor(originalStats.maxHitCount * (1 + newProps.maxHitCount - origProps.maxHitCount) * (indexRatio))))
-
-    if newProps.projectileCount and newProps.projectileCount > 0 then
-        weapon:setProjectileCount(math.max(1, math.floor(newProps.projectileCount)))
-    else
-        weapon:setProjectileCount(originalStats.projectileCount)
-    end
-
-    local angle = originalStats.minAngle * (1 + newProps.minAngle - origProps.minAngle) * (indexRatio ^ 0.8)
-    weapon:setMinAngle(math.max(0.8, math.min(1.0, angle)))
-
-    weapon:setPiercingBullets(newProps.penetration == 1)
-
+    
+    -- Update current ammo type in modData
     md.currentAmmoType = newAmmoType
 end
 

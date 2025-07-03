@@ -74,7 +74,7 @@ end
 
 function OnAdminLoadAllMagazines(playerObj, magazine)
     if not (isAdmin() or isCoopHost()) then
-        playerObj:Say("Admin privileges required")
+        -- playerObj:Say("Admin privileges required")
         return
     end
     
@@ -116,11 +116,11 @@ function FindAllSimilarMagazines(playerObj, magazineType)
             end
             
             if instanceof(item, "InventoryContainer") then
-                print("Container: " .. tostring(item:getName()) .. " at depth " .. currentDepth)
+               -- print("Container: " .. tostring(item:getName()) .. " at depth " .. currentDepth)
                 if currentDepth < MAX_DEPTH then
                     scanContainer(item:getInventory(), currentDepth + 1)
                 else
-                    print("Skipping deeper container: " .. tostring(item:getName()))
+                    --print("Skipping deeper container: " .. tostring(item:getName()))
                 end
             end
         end

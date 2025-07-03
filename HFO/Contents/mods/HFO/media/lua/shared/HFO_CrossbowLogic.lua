@@ -129,7 +129,6 @@ function HFO.XBow.OnZombieDead(zombie)
                 local sv = HFO.SandboxUtils.get()
 
                 if ZombRand(100) < clamp(sv.XbowLostChance, 0, 100) then -- a chance for complete loss of bolt  
-                    -- lost bolt
                 elseif not isBroken then -- if not broken does it return full bolt or craftin materials
                     zombie:getInventory():AddItem(ammo)
                 elseif sv.XbowComponentInstead and boltData.component then

@@ -315,13 +315,14 @@ function HFO.WeaponUtils.MeleeModeHotkey()
 	local result = InventoryItemFactory.CreateItem(meleeSwap)
 	if not result then return end
 
-	local isMelee = not result:isRanged()  --  Check the result you're swapping TO
+	local isMelee = not result:isRanged()
 
 	HFO.Utils.applySuffixToWeaponName(result)
 	HFO.Utils.setWeaponParts(weapon, result)
 	HFO.Utils.applyWeaponStats(weapon, result, isMelee)
-    local wasChambered = HFO.Utils.handleWeaponChamber(weapon, result, false)
+    local wasChambered = HFO.Utils.handleWeaponChamber(weapon, result, isMelee)
     HFO.Utils.handleWeaponJam(weapon, result, true)
+    
 	HFO.Utils.finalizeWeaponSwap(player, weapon, result)
 
 	if isMelee then
@@ -433,46 +434,56 @@ end)
 
 HFO.WeaponUtils.gunPlatingContextMenu = {}
 
+-- Use the same predicate function as in your timed actions
+local function predicateNotBroken(item)
+    -- Safer version with nil check
+    if not item then return false end
+    return not item:isBroken()
+end
+
 -- Add context menu options for gun plating
 HFO.WeaponUtils.gunPlatingContextMenu.doWeaponMenu = function(player, context, weapon)
     local playerObj = getSpecificPlayer(player)
     local inventory = playerObj:getInventory()
+    local md = weapon:getModData()
     
     -- Check if the weapon supports gun plating
-    if not weapon:getModData().GunPlatingOptions then return end
+    if not md.GunPlatingOptions then return end
     
     -- Get the current attached gun plating (if any)
-    local currentGunPlating = weapon:getModData().GunPlating
+    local currentGunPlating = md.GunPlating
+    
+    -- Check for screwdriver - using the SAME method as the timed action
+    local hasScrewdriver = inventory:containsTagEval("Screwdriver", predicateNotBroken)
     
     -- If we have a plating attached, offer to remove it
     if currentGunPlating then
         local removeOption = context:addOption(getText("ContextMenu_Remove_Weapon_GunPlating"), weapon, HFO.WeaponUtils.gunPlatingContextMenu.onRemoveGunPlating, playerObj)
         
         -- Check if we have a screwdriver
-        if not inventory:containsTagEval("Screwdriver", function(item) return not item:isBroken() end) then
+        if not hasScrewdriver then
             removeOption.notAvailable = true
             removeOption.toolTip = ISToolTip:new()
             removeOption.toolTip:setVisible(true)
             removeOption.toolTip:setName(getText("ContextMenu_Remove_Weapon_GunPlating"))
             removeOption.toolTip:setTexture("Item_Screwdriver")
-            removeOption.toolTip:setDescription(getText("Tooltip_NeedScrewdriver"))
         end
     else
         -- If no gun plating is attached, offer to attach available plating options
         local validGunPlatingTypes = {}
-        for gunPlatingType in string.gmatch(weapon:getModData().GunPlatingOptions, "([^;]+)") do
+        for gunPlatingType in string.gmatch(md.GunPlatingOptions, "([^;]+)") do
             validGunPlatingTypes[gunPlatingType:trim()] = true
         end
         
         -- Find all gun plating items in the inventory
-		local gunPlatingItems = ArrayList.new()
-		local items = inventory:getItems()
-		for i = 0, items:size() - 1 do
-			local item = items:get(i)
-			if item:hasTag("GunPlating") then
-				gunPlatingItems:add(item)
-			end
-		end
+        local gunPlatingItems = ArrayList.new()
+        local items = inventory:getItems()
+        for i = 0, items:size() - 1 do
+            local item = items:get(i)
+            if item:hasTag("GunPlating") then
+                gunPlatingItems:add(item)
+            end
+        end
 
         if gunPlatingItems and gunPlatingItems:size() > 0 then
             -- Check if we have at least one valid plating item before creating the menu
@@ -489,23 +500,20 @@ HFO.WeaponUtils.gunPlatingContextMenu.doWeaponMenu = function(player, context, w
             end
 
             if #validGunPlatingItems > 0 then
-                -- Define a callback to avoid nil function errors
-                local dummyCallback = function() end
-
-                local gunPlatingMenu = context:addOption(getText("ContextMenu_Apply_Weapon_GunPlating"), weapon, dummyCallback)
+                -- Create submenu
+                local gunPlatingMenu = context:addOption(getText("ContextMenu_Apply_Weapon_GunPlating"), nil, nil)
                 local gunPlatingSubMenu = ISContextMenu:getNew(context)
                 context:addSubMenu(gunPlatingMenu, gunPlatingSubMenu)
 
                 for _, gunPlatingItem in ipairs(validGunPlatingItems) do
                     local option = gunPlatingSubMenu:addOption(gunPlatingItem:getDisplayName(), weapon, HFO.WeaponUtils.gunPlatingContextMenu.onAttachGunPlating, playerObj, gunPlatingItem)
 
-                    if not inventory:containsTagEval("Screwdriver", function(item) return not item:isBroken() end) then
+                    if not hasScrewdriver then
                         option.notAvailable = true
                         option.toolTip = ISToolTip:new()
                         option.toolTip:setVisible(true)
                         option.toolTip:setName(gunPlatingItem:getDisplayName())
                         option.toolTip:setTexture("Item_Screwdriver")
-                        option.toolTip:setDescription(getText("Tooltip_NeedScrewdriver"))
                     end
                 end
             end
@@ -528,17 +536,20 @@ end
 -- Hook into the ISInventoryPaneContextMenu
 Events.OnFillInventoryObjectContextMenu.Add(function(playerID, context, items)
     -- Check if we're dealing with a single item
-	if items and #items == 1 then
-		local item = nil
-	
-		if type(items[1]) == "table" and items[1].items then
-			item = items[1].items[1]
-		else
-			item = items[1]
-		end
-	
-		if item and item:IsWeapon() and item:getModData().GunPlatingOptions then
-			HFO.WeaponUtils.gunPlatingContextMenu.doWeaponMenu(playerID, context, item)
-		end
-	end
+    if items and #items == 1 then
+        local item = nil
+    
+        if type(items[1]) == "table" and items[1].items then
+            item = items[1].items[1]
+        else
+            item = items[1]
+        end
+    
+        if item and item:IsWeapon() then
+            local md = item:getModData()
+            if md and md.GunPlatingOptions then
+                HFO.WeaponUtils.gunPlatingContextMenu.doWeaponMenu(playerID, context, item)
+            end
+        end
+    end
 end)

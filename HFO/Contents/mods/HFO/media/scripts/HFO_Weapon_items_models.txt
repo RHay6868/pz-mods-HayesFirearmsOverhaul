@@ -3,7 +3,7 @@ module Base
 	model Rounds9mm
     {
 		mesh = weapons/ammo/Rounds9mm,
-		texture = weapons/ammo/Rounds9mm
+		texture = weapons/ammo/Rounds9mm,
 	}
 	model Rounds45
     {
@@ -186,10 +186,10 @@ module Base
         texture = weapons/parts/Rifle_2XScope,
     }
 	model x4Scope
-    {
-        mesh = weapons/parts/Rifle_4XScope,
-        texture = weapons/parts/Rifle_4XScope,
-    }
+	{
+		mesh = weapons/parts/Rifle_4XScope,
+		texture = weapons/parts/Rifle_4XScope,
+	}
 	model x8Scope
     {
         mesh = weapons/parts/Rifle_8XScope,
@@ -231,56 +231,6 @@ module Base
         mesh = weapons/parts/Rifle_RecoilPad,
         texture = weapons/parts/Rifle_RecoilPad,
     }
-	model ProOpticScope
-    {
-        mesh = weapons/parts/ProOpticScope,
-        texture = weapons/parts/ProOpticScope,
-    }
-	model HoloSight
-    {
-        mesh = weapons/parts/HoloSight,
-        texture = weapons/parts/HoloSight,
-    }
-	model ReflexSight
-    {
-        mesh = weapons/parts/ReflexSight,
-        texture = weapons/parts/ReflexSight,
-    }
-	model WeaponLight
-    {
-        mesh = weapons/parts/WeaponLight,
-        texture = weapons/parts/WeaponLight,
-    }
-	model WeaponLightMedium
-	{
-		mesh = weapons/parts/WeaponLightMedium,
-		texture = weapons/parts/WeaponLightMedium,
-	}
-	model TacLaserGreen
-    {
-        mesh = weapons/parts/LaserLight,
-        texture = weapons/parts/LaserGreen,
-    }
-	model VertGrip
-    {
-        mesh = weapons/parts/VertGrip,
-        texture = weapons/Parts/VertGrip,
-    }
-	model SuppressorRifle
-	{
-		mesh = weapons/parts/Suppressor,
-		texture = weapons/Parts/Suppressor,
-	}
-	model Compensator
-    {
-        mesh = weapons/parts/Compensator,
-        texture = weapons/Parts/Compensator,
-    }
-	model CarryHandle
-	{
-		mesh = weapons/parts/CarryHandle,
-		texture = weapons/Parts/CarryHandle,
-	}
 	model RifleCase
 	{
         mesh = WorldItems/RifleCase,

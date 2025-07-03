@@ -343,7 +343,7 @@ module Base
         IsHidden            : True,
     }
 
-	recipe Unpack Bundle of Crossbow Bolts
+    recipe Unpack Bundle of Crossbow Bolts
 	{
 		CrossbowBoltBox,
 
@@ -354,7 +354,7 @@ module Base
         IsHidden            : True,
 	}
 
-	recipe Pack Bundle of Crossbow Bolts
+    recipe Pack Bundle of Crossbow Bolts
 	{
 		CrossbowBolt=30,
         
@@ -376,9 +376,9 @@ module Base
         IsHidden            : True,
 	}
 
-	recipe Pack Bundle of Wood Crossbow Bolts
+    recipe Pack Bundle of Wood Crossbow Bolts
 	{
-		CrossbowBolt=30,
+		WoodCrossbowBolt=30,
         
 		Result              : WoodCrossbowBoltBox,
         Time                : 5,
@@ -390,6 +390,7 @@ module Base
     recipe Open Box of .58 Cal Minie Balls
     {
         MinieBallBox,
+
         Result              : MinieBall=30,
         Sound               : PutItemInBag,
         Time                : 25.0,
@@ -401,28 +402,7 @@ module Base
     recipe Place .58 Cal Minie Balls in Box
     {
         MinieBall=30,
-        Result              : MinieBallBox,
-        Sound               : PutItemInBag,
-        Time                : 25.0,
-        StopOnWalk          : False,
-        CanBeDoneFromFloor  : False,
-        IsHidden            : True,
-    }
 
-    recipe Open Box of .58 Cal Minie Balls
-    {
-        MinieBallBox,
-        Result              : MinieBall=30,
-        Sound               : PutItemInBag,
-        Time                : 25.0,
-        StopOnWalk          : False,
-        CanBeDoneFromFloor  : False,
-        IsHidden            : True,
-    }
-
-    recipe Place .58 Cal Minie Balls in Box
-    {
-        MinieBall=30,
         Result              : MinieBallBox,
         Sound               : PutItemInBag,
         Time                : 25.0,
@@ -434,6 +414,7 @@ module Base
     recipe Open Box of Blunderbuss Pellets
     {
         BlunderbussBulletsBox,
+
         Result              : BlunderbussBullets=6,
         Sound               : PutItemInBag,
         Time                : 25.0,
@@ -445,6 +426,7 @@ module Base
     recipe Place Blunderbuss Pellets in Box
     {
         BlunderbussBullets=30,
+
         Result              : BlunderbussBulletsBox,
         Sound               : PutItemInBag,
         Time                : 25.0,
@@ -456,6 +438,7 @@ module Base
     recipe Open Box of Blowgun Darts
     {
         BlowgunDartBox,
+
         Result              : BlowgunDart=30,
         Sound               : PutItemInBag,
         Time                : 25.0,
@@ -467,6 +450,7 @@ module Base
     recipe Place Blowgun Darts in Box
     {
         BlowgunDart=30,
+
         Result              : BlowgunDartBox,
         Sound               : PutItemInBag,
         Time                : 25.0,
@@ -550,6 +534,32 @@ module Base
         OnCreate            : GeneralSawnWeapon_OnCreate,
 	}
 
+    recipe Saw Mossberg 500
+	{
+        Mossberg500,
+	    keep [Recipe.GetItemTypes.Saw],
+
+        Result              : Mossberg500Super,
+        Sound               : Sawing,
+        Time                : 200.0,
+        StopOnWalk          : True,
+        CanBeDoneFromFloor  : False,
+        OnCreate            : GeneralSawnWeapon_OnCreate,
+	}
+
+    recipe Saw Chiappa 1887
+	{
+        Chiappa1887,
+	    keep [Recipe.GetItemTypes.Saw],
+
+        Result              : Chiappa1887Sawnoff,
+        Sound               : Sawing,
+        Time                : 200.0,
+        StopOnWalk          : True,
+        CanBeDoneFromFloor  : False,
+        OnCreate            : GeneralSawnWeapon_OnCreate,
+	}
+
     recipe Turn Laser Red
     {
         LaserNoLight/LaserGreen,
@@ -584,19 +594,6 @@ module Base
     }
 
 	/****************************** AMMO CREATION RECIPES ******************************/
-    recipe Make 7.92 Ammo
-    {
-        GunPowder=200,
-        SmallSheetMetal=4,
-		ScrapMetal=6,
-
-        Result              : 792Bullets=4,
-	    Sound               : Hammering,
-        Time                : 50.0,
-        Category            : HFA,
-		CanBeDoneFromFloor  : true,
-		NeedToBeLearn       : true,
-    }
 
     recipe Craft Crossbow Bolts 
     {
@@ -611,7 +608,8 @@ module Base
         AnimNode             : Disassemble,
         Prop1                : Hammer,
         CanBeDoneFromFloor   : false,
-        NeedToBeLearn        : true,
+        IsHidden             : True,
+        NeedToBeLearn        : false,
     }
 
     recipe Craft Wood Crossbow Bolts 
@@ -627,6 +625,7 @@ module Base
         AnimNode             : Disassemble,
         Prop1                : Hammer,
         CanBeDoneFromFloor   : false,
+        IsHidden             : True,
     }
 
     recipe Craft Blunderbuss Ammo with Minie Balls
@@ -694,120 +693,12 @@ module Base
         AnimNode             : Disassemble,
         Prop1                : Hammer,
         CanBeDoneFromFloor   : false,
-        NeedToBeLearn        : true,
+        IsHidden             : True,
+        NeedToBeLearn        : false,
     }
 
 
 /****************************** WEAPON ATTACHMENTS RECIPES ******************************/
-
-    recipe Create Iron Sights for FG 42 Paratrooper Rifle
-    {
-        IronSight,
-        SmallSheetMetal=2,
-        ScrapMetal=2,
-        BlowTorch=4,
-        keep [Recipe.GetItemTypes.Hammer],
-       	keep [Recipe.GetItemTypes.WeldingMask],
-
-        Result              : IronSightsFG42,
-		Time                : 140.0,
-	    Sound               : Hammering,
-       	SkillRequired       : MetalWelding=4,
-	   	Category            : HFA,
-		CanBeDoneFromFloor  : true,
-		NeedToBeLearn       : true,
-    }    
-
-    recipe Create Scope for FG 42 Paratrooper Rifle
-    {
-        x2Scope/x4Scope/x8Scope=2,
-        SmallSheetMetal=6,
-        ScrapMetal=6,
-        BlowTorch=8,
-        keep [Recipe.GetItemTypes.Hammer],
-       	keep [Recipe.GetItemTypes.WeldingMask],
-
-        Result              : ScopeFG42,
-		Time                : 140.0,
-	    Sound               : Hammering,
-       	SkillRequired       : MetalWelding=4,
-	   	Category            : HFA,
-		CanBeDoneFromFloor  : true,
-		NeedToBeLearn       : true,
-    }    
-
-    recipe Create Magazine Clip for FG 42 Paratrooper Rifle
-    {
-        762Clip/308Clip,
-        SmallSheetMetal=4,
-        ScrapMetal=4,
-        BlowTorch=6,
-        keep [Recipe.GetItemTypes.Hammer],
-       	keep [Recipe.GetItemTypes.WeldingMask],
-
-        Result              : 792Clip,
-		Time                : 140.0,
-	    Sound               : Hammering,
-       	SkillRequired       : MetalWelding=4,
-	   	Category            : HFA,
-		CanBeDoneFromFloor  : true,
-		NeedToBeLearn       : true,
-    }   
-
-    recipe Create Drum Magazine for MG42
-    {
-        762Clip/308Clip,
-        SmallSheetMetal=4,
-        ScrapMetal=4,
-        BlowTorch=6,
-        keep [Recipe.GetItemTypes.Hammer],
-       	keep [Recipe.GetItemTypes.WeldingMask],
-
-        Result              : 792Drum,
-		Time                : 140.0,
-	    Sound               : Hammering,
-       	SkillRequired       : MetalWelding=4,
-	   	Category            : HFA,
-		CanBeDoneFromFloor  : true,
-		NeedToBeLearn       : true,
-    } 
-
-	/****************************** CREATION RECIPES ******************************/
-    recipe Create FG 42 Paratrooper Rifle
-    {
-        AssaultRifle2/AssaultRifle/HuntingRifle=2,
-        SmallSheetMetal=8,
-        ScrapMetal=20,
-       	BlowTorch=5,
-       	keep [Recipe.GetItemTypes.Hammer],
-       	keep [Recipe.GetItemTypes.WeldingMask],
-
-        Result              : FG42,
-		Time                : 200.0,
-        Sound               : BlowTorch,
-       	SkillRequired       : MetalWelding=4,
-	   	Category            : HFA,
-		CanBeDoneFromFloor  : false,
-		NeedToBeLearn       : True,
-    }
-
-    recipe Create MG42
-    {
-        AssaultRifle2/AssaultRifle/HuntingRifle=2,
-        SmallSheetMetal=8,
-        ScrapMetal=20,
-       	BlowTorch=5,
-       	keep [Recipe.GetItemTypes.Hammer],
-       	keep [Recipe.GetItemTypes.WeldingMask],
-
-        Result              : MG42,
-		Time                : 200.0,
-        Sound               : BlowTorch,
-       	SkillRequired       : MetalWelding=4,
-	   	Category            : HFA,
-		CanBeDoneFromFloor  : false,
-		NeedToBeLearn       : True,
-    }
 
 	/************************ TEMPORARY CONVERSION RECIPES ************************/
 
@@ -978,7 +869,7 @@ module Base
     {
         ShenronPlating,
 
-        Result              : GunPlatingShenron,
+        Result              : GunPlatingDragonBall,
 		Time                : 5.0,
 	   	Category            : HFA,
         IsHidden            : True,
@@ -1032,7 +923,7 @@ module Base
     {
         SalvagedBlackPlating,
 
-        Result              : GunPlatingSalvagedBlack,
+        Result              : GunPlatingMatteBlack,
 		Time                : 5.0,
 	   	Category            : HFA,
       	CanBeDoneFromFloor  : False,
@@ -1064,7 +955,7 @@ module Base
     {
         PlankPlating,
 
-        Result              : GunPlatingPlank,
+        Result              : GunPlatingWood,
 		Time                : 5.0,
 	   	Category            : HFA,
       	CanBeDoneFromFloor  : False,
@@ -1075,7 +966,7 @@ module Base
     {
         BlackIcePlating,
 
-        Result              : GunPlatingBlackIce,
+        Result              : GunPlatingMatteBlack,
 		Time                : 5.0,
 	   	Category            : HFA,
         IsHidden            : True,
@@ -1118,7 +1009,7 @@ module Base
     {
         TBDPlating,
 
-        Result              : GunPlatingTBD,
+        Result              : GunPlatingPurple,
 		Time                : 5.0,
 	   	Category            : HFA,
       	CanBeDoneFromFloor  : False,
@@ -1140,7 +1031,7 @@ module Base
     {
         RainbowAnodizedPlating,
 
-        Result              : GunPlatingRainbowAnodized,
+        Result              : GunPlatingRainbow,
 		Time                : 5.0,
 	   	Category            : HFA,
       	CanBeDoneFromFloor  : False,
@@ -1162,7 +1053,7 @@ module Base
     {
         WoodStyledPlating,
 
-        Result              : GunPlatingWoodStyle,
+        Result              : GunPlatingWood,
 		Time                : 5.0,
 	   	Category            : HFA,
       	CanBeDoneFromFloor  : False,
@@ -1184,7 +1075,7 @@ module Base
     {
         DesertEagleGoldPlating,
 
-        Result              : GunPlatingGoldDE,
+        Result              : GunPlatingGold,
 		Time                : 5.0,
 	   	Category            : HFA,
       	CanBeDoneFromFloor  : False,
@@ -1195,7 +1086,7 @@ module Base
     {
         GoldShotgunPlating,
 
-        Result              : GunPlatingGoldShotgun,
+        Result              : GunPlatingGold,
 		Time                : 5.0,
 	   	Category            : HFA,
       	CanBeDoneFromFloor  : False,
@@ -1224,5 +1115,3 @@ module Base
         IsHidden            : True,
     }
  }
-
-

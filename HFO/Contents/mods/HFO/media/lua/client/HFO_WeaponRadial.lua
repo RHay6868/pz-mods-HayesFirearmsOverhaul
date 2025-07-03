@@ -193,6 +193,56 @@ function ISFirearmRadialMenu:fillMenu(submenu)
         end
     end
 
+    -- Ammo Caliber Type Swap
+    local availableAmmoTypes = HFO.ReloadUtils.getAvailableAmmoTypes(getSpecificPlayer(self.playerNum), weapon)
+    
+    if not HFO.Utils.isInMeleeMode(weapon) and #availableAmmoTypes > 1 then
+        local currentAmmoType = weapon:getAmmoType()
+        local ammoCycle = HFO.Utils.getNextPrevFromList(availableAmmoTypes, currentAmmoType)
+        
+        local forwardAmmo = ammoCycle.next
+        local reverseAmmo = ammoCycle.prev
+        
+        local maps = HFO.Utils.getAmmoInfoMaps(weapon)
+        
+        -- Use shared utility to resolve icon/name with fallback (same pattern as mags)
+        local function getAmmoDetails(ammoType)
+            local name = maps.nameMap[ammoType]
+            local iconName = maps.iconMap[ammoType]
+            
+            if not name or not iconName then
+                local item = getScriptManager():FindItem(ammoType)
+                name = name or (item and item:getDisplayName()) or tostring(ammoType)
+                iconName = iconName or (item and item:getIcon())
+            end
+            
+            local icon = HFO.Utils.getItemTexture(iconName or "Bullets")
+            return name, icon
+        end
+        
+        local fwdName, fwdIcon = getAmmoDetails(forwardAmmo)
+        local revName, revIcon = getAmmoDetails(reverseAmmo)
+        
+        -- Always show forward
+        HFO.addRadialMenuItem(self.main,
+            getText("IGUI_HFO_SwapAmmo") .. "\n→ " .. fwdName,
+            fwdIcon,
+            HFO.ReloadUtils.SwapAmmoHotkey
+        )
+        
+        -- Only show reverse if 3+ ammo types
+        if #availableAmmoTypes > 2 then
+            HFO.addRadialMenuItem(self.main,
+                getText("IGUI_HFO_SwapAmmo") .. "\n← " .. revName,
+                revIcon,
+                function()
+                    HFO.ReloadUtils.SwapAmmoHotkey(getCore():getKey("AmmoChangeReverse"), true)
+                end,
+                getCore():getKey("AmmoChangeReverse")
+            )
+        end
+    end
+
     -- Render menu
     if not submenu then
         for i, v in ipairs(self.main) do -- Add custom slices first

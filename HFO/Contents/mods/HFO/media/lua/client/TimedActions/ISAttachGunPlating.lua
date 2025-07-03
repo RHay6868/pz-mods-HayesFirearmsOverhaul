@@ -48,12 +48,12 @@ function ISAttachGunPlating:perform()
     -- Store the plating type in the weapon's mod data
     if not self.weapon:getModData().GunPlating then
         -- Print debug info to see what's being stored
-        print("HFO: Attaching gun plating to " .. self.weapon:getFullType())
-        print("HFO: Gun Plating item type: " .. self.gunPlatingItem:getType())
-        print("HFO: Gun Plating item full type: " .. self.gunPlatingItem:getFullType())
+       -- print("HFO: Attaching gun plating to " .. self.weapon:getFullType())
+        --print("HFO: Gun Plating item type: " .. self.gunPlatingItem:getType())
+        --print("HFO: Gun Plating item full type: " .. self.gunPlatingItem:getFullType())
         
         self.weapon:getModData().GunPlating = self.gunPlatingItem:getType()
-        print("HFO: Stored plating as: " .. self.weapon:getModData().GunPlating)
+        --print("HFO: Stored plating as: " .. self.weapon:getModData().GunPlating)
         
         -- Remove the plating item from inventory
         self.character:getInventory():Remove(self.gunPlatingItem);

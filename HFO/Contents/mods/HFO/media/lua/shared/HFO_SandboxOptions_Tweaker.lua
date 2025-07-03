@@ -91,7 +91,7 @@ local function initializeMeleeStats()
         ["Base.FG42_Bipod_Melee"] = true,
         ["Base.MG42_Bipod_Melee"] = true,
         ["Base.BarrettM82A1_Bipod_Melee"] = true,
-        ["Base.McMillanTAC50_Bipod_Melee"] = true,
+        ["Base.PGMHecate_Bipod_Melee"] = true,
         ["Base.Galil_Bipod_Melee"] = true,
     }
 

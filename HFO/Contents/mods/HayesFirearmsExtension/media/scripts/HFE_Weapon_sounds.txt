@@ -114,7 +114,6 @@ module Base
 		}
 	}
 
-
 	sound SuppressorValVSS
 	{
 		category 				= Item,
@@ -357,6 +356,151 @@ module Base
 		clip
 		{
 			file 				= media/sound/CCInsert.ogg,
+			distanceMin 		= 0,
+			distanceMax 		= 3,
+			volume 				= 0.5,
+		}
+	}
+
+	sound FlintlockPistolShot
+	{
+		category 				= Item,
+		loop					= false,
+		is3D 					= true,
+		maxInstancesPerEmitter 	= 2,
+		clip
+		{
+			file 				= media/sound/FlintlockPistolShot.ogg,
+			distanceMin 		= 0,
+			distanceMax 		= 85,
+			reverbMaxRange 		= 85,
+			reverbFactor 		= 0.2,
+			volume 				= 1,
+		}
+	}
+
+	sound FlintlockPistolInsert
+	{
+		category 				= Item,
+		clip
+		{
+			file 				= media/sound/FlintlockPistolInsert.ogg,
+			distanceMin 		= 0,
+			distanceMax 		= 3,
+			volume 				= 0.5,
+		}
+	}
+
+	sound Springfield1861Shot
+	{
+		category 				= Item,
+		loop					= false,
+		is3D 					= true,
+		maxInstancesPerEmitter 	= 2,
+		clip
+		{
+			file 				= media/sound/Springfield1861Shot.ogg,
+			distanceMin 		= 0,
+			distanceMax 		= 110,
+			reverbMaxRange 		= 110,
+			reverbFactor 		= 0.2,
+			volume 				= 1,
+		}
+	}
+
+	sound Springfield1861Insert
+	{
+		category 				= Item,
+		clip
+		{
+			file 				= media/sound/Springfield1861Insert.ogg,
+			distanceMin 		= 0,
+			distanceMax 		= 3,
+			volume 				= 0.5,
+		}
+	}
+
+	sound BlunderbussShot
+	{
+		category 				= Item,
+		loop					= false,
+		is3D 					= true,
+		maxInstancesPerEmitter 	= 2,
+		clip
+		{
+			file 				= media/sound/BlunderbussShot.ogg,
+			distanceMin 		= 0,
+			distanceMax 		= 110,
+			reverbMaxRange 		= 110,
+			reverbFactor 		= 0.2,
+			volume 				= 1,
+		}
+	}
+
+	sound BlunderbussInsert
+	{
+		category 				= Item,
+		clip
+		{
+			file 				= media/sound/BlunderbussInsert.ogg,
+			distanceMin 		= 0,
+			distanceMax 		= 3,
+			volume 				= 0.5,
+		}
+	}
+
+	sound PneumaticDart
+	{
+		category 				= Item,
+		loop					= false,
+		is3D 					= true,
+		maxInstancesPerEmitter 	= 2,
+		clip
+		{
+			file 				= media/sound/PneumaticDart.ogg,
+			distanceMin 		= 0,
+			distanceMax 		= 15,
+			reverbMaxRange 		= 15,
+			reverbFactor 		= 0.2,
+			volume 				= 1,
+		}
+	}
+
+	sound BlowgunInsert
+	{
+		category 				= Item,
+		clip
+		{
+			file 				= media/sound/BlowgunInsert.ogg,
+			distanceMin 		= 0,
+			distanceMax 		= 3,
+			volume 				= 0.5,
+		}
+	}
+
+	sound TShirtLaunch
+	{
+		category 				= Item,
+		loop					= false,
+		is3D 					= true,
+		maxInstancesPerEmitter 	= 2,
+		clip
+		{
+			file 				= media/sound/TShirtLaunch.ogg,
+			distanceMin 		= 0,
+			distanceMax 		= 50,
+			reverbMaxRange 		= 50,
+			reverbFactor 		= 0.2,
+			volume 				= 1,
+		}
+	}
+
+	sound TShirtLauncherInsert
+	{
+		category 				= Item,
+		clip
+		{
+			file 				= media/sound/TShirtLauncherInsert.ogg,
 			distanceMin 		= 0,
 			distanceMax 		= 3,
 			volume 				= 0.5,

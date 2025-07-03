@@ -51,7 +51,8 @@ local sv = HFO.SandboxUtils.get()
 HFO.Constants.TrackedModData = {
     "MeleeSwap", "FoldSwap",  "IntegratedSwap",  "currentName",  
     "MagBase",  "MagNone", "MagExtSm",  "MagExtLg",  "MagDrum", "currentMagType",
-    "AdditionalAmmoTypes",  "currentAmmoType", "OriginalAmmoType",
+    "availableAmmoTypes",  "currentAmmoType", "nextAmmoType", "HFO_WasChambered",
+    "AmmoTypeBase", "AmmoTypeAdditional",
 }
 
 -- Default fallback logic for missing modData fields (used during first-time captures)
@@ -277,11 +278,11 @@ HFO.Constants.Items = {
         },
         Snipers = {
             Base = {},
-            HFE = { "MosinNagant", "BarrettM82A1", "McMillanTAC50", "SVDDragunov", "Galil", "VSSVintorez" },
+            HFE = { "MosinNagant", "BarrettM82A1", "PGMHecate", "SVDDragunov", "Galil", "VSSVintorez" },
         },
         Shotguns = {
             Base = {"Shotgun", "DoubleBarrelShotgun" },
-            HFE = { "Remington1100", "Mossberg500", "Chiappa1887", "TrenchGun", "BeckerRevolver" },
+            HFE = { "Remington1100", "Mossberg500", "Mossberg500Super", "Chiappa1887", "TrenchGun", "BeckerRevolver" },
         },
         Other = {
             Base = {},
@@ -338,7 +339,7 @@ HFO.Constants.Items = {
         },
         Rifles = {
             Base = { "223Clip", "308Clip", "M14Clip", "556Clip" },
-            HFE = { "22Clip10","3006BlocClip", "3006Clip", "545Clip", "P90Clip", "762Clip", "762x51Clip", "762x54rClip",
+            HFE = { "22Clip10","3006BlocClip", "3006Clip", "308Clip5", "545Clip", "P90Clip", "762Clip", "762x51Clip", "762x54rClip",
                  "762x54rStripperClip", "792x33Clip", "50BMGClip", "9x39Clip" , "45Clip20", "9x39Clip20", "762x51Clip20", "762x51Clip30" },
             FGMG = { "792Clip", "792Drum" },
         },
@@ -356,7 +357,7 @@ HFO.Constants.Items = {
         },
         Scopes = {
             Base = { "IronSight", "x2Scope", "x4Scope", "x8Scope", "RedDot" },
-            HFE = { "PEMScope", "PSO1Scope", "UniversalOpticalSight", "HoloSight", "ReflexSight", "ProOpticScope", "CarryHandle" },
+            HFE = { "ACOG", "PEMScope", "PSO1Scope", "UniversalOpticalSight", "HoloSight", "ReflexSight", "ProOpticScope", "PistolScope", "CarryHandle" },
             FGMG = {"IronSightsFG42", "ScopeFG42"},    
         },
         Other = {
@@ -369,22 +370,25 @@ HFO.Constants.Items = {
 
     FirearmSkins = {
         Base = {},
-        HFE = { "GunPlatingTan", "GunPlatingBlue", "GunPlatingRed", "GunPlatingGold", "GunPlatingPatriot", "GunPlatingRainbow", "GunPlatingDZ", "GunPlatingDarkCherry", "GunPlatingWinterCamo",
-                "GunPlatingMatteBlack", "GunPlatingWoodStyle", "GunPlatingPink", "GunPlatingRedWhite", "GunPlatingGreenGold", "GunPlatingAztec", "GunPlatingYellow", "GunPlatingPearl" },
-        Exclusive = { "GunPlatingGoldDE", "GunPlatingGoldShotgun", "GunPlatingRainbowAnodized", "GunPlatingGreen", "GunPlatingSteelDamascus", 
-                "GunPlatingSalvagedRage", "GunPlatingZoidbergSpecial", "GunPlatingShenron", "GunPlatingNerf", "GunPlatingBespokeEngraved", "GunPlatingSurvivalist", 
-                "GunPlatingMysteryMachine", "GunPlatingSalvagedBlack", "GunPlatingPlank", "GunPlatingBlackIce", "GunPlatingBlackDeath",
-                "GunPlatingOrnateIvory", "GunPlatingGildedAge", "GunPlatingTBD", "GunPlatingCannabis" },
+        HFE = { "GunPlatingTan", "GunPlatingBlue", "GunPlatingRed", "GunPlatingPink", "GunPlatingYellow", "GunPlatingGreen", "GunPlatingPurple",
+                "GunPlatingRedWhite", "GunPlatingGreenGold", "GunPlatingPearl", "GunPlatingAztec", "GunPlatingPatriot", "GunPlatingGold", 
+                "GunPlatingRainbow", "GunPlatingDarkCherry", "GunPlatingWood", "GunPlatingWinterCamo", "GunPlatingMatteBlack", "GunPlatingDragonBall",
+                "GunPlatingNerf", "GunPlatingBespokeEngraved", "GunPlatingSalvagedRage", "GunPlatingDZ", 
+        },
+        Exclusive = { "GunPlatingSteelDamascus", "GunPlatingZoidbergSpecial", "GunPlatingSurvivalist", "GunPlatingCrabShell",
+                    "GunPlatingMysteryMachine", "GunPlatingBlackDeath", "GunPlatingOrnateIvory","GunPlatingGildedAge", "GunPlatingCannabis",
+                    "GunPlatingPARP", "GunPlatingSD", "GunPlatingDOTD"  
+        },
     },
 
     Extended = {
         Base = {},
         HFE = {},
-        ExtendedSmall = { "Mag22ExtSm", "Mag9ExtSm", "MagLugerExtSm", "Mag380ExtSm", "Mag44ExtSm", "Mag45ExtSm", "MagMosinNagantExtSm",
+        ExtendedSmall = {"Mag9ExtSm", "MagLugerExtSm", "Mag380ExtSm", "Mag44ExtSm", "Mag45ExtSm", "MagMosinNagantExtSm",
                         "MagM1GarandExtSm", "Mag308ExtSm", "MagSVDExtSm", "Mag50BMGExtSm", "Mag762x51ExtSm", "Mag9x39ExtSm" },
-        ExtendedLarge = { "Mag22ExtLg", "Mag9ExtLg", "Mag57ExtLg", "MagLugerExtLg", "Mag380ExtLg", "Mag44ExtLg", "Mag45ExtLg", 
+        ExtendedLarge = { "Mag9ExtLg", "Mag57ExtLg", "MagLugerExtLg", "Mag380ExtLg", "Mag44ExtLg", "Mag45ExtLg", 
                         "Mag223ExtLg", "MagPM63RAKExtLg", "Mag3006ExtLg", "MagMP28ExtLg", "Mag9x39ExtLg", "Mag762x51ExtLg" },
-        ExtendedDrum = {  "Mag9Drum", "Mag57Drum", "MagLugerDrum", "Mag380Drum", "Mag45Drum",  },
+        ExtendedDrum = {  "Mag9Drum", "Mag57Drum", "MagLugerDrum", "Mag380Drum", "Mag45Drum", "Mag45TommyDrum"  },
         SpeedLoaders = { "22SpeedLoader", "38SpeedLoader5", "38SpeedLoader7", "44SpeedLoader", "45SpeedLoader" },
     },
 

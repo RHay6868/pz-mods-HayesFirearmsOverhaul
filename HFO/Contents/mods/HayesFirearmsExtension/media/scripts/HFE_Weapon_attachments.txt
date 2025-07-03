@@ -11,7 +11,7 @@ module Base
         DisplayName         = Suppressor [Pistol],
         Icon                = SuppressorPistol,
         PartType            = Canon,
-        MountOn             = Pistol; Pistol2; Pistol3; SIGSauer; JenningsJ22; OA93;
+        MountOn             = Pistol; Pistol2; Pistol3; SIGSauer; OA93; JenningsJ22;
                             Glock; FiveSeven; Luger; WaltherPPK; Makarov; PLR16; MosinNagantObrez;
                             PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended,
         WeightModifier      = 0.20,
@@ -35,9 +35,9 @@ module Base
         DisplayName         = Suppressor [Rifle],
         Icon                = Suppressor,
         PartType            = Canon,
-        MountOn             = AssaultRifle; AssaultRifle2; M4A1; EM2; L85A1;
-                            AK103; AK74; AK74U; AK74U_Folded; FranchiLF57; FranchiLF57_Folded;
-                            MiniUzi; MiniUzi_Folded; P90; SIG550; L2A1; L2A1_Bipod; Marlin39A;
+        MountOn             = VarmintRifle; HuntingRifle; AssaultRifle; AssaultRifle2; M4A1; EM2; L85A1;
+                            AK103; AK74; AK74U; AK74U_Folded; FranchiLF57; FranchiLF57_Folded; M1Garand;
+                            MiniUzi; MiniUzi_Folded; P90; SIG550; L2A1; L2A1_Bipod; Marlin39A; Ruger1022;
                             BrowningBLR; HenryRepeatingBigBoy; GrozaOTs14; StG44; MosinNagant; 
                             SVDDragunov,
         WeightModifier      = 0.25,
@@ -62,7 +62,7 @@ module Base
         DisplayName         = Suppressor [Sniper],
         Icon                = SuppressorSniper,
         PartType            = Canon,
-        MountOn             = Galil; Galil_Bipod; SVDDragunov; BarrettM82A1; BarrettM82A1_Bipod,
+        MountOn             = Galil; Galil_Bipod; SVDDragunov; BarrettM82A1; BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod,
         WeightModifier      = 0.4,
         DamageModifier      = -0.3,
         MaxRangeModifier    = -3,
@@ -85,7 +85,7 @@ module Base
         DisplayName         = Suppressor [Sniper Winter Wrap],
         Icon                = SuppressorSniperWinter,
         PartType            = Canon,
-        MountOn             = Galil; Galil_Bipod; SVDDragunov; BarrettM82A1; BarrettM82A1_Bipod,
+        MountOn             = Galil; Galil_Bipod; SVDDragunov; BarrettM82A1; BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod,
         WeightModifier      = 0.40,
         DamageModifier      = -0.3,
         MaxRangeModifier    = -3,
@@ -108,7 +108,7 @@ module Base
         DisplayName         = Suppressor [Sniper Desert Wrap],
         Icon                = SuppressorSniperDesert,
         PartType            = Canon,
-        MountOn             = Galil; Galil_Bipod; SVDDragunov; BarrettM82A1; BarrettM82A1_Bipod,
+        MountOn             = Galil; Galil_Bipod; SVDDragunov; BarrettM82A1; BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod,
         WeightModifier      = 0.40,
         DamageModifier      = -0.3,
         MaxRangeModifier    = -3,
@@ -131,7 +131,7 @@ module Base
         DisplayName         = Suppressor [Sniper Woodland Wrap],
         Icon                = SuppressorSniperWoodland,
         PartType            = Canon,
-        MountOn             = Galil; Galil_Bipod; SVDDragunov; BarrettM82A1; BarrettM82A1_Bipod,
+        MountOn             = Galil; Galil_Bipod; SVDDragunov; BarrettM82A1; BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod,
         WeightModifier      = 0.40,
         DamageModifier      = -0.3,
         MaxRangeModifier    = -3,
@@ -235,22 +235,48 @@ module Base
     }
 
     /************************ SCOPES ************************/
+    item ACOG
+    {
+        DisplayCategory     = WeaponPart,
+        Weight              = 0.6,
+        Type                = WeaponPart,
+        DisplayName         = ACOG Scope,
+        Icon                = ACOG,
+        PartType            = Scope,
+        MountOn             = HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2; M4A1; EM2;
+                            PLR16; AK103; AK74; AK74U; AK74U_Folded; SIG550; VSSVintorez; L85A1; Ruger1022;
+                            ASVal; ASVal_Folded; CrossbowCompound; CrossbowReverseDraw; BrowningBLR; P90;
+                            Marlin39A; HenryRepeatingBigBoy; M1Garand; OA93; L2A1; L2A1_Bipod; GrozaOTs14; 
+                            StG44; MosinNagant; BarrettM82A1; BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod; 
+                            Galil; Galil_Bipod; SVDDragunov,
+        WeightModifier      = 0.6,	
+        MaxRangeModifier    = 4,
+		AimingTimeModifier  = 2,
+		HitChanceModifier   = 4,
+        AngleModifier       = 0.01,
+        MetalValue          = 20,
+        StaticModel         = ACOG,
+        WorldStaticModel    = ACOG,
+        AttachmentSlot      = scope,
+        Tooltip             = Tooltip_ACOG,
+    }
+
     item PEMScope
     {
         DisplayCategory     = WeaponPart,
-        Weight              = 0.40,
+        Weight              = 0.8,
         Type                = WeaponPart,
         DisplayName         = PEM Scope,
         Icon                = PEMScope,
         PartType            = Scope,
         MountOn             = MosinNagantObrez; AK103; AK74; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; StG44; M1Garand; L85A1;
-                            MosinNagant; BarrettM82A1; BarrettM82A1_Bipod; Galil; Galil_Bipod; SVDDragunov; 
-                            VarmintRifle; HuntingRifle; AssaultRifle; AssaultRifle2; SIG550; M4A1;
-                            VSSVintorez; ASVal; ASVal_Folded,
-        WeightModifier      = 0.40,	
+                            MosinNagant; BarrettM82A1; BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod;
+                            Galil; Galil_Bipod; SVDDragunov; VarmintRifle; HuntingRifle; AssaultRifle;
+                            AssaultRifle2; SIG550; M4A1; Ruger1022; VSSVintorez; ASVal; ASVal_Folded; Springfield1861, 
+        WeightModifier      = 0.8,	
         MaxRangeModifier    = 4,
 		HitChanceModifier   = 4,
-        AimingTimeModifier  = -4,
+        AimingTimeModifier  = -2,
         MetalValue          = 20,
         StaticModel         = PEMScope,
         WorldStaticModel    = PEMScope,
@@ -261,19 +287,19 @@ module Base
     item PSO1Scope
     {
         DisplayCategory     = WeaponPart,
-        Weight              = 0.50,
+        Weight              = 0.95,
         Type                = WeaponPart,
         DisplayName         = PSO-1 Scope,
         Icon                = PSO1Scope,
         PartType            = Scope,
         MountOn             = MosinNagantObrez; AK103; AK74; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; StG44; M1Garand; L85A1;
-                            MosinNagant; BarrettM82A1; BarrettM82A1_Bipod; Galil; Galil_Bipod; SVDDragunov; 
-                            VarmintRifle; HuntingRifle; AssaultRifle; AssaultRifle2; SIG550; M4A1;
-                            VSSVintorez; ASVal; ASVal_Folded,
-        WeightModifier      = 0.50,	
-        MaxRangeModifier    = 5,
-		HitChanceModifier   = 5,
-        AimingTimeModifier  = -5,
+                            MosinNagant; BarrettM82A1; BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod;
+                            Galil; Galil_Bipod; SVDDragunov; VarmintRifle; HuntingRifle; AssaultRifle; 
+                            AssaultRifle2; SIG550; M4A1; Ruger1022; VSSVintorez; ASVal; ASVal_Folded,
+        WeightModifier      = 0.95,	
+        MaxRangeModifier    = 6,
+		HitChanceModifier   = 6,
+        AimingTimeModifier  = -6,
         MetalValue          = 20,
         StaticModel         = PSO1Scope,
         WorldStaticModel    = PSO1Scope,
@@ -289,10 +315,10 @@ module Base
         DisplayName         = Universal Optical Sight,
         Icon                = UniversalOpticalSight,
         PartType            = Scope,
-        MountOn             = MosinNagantObrez; AK103; AK74; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; GrozaOTs14; StG44; M1Garand; L85A1;
-                            MosinNagant; BarrettM82A1; BarrettM82A1_Bipod; Galil; Galil_Bipod; SVDDragunov; 
-                            VarmintRifle; HuntingRifle; AssaultRifle; AssaultRifle2; SIG550; M4A1;
-                            VSSVintorez; ASVal; ASVal_Folded; L2A1; L2A1_Bipod; EM2,
+        MountOn             = MosinNagantObrez; AK103; AK74; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; GrozaOTs14; 
+                            StG44; M1Garand; L85A1; MosinNagant; BarrettM82A1; BarrettM82A1_Bipod; Galil; Galil_Bipod;
+                            PGMHecate; PGMHecate_Bipod; SVDDragunov; VarmintRifle; HuntingRifle; AssaultRifle; Springfield1861;
+                            AssaultRifle2; SIG550; M4A1; Ruger1022; VSSVintorez; ASVal; ASVal_Folded; L2A1; L2A1_Bipod; EM2,
         WeightModifier      = 0.35,	
         MaxRangeModifier    = 2,
 		HitChanceModifier   = 3,
@@ -316,13 +342,15 @@ module Base
         MountOn             = HuntingRifle; VarmintRifle; 
                             AssaultRifle; AssaultRifle2; M4A1; PLR16; MosinNagantObrez; EM2;
                             AK103; AK74; AK74U; AK74U_Folded; FranchiLF57; FranchiLF57_Folded;
-                            MiniUzi; MiniUzi_Folded; P90; SIG550; OA93; MP28; L2A1; L2A1_Bipod;
-                            CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; M1918BAR; M1Garand; L85A1;
-                            PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended; Mossberg500; Chiappa1887;
+                            MiniUzi; MiniUzi_Folded; P90; SIG550; OA93; MP28; L2A1; L2A1_Bipod; CrossbowReverseDraw;
+                            CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; M1918BAR; M1918BAR_Bipod;
+                            M1Garand; L85A1; PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended; Ruger1022;
+                            Mossberg500; Mossberg500Super; Mossberg500Super_Grip; Chiappa1887; Chiappa1887Sawnoff;
                             GrozaOTs14; StG44; MosinNagant; Remington1100; VSSVintorez; ASVal; ASVal_Folded,
         WeightModifier      = 0.3,
+        MaxRangeModifier    = 1,
         HitChanceModifier   = 4,
-        AimingTimeModifier  = 8,
+        AimingTimeModifier  = 6,
         AngleModifier       = -0.008,
         MetalValue          = 22,
         StaticModel         = HoloSight,
@@ -334,7 +362,7 @@ module Base
     item ReflexSight
     {
         DisplayCategory     = WeaponPart,
-        Weight              = 0.35,
+        Weight              = 0.3,
         Type                = WeaponPart,
         DisplayName         = Reflex Sight,
         Icon                = ReflexSight,
@@ -342,13 +370,14 @@ module Base
         MountOn             = HuntingRifle; VarmintRifle; 
                             AssaultRifle; AssaultRifle2; M4A1; PLR16; MosinNagantObrez; EM2;
                             AK103; AK74; AK74U; AK74U_Folded; FranchiLF57; FranchiLF57_Folded;
-                            MiniUzi; MiniUzi_Folded; SIG550; P90; OA93; MP28; L2A1; L2A1_Bipod;
-                            CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; M1918BAR; M1Garand; L85A1;
-                            PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended; Mossberg500; Chiappa1887;
+                            MiniUzi; MiniUzi_Folded; SIG550; P90; OA93; MP28; L2A1; L2A1_Bipod; CrossbowReverseDraw;
+                            CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; M1918BAR; M1918BAR_Bipod;
+                            M1Garand; L85A1; PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended; Ruger1022;
+                            Mossberg500; Mossberg500Super; Mossberg500Super_Grip; Chiappa1887; Chiappa1887Sawnoff;
                             GrozaOTs14; StG44; MosinNagant; Remington1100; VSSVintorez; ASVal; ASVal_Folded,
-        WeightModifier      = 0.35,	
-        HitChanceModifier   = 5,
-        MaxRangeModifier    = 1,	
+        WeightModifier      = 0.3,	
+        MaxRangeModifier    = 1,
+        HitChanceModifier   = 6,	
         AimingTimeModifier  = 4,
         AngleModifier       = -0.004,
         MetalValue          = 12,
@@ -361,25 +390,48 @@ module Base
     item ProOpticScope
     {
         DisplayCategory     = WeaponPart,
-        Weight              = 0.45,
+        Weight              = 0.6,
         Type                = WeaponPart,
         DisplayName         = Pro Optic Scope,
         Icon                = ProOpticScope,
         PartType            = Scope,
-        MountOn             = HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2; M4A1; EM2;
-                            PLR16; AK103; AK74; AK74U; AK74U_Folded; SIG550; VSSVintorez; L85A1; 
-                            ASVal; ASVal_Folded;CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; M1Garand; 
-                            OA93; L2A1; L2A1_Bipod; GrozaOTs14; StG44; MosinNagant; BarrettM82A1; 
-                            BarrettM82A1_Bipod; Galil; Galil_Bipod; SVDDragunov,
-        WeightModifier      = 0.45,	
+        MountOn             = HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2; M4A1; EM2; P90;
+                            PLR16; AK103; AK74; AK74U; AK74U_Folded; SIG550; VSSVintorez; L85A1; Ruger1022;
+                            ASVal; ASVal_Folded; CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; M1Garand; 
+                            OA93; L2A1; L2A1_Bipod; GrozaOTs14; StG44; MosinNagant; BarrettM82A1; CrossbowReverseDraw;
+                            BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod; Galil; Galil_Bipod; SVDDragunov,
+        WeightModifier      = 0.6,	
         MaxRangeModifier    = 3,
-		AimingTimeModifier  = 3,
-		HitChanceModifier   = 3,
+		AimingTimeModifier  = 1,
+		HitChanceModifier   = 4,
         MetalValue          = 20,
         StaticModel         = ProOpticScope,
         WorldStaticModel    = ProOpticScope,
         AttachmentSlot      = scope,
         Tooltip             = Tooltip_ProOpticScope,
+    }
+
+    item PistolScope
+    {
+        DisplayCategory     = WeaponPart,
+        Weight              = 0.4,
+        Type                = WeaponPart,
+        DisplayName         = Pistol Scope,
+        Icon                = PistolScope,
+        PartType            = Scope,
+        MountOn             = Pistol; Pistol2; Pistol3; Revolver_Short; Revolver; Revolver_Long;
+                            Glock; FiveSeven; SIGSauer; OA93; RugerGP100; 
+                            HighStandardSentinel; FranchiLF57; FranchiLF57_Folded; MiniUzi; MiniUzi_Folded;
+                            PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended,
+        WeightModifier      = 0.4,	
+        MaxRangeModifier    = 4,
+		AimingTimeModifier  = -2,
+		HitChanceModifier   = 3,
+        MetalValue          = 20,
+        StaticModel         = PistolScope,
+        WorldStaticModel    = PistolScope,
+        AttachmentSlot      = scope,
+        Tooltip             = Tooltip_PistolScope,
     }
 
     item CarryHandle
@@ -409,7 +461,7 @@ module Base
         DisplayName         = FG-42 Iron Sights,
         Icon                = IronSightsFG42,
         PartType            = Scope,
-        MountOn             = FG42,
+        MountOn             = FG42; FG42_Bipod,
         WeightModifier      = 0.1,
         HitChanceModifier   = 6,
         MetalValue          = 18,
@@ -427,7 +479,7 @@ module Base
         DisplayName         = ZFG-42 Type 2 Scope,
         Icon                = ScopeFG42,
         PartType            = Scope,
-        MountOn             = FG42,
+        MountOn             = FG42; FG42_Bipod,
         MaxRangeModifier    = 5,
 		AimingTimeModifier  = -3,
 		HitChanceModifier   = 8,
@@ -450,7 +502,7 @@ module Base
         PartType            = Sling,
         MountOn             = AssaultRifle; M4A1; SIG550; L85A1;
                             Shotgun; DoubleBarrelShotgun; ShotgunSawnoff; DoubleBarrelShotgunSawnof;
-                            Remington1100; Mossberg500; TrenchGun; BeckerRevolver,
+                            Remington1100; Mossberg500; TrenchGun; BeckerRevolver; Blunderbuss,
         WeightModifier      = -0.1,
         HitChanceModifier   = 5,
         RecoilDelayModifier = -2,								
@@ -491,7 +543,7 @@ module Base
         PartType            = Sling,
         MountOn             = Pistol; Pistol2; Pistol3; SIGSauer; JenningsJ22; RugerGP100;
                             Revolver; Revolver_Long; Revolver_Short; ColtCavalryRevolver; HighStandardSentinel;
-                            Glock; FiveSeven; Luger; WaltherPPK; Makarov; Derringer; PLR16, 
+                            Glock; FiveSeven; Luger; WaltherPPK; Makarov; PLR16, 
         WeightModifier      = 0.04,
         AimingTimeModifier  = 8,
         RecoilDelayModifier = -1,
@@ -527,10 +579,10 @@ module Base
         DisplayName         = Tac Laser & Light [Red],
         Icon                = LaserDual,
         PartType            = Stock,
-        MountOn             = AssaultRifle; M4A1; MosinNagantObrez; PLR16; EM2; L85A1;
-                            AK103; AK74; AK74U; AK74U_Folded; SIG550; L2A1; L2A1_Bipod;
+        MountOn             = AssaultRifle; M4A1; MosinNagantObrez; PLR16; EM2; L85A1; Ruger1022; CrossbowPistol;
+                            AK103; AK74; AK74U; AK74U_Folded; SIG550; L2A1; L2A1_Bipod; ThompsonM1921; CrossbowReverseDraw;
                             CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; MP28; VSSVintorez; ASVal; ASVal_Folded;
-                            GrozaOTs14; StG44; MosinNagant; Galil; Galil_Bipod; SVDDragunov,
+                            GrozaOTs14; StG44; MosinNagant; Galil; Galil_Bipod; SVDDragunov; PneumaticBlowgun; Springfield1861,
         WeightModifier      = 0.2,
         HitChanceModifier   = 5,
         RecoilDelayModifier = 1,
@@ -550,10 +602,10 @@ module Base
         DisplayName         = Tac Laser & Light [Green],
         Icon                = LaserDual,
         PartType            = Stock,
-        MountOn             = AssaultRifle; M4A1; MosinNagantObrez; PLR16; EM2; L85A1;
-                            AK103; AK74; AK74U; AK74U_Folded; SIG550; L2A1; L2A1_Bipod;
+        MountOn             = AssaultRifle; M4A1; MosinNagantObrez; PLR16; EM2; L85A1; Ruger1022; CrossbowPistol;
+                            AK103; AK74; AK74U; AK74U_Folded; SIG550; L2A1; L2A1_Bipod; ThompsonM1921; CrossbowReverseDraw;
                             CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; MP28; VSSVintorez; ASVal; ASVal_Folded;
-                            GrozaOTs14; StG44; MosinNagant; Galil; Galil_Bipod; SVDDragunov,
+                            GrozaOTs14; StG44; MosinNagant; Galil; Galil_Bipod; SVDDragunov; PneumaticBlowgun; Springfield1861,
         WeightModifier      = 0.2,
         HitChanceModifier   = 5,
         RecoilDelayModifier = 1,
@@ -573,10 +625,10 @@ module Base
         DisplayName         = Tac Laser & Light,
         Icon                = LaserDual,
         PartType            = Stock,
-        MountOn             = AssaultRifle; M4A1; MosinNagantObrez; PLR16; EM2; L85A1;
-                            AK103; AK74; AK74U; AK74U_Folded; SIG550; L2A1; L2A1_Bipod;
+        MountOn             = AssaultRifle; M4A1; MosinNagantObrez; PLR16; EM2; L85A1; Ruger1022; CrossbowPistol;
+                            AK103; AK74; AK74U; AK74U_Folded; SIG550; L2A1; L2A1_Bipod; ThompsonM1921; CrossbowReverseDraw;
                             CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; MP28; VSSVintorez; ASVal; ASVal_Folded;
-                            GrozaOTs14; StG44; MosinNagant; Galil; Galil_Bipod; SVDDragunov,
+                            GrozaOTs14; StG44; MosinNagant; Galil; Galil_Bipod; SVDDragunov; PneumaticBlowgun; Springfield1861,
         WeightModifier      = 0.2,
         HitChanceModifier   = 5,
         RecoilDelayModifier = 1,
@@ -597,12 +649,13 @@ module Base
         Icon                = WeaponLight,
         PartType            = Stock,
         MountOn             = AssaultRifle; M4A1; Shotgun; ShotgunSawnoff; L2A1; L2A1_Bipod; EM2;
-                            Glock; SIGSauer; FiveSeven; MosinNagantObrez; PLR16; SIG550; MP28; VSSVintorez; 
-                            ASVal; ASVal_Folded; AK103; AK74; AK74U; AK74U_Folded; FranchiLF57; L85A1;
-                            FranchiLF57_Folded; OA93; MiniUzi; MiniUzi_Folded; P90; CrossbowCompound; 
+                            Glock; SIGSauer; FiveSeven; MosinNagantObrez; PLR16; SIG550; MP28; VSSVintorez; CrossbowPistol;
+                            ASVal; ASVal_Folded; AK103; AK74; AK74U; AK74U_Folded; FranchiLF57; L85A1; ThompsonM1921;
+                            FranchiLF57_Folded; OA93; MiniUzi; MiniUzi_Folded; P90; CrossbowCompound; Ruger1022; CrossbowReverseDraw;
                             BrowningBLR; Marlin39A; HenryRepeatingBigBoy; TheNailGun; PM63RAK; PM63RAK_Grip; PM63RAK_Extended; 
-                            PM63RAK_GripExtended; GrozaOTs14; StG44; MosinNagant; BarrettM82A1; 
-                            BarrettM82A1_Bipod; Galil; Galil_Bipod; SVDDragunov; Remington1100; Mossberg500; Chiappa1887,
+                            PM63RAK_GripExtended; GrozaOTs14; StG44; MosinNagant; BarrettM82A1; Springfield1861; Blunderbuss;
+                            BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod; Galil; Galil_Bipod; SVDDragunov; Remington1100; 
+                            Mossberg500; Mossberg500Super; Mossberg500Super_Grip; Chiappa1887; Chiappa1887Sawnoff; PneumaticBlowgun,
         WeightModifier      = 0.15,
         MaxRangeModifier    = 1,
         HitChanceModifier   = 4,
@@ -624,10 +677,11 @@ module Base
         PartType            = Stock,
         MountOn             = AssaultRifle; M4A1; Shotgun; ShotgunSawnoff; VSSVintorez; ASVal; ASVal_Folded;
                             Glock; SIGSauer; FiveSeven; MosinNagantObrez; PLR16; SIG550; OA93; MP28; L2A1; L2A1_Bipod;
-                            AK103; AK74; AK74U; AK74U_Folded; FranchiLF57; FranchiLF57_Folded; EM2; L85A1;
+                            AK103; AK74; AK74U; AK74U_Folded; FranchiLF57; FranchiLF57_Folded; EM2; L85A1; ThompsonM1921;
                             MiniUzi; MiniUzi_Folded; P90; CrossbowCompound; BrowningBLR; Marlin39A; HenryRepeatingBigBoy;
-                            PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended;
-                            GrozaOTs14; StG44; MosinNagant; Remington1100; Mossberg500; Chiappa1887,
+                            PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended; Ruger1022;
+                            GrozaOTs14; StG44; MosinNagant; Remington1100; FlintlockPistol; Springfield1861;
+                            Mossberg500; Mossberg500Super; Mossberg500Super_Grip; Chiappa1887; Chiappa1887Sawnoff,
         WeightModifier      = 0.1,
         HitChanceModifier   = 2,
         AimingTimeModifier  = 2,
@@ -651,7 +705,7 @@ module Base
         WeightModifier      = 0.2,
         AimingTimeModifier  = 5,
         ReloadTimeModifier  = -5,			
-        ReloadSpeedModifier = 1.6,
+        ReloadSpeedModifier = 1.25,
         MetalValue          = 5,
         StaticModel         = ShellHolder,
         WorldStaticModel    = ShellHolder,
@@ -1049,13 +1103,35 @@ module Base
         PartType            = Clip,
         MountOn             = ,
         StaticModel         = Mag45Drum,
-        GunType             = Base.Glock; Base.Pistol2; Base.ThompsonM1921,  
+        GunType             = Base.Glock; Base.Pistol2,  
         WeightModifier      = 0.8,
         RecoilDelayModifier = 3,
         AimingTimeModifier  = -8,
         WorldStaticModel    = Mag45Drum_Ground,
         AttachmentSlot      = drum,
         Tooltip             = Tooltip_Mag45Drum,
+    }
+
+    item Mag45TommyDrum
+    {
+        DisplayCategory     = Ammo,
+        CanStack	        = FALSE,
+        Weight              = 0.8,
+        Type                = WeaponPart,
+        DisplayName         = .45 ACP "Tommy" Drum Magazines [50],
+        Icon                = Mag45TommyDrum,
+        MaxAmmo             = 50,
+        AmmoType            = Base.Bullets45,
+        PartType            = Clip,
+        MountOn             = ,
+        StaticModel         = Mag45TommyDrum,
+        GunType             = Base.ThompsonM1921,  
+        WeightModifier      = 0.8,
+        RecoilDelayModifier = 3,
+        AimingTimeModifier  = -8,
+        WorldStaticModel    = Mag45TommyDrum_Ground,
+        AttachmentSlot      = drum,
+        Tooltip             = Tooltip_Mag45TommyDrum,
     }
 
     item Mag223ExtLg
@@ -1159,7 +1235,7 @@ module Base
         PartType            = Clip,
         MountOn             = ,
         StaticModel         = Mag3006ExtLg,
-        GunType             = Base.M1918BAR,
+        GunType             = Base.M1918BAR; M1918BAR_Bipod,
         WeightModifier      = 0.4,
         RecoilDelayModifier = 2,
         AimingTimeModifier  = -5,
@@ -1269,7 +1345,7 @@ module Base
         PartType            = Clip,
         MountOn             = ,
         StaticModel         = Mag50BMGExtSm,
-        GunType             = Base.BarrettM82A1; Base.BarrettM82A1_Bipod, 
+        GunType             = Base.BarrettM82A1; Base.BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod, 
         WeightModifier      = 0.4,
         RecoilDelayModifier = 1,
         AimingTimeModifier  = -3,
@@ -1344,7 +1420,7 @@ module Base
         Tooltip             = Tooltip_Mag9x39ExtLg,
     }
 
-    /************************ RECOIL PAD = COLOR SWAPS ************************/
+    /************************ RECOIL PAD + COLOR SWAPS ************************/
 
     item ButtStockWrap
     {
@@ -1354,8 +1430,8 @@ module Base
         DisplayName         = Butt Stock Wrap,
         Icon                = ButtStockWrap,
         PartType            = RecoilPad,
-        MountOn             = HuntingRifle; VarmintRifle; AssaultRifle2; BrowningBLR; Marlin39A;
-                            HenryRepeatingBigBoy; M1Garand; MosinNagant; SVDDragunov; BeckerRevolver,
+        MountOn             = HuntingRifle; VarmintRifle; AssaultRifle2; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; BarrettM82A1;
+                            BarrettM82A1_Bipod; M1Garand; MosinNagant; PGMHecate; PGMHecate_Bipod; SVDDragunov; Springfield1861,
         WeightModifier      = 0.04,
         RecoilDelayModifier = -1,
         AimingTimeModifier  = 6,
@@ -1546,10 +1622,10 @@ module Base
         Weight              = 0.05,
         Type                = WeaponPart,
         DisplayName         = [CONVERT ME] Wood Style Plating ,
-        Icon                = WoodStyledPlating,
+        Icon                = WoodStylePlating,
         PartType            = RecoilPad,
         MountOn             = Remington1100,
-        WorldStaticModel    = GunPlatingWoodStyled,
+        WorldStaticModel    = GunPlatingWoodStyle,
         Tooltip             = Tooltip_PlatingCONVERT,
     }
 
@@ -1780,10 +1856,10 @@ module Base
         Weight              = 0.05,
         Type                = WeaponPart,
         DisplayName         = [CONVERT ME] Plank Plating,
-        Icon                = WoodStyledPlating,
+        Icon                = WoodStylePlating,
         PartType            = RecoilPad,
         MountOn             = P90,
-        WorldStaticModel    = GunPlatingWoodStyled,
+        WorldStaticModel    = GunPlatingWoodStyle,
         Tooltip             = Tooltip_PlatingCONVERT,
     }
 

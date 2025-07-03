@@ -1,5 +1,15 @@
 module Base
 {
+	model Rounds22
+    {
+		mesh = weapons/ammo/Rounds45,
+		texture = weapons/ammo/Rounds22,
+	}
+	model AmmoBox22
+    {
+		mesh = weapons/ammo/AmmoBoxHandgun,
+		texture = weapons/ammo/AmmoBox22,
+	}
 	model Rounds3006
     {
 		mesh = weapons/ammo/RoundsRifleVanilla,
@@ -157,18 +167,20 @@ module Base
 	}
 	model AmmoBoxMinieBall
     {
-        mesh = weapons/ammo/AmmoBoxHandgun,
+        mesh = weapons/ammo/AmmoBoxShotgun,
 		texture = weapons/ammo/AmmoBoxMinieBall,
+		scale = 0.7,
     }
 	model RoundsBlunderbussBullets
 	{
 		mesh = weapons/ammo/RoundsBlunderbussBullets,
-		texture = weapons/ammo/RoundsBlunderbussBullets,
+		texture = weapons/ammo/RoundsMinieBall,
 	}
 	model AmmoBoxBlunderbussBullets
     {
         mesh = weapons/ammo/AmmoBoxShotgun,
 		texture = weapons/ammo/AmmoBoxBlunderbussBullets,
+		scale = 0.7,
     }
 	model RoundsBlowgunDart
 	{
@@ -184,6 +196,16 @@ module Base
     {
 		mesh = weapons/ammo/MagBox9mm,
 		texture = weapons/ammo/MagBox9mm,
+	}
+	model Mag22
+    {
+		mesh = weapons/ammo/Mag22,
+		texture = weapons/ammo/Mag22,
+	}
+	model Mag22x10
+    {
+		mesh = weapons/ammo/Mag22x10,
+		texture = weapons/ammo/Mag22x10,
 	}
 	model Mag9mmx8
     {
@@ -360,6 +382,11 @@ module Base
 		mesh = weapons/parts/Mag45Drum,
 		texture = weapons/parts/Mag45Drum,
 	}
+	model Mag45TommyDrum
+    {
+		mesh = weapons/parts/Mag45TommyDrum,
+		texture = weapons/parts/Mag45TommyDrum,
+	}
 	model Mag45ExtSm_Ground
     {
 		mesh = WorldItems/Mag45ExtSm_Ground,
@@ -374,6 +401,11 @@ module Base
     {
 		mesh = WorldItems/Mag45Drum_Ground,
 		texture = weapons/parts/Mag45Drum,
+	}
+	model Mag45TommyDrum_Ground
+    {
+		mesh = WorldItems/Mag45TommyDrum_Ground,
+		texture = weapons/parts/Mag45TommyDrum,
 	}
 	model MagMosinNagantExtSm
     {
@@ -424,6 +456,11 @@ module Base
     {
 		mesh = WorldItems/Mag3006ExtLg_Ground,
 		texture = weapons/parts/Mag3006ExtLg,
+	}
+	model Mag308Clip5
+    {
+		mesh = weapons/ammo/Mag308Clip5,
+		texture = weapons/ammo/Mag308Clip5,
 	}
 	model Mag308ExtSm
     {
@@ -510,7 +547,7 @@ module Base
 		mesh = weapons/ammo/Mag762x54rStripper,
 		texture = weapons/ammo/Mag762x54rStripper,
 	}
-    model Mag792Clip
+	model Mag792Clip
 	{
 		mesh = weapons/ammo/Mag792,
 		texture = Weapons/Firearm/FG42,
@@ -573,17 +610,22 @@ module Base
 	model SpeedLoader5
     {
 		mesh = weapons/ammo/SpeedLoader5,
-		texture = weapons/ammo/SpeedLoader5,
+		texture = weapons/ammo/SpeedLoader6,
 	}
 	model SpeedLoader6
     {
 		mesh = weapons/ammo/SpeedLoader6,
 		texture = weapons/ammo/SpeedLoader6,
 	}
+	model SpeedLoader6x44
+    {
+		mesh = weapons/ammo/SpeedLoader6,
+		texture = weapons/ammo/SpeedLoader6x44,
+	}
 	model SpeedLoader7
     {
 		mesh = weapons/ammo/SpeedLoader7,
-		texture = weapons/ammo/SpeedLoader7,
+		texture = weapons/ammo/SpeedLoader6,
 	}
 	model SpeedLoader9
     {
@@ -602,8 +644,8 @@ module Base
 	}
 	model SuppressorRifle
 	{
-		mesh = weapons/parts/SuppressorRifle,
-		texture = weapons/Parts/SuppressorRifle,
+		mesh = weapons/parts/Suppressor,
+		texture = weapons/Parts/Suppressor,
 	}
 	model SuppressorSniper
 	{
@@ -625,6 +667,11 @@ module Base
 		mesh = weapons/parts/SuppressorSniperWrapped,
 		texture = weapons/Parts/SuppressorSniperWoodland,
 	}
+	model ACOG
+	{
+		mesh = weapons/parts/ACOG,
+		texture = weapons/Parts/ACOG,
+	}
 	model PEMScope
 	{
 		mesh = weapons/parts/PEMScope,
@@ -639,6 +686,11 @@ module Base
 	{
 		mesh = weapons/parts/UniversalOpticalSight,
 		texture = weapons/Parts/UniversalOpticalSight,
+	}
+	model PistolScope
+	{
+		mesh = weapons/parts/PistolScope,
+		texture = weapons/Parts/PistolScope,
 	}
 	model CompensatorHandgun
 	{
@@ -676,10 +728,10 @@ module Base
         texture = Weapons/Parts/Compensator,
     }
 	model LaserRed
-    {
-        mesh = weapons/parts/LaserLight,
-        texture = Weapons/Parts/LaserRed,
-    }
+	{
+		mesh = weapons/parts/LaserLight,
+		texture = Weapons/Parts/LaserRed,
+	}
 	model LaserGreen
     {
         mesh = weapons/parts/LaserLight,
@@ -723,7 +775,7 @@ module Base
 	model ShellHolder
 	{
 		mesh = weapons/parts/ShellHolder,
-        texture = Weapons/Parts/ShellHolder,
+		texture = Weapons/Parts/ShellHolder,
 	}
 	model IronSightsFG42
     {
@@ -735,16 +787,6 @@ module Base
 		mesh = weapons/parts/ScopeFG42,
 		texture = Weapons/Parts/ScopeFG42,
 	}
-	model GunPlatingGold
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingGold,
-    }
-	model GunPlatingRainbow
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingRainbow,
-    }
 	model GunPlatingTan
     {
         mesh = WorldItems/MetalPlating,
@@ -760,35 +802,10 @@ module Base
         mesh = WorldItems/MetalPlating,
         texture = WorldItems/MetalPlatingRed,
     }
-	model GunPlatingWhiteCamo
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingWhite,
-    }
-	model GunPlatingMatteBlack
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingBlack,
-    }
-	model GunPlatingDarkCherry
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/CherryWood,
-    }
-	model GunPlatingWoodStyled
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/WoodStyledPlating,
-    }
 	model GunPlatingPink
     {
         mesh = WorldItems/MetalPlating,
         texture = WorldItems/MetalPlatingPink,
-    }
-	model GunPlatingCrabShell
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingCrabShell,
     }
 	model GunPlatingYellow
     {
@@ -800,6 +817,11 @@ module Base
         mesh = WorldItems/MetalPlating,
         texture = WorldItems/MetalPlatingGreen,
     }
+	model GunPlatingPurple
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingPurple,
+    }
 	model GunPlatingRedWhite
     {
         mesh = WorldItems/MetalPlating,
@@ -809,41 +831,6 @@ module Base
     {
         mesh = WorldItems/MetalPlating,
         texture = WorldItems/MetalPlatingGreenGold,
-    }
-	model GunPlatingSteelDamascus
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingSteelDamascus,
-    }
-	model GunPlatingSalvagedRage
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingSalvagedRage,
-    }
-	model GunPlatingZoidbergSpecial
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingZoidbergSpecial,
-    }
-	model GunPlatingShenron
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingShenron,
-    }
-	model GunPlatingNerf
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingNerf,
-    }
-	model GunPlatingSurvivalist
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingSurvivalist,
-    }
-	model GunPlatingMysteryMachine
-    {
-        mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingMysteryMachine,
     }
 	model GunPlatingPearl
     {
@@ -855,37 +842,94 @@ module Base
         mesh = WorldItems/MetalPlating,
         texture = WorldItems/MetalPlatingAztec,
     }
-	model GunPlatingBlackIce
+	model GunPlatingGold
     {
         mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingBlackIce,
+        texture = WorldItems/MetalPlatingGold,
     }
-	model GunPlatingTBD
+	model GunPlatingRainbow
     {
         mesh = WorldItems/MetalPlating,
-        texture = WorldItems/MetalPlatingTBD,
+        texture = WorldItems/MetalPlatingRainbow,
+    }
+	model GunPlatingDarkCherry
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/CherryWood,
+    }
+	model GunPlatingWood
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/WoodPlating,
+    }
+	model GunPlatingWhiteCamo
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingWhite,
+    }
+	model GunPlatingMatteBlack
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingBlack,
+    }
+	model GunPlatingDragonBall
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingDragonBall,
+    }
+	model GunPlatingNerf
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingNerf,
+    }
+	model GunPlatingSurvivalist
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingSurvivalist,
+    }
+	model GunPlatingSalvagedRage
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingSalvagedRage,
+    }
+	model GunPlatingMysteryMachine
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingMysteryMachine,
+    }
+	model GunPlatingCrabShell
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingCrabShell,
+    }
+	model GunPlatingSteelDamascus
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingSteelDamascus,
+    }
+	model GunPlatingZoidbergSpecial
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingZoidbergSpecial,
+    }
+	model GunPlatingPARP
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingPARP,
+    }
+	model GunPlatingSD
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingSD,
+    }
+	model GunPlatingDOTD
+    {
+        mesh = WorldItems/MetalPlating,
+        texture = WorldItems/MetalPlatingDOTD,
     }
 	model FirearmCache
 	{
         mesh = WorldItems/PistolCase,
         texture = WorldItems/FirearmCache,
 	}
-	model FG42Magazine_Ground
-    {
-        mesh = WorldItems/Magazine,
-        texture = WorldItems/FG42Magazine,
-        scale = 0.4,
-    }
-	model GildedAgeRevolverMagazine_Ground
-    {
-        mesh = WorldItems/Magazine,
-        texture = WorldItems/GildedAgeRevolverMagazine,
-        scale = 0.4,
-    }
-	model CompoundCrossbowMagazine_Ground
-    {
-        mesh = WorldItems/Magazine,
-        texture = WorldItems/CompoundCrossbowMagazine,
-        scale = 0.4,
-    }
 }

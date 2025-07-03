@@ -95,6 +95,8 @@ Events.OnGameStart.Add(function()
         { fullType = "Base.AK103_Melee", modelWithMag = "AK103", modelWithoutMag = "AK103NoMag" },
         { fullType = "Base.AK74", modelWithMag = "AK74", modelWithoutMag = "AK74NoMag" },
         { fullType = "Base.AK74_Melee", modelWithMag = "AK74", modelWithoutMag = "AK74NoMag" },
+        { fullType = "Base.BrowningBLR", modelWithMag = "BrowningBLR", modelWithoutMag = "BrowningBLRNoMag" },
+        { fullType = "Base.BrowningBLR_Melee", modelWithMag = "BrowningBLR", modelWithoutMag = "BrowningBLRNoMag" },
         { fullType = "Base.GrozaOTs14", modelWithMag = "GrozaOTs14", modelWithoutMag = "GrozaOTs14NoMag" },
         { fullType = "Base.GrozaOTs14_Melee", modelWithMag = "GrozaOTs14", modelWithoutMag = "GrozaOTs14NoMag" },
         { fullType = "Base.M1918BAR", modelWithMag = "M1918BAR", modelWithoutMag = "M1918BARNoMag" },
@@ -109,9 +111,9 @@ Events.OnGameStart.Add(function()
         { fullType = "Base.BarrettM82A1", modelWithMag = "BarrettM82A1", modelWithoutMag = "BarrettM82A1NoMag" },
         { fullType = "Base.BarrettM82A1_Bipod", modelWithMag = "BarrettM82A1Bipod", modelWithoutMag = "BarrettM82A1BipodNoMag" },
         { fullType = "Base.BarrettM82A1_Melee", modelWithMag = "BarrettM82A1", modelWithoutMag = "BarrettM82A1NoMag" },
-        { fullType = "Base.McMillanTAC50", modelWithMag = "McMillanTAC50", modelWithoutMag = "McMillanTAC50NoMag" },
-        { fullType = "Base.McMillanTAC50_Bipod", modelWithMag = "McMillanTAC50Bipod", modelWithoutMag = "McMillanTAC50BipodNoMag" },
-        { fullType = "Base.McMillanTAC50_Melee", modelWithMag = "McMillanTAC50", modelWithoutMag = "McMillanTAC50NoMag" },
+        { fullType = "Base.PGMHecate", modelWithMag = "PGMHecate", modelWithoutMag = "PGMHecateNoMag" },
+        { fullType = "Base.PGMHecate_Bipod", modelWithMag = "PGMHecateBipod", modelWithoutMag = "PGMHecateBipodNoMag" },
+        { fullType = "Base.PGMHecate_Melee", modelWithMag = "PGMHecate", modelWithoutMag = "PGMHecateNoMag" },
         { fullType = "Base.L2A1", modelWithMag = "L2A1", modelWithoutMag = "L2A1NoMag" },
         { fullType = "Base.L2A1_Bipod", modelWithMag = "L2A1Bipod", modelWithoutMag = "L2A1BipodNoMag" },
         { fullType = "Base.L2A1_Melee", modelWithMag = "L2A1", modelWithoutMag = "L2A1NoMag" },
@@ -151,6 +153,7 @@ Events.OnGameStart.Add(function()
     ---===========================================---
 
     local extendedMagChange = {
+        { fullType = "Base.ThompsonM1921", attachment = "Base.Mag45TommyDrum", model = "ThompsonM1921NoMag" },
         { fullType = "Base.M1918BAR", attachment = "Base.Mag3006ExtLg", model = "M1918BARNoMag" },
         { fullType = "Base.M1918BAR_Bipod", attachment = "Base.Mag3006ExtLg", model = "M1918BARBipodNoMag" },
         { fullType = "Base.M1918BAR_Melee", attachment = "Base.Mag3006ExtLg", model = "M1918BARNoMag" },
@@ -215,9 +218,9 @@ Events.OnGameStart.Add(function()
     --Colt 1911 Aztec Melee
     BWTweaks:changeModelByGunPlating("Base.Pistol2_Melee", GP("Aztec"), "Handgun02MeleeAztec");
     --Desert Eagle Gold Melee
-    BWTweaks:changeModelByGunPlating("Base.Pistol3_Melee", GP("GoldDE"), "HandgunMeleeGold");
+    BWTweaks:changeModelByGunPlating("Base.Pistol3_Melee", GP("Gold"), "HandgunMeleeGold");
     --Desert Eagle Salvaged Black Melee
-    BWTweaks:changeModelByGunPlating("Base.Pistol3_Melee", GP("SalvagedRage"), "HandgunMeleeSalvagedBlack");
+    BWTweaks:changeModelByGunPlating("Base.Pistol3_Melee", GP("MatteBlack"), "HandgunMeleeSalvagedBlack");
     --Desert Eagle Mystery Machine Melee
     BWTweaks:changeModelByGunPlating("Base.Pistol3_Melee", GP("MysteryMachine"), "HandgunMeleeMysteryMachine");
     --Smith and Wesson Pink
@@ -235,19 +238,33 @@ Events.OnGameStart.Add(function()
     --Remington Model 700 Dark Cherry
     BWTweaks:changeModelByGunPlating("Base.VarmintRifle", GP("DarkCherry"), "VarmintRifleDarkCherry");
     BWTweaks:changeModelByGunPlating("Base.VarmintRifle_Melee", GP("DarkCherry"), "VarmintRifleDarkCherry");
-    --Remington Model 870 ALL TBD
-    BWTweaks:changeModelByGunPlating("Base.Shotgun", GP("TBD"), "ShotgunTBD");
-    BWTweaks:changeModelByGunPlating("Base.Shotgun_Melee", GP("TBD"), "ShotgunTBD");
-    BWTweaks:changeModelByGunPlating("Base.ShotgunSawnoff", GP("TBD"), "ShotgunSawnOffTBD");
-    BWTweaks:changeModelByGunPlating("Base.ShotgunSawnoff_Melee", GP("TBD"), "ShotgunSawnOffTBD");
+    --Remington Model 870 ALL Purple
+    BWTweaks:changeModelByGunPlating("Base.Shotgun", GP("Purple"), "ShotgunPurple");
+    BWTweaks:changeModelByGunPlating("Base.Shotgun_Melee", GP("Purple"), "ShotgunPurple");
+    BWTweaks:changeModelByGunPlating("Base.ShotgunSawnoff", GP("Purple"), "ShotgunSawnOffPurple");
+    BWTweaks:changeModelByGunPlating("Base.ShotgunSawnoff_Melee", GP("Purple"), "ShotgunSawnOffPurple");
     --Remington SPR 220 Shotgun
-    BWTweaks:changeModelByGunPlating("Base.DoubleBarrelShotgun", GP("TBD"), "DoubleBarrelShotgunBespoke");
-    BWTweaks:changeModelByGunPlating("Base.DoubleBarrelShotgun_Melee", GP("TBD"), "DoubleBarrelShotgunBespoke");
-    BWTweaks:changeModelByGunPlating("Base.DoubleBarrelShotgun_OPEN", GP("TBD"), "DoubleBarrelShotgunBespoke_OPEN");
+    BWTweaks:changeModelByGunPlating("Base.DoubleBarrelShotgun", GP("Purple"), "DoubleBarrelShotgunBespoke");
+    BWTweaks:changeModelByGunPlating("Base.DoubleBarrelShotgun_Melee", GP("Purple"), "DoubleBarrelShotgunBespoke");
+    BWTweaks:changeModelByGunPlating("Base.DoubleBarrelShotgun_OPEN", GP("Purple"), "DoubleBarrelShotgunBespoke_OPEN");
     --Remington SPR 220 Sawnoff Shotgun
     BWTweaks:changeModelByGunPlating("Base.DoubleBarrelShotgunSawnoff", GP("BespokeEngraved"), "DoubleBarrelShotgunSawnoffBespoke");
     BWTweaks:changeModelByGunPlating("Base.DoubleBarrelShotgunSawnoff_Melee", GP("BespokeEngraved"), "DoubleBarrelShotgunSawnoffBespoke");
     BWTweaks:changeModelByGunPlating("Base.DoubleBarrelShotgunSawnoff_OPEN", GP("BespokeEngraved"), "DoubleBarrelShotgunSawnoffBespoke_OPEN");
+    --Glock Wood
+    BWTweaks:changeModelByGunPlating("Base.Glock_Melee", GP("Wood"), "GlockWoodMelee");
+    --Glock PARP
+    BWTweaks:changeModelByGunPlating("Base.Glock_Melee", GP("PARP"), "GlockPARPMelee");    
+    --Glock SD
+    BWTweaks:changeModelByGunPlating("Base.Glock_Melee", GP("SD"), "GlockSDMelee");
+    --Glock DOTD
+    BWTweaks:changeModelByGunPlating("Base.Glock_Melee", GP("DOTD"), "GlockDOTDMelee");
+    --SIG Sauer Melee Tan
+    BWTweaks:changeModelByGunPlating("Base.SIGSauer_Melee", GP("Tan"), "SIGSauerTanMelee");
+    --SIG Sauer Melee Purple
+    BWTweaks:changeModelByGunPlating("Base.SIGSauer_Melee", GP("Purple"), "SIGSauerPurpleMelee");
+    --Jennings Melee Blue
+    BWTweaks:changeModelByGunPlating("Base.JenningsJ22_Melee", GP("Blue"), "JenningsJ22BlueMelee");
     --Luger Melee CrabShell
     BWTweaks:changeModelByGunPlating("Base.Luger_Melee", GP("CrabShell"), "LugerCrabShellMelee");
     --Derringer UWU
@@ -260,14 +277,14 @@ Events.OnGameStart.Add(function()
     BWTweaks:changeModelByGunPlating("Base.HenryRepeatingBigBoy", GP("Pink"), "HenryRepeatingBigBoyPink");
     BWTweaks:changeModelByGunPlating("Base.HenryRepeatingBigBoy_Melee", GP("Pink"), "HenryRepeatingBigBoyPink");
     --Remington1100 Wood Styling
-    BWTweaks:changeModelByGunPlating("Base.Remington1100", GP("WoodStyled"), "Remington1100Wood");
-    BWTweaks:changeModelByGunPlating("Base.Remington1100_Melee", GP("WoodStyled"), "Remington1100Wood");
+    BWTweaks:changeModelByGunPlating("Base.Remington1100", GP("Wood"), "Remington1100Wood");
+    BWTweaks:changeModelByGunPlating("Base.Remington1100_Melee", GP("Wood"), "Remington1100Wood");
     --Remington1100 Gold 
-    BWTweaks:changeModelByGunPlating("Base.Remington1100", GP("GoldShotgun"), "Remington1100Gold");
-    BWTweaks:changeModelByGunPlating("Base.Remington1100_Melee", GP("GoldShotgun"), "Remington1100Gold");
+    BWTweaks:changeModelByGunPlating("Base.Remington1100", GP("Gold"), "Remington1100Gold");
+    BWTweaks:changeModelByGunPlating("Base.Remington1100_Melee", GP("Gold"), "Remington1100Gold");
     --Remington1100 Rainbow
-    BWTweaks:changeModelByGunPlating("Base.Remington1100", GP("RainbowAnodized"), "Remington1100Rainbow");
-    BWTweaks:changeModelByGunPlating("Base.Remington1100_Melee", GP("RainbowAnodized"), "Remington1100Rainbow");
+    BWTweaks:changeModelByGunPlating("Base.Remington1100", GP("Rainbow"), "Remington1100Rainbow");
+    BWTweaks:changeModelByGunPlating("Base.Remington1100_Melee", GP("Rainbow"), "Remington1100Rainbow");
     --Remington1100 Red White
     BWTweaks:changeModelByGunPlating("Base.Remington1100", GP("RedWhite"), "Remington1100RedWhite");
     BWTweaks:changeModelByGunPlating("Base.Remington1100_Melee", GP("RedWhite"), "Remington1100RedWhite");
@@ -287,28 +304,57 @@ Events.OnGameStart.Add(function()
     -- Colt Cavalry Revolver Gilded Age
     BWTweaks:changeModelByGunPlating("Base.ColtCavalryRevolver", GP("GildedAge"), "ColtCavalryRevolverGold");
     BWTweaks:changeModelByGunPlating("Base.ColtCavalryRevolver_Melee", GP("GildedAge"), "ColtCavalryRevolverMeleeGold");
-    -- Colt Cavalry Revolver BlackDeath
+    -- Colt Cavalry Revolver Black Death
     BWTweaks:changeModelByGunPlating("Base.ColtCavalryRevolver", GP("BlackDeath"), "ColtCavalryRevolverBlackDeath");
     BWTweaks:changeModelByGunPlating("Base.ColtCavalryRevolver_Melee", GP("BlackDeath"), "ColtCavalryRevolverMeleeBlackDeath");
     -- Colt Cavalry Revolver Ornate Ivory
     BWTweaks:changeModelByGunPlating("Base.ColtCavalryRevolver", GP("OrnateIvory"), "ColtCavalryRevolverOrnateIvory");
     BWTweaks:changeModelByGunPlating("Base.ColtCavalryRevolver_Melee", GP("OrnateIvory"), "ColtCavalryRevolverMeleeOrnateIvory");
-
+    --Mossberg 500 Cannon Tan
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500", GP("Tan"), "Mossberg500Tan");
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500_Melee", GP("Tan"), "Mossberg500Tan");
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500Super", GP("Tan"), "Mossberg500SuperTan");
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500Super_Melee", GP("Tan"), "Mossberg500SuperTan");
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500Super_Grip", GP("Tan"), "Mossberg500SuperGrTan");
+    --Mossberg 500 Cannon PARP
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500", GP("PARP"), "Mossberg500PARP");
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500_Melee", GP("PARP"), "Mossberg500PARP");
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500Super", GP("PARP"), "Mossberg500SuperPARP");
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500Super_Melee", GP("PARP"), "Mossberg500SuperPARP");
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500Super_Grip", GP("PARP"), "Mossberg500SuperGrPARP");
+    --Mossberg 500 Cannon SD
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500", GP("SD"), "Mossberg500SD");
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500_Melee", GP("SD"), "Mossberg500SD");
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500Super", GP("SD"), "Mossberg500SuperSD");
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500Super_Melee", GP("SD"), "Mossberg500SuperSD");
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500Super_Grip", GP("SD"), "Mossberg500SuperGrSD");
+    --Mossberg 500 Cannon DOTD
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500", GP("DOTD"), "Mossberg500DOTD");
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500_Melee", GP("DOTD"), "Mossberg500DOTD");
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500Super", GP("DOTD"), "Mossberg500SuperDOTD");
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500Super_Melee", GP("DOTD"), "Mossberg500SuperDOTD");
+    BWTweaks:changeModelByGunPlating("Base.Mossberg500Super_Grip", GP("DOTD"), "Mossberg500SuperGrDOTD");
+    -- TShirt Cannon PARP
+    BWTweaks:changeModelByGunPlating("Base.TShirtLauncher", GP("PARP"), "TShirtCannonPARP");
+    -- TShirt Cannon SD
+    BWTweaks:changeModelByGunPlating("Base.TShirtLauncher", GP("SD"), "TShirtCannonSD");
+    -- TShirt Cannon DOTD
+    BWTweaks:changeModelByGunPlating("Base.TShirtLauncher", GP("DOTD"), "TShirtCannonDOTD");
 
     ---===========================================---
     --       PLATING + ATTACHMENT MODEL SWAPS      --
     ---===========================================---
 
     --Remington Model 870 Shotgun Choke
-    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun", GP("TBD"), "Base.ChokeTubeFull", "ShotgunChokeTBD");
-    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun_Melee", GP("TBD"), "Base.ChokeTubeFull", "ShotgunChokeTBD");
-    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun", GP("TBD"), "Base.ChokeTubeImproved", "ShotgunChokeTBD");
-    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun_Melee", GP("TBD"), "Base.ChokeTubeImproved", "ShotgunChokeTBD");
+    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun", GP("Purple"), "Base.ChokeTubeFull", "ShotgunChokePurple");
+    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun_Melee", GP("Purple"), "Base.ChokeTubeFull", "ShotgunChokePurple");
+    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun", GP("Purple"), "Base.ChokeTubeImproved", "ShotgunChokePurple");
+    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun_Melee", GP("Purple"), "Base.ChokeTubeImproved", "ShotgunChokePurple");
     --Remington Model 870 Sawnoff Shotgun Choke
-    BWTweaks:changeModelByGunPlatingAndAttachment("Base.ShotgunSawnoff", GP("TBD"), "Base.ChokeTubeFull", "ShotgunSawnoffChokeTBD");
-    BWTweaks:changeModelByGunPlatingAndAttachment("Base.ShotgunSawnoff_Melee", GP("TBD"), "Base.ChokeTubeFull", "ShotgunSawnoffChokeTBD");
-    BWTweaks:changeModelByGunPlatingAndAttachment("Base.ShotgunSawnoff", GP("TBD"), "Base.ChokeTubeImproved", "ShotgunSawnoffChokeTBD");
-    BWTweaks:changeModelByGunPlatingAndAttachment("Base.ShotgunSawnoff_Melee", GP("TBD"), "Base.ChokeTubeImproved", "ShotgunSawnoffChokeTBD");
+    BWTweaks:changeModelByGunPlatingAndAttachment("Base.ShotgunSawnoff", GP("Purple"), "Base.ChokeTubeFull", "ShotgunSawnoffChokePurple");
+    BWTweaks:changeModelByGunPlatingAndAttachment("Base.ShotgunSawnoff_Melee", GP("Purple"), "Base.ChokeTubeFull", "ShotgunSawnoffChokePurple");
+    BWTweaks:changeModelByGunPlatingAndAttachment("Base.ShotgunSawnoff", GP("Purple"), "Base.ChokeTubeImproved", "ShotgunSawnoffChokePurple");
+    BWTweaks:changeModelByGunPlatingAndAttachment("Base.ShotgunSawnoff_Melee", GP("Purple"), "Base.ChokeTubeImproved", "ShotgunSawnoffChokePurple");
 
     ---===========================================---
     --        PLATING + MAGAZINE MODEL SWAPS       --
@@ -326,9 +372,9 @@ Events.OnGameStart.Add(function()
         --Colt 1911 Aztec
         { fullType = "Base.Pistol2", gunPlating = GP("Aztec"), modelWithMag = "Handgun02Aztec", modelWithoutMag = "Handgun02AztecNoMag" },
         --Desert Eagle Gold
-         { fullType = "Base.Pistol3", gunPlating = GP("GoldDE"), modelWithMag = "HandgunGold", modelWithoutMag = "HandgunGoldNoMag" },
+         { fullType = "Base.Pistol3", gunPlating = GP("Gold"), modelWithMag = "HandgunGold", modelWithoutMag = "HandgunGoldNoMag" },
         --Desert Eagle Salvaged Black
-        { fullType = "Base.Pistol3", gunPlating = GP("SalvagedRage"), modelWithMag = "HandgunSalvagedBlack", modelWithoutMag = "HandgunSalvagedBlackNoMag" },
+        { fullType = "Base.Pistol3", gunPlating = GP("MatteBlack"), modelWithMag = "HandgunSalvagedBlack", modelWithoutMag = "HandgunSalvagedBlackNoMag" },
         --Desert Eagle Mystery Machine
         { fullType = "Base.Pistol3", gunPlating = GP("MysteryMachine"), modelWithMag = "HandgunMysteryMachine", modelWithoutMag = "HandgunMysteryMachineNoMag" },
         --Remington Model 788 DZ
@@ -337,8 +383,43 @@ Events.OnGameStart.Add(function()
         --Remington Model 788 Dark Cherry
         { fullType = "Base.HuntingRifle", gunPlating = GP("DarkCherry"), modelWithMag = "HuntingRifleDarkCherry", modelWithoutMag = "HuntingRifleDarkCherryNoMag" },
         { fullType = "Base.HuntingRifle_Melee", gunPlating = GP("DarkCherry"), modelWithMag = "HuntingRifleDarkCherry", modelWithoutMag = "HuntingRifleDarkCherryNoMag" },
+        --Colf M16 Gold 
+        { fullType = "Base.AssaultRifle", gunPlating = GP("Gold"), modelWithMag = "AssaultRifleGold", modelWithoutMag = "AssaultRifleGoldNoMag" },
+        { fullType = "Base.AssaultRifle_Melee", gunPlating = GP("Gold"), modelWithMag = "AssaultRifleGold", modelWithoutMag = "AssaultRifleGoldNoMag" },
+        --Colf M16 PARP 
+        { fullType = "Base.AssaultRifle", gunPlating = GP("PARP"), modelWithMag = "AssaultRiflePARP", modelWithoutMag = "AssaultRiflePARPNoMag" },
+        { fullType = "Base.AssaultRifle_Melee", gunPlating = GP("PARP"), modelWithMag = "AssaultRiflePARP", modelWithoutMag = "AssaultRiflePARPNoMag" },
+        --Colf M16 SD 
+        { fullType = "Base.AssaultRifle", gunPlating = GP("SD"), modelWithMag = "AssaultRifleSD", modelWithoutMag = "AssaultRifleSDNoMag" },
+        { fullType = "Base.AssaultRifle_Melee", gunPlating = GP("SD"), modelWithMag = "AssaultRifleSD", modelWithoutMag = "AssaultRifleSDNoMag" },
+        --Colf M16 DOTD 
+        { fullType = "Base.AssaultRifle", gunPlating = GP("DOTD"), modelWithMag = "AssaultRifleDOTD", modelWithoutMag = "AssaultRifleDOTDNoMag" },
+        { fullType = "Base.AssaultRifle_Melee", gunPlating = GP("DOTD"), modelWithMag = "AssaultRifleDOTD", modelWithoutMag = "AssaultRifleDOTDNoMag" },
+        ---Glock Wood
+        { fullType = "Base.Glock", gunPlating = GP("Wood"), modelWithMag = "GlockWood", modelWithoutMag = "GlockWoodNoMag" },
+        ---Glock PARP
+        { fullType = "Base.Glock", gunPlating = GP("PARP"), modelWithMag = "GlockPARP", modelWithoutMag = "GlockPARPNoMag" },
+        ---Glock SD
+        { fullType = "Base.Glock", gunPlating = GP("SD"), modelWithMag = "GlockSD", modelWithoutMag = "GlockSDNoMag" },
+        ---Glock DOTD
+        { fullType = "Base.Glock", gunPlating = GP("DOTD"), modelWithMag = "GlockDOTD", modelWithoutMag = "GlockDOTDNoMag" },
+        ---SIG Sauer Tan
+        { fullType = "Base.SIGSauer", gunPlating = GP("Tan"), modelWithMag = "SIGSauerTan", modelWithoutMag = "SIGSauerTanNoMag" },
+        ---SIG Sauer Purple
+        { fullType = "Base.SIGSauer", gunPlating = GP("Purple"), modelWithMag = "SIGSauerPurple", modelWithoutMag = "SIGSauerPurpleNoMag" },
+        ---SIG Sauer Purple
+        { fullType = "Base.JenningsJ22", gunPlating = GP("Blue"), modelWithMag = "JenningsJ22Blue", modelWithoutMag = "JenningsJ22BlueNoMag" },
         ----Crab Shell Luger
-        { fullType = "Base.Luger", gunPlating = GP("CrabShell"), modelWithMag = "LugerCrabShell", modelWithoutMag = "LugerCrabShellNoMag" },
+        { fullType = "Base.Luger", gunPlating = GP("CrabShell"), modelWithMag = "LugerCrabShell", modelWithoutMag = "LugerCrabShellNoMag"},
+        ---The Nailgun PARP
+        { fullType = "Base.TheNailGun", gunPlating = GP("PARP"), modelWithMag = "TheNailGunPARP", modelWithoutMag = "TheNailGunPARPNoMag" },
+        { fullType = "Base.TheNailGun_Melee", gunPlating = GP("PARP"), modelWithMag = "TheNailGunPARP", modelWithoutMag = "TheNailGunPARPNoMag" },
+        ---The Nailgun SD
+        { fullType = "Base.TheNailGun", gunPlating = GP("SD"), modelWithMag = "TheNailGunSD", modelWithoutMag = "TheNailGunSDNoMag" },
+        { fullType = "Base.TheNailGun_Melee", gunPlating = GP("SD"), modelWithMag = "TheNailGunSD", modelWithoutMag = "TheNailGunSDNoMag" },
+        ---The Nailgun DOTD
+        { fullType = "Base.TheNailGun", gunPlating = GP("DOTD"), modelWithMag = "TheNailGunDOTD", modelWithoutMag = "TheNailGunDOTDNoMag" },
+        { fullType = "Base.TheNailGun_Melee", gunPlating = GP("DOTD"), modelWithMag = "TheNailGunDOTD", modelWithoutMag = "TheNailGunDOTDNoMag"  },
         ----CrabShell STG
         { fullType = "Base.StG44", gunPlating = GP("CrabShell"), modelWithMag = "StG44CrabShell", modelWithoutMag = "StG44CrabShellNoMag" },
         { fullType = "Base.StG44_Melee", gunPlating = GP("CrabShell"), modelWithMag = "StG44CrabShell", modelWithoutMag = "StG44CrabShellNoMag" },
@@ -371,9 +452,6 @@ Events.OnGameStart.Add(function()
         ----Winter Camo AK103
         { fullType = "Base.AK103", gunPlating = GP("WinterCamo"), modelWithMag = "AK103Winter", modelWithoutMag = "AK103WinterNoMag" },
         { fullType = "Base.AK103_Melee", gunPlating = GP("WinterCamo"), modelWithMag = "AK103Winter", modelWithoutMag = "AK103WinterNoMag" },
-        ----Matte Black AK103
-        { fullType = "Base.AK103", gunPlating = GP("MatteBlack"), modelWithMag = "AK103MatteBlack", modelWithoutMag = "AK103MatteBlackNoMag" },
-        { fullType = "Base.AK103_Melee", gunPlating = GP("MatteBlack"), modelWithMag = "AK103MatteBlack", modelWithoutMag = "AK103MatteBlackNoMag" },
         ----Winter Camo AK74
         { fullType = "Base.AK74", gunPlating = GP("WinterCamo"), modelWithMag = "AK74Winter", modelWithoutMag = "AK74WinterNoMag" },
         { fullType = "Base.AK74_Melee", gunPlating = GP("WinterCamo"), modelWithMag = "AK74Winter", modelWithoutMag = "AK74WinterNoMag" },
@@ -386,12 +464,12 @@ Events.OnGameStart.Add(function()
         ----Pink Plating and P90
         { fullType = "Base.P90", gunPlating = GP("Pink"), modelWithMag = "P90Pink", modelWithoutMag = "P90PinkNoMag" },
         { fullType = "Base.P90_Melee", gunPlating = GP("Pink"), modelWithMag = "P90Pink", modelWithoutMag = "P90PinkNoMag" },
-        ----Black Ice Plating and P90
-        { fullType = "Base.P90", gunPlating = GP("BlackIce"), modelWithMag = "P90BlackIce", modelWithoutMag = "P90BlackIceNoMag" },
-        { fullType = "Base.P90_Melee", gunPlating = GP("BlackIce"), modelWithMag = "P90BlackIce", modelWithoutMag = "P90BlackIceNoMag" },
+        ----Salvaged Black Plating to do Black Ice style and P90
+        { fullType = "Base.P90", gunPlating = GP("Blue"), modelWithMag = "P90BlackIce", modelWithoutMag = "P90BlackIceNoMag" },
+        { fullType = "Base.P90_Melee", gunPlating = GP("Blue"), modelWithMag = "P90BlackIce", modelWithoutMag = "P90BlackIceNoMag" },
         ----Plank Plating and P90
-        { fullType = "Base.P90", gunPlating = GP("Plank"), modelWithMag = "P90Plank", modelWithoutMag = "P90PlankNoMag" },
-        { fullType = "Base.P90_Melee", gunPlating = GP("Plank"), modelWithMag = "P90Plank", modelWithoutMag = "P90PlankNoMag" },
+        { fullType = "Base.P90", gunPlating = GP("Wood"), modelWithMag = "P90Plank", modelWithoutMag = "P90PlankNoMag" },
+        { fullType = "Base.P90_Melee", gunPlating = GP("Wood"), modelWithMag = "P90Plank", modelWithoutMag = "P90PlankNoMag" },
         ----Green/Gold and M1918
         { fullType = "Base.M1918BAR", gunPlating = GP("GreenGold"), modelWithMag = "M1918BARGreenGold", modelWithoutMag = "M1918BARGreenGoldNoMag" },
         { fullType = "Base.M1918BAR_Bipod", gunPlating = GP("GreenGold"), modelWithMag = "M1918BARGreenGoldBipod", modelWithoutMag = "M1918BARGreenGoldBipodNoMag" },
@@ -405,9 +483,9 @@ Events.OnGameStart.Add(function()
         ----Green SIG550
         { fullType = "Base.SIG550", gunPlating = GP("GreenGold"), modelWithMag = "SIG550Green", modelWithoutMag = "SIG550GreenNoMag" },
         { fullType = "Base.SIG550_Melee", gunPlating = GP("GreenGold"), modelWithMag = "SIG550Green", modelWithoutMag = "SIG550GreenNoMag" }, 
-        ----Shenron SIG550
-        { fullType = "Base.SIG550", gunPlating = GP("Shenron"), modelWithMag = "SIG550Shenron", modelWithoutMag = "SIG550ShenronNoMag" },
-        { fullType = "Base.SIG550_Melee", gunPlating = GP("Shenron"), modelWithMag = "SIG550Shenron", modelWithoutMag = "SIG550ShenronNoMag" }, 
+        --- DragonBall Shenron SIG550
+        { fullType = "Base.SIG550", gunPlating = GP("DragonBall"), modelWithMag = "SIG550Shenron", modelWithoutMag = "SIG550ShenronNoMag" },
+        { fullType = "Base.SIG550_Melee", gunPlating = GP("DragonBall"), modelWithMag = "SIG550Shenron", modelWithoutMag = "SIG550ShenronNoMag" }, 
         ---Steel Damascus Barrett
         { fullType = "Base.BarrettM82A1", gunPlating = GP("SteelDamascus"), modelWithMag = "BarrettM82A1SteelDamascus", modelWithoutMag = "BarrettM82A1SteelDamascusNoMag" },
         { fullType = "Base.BarrettM82A1_Bipod", gunPlating = GP("SteelDamascus"), modelWithMag = "BarrettM82A1SteelDamascusBipod", modelWithoutMag = "BarrettM82A1SteelDamascusBipodNoMag" },
@@ -473,8 +551,6 @@ Events.OnGameStart.Add(function()
         { fullType = "Base.AK103_Melee", gunPlating = GP("Gold"), attachment = "Base.SkeletonizedStock", modelWithMag = "AK103GoldSkele", modelWithoutMag = "AK103GoldSkeleNoMag" },
         { fullType = "Base.AK103", gunPlating = GP("WinterCamo"), attachment = "Base.SkeletonizedStock", modelWithMag = "AK103WinterSkele", modelWithoutMag = "AK103WinterSkeleNoMag" },
         { fullType = "Base.AK103_Melee", gunPlating = GP("WinterCamo"), attachment = "Base.SkeletonizedStock", modelWithMag = "AK103WinterSkele", modelWithoutMag = "AK103WinterSkeleNoMag" },
-        { fullType = "Base.AK103", gunPlating = GP("MatteBlack"), attachment = "Base.SkeletonizedStock", modelWithMag = "AK103MatteBlackSkele", modelWithoutMag = "AK103MatteBlackSkeleNoMag" },
-        { fullType = "Base.AK103_Melee", gunPlating = GP("MatteBlack"), attachment = "Base.SkeletonizedStock", modelWithMag = "AK103MatteBlackSkele", modelWithoutMag = "AK103MatteBlackSkeleNoMag" },
     }
 
 
@@ -521,14 +597,14 @@ Events.OnGameStart.Add(function()
     --Remington Model 700 DZ WITH fiberglass
     BWTweaks:changeModelByGunPlatingAndAttachment("Base.VarmintRifle", GP("DZ"), "Base.FiberglassStock", "VarmintRifleDZ");
     BWTweaks:changeModelByGunPlatingAndAttachment("Base.VarmintRifle_Melee", GP("DZ"), "Base.FiberglassStock", "VarmintRifleDZ");
-    --Remington Model 870 Shotgun TBD WITH Fiberglass
-    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun", GP("TBD"), "Base.FiberglassStock", "ShotgunTBD");
-    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun_Melee", GP("TBD"), "Base.FiberglassStock", "ShotgunTBD");
-    --Remington Model 870 Shotgun TBD WITH Fiberglass and Choke
-    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun", GP("TBD"), {"Base.FiberglassStock", "Base.ChokeTubeFull"}, "ShotgunChokeTBD");
-    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun_Melee", GP("TBD"), {"Base.FiberglassStock", "Base.ChokeTubeFull"}, "ShotgunChokeTBD");
-    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun", GP("TBD"), {"Base.FiberglassStock", "Base.ChokeTubeImproved"}, "ShotgunChokeTBD");
-    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun_Melee", GP("TBD"), {"Base.FiberglassStock", "Base.ChokeTubeImproved"}, "ShotgunChokeTBD");
+    --Remington Model 870 Shotgun Purple WITH Fiberglass
+    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun", GP("Purple"), "Base.FiberglassStock", "ShotgunPurple");
+    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun_Melee", GP("Purple"), "Base.FiberglassStock", "ShotgunPurple");
+    --Remington Model 870 Shotgun Purple WITH Fiberglass and Choke
+    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun", GP("Purple"), {"Base.FiberglassStock", "Base.ChokeTubeFull"}, "ShotgunChokePurple");
+    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun_Melee", GP("Purple"), {"Base.FiberglassStock", "Base.ChokeTubeFull"}, "ShotgunChokePurple");
+    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun", GP("Purple"), {"Base.FiberglassStock", "Base.ChokeTubeImproved"}, "ShotgunChokePurple");
+    BWTweaks:changeModelByGunPlatingAndAttachment("Base.Shotgun_Melee", GP("Purple"), {"Base.FiberglassStock", "Base.ChokeTubeImproved"}, "ShotgunChokePurple");
 
     local fiberglassStock = {
         --Remington Model 700  Fiberglassstock
@@ -584,11 +660,24 @@ Events.OnGameStart.Add(function()
         "GunPlatingZoidbergSpecial"
     }
     
+    -- PGM Hecate Setup
+    local typesPGMHecate = {
+        "Base.PGMHecate",
+        "Base.PGMHecate_Melee",
+    }
+    local gunPlatingPGMHecate = {
+        -- Add actual plating variants when available
+    }
+
     -- Suppressor Only
     for _, sup in ipairs(suppressorsSniper) do
         for _, typ in ipairs(typesBarrett) do
             BWTweaks:changeModelByAttachmentAndMagPresent(typ, sup, true, "BarrettM82A1Suppressor")
             BWTweaks:changeModelByAttachmentAndMagPresent(typ, sup, false, "BarrettM82A1NoMagSuppressor")
+        end
+        for _, typ in ipairs(typesPGMHecate) do
+            BWTweaks:changeModelByAttachmentAndMagPresent(typ, sup, true, "PGMHecateSuppressor")
+            BWTweaks:changeModelByAttachmentAndMagPresent(typ, sup, false, "PGMHecateNoMagSuppressor")
         end
     end
 
@@ -596,6 +685,9 @@ Events.OnGameStart.Add(function()
     for _, sup in ipairs(suppressorsSniper) do
         BWTweaks:changeModelByAttachmentAndMagPresent("Base.BarrettM82A1_Bipod", sup, true, "BarrettM82A1BipodSuppressor")
         BWTweaks:changeModelByAttachmentAndMagPresent("Base.BarrettM82A1_Bipod", sup, false, "BarrettM82A1BipodNoMagSuppressor")
+
+        BWTweaks:changeModelByAttachmentAndMagPresent("Base.PGMHecate_Bipod", sup, true, "PGMHecateBipodSuppressor")
+        BWTweaks:changeModelByAttachmentAndMagPresent("Base.PGMHecate_Bipod", sup, false, "PGMHecateBipodNoMagSuppressor")
     end
 
     -- GunPlating + Suppressor combos
@@ -607,6 +699,14 @@ Events.OnGameStart.Add(function()
                 BWTweaks:changeModelByGunPlatingAndAttachmentAndMagPresent(typ, plating, sup, false, "BarrettM82A1" .. modelSuffix .. "NoMagSuppressor")
             end
         end
+
+        for _, typ in ipairs(typesPGMHecate) do
+            for _, plating in ipairs(gunPlatingPGMHecate) do
+                local modelSuffix = plating:gsub("GunPlating", "")
+                BWTweaks:changeModelByGunPlatingAndAttachmentAndMagPresent(typ, plating, sup, true, "PGMHecate" .. modelSuffix .. "Suppressor")
+                BWTweaks:changeModelByGunPlatingAndAttachmentAndMagPresent(typ, plating, sup, false, "PGMHecate" .. modelSuffix .. "NoMagSuppressor")
+            end
+        end
     end
 
     -- GunPlating + Suppressor + Bipod
@@ -615,6 +715,12 @@ Events.OnGameStart.Add(function()
             local modelSuffix = plating:gsub("GunPlating", "")
             BWTweaks:changeModelByGunPlatingAndAttachmentAndMagPresent("Base.BarrettM82A1_Bipod", plating, sup, true, "BarrettM82A1" .. modelSuffix .. "BipodSuppressor")
             BWTweaks:changeModelByGunPlatingAndAttachmentAndMagPresent("Base.BarrettM82A1_Bipod", plating, sup, false, "BarrettM82A1" .. modelSuffix .. "BipodNoMagSuppressor")
+        end
+
+        for _, plating in ipairs(gunPlatingPGMHecate) do
+            local modelSuffix = plating:gsub("GunPlating", "")
+            BWTweaks:changeModelByGunPlatingAndAttachmentAndMagPresent("Base.PGMHecate_Bipod", plating, sup, true, "PGMHecate" .. modelSuffix .. "BipodSuppressor")
+            BWTweaks:changeModelByGunPlatingAndAttachmentAndMagPresent("Base.PGMHecate_Bipod", plating, sup, false, "PGMHecate" .. modelSuffix .. "BipodNoMagSuppressor")
         end
     end
 
@@ -647,6 +753,31 @@ Events.OnGameStart.Add(function()
     for _, change in ipairs(chamberedGunPlatingChange) do
         BWTweaks:changeModelByGunPlatingAndRoundChambered(change.fullType, change.plating, true, change.loaded)
         BWTweaks:changeModelByGunPlatingAndRoundChambered(change.fullType, change.plating, false, change.empty)
+    end
+
+    -- Wood Crossbow Changes
+    local chamberedWoodChange = {
+        { fullType = "Base.CrossbowCompound", material = "wood", loaded = "WoodCrossbowCompoundLoaded", empty = "CrossbowCompound" },
+        { fullType = "Base.CrossbowCompound_Melee", material = "wood", loaded = "WoodCrossbowCompoundLoaded", empty = "CrossbowCompound" },
+        { fullType = "Base.CrossbowReverseDraw", material = "wood", loaded = "WoodCrossbowReverseDrawLoaded", empty = "CrossbowReverseDraw" },
+        { fullType = "Base.CrossbowReverseDraw_Melee", material = "wood", loaded = "WoodCrossbowReverseDrawLoaded", empty = "CrossbowReverseDraw" },
+        { fullType = "Base.CrossbowPistol", material = "wood", loaded = "WoodCrossbowPistolLoaded", empty = "CrossbowPistol" },
+        { fullType = "Base.CrossbowPistol_Melee", material = "wood", loaded = "WoodCrossbowPistolLoaded", empty = "CrossbowPistol" },
+    }
+
+    for _, change in ipairs(chamberedWoodChange) do
+        BWTweaks:changeModelByRoundChamberedAndMaterial(change.fullType, true, change.material, change.loaded)
+        BWTweaks:changeModelByRoundChamberedAndMaterial(change.fullType, false, change.material, change.empty)
+    end
+
+    -- Wood + Gun Plating Changes
+    local chamberedGunPlatingWoodChange = {
+        { fullType = "Base.CrossbowCompound", plating = GP("RedWhite"), material = "wood", loaded = "WoodCrossbowCompoundLoadedRedWhite", empty = "CrossbowCompoundRedWhite" },
+    }
+
+    for _, change in ipairs(chamberedGunPlatingWoodChange) do
+        BWTweaks:changeModelByGunPlatingAndRoundChamberedAndMaterial(change.fullType, change.plating, true, change.material, change.loaded)
+        BWTweaks:changeModelByGunPlatingAndRoundChamberedAndMaterial(change.fullType, change.plating, false, change.material, change.empty)
     end
 
     ---===========================================---
@@ -732,4 +863,3 @@ Events.OnGameStart.Add(function()
     end
 
 end);
-

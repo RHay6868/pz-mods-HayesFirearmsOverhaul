@@ -16,6 +16,8 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Holster,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.Glock_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = handgun,
@@ -92,6 +94,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingWood;GunPlatingPARP;GunPlatingSD;GunPlatingDOTD,
         ModelWeaponPart                 = SuppressorPistol SuppressorPistol barrelend barrelend,
         ModelWeaponPart                 = CompensatorHandgun CompensatorHandgun barrelend barrelend,
         ModelWeaponPart                 = MuzzleBrakeHandgun MuzzleBrakeHandgun barrelend barrelend,
@@ -100,6 +103,7 @@ module Base
         ModelWeaponPart                 = TacticalGrip TacticalGrip grip grip,
         ModelWeaponPart                 = GunLight GunLight gunlight gunlight,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = IronSight IronSight scope scope,
         ModelWeaponPart                 = Laser Laser laser laser,
         ModelWeaponPart                 = Mag45Drum Mag45Drum drum drum,
@@ -119,6 +123,8 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Holster,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.FiveSeven_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = handgun,
@@ -194,6 +200,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingMatteBlack;GunPlatingRedWhite,
         ModelWeaponPart                 = SuppressorPistol SuppressorPistol barrelend barrelend,
         ModelWeaponPart                 = CompensatorHandgun CompensatorHandgun barrelend barrelend,
         ModelWeaponPart                 = MuzzleBrakeHandgun MuzzleBrakeHandgun barrelend barrelend,
@@ -202,6 +209,7 @@ module Base
         ModelWeaponPart                 = TacticalGrip TacticalGrip grip grip,
         ModelWeaponPart                 = GunLight GunLight gunlight gunlight,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = IronSight IronSight scope scope,
         ModelWeaponPart                 = Laser Laser laser laser,
         ModelWeaponPart                 = Mag57ExtLg Mag57ExtLg drum drum,
@@ -220,6 +228,8 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Holster,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.Luger_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = handgun,
@@ -297,7 +307,6 @@ module Base
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
         GunPlatingOptions               = GunPlatingCrabShell,
-        ModelWeaponPart                 = VertGrip VertGrip foregrip foregrip,
         ModelWeaponPart                 = SuppressorPistol SuppressorPistol barrelend barrelend,
         ModelWeaponPart                 = CompensatorHandgun CompensatorHandgun barrelend barrelend,
         ModelWeaponPart                 = MuzzleBrakeHandgun MuzzleBrakeHandgun barrelend barrelend,
@@ -319,6 +328,8 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Holster,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.WaltherPPK_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = handgun,
@@ -395,6 +406,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingMatteBlack,
         ModelWeaponPart                 = SuppressorPistol SuppressorPistol barrelend barrelend,
         ModelWeaponPart                 = CompensatorHandgun CompensatorHandgun barrelend barrelend,
         ModelWeaponPart                 = MuzzleBrakeHandgun MuzzleBrakeHandgun barrelend barrelend,
@@ -416,6 +428,8 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Holster,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.Makarov_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = handgun,
@@ -492,6 +506,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingRed,
         ModelWeaponPart                 = SuppressorPistol SuppressorPistol barrelend barrelend,
         ModelWeaponPart                 = CompensatorHandgun CompensatorHandgun barrelend barrelend,
         ModelWeaponPart                 = MuzzleBrakeHandgun MuzzleBrakeHandgun barrelend barrelend,
@@ -507,12 +522,14 @@ module Base
         SubCategory	                    = Firearm,
         Weight	                        = 0.96,
         Type	                        = Weapon,
-        DisplayName	                    = Sig Sauer P226 Pistol,
+        DisplayName	                    = SIG Sauer P226 Pistol,
         Icon	                        = SIGSauer,
         WeaponSprite	                = SIGSauer,
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Holster,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.SIGSauer_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = handgun,
@@ -589,6 +606,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingTan;GunPlatingPurple,
         ModelWeaponPart                 = SuppressorPistol SuppressorPistol barrelend barrelend,
         ModelWeaponPart                 = CompensatorHandgun CompensatorHandgun barrelend barrelend,
         ModelWeaponPart                 = MuzzleBrakeHandgun MuzzleBrakeHandgun barrelend barrelend,
@@ -597,6 +615,7 @@ module Base
         ModelWeaponPart                 = TacticalGrip TacticalGrip grip grip,
         ModelWeaponPart                 = GunLight GunLight gunlight gunlight,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = IronSight IronSight scope scope,
         ModelWeaponPart                 = Laser Laser laser laser,
         ModelWeaponPart                 = Mag9ExtSm Mag9ExtSm drum drum,
@@ -616,6 +635,8 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Holster,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.JenningsJ22_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = handgun,
@@ -689,6 +710,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingBlue,
         ModelWeaponPart                 = SuppressorPistol SuppressorPistol barrelend barrelend,
         ModelWeaponPart                 = CompensatorHandgun CompensatorHandgun barrelend barrelend,
         ModelWeaponPart                 = MuzzleBrakeHandgun MuzzleBrakeHandgun barrelend barrelend,
@@ -707,6 +729,8 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Holster,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.Derringer_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = derringer,
@@ -779,7 +803,6 @@ module Base
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
         GunPlatingOptions               = GunPlatingPink,
-        ModelWeaponPart                 = TacticalGrip TacticalGrip grip grip,
     }
 
     item PLR16
@@ -869,6 +892,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingRedWhite,
         ModelWeaponPart                 = SuppressorPistol SuppressorPistol barrelend barrelend,
         ModelWeaponPart                 = CompensatorHandgun CompensatorHandgun barrelend barrelend,
         ModelWeaponPart                 = MuzzleBrakeHandgun MuzzleBrakeHandgun barrelend barrelend,
@@ -878,6 +902,8 @@ module Base
         ModelWeaponPart                 = WeaponLight WeaponLight side side,
         ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
         ModelWeaponPart                 = TacticalGrip TacticalGrip grip grip,
+        ModelWeaponPart                 = ACOG ACOG scope scope,
+        ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = HoloSight HoloSight scope scope,
         ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
         ModelWeaponPart                 = x2Scope x2Scope scope scope,
@@ -897,6 +923,8 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Holster,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.MosinNagantObrez_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = boltactionbetter,
@@ -974,6 +1002,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingDarkCherry;GunPlatingGreen,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
         ModelWeaponPart                 = PSO1Scope PSO1Scope scope scope,
         ModelWeaponPart                 = UniversalOpticalSight UniversalOpticalSight scope scope,
@@ -1075,10 +1104,12 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingYellow,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = HoloSight HoloSight scope scope,
         ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = SuppressorPistol SuppressorPistol barrelend barrelend,
         ModelWeaponPart                 = MuzzleBrake MuzzleBrake barrelend barrelend,
         ModelWeaponPart                 = Compensator Compensator barrelend barrelend,
@@ -1099,6 +1130,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Holster,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.TheNailGun_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = handgun,
@@ -1172,6 +1204,7 @@ module Base
         UseEndurance	                = FALSE,
 		CanBarricade                    = TRUE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingPARP;GunPlatingSD;GunPlatingDOTD,
         ModelWeaponPart                 = Laser Laser laser laser,
         ModelWeaponPart                 = GunLight GunLight scope scope,
         ModelWeaponPart                 = WeaponLight WeaponLight side side,
@@ -1189,6 +1222,8 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 120,
         AttachmentType                  = Holster,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.ColtCavalryRevolver_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = revolver,
@@ -1277,6 +1312,8 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 120,
         AttachmentType                  = Holster,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.RugerGP100_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = revolver,
@@ -1348,8 +1385,10 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingBlue,
         ModelWeaponPart                 = TacticalGrip TacticalGrip grip grip,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = IronSight IronSight scope scope,
     }
 
@@ -1365,6 +1404,8 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 120,
         AttachmentType                  = Holster,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.HighStandardSentinel_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = revolver,
@@ -1436,8 +1477,10 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingGreenGold,
         ModelWeaponPart                 = TacticalGrip TacticalGrip grip grip,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = IronSight IronSight scope scope,
     }
 	
@@ -1447,21 +1490,24 @@ module Base
         SubCategory	                    = Firearm,
         Weight	                        = 2.4,
         Type	                        = Weapon,
-        DisplayName	                    = Compound Crossbow,
+        DisplayName	                    = Man Kung 150A1 Recurve Crossbow,
         Icon	                        = CrossbowCompound,
         WeaponSprite	                = CrossbowCompound,
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 120,
-        AttachmentType                  = Rifle,	
+        AttachmentType                  = Rifle,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,	
         MeleeSwap                       = Base.CrossbowCompound_Melee,
         /******************** AMMO *********************/
 	    WeaponReloadType            	= boltaction,
         AmmoType                        = Base.CrossbowBolt,
         AmmoBox                         = CrossbowBoltBox,
-        AdditionalAmmo                  = Base.WoodCrossbowBolt,
         MaxAmmo                         = 1,
         JamGunChance                    = 0,
         ProjectileCount	                = 1,
+        AmmoTypeBase                    = Base.CrossbowBolt,
+        AmmoTypeAdditional              = Base.WoodCrossbowBolt,
         /******************** MODIFIERS ****************/
         SwingTime	                    = 0.5,
         MinimumSwingTime                = 0.5,
@@ -1524,6 +1570,7 @@ module Base
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
         GunPlatingOptions               = GunPlatingRedWhite,
+        ModelWeaponPart                 = ACOG ACOG scope scope,     
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = HoloSight HoloSight scope scope,
         ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
@@ -1541,21 +1588,24 @@ module Base
         SubCategory	                    = Firearm,
         Weight	                        = 3.1,
         Type	                        = Weapon,
-        DisplayName	                    = Ravin R10 Reverse-Draw Crossbow,
+        DisplayName	                    = Barnett RX-93 Prototype Crossbow,
         Icon	                        = CrossbowReverseDraw,
         WeaponSprite	                = CrossbowReverseDraw,
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 120,
         AttachmentType                  = Rifle,	
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.CrossbowReverseDraw_Melee,
         /******************** AMMO *********************/
 	    WeaponReloadType            	= boltaction,
         AmmoType                        = Base.CrossbowBolt,
         AmmoBox                         = CrossbowBoltBox,
-        AdditionalAmmo                  = Base.WoodCrossbowBolt,
         MaxAmmo                         = 1,
         JamGunChance                    = 0,
         ProjectileCount	                = 1,
+        AmmoTypeBase                    = Base.CrossbowBolt,
+        AmmoTypeAdditional              = Base.WoodCrossbowBolt,
         /******************** MODIFIERS ****************/
         SwingTime	                    = 0.5,
         MinimumSwingTime                = 0.5,
@@ -1617,6 +1667,8 @@ module Base
         InsertAllBulletsReload          = TRUE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingBlue;GunPlatingPatriot,
+        ModelWeaponPart                 = ACOG ACOG scope scope,   
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = HoloSight HoloSight scope scope,
         ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
@@ -1634,21 +1686,24 @@ module Base
         SubCategory	                    = Firearm,
         Weight	                        = 1.5,
         Type	                        = Weapon,
-        DisplayName	                    = Crossbow Pistol,
+        DisplayName	                    = Belgian Hand Crossbow,
         Icon	                        = CrossbowPistol,
         WeaponSprite	                = CrossbowPistol,
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 120,
         AttachmentType                  = Rifle,	
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.CrossbowPistol_Melee,
         /******************** AMMO *********************/
 	    WeaponReloadType            	= boltaction,
         AmmoType                        = Base.CrossbowBolt,
         AmmoBox                         = CrossbowBoltBox,
-        AdditionalAmmo                  = Base.WoodCrossbowBolt,
         MaxAmmo                         = 1,
         JamGunChance                    = 0,
         ProjectileCount	                = 1,
+        AmmoTypeBase                    = Base.CrossbowBolt,
+        AmmoTypeAdditional              = Base.WoodCrossbowBolt,
         /******************** MODIFIERS ****************/
         SwingTime	                    = 0.5,
         MinimumSwingTime                = 0.5,
@@ -1710,13 +1765,11 @@ module Base
         InsertAllBulletsReload          = TRUE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
-        ModelWeaponPart                 = HoloSight HoloSight scope scope,
-        ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
+        GunPlatingOptions               = GunPlatingMatteBlack,
         ModelWeaponPart                 = LaserRed LaserRed side side,
         ModelWeaponPart                 = LaserGreen LaserGreen side side,
         ModelWeaponPart                 = LaserNoLight LaserNoLight side side,
         ModelWeaponPart                 = WeaponLight WeaponLight side side,
-        ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
     }
 
 
@@ -2030,6 +2083,7 @@ module Base
         ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
         ModelWeaponPart                 = GunLight GunLight gunlight gunlight,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = IronSight IronSight scope scope,
         ModelWeaponPart                 = Laser Laser laser laser,
     }
@@ -2131,6 +2185,7 @@ module Base
         ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
         ModelWeaponPart                 = GunLight GunLight gunlight gunlight,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = IronSight IronSight scope scope,
         ModelWeaponPart                 = Laser Laser laser laser,
     }
@@ -2230,6 +2285,7 @@ module Base
         ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
         ModelWeaponPart                 = GunLight GunLight gunlight gunlight,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = IronSight IronSight scope scope,
         ModelWeaponPart                 = Laser Laser laser laser,
     }
@@ -2329,6 +2385,7 @@ module Base
         ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
         ModelWeaponPart                 = GunLight GunLight gunlight gunlight,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = IronSight IronSight scope scope,
         ModelWeaponPart                 = Laser Laser laser laser,
     }
@@ -2419,7 +2476,9 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
-        GunPlatingOptions               = GunPlatingPink;GunPlatingPlank;GunPlatingBlackIce,
+        GunPlatingOptions               = GunPlatingPink;GunPlatingWood;GunPlatingBlue,
+        ModelWeaponPart                 = ACOG ACOG scope scope,
+        ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = HoloSight HoloSight scope scope,
         ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
         ModelWeaponPart                 = SuppressorRifle SuppressorRifle barrelend barrelend,
@@ -2442,6 +2501,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Holster,
         FireMode                        = SMGFullAuto,
+        FireModePossibilities           = SMGFullAuto,
         MeleeSwap                       = PM63RAK_Melee,
         FoldSwap                        = Base.PM63RAK_Extended,
         IntegratedSwap                  = Base.PM63RAK_Grip,
@@ -2525,6 +2585,7 @@ module Base
         ModelWeaponPart                 = WeaponLight WeaponLight side side,
         ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = MagPM63RAKExtLg MagPM63RAKExtLg drum drum,
     }
 
@@ -2541,6 +2602,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = SMGFullAuto,
+        FireModePossibilities           = SMGFullAuto,
         MeleeSwap                       = PM63RAK_Melee,
         FoldSwap                        = Base.PM63RAK_GripExtended,
         IntegratedSwap                  = Base.PM63RAK,
@@ -2626,6 +2688,7 @@ module Base
         ModelWeaponPart                 = WeaponLight WeaponLight side side,
         ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = MagPM63RAKExtLg MagPM63RAKExtLg drum drum,
     }
 
@@ -2642,6 +2705,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = SMGFullAuto,
+        FireModePossibilities           = SMGFullAuto,
         MeleeSwap                       = PM63RAK_Extended_Melee,
         FoldSwap                        = Base.PM63RAK,
         IntegratedSwap                  = Base.PM63RAK_GripExtended,
@@ -2727,6 +2791,7 @@ module Base
         ModelWeaponPart                 = WeaponLight WeaponLight side side,
         ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = MagPM63RAKExtLg MagPM63RAKExtLg drum drum,
     }
 
@@ -2743,6 +2808,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = SMGFullAuto,
+        FireModePossibilities           = SMGFullAuto,
         MeleeSwap                       = PM63RAK_Extended_Melee,
         FoldSwap                        = Base.PM63RAK_Grip,
         IntegratedSwap                  = Base.PM63RAK_Extended,
@@ -2828,6 +2894,7 @@ module Base
         ModelWeaponPart                 = WeaponLight WeaponLight side side,
         ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = MagPM63RAKExtLg MagPM63RAKExtLg drum drum,
     }
 
@@ -2921,6 +2988,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingPurple;GunPlatingYellow,
         ModelWeaponPart                 = HoloSight HoloSight scope scope,
         ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
         ModelWeaponPart                 = LaserRed LaserRed side side,
@@ -2956,7 +3024,7 @@ module Base
         MaxAmmo                         = 20,
         ProjectileCount                 = 1,
         MagBase                         = Base.45Clip20,
-        MagExtLg                        = Base.Mag45Drum,
+        MagDrum                         = Base.Mag45TommyDrum,
         /******************** MODIFIERS ****************/
         SwingTime	                    = 0.5,
         MinimumSwingTime	            = 0.5,
@@ -3021,12 +3089,13 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingGreenGold;GunPlatingDZ,
         ModelWeaponPart                 = LaserRed LaserRed side side,
         ModelWeaponPart                 = LaserGreen LaserGreen side side,
         ModelWeaponPart                 = LaserNoLight LaserNoLight side side,
         ModelWeaponPart                 = WeaponLight WeaponLight side side,
         ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
-        ModelWeaponPart                 = Mag45Drum Mag45Drum drum drum,
+        ModelWeaponPart                 = Mag45TommyDrum Mag45TommyDrum drum drum,
     }
 
     /****************************** RIFLES *****************************/
@@ -3263,6 +3332,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.HenryRepeatingBigBoy_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = leveraction,
@@ -3371,6 +3441,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.BrowningBLR_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = leveraction,
@@ -3380,7 +3451,7 @@ module Base
         MaxAmmo                         = 5,
         JamGunChance                    = 0.1,
         ProjectileCount	                = 1,
-        MagBase                         = Base.308Clip,
+        MagBase                         = Base.308Clip5,
         MagExtSm                        = Base.Mag308ExtSm,
         /******************** MODIFIERS ****************/
         SwingTime	                    = 1.5,
@@ -3447,6 +3518,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingYellow,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
@@ -3466,6 +3538,7 @@ module Base
         ModelWeaponPart                 = x4Scope x4Scope scope scope,
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
         ModelWeaponPart                 = ButtStockWrap ButtStockWrap buttstock buttstock,
+        ModelWeaponPart                 = Mag308ExtSm Mag308ExtSm drum drum,
     }    
 
     item Marlin39A   
@@ -3481,6 +3554,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.Marlin39A_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = leveraction,
@@ -3554,6 +3628,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingMatteBlack,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
@@ -3664,6 +3739,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingWood,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = PSO1Scope PSO1Scope scope scope,
@@ -3693,6 +3769,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = FullAuto,
+        FireModePossibilities           = FullAuto,
         MeleeSwap                       = Base.M1918BAR_Melee,
         IntegratedSwap                  = Base.M1918BAR_Bipod,
         /******************** AMMO *********************/
@@ -3769,10 +3846,9 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
-        GunPlatingOptions               = GunPlatingGreenGold,
+        GunPlatingOptions               = GunPlatingGreenGold;GunPlatingAztec,
         ModelWeaponPart                 = HoloSight HoloSight scope scope,
         ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
-        ModelWeaponPart                 = IronSight IronSight scope2 scope2,
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
         ModelWeaponPart                 = Mag3006ExtLg Mag3006ExtLg drum drum,
     }
@@ -3790,6 +3866,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = FullAuto,
+        FireModePossibilities           = FullAuto,
         MeleeSwap                       = Base.M1918BAR_Melee,
         IntegratedSwap                  = Base.M1918BAR,
         /******************** AMMO *********************/
@@ -3866,10 +3943,9 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
-        GunPlatingOptions               = GunPlatingGreenGold,
+        GunPlatingOptions               = GunPlatingGreenGold;GunPlatingAztec,
         ModelWeaponPart                 = HoloSight HoloSight scope scope,
         ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
-        ModelWeaponPart                 = IronSight IronSight scope2 scope2,
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
         ModelWeaponPart                 = Mag3006ExtLg Mag3006ExtLg drum drum,
     }
@@ -3886,6 +3962,8 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.M1Garand_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = boltaction,
@@ -3961,7 +4039,9 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingPearl,
         ModelWeaponPart                 = BayonetImprovised BayonetImprovised bayonet bayonet,
+        ModelWeaponPart                 = SuppressorRifle SuppressorRifle barrelend barrelend,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
@@ -3972,7 +4052,6 @@ module Base
         ModelWeaponPart                 = x2Scope x2Scope scope scope,
         ModelWeaponPart                 = x4Scope x4Scope scope scope,       
         ModelWeaponPart                 = x8Scope x8Scope scope scope,  
-        ModelWeaponPart                 = IronSight IronSight scope2 scope2,
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
         ModelWeaponPart                 = ButtStockWrap ButtStockWrap buttstock buttstock,
         ModelWeaponPart                 = MagM1GarandExtSm MagM1GarandExtSm drum drum,
@@ -4066,7 +4145,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
-        GunPlatingOptions               = GunPlatingWinterCamo;GunPlatingPink;GunPlatingGreenGold;GunPlatingShenron,
+        GunPlatingOptions               = GunPlatingWinterCamo;GunPlatingPink;GunPlatingGreenGold;GunPlatingDragonBall,
         ModelWeaponPart                 = VertGrip VertGrip foregrip foregrip,
         ModelWeaponPart                 = AngleGrip AngleGrip anglegrip anglegrip,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
@@ -4210,6 +4289,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.MosinNagant_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = boltactionbetter,
@@ -4287,6 +4367,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingDarkCherry;GunPlatingGreen,
         ModelWeaponPart                 = Bayonnet Bayonnet bayonet bayonet,
         ModelWeaponPart                 = BayonetImprovised BayonetImprovised bayonet bayonet,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
@@ -4400,6 +4481,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingPatriot,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = UniversalOpticalSight UniversalOpticalSight scope scope,
@@ -4506,6 +4588,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingPatriot,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = UniversalOpticalSight UniversalOpticalSight scope scope,
@@ -4612,6 +4695,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingMatteBlack,
         ModelWeaponPart                 = BayonetImprovised BayonetImprovised bayonet bayonet,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
@@ -4719,6 +4803,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingSalvagedRage,
         ModelWeaponPart                 = VertGrip VertGrip foregrip foregrip,
         ModelWeaponPart                 = AngleGrip AngleGrip anglegrip anglegrip,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
@@ -4832,6 +4917,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingRed,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
@@ -4940,6 +5026,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingRed,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
@@ -5062,6 +5149,7 @@ module Base
         ModelWeaponPart                 = LaserGreen LaserGreen side side,
         ModelWeaponPart                 = LaserNoLight LaserNoLight side side,
         ModelWeaponPart                 = WeaponLight WeaponLight side side,
+        ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
         ModelWeaponPart                 = x2Scope x2Scope scope scope,
         ModelWeaponPart                 = x4Scope x4Scope scope scope,
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
@@ -5155,6 +5243,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingPearl,
         ModelWeaponPart                 = ScopeFG42 ScopeFG42 scope scope,
         ModelWeaponPart                 = IronSightsFG42 IronSightsFG42 scope2 scope2,
     }
@@ -5247,6 +5336,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingPearl,
         ModelWeaponPart                 = ScopeFG42 ScopeFG42 scope scope,
         ModelWeaponPart                 = IronSightsFG42 IronSightsFG42 scope2 scope2,
     }
@@ -5339,6 +5429,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingRed,
     }
 
     item MG42_Bipod
@@ -5429,6 +5520,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingRed,
     }
 
     item Ruger1022
@@ -5444,6 +5536,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.Ruger1022_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = boltactionbetter,
@@ -5521,6 +5614,8 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingPatriot,
+        ModelWeaponPart                 = SuppressorRifle SuppressorRifle barrelend barrelend,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
@@ -5554,6 +5649,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.BarrettM82A1_Melee,
         IntegratedSwap                  = Base.BarrettM82A1_Bipod,
         /******************** AMMO *********************/
@@ -5633,6 +5729,7 @@ module Base
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
         GunPlatingOptions               = GunPlatingSteelDamascus;GunPlatingSalvagedRage;GunPlatingZoidbergSpecial,
+        ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
         ModelWeaponPart                 = PSO1Scope PSO1Scope scope scope,
@@ -5662,6 +5759,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.BarrettM82A1_Melee,
         IntegratedSwap                  = Base.BarrettM82A1,
         /******************** AMMO *********************/
@@ -5741,6 +5839,7 @@ module Base
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
         GunPlatingOptions               = GunPlatingSteelDamascus;GunPlatingSalvagedRage;GunPlatingZoidbergSpecial,
+        ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
         ModelWeaponPart                 = PSO1Scope PSO1Scope scope scope,
@@ -5753,31 +5852,33 @@ module Base
         ModelWeaponPart                 = x4Scope x4Scope scope scope,
         ModelWeaponPart                 = x8Scope x8Scope scope scope,  
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
+        ModelWeaponPart                 = ButtStockWrap ButtStockWrap buttstock buttstock,
         ModelWeaponPart                 = Mag50BMGExtSm Mag50BMGExtSm drum drum,
     }
 
-    item McMillanTAC50
+    item PGMHecate
     {
         DisplayCategory                 = Weapon,
         SubCategory	                    = Firearm,
         Weight	                        = 11,
         Type	                        = Weapon,
-        DisplayName	                    = McMillan TAC-50 Rifle,
-        Icon	                        = McMillanTAC50,
-        WeaponSprite	                = McMillanTAC50,
+        DisplayName	                    = PGM Hécate II Rifle,
+        Icon	                        = PGMHecate,
+        WeaponSprite	                = PGMHecate,
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
-        MeleeSwap                       = Base.McMillanTAC50_Melee,
-        IntegratedSwap                  = Base.McMillanTAC50_Bipod,
+        FireModePossibilities           = Single,
+        MeleeSwap                       = Base.PGMHecate_Melee,
+        IntegratedSwap                  = Base.PGMHecate_Bipod,
         /******************** AMMO *********************/
         WeaponReloadType                = boltactionbetter,
         AmmoType                        = Base.50BMGBullets,
         MagazineType                    = Base.50BMGClip,
         AmmoBox                         = 50BMGBox,
-        ClipSize                        = 5,
-        MaxAmmo                         = 5,
+        ClipSize                        = 7,
+        MaxAmmo                         = 7,
         JamGunChance                    = 0.1,
         ProjectileCount	                = 1,
         MagBase                         = Base.50BMGClip,
@@ -5847,6 +5948,8 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingTan;GunPlatingDZ,
+        ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
         ModelWeaponPart                 = PSO1Scope PSO1Scope scope scope,
@@ -5863,28 +5966,29 @@ module Base
         ModelWeaponPart                 = Mag50BMGExtSm Mag50BMGExtSm drum drum,
     }
 
-    item McMillanTAC50_Bipod
+    item PGMHecate_Bipod
     {
         DisplayCategory                 = Weapon,
         SubCategory	                    = Firearm,
         Weight	                        = 10.5,
         Type	                        = Weapon,
-        DisplayName	                    = McMillan TAC-50 Rifle [Bipod],
-        Icon	                        = McMillanTAC50,
-        WeaponSprite	                = McMillanTAC50Bipod,
+        DisplayName	                    = PGM Hécate II Rifle [Bipod],
+        Icon	                        = PGMHecate,
+        WeaponSprite	                = PGMHecateBipod,
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
-        MeleeSwap                       = Base.McMillanTAC50_Melee,
-        IntegratedSwap                  = Base.McMillanTAC50,
+        FireModePossibilities           = Single,
+        MeleeSwap                       = Base.PGMHecate_Melee,
+        IntegratedSwap                  = Base.PGMHecate,
         /******************** AMMO *********************/
         WeaponReloadType                = boltactionbetter,
         AmmoType                        = Base.50BMGBullets,
         MagazineType                    = Base.50BMGClip,
         AmmoBox                         = 50BMGBox,
-        ClipSize                        = 10,
-        MaxAmmo                         = 10,
+        ClipSize                        = 7,
+        MaxAmmo                         = 7,
         JamGunChance                    = 0.1,
         ProjectileCount	                = 1,
         MagBase                         = Base.50BMGClip,
@@ -5954,6 +6058,8 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingTan;GunPlatingDZ,
+        ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
         ModelWeaponPart                 = PSO1Scope PSO1Scope scope scope,
@@ -5966,6 +6072,7 @@ module Base
         ModelWeaponPart                 = x4Scope x4Scope scope scope,
         ModelWeaponPart                 = x8Scope x8Scope scope scope,  
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
+        ModelWeaponPart                 = ButtStockWrap ButtStockWrap buttstock buttstock,
         ModelWeaponPart                 = Mag50BMGExtSm Mag50BMGExtSm drum drum,
     }
 
@@ -5982,6 +6089,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.SVDDragunov_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = boltaction,
@@ -6174,6 +6282,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingBlue;GunPlatingYellow,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
@@ -6287,6 +6396,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingBlue;GunPlatingYellow,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
@@ -6400,6 +6510,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingRed,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
@@ -6433,6 +6544,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.Remington1100_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = shotgun,
@@ -6441,6 +6553,8 @@ module Base
         MaxAmmo                         = 8,
         JamGunChance                    = 0.2,
         ProjectileCount	                = 5,
+        AmmoTypeBase                    = Base.ShotgunShells,
+        AmmoTypeAdditional              = Base.ShotgunShellsBirdshot;Base.ShotgunShellsSlug,
         /******************** MODIFIERS ****************/
         SwingTime	                    = 1,
         MinimumSwingTime	            = 1,
@@ -6507,7 +6621,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
-        GunPlatingOptions               = GunPlatingGoldShotgun;GunPlatingRainbowAnodized;GunPlatingWoodStyle;GunPlatingRedWhite,
+        GunPlatingOptions               = GunPlatingGold;GunPlatingRainbow;GunPlatingWood;GunPlatingRedWhite,
         ModelWeaponPart                 = HoloSight HoloSight scope scope,
         ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
         ModelWeaponPart                 = VertGrip VertGrip foregrip foregrip,
@@ -6523,21 +6637,25 @@ module Base
         SubCategory	                    = Firearm,
         Weight	                        = 3.1,
         Type	                        = Weapon,
-        DisplayName	                    = Mossberg 500 Semi-Auto Shotgun,
+        DisplayName	                    = Mossberg 500 Shotgun,
         Icon	                        = Mossberg500,
         WeaponSprite	                = Mossberg500,
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.Mossberg500_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = shotgun,
         AmmoType                        = Base.ShotgunShells,
         AmmoBox                         = ShotgunShellsBox,
         MaxAmmo                         = 6,
+        ClipSize                        = 6,
         JamGunChance                    = 0.2,
         ProjectileCount	                = 6,
+        AmmoTypeBase                    = Base.ShotgunShells,
+        AmmoTypeAdditional              = Base.ShotgunShellsBirdshot;Base.ShotgunShellsSlug,
         /******************** MODIFIERS ****************/
         SwingTime	                    = 1,
         MinimumSwingTime	            = 1,
@@ -6549,7 +6667,7 @@ module Base
         MinDamage	                    = 1.0,
         MaxRange	                    = 7,
         MinRange	                    = 0.63,
-        MinAngle	                    = 0.930,
+        MinAngle	                    = 0.935,
         MaxHitCount	                    = 4,
         HitChance                       = 40,     
         CriticalChance	                = 30,
@@ -6595,6 +6713,7 @@ module Base
         RangeFalloff	                = TRUE,
 		AngleFalloff	                = TRUE,
         IsAimedFirearm	                = TRUE,
+        RackAfterShoot                  = TRUE,
         RequiresEquippedBothHands       = TRUE,
         TwoHandWeapon                   = TRUE,
         KnockBackOnNoDeath	            = TRUE,
@@ -6604,6 +6723,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingTan;GunPlatingPARP;GunPlatingDOTD;GunPlatingSD,
         ModelWeaponPart                 = HoloSight HoloSight scope scope,
         ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
         ModelWeaponPart                 = VertGrip VertGrip foregrip foregrip,
@@ -6613,11 +6733,211 @@ module Base
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
     }
 
+    item Mossberg500Super
+    {
+        DisplayCategory                 = Weapon,
+        SubCategory	                    = Firearm,
+        Weight	                        = 2.2,
+        Type	                        = Weapon,
+        DisplayName	                    = Mossberg 500 Super Shorty Shotgun,
+        Icon	                        = Mossberg500Super,
+        WeaponSprite	                = Mossberg500Super,
+        ConditionMax	                = 25,
+        ConditionLowerChanceOneIn	    = 150,
+        AttachmentType                  = Holster,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
+        MeleeSwap                       = Base.Mossberg500Super_Melee,
+        IntegratedSwap                  = Base.Mossberg500Super_Grip,
+        /******************** AMMO *********************/
+        WeaponReloadType                = shotgun,
+        AmmoType                        = Base.ShotgunShells,
+        AmmoBox                         = ShotgunShellsBox,
+        MaxAmmo                         = 4,
+        ClipSize                        = 4,
+        JamGunChance                    = 0.2,
+        ProjectileCount	                = 6,
+        AmmoTypeBase                    = Base.ShotgunShells,
+        AmmoTypeAdditional              = Base.ShotgunShellsBirdshot;Base.ShotgunShellsSlug,
+        /******************** MODIFIERS ****************/
+        SwingTime	                    = 1,
+        MinimumSwingTime	            = 1,
+        SwingAmountBeforeImpact	        = 0,
+        AimingTime                      = 22,
+        ReloadTime                      = 32,
+        RecoilDelay                     = 36,
+        MaxDamage	                    = 2.1,
+        MinDamage	                    = 0.9,
+        MaxRange	                    = 5,
+        MinRange	                    = 0.63,
+        MinAngle	                    = 0.910,
+        MaxHitCount	                    = 4,
+        HitChance                       = 30,     
+        CriticalChance	                = 50,
+        CritDmgMultiplier               = 3,
+        AimingPerkCritModifier          = 3,
+        AimingPerkMinAngleModifier      = 0.01,
+        AimingPerkHitChanceModifier     = 6,
+        AimingPerkRangeModifier         = 1.5,
+        SplatNumber	                    = 6,
+        SplatSize	                    = 3,
+        AimingMod	                    = 2,
+        PushBackMod	                    = 1.5,
+        KnockdownMod	                = 10,
+        DoorDamage	                    = 15,
+        StopPower                       = 10,
+        MetalValue                      = 45,
+        /******************** SOUND ********************/
+        SoundRadius	                    = 120,
+        SoundVolume	                    = 120,
+        SoundGain                       = 1.5,
+        NPCSoundBoost	                = 1.5,
+        SwingSound	                    = JS2000ShotgunShoot,
+        RackSound                       = JS2000ShotgunRack,
+		BringToBearSound                = JS2000ShotgunBringToBear,
+        HitSound                        = BulletHitBody,
+		ClickSound                      = JS2000ShotgunJam,
+		EquipSound                      = JS2000ShotgunEquip,
+		UnequipSound                    = JS2000ShotgunUnEquip,
+        InsertAmmoSound                 = JS2000ShotgunInsertAmmo,
+        EjectAmmoSound                  = JS2000ShotgunEjectAmmo,
+		InsertAmmoStartSound            = JS2000ShotgunInsertAmmoStart,
+		InsertAmmoStopSound             = JS2000ShotgunInsertAmmoStop,
+		EjectAmmoStartSound             = JS2000ShotgunEjectAmmoStart,
+		EjectAmmoStopSound              = JS2000ShotgunEjectAmmoStop,
+        ShellFallSound                  = JS2000ShotgunCartridgeFall,
+        BreakSound                      = JS2000ShotgunBreak,
+        ImpactSound	                    = null,
+        /******************** OPERATORS ****************/
+		SwingAnim	                    = Rifle,
+        RunAnim	                        = Run_Weapon2,
+        IdleAnim	                    = Idle_Weapon2,
+        Ranged	                        = TRUE,
+        RangeFalloff	                = TRUE,
+		AngleFalloff	                = TRUE,
+        IsAimedFirearm	                = TRUE,
+        RackAfterShoot                  = TRUE,
+        RequiresEquippedBothHands       = TRUE,
+        TwoHandWeapon                   = TRUE,
+        KnockBackOnNoDeath	            = TRUE,
+        SplatBloodOnNoDeath	            = TRUE,
+        PiercingBullets                 = FALSE,
+        MultipleHitConditionAffected	= FALSE,
+        ShareDamage	                    = FALSE,
+        UseEndurance	                = FALSE,
+        /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingTan;GunPlatingPARP;GunPlatingDOTD;GunPlatingSD,
+        ModelWeaponPart                 = HoloSight HoloSight scope scope,
+        ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
+        ModelWeaponPart                 = WeaponLight WeaponLight side side,
+        ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
+    }
+
+    item Mossberg500Super_Grip
+    {
+        DisplayCategory                 = Weapon,
+        SubCategory	                    = Firearm,
+        Weight	                        = 2.2,
+        Type	                        = Weapon,
+        DisplayName	                    = Mossberg 500 Super Shorty Shotgun [Grip],
+        Icon	                        = Mossberg500SuperGr,
+        WeaponSprite	                = Mossberg500SuperGr,
+        ConditionMax	                = 25,
+        ConditionLowerChanceOneIn	    = 150,
+        AttachmentType                  = Rifle,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
+        MeleeSwap                       = Base.Mossberg500Super_Melee,
+        IntegratedSwap                  = Base.Mossberg500Super,
+        /******************** AMMO *********************/
+        WeaponReloadType                = shotgun,
+        AmmoType                        = Base.ShotgunShells,
+        AmmoBox                         = ShotgunShellsBox,
+        MaxAmmo                         = 4,
+        ClipSize                        = 4,
+        JamGunChance                    = 0.2,
+        ProjectileCount	                = 6,
+        AmmoTypeBase                    = Base.ShotgunShells,
+        AmmoTypeAdditional              = Base.ShotgunShellsBirdshot;Base.ShotgunShellsSlug,
+        /******************** MODIFIERS ****************/
+        SwingTime	                    = 1,
+        MinimumSwingTime	            = 1,
+        SwingAmountBeforeImpact	        = 0,
+        AimingTime                      = 26,
+        ReloadTime                      = 34,
+        RecoilDelay                     = 32,
+        MaxDamage	                    = 2.1,
+        MinDamage	                    = 0.9,
+        MaxRange	                    = 5,
+        MinRange	                    = 0.63,
+        MinAngle	                    = 0.92,
+        MaxHitCount	                    = 4,
+        HitChance                       = 35,     
+        CriticalChance	                = 45,
+        CritDmgMultiplier               = 3,
+        AimingPerkCritModifier          = 3,
+        AimingPerkMinAngleModifier      = 0.01,
+        AimingPerkHitChanceModifier     = 6,
+        AimingPerkRangeModifier         = 1.5,
+        SplatNumber	                    = 6,
+        SplatSize	                    = 3,
+        AimingMod	                    = 2,
+        PushBackMod	                    = 1.5,
+        KnockdownMod	                = 10,
+        DoorDamage	                    = 15,
+        StopPower                       = 10,
+        MetalValue                      = 45,
+        /******************** SOUND ********************/
+        SoundRadius	                    = 120,
+        SoundVolume	                    = 120,
+        SoundGain                       = 1.5,
+        NPCSoundBoost	                = 1.5,
+        SwingSound	                    = JS2000ShotgunShoot,
+        RackSound                       = JS2000ShotgunRack,
+		BringToBearSound                = JS2000ShotgunBringToBear,
+        HitSound                        = BulletHitBody,
+		ClickSound                      = JS2000ShotgunJam,
+		EquipSound                      = JS2000ShotgunEquip,
+		UnequipSound                    = JS2000ShotgunUnEquip,
+        InsertAmmoSound                 = JS2000ShotgunInsertAmmo,
+        EjectAmmoSound                  = JS2000ShotgunEjectAmmo,
+		InsertAmmoStartSound            = JS2000ShotgunInsertAmmoStart,
+		InsertAmmoStopSound             = JS2000ShotgunInsertAmmoStop,
+		EjectAmmoStartSound             = JS2000ShotgunEjectAmmoStart,
+		EjectAmmoStopSound              = JS2000ShotgunEjectAmmoStop,
+        ShellFallSound                  = JS2000ShotgunCartridgeFall,
+        BreakSound                      = JS2000ShotgunBreak,
+        ImpactSound	                    = null,
+        /******************** OPERATORS ****************/
+		SwingAnim	                    = Rifle,
+        RunAnim	                        = Run_Weapon2,
+        IdleAnim	                    = Idle_Weapon2,
+        Ranged	                        = TRUE,
+        RangeFalloff	                = TRUE,
+		AngleFalloff	                = TRUE,
+        IsAimedFirearm	                = TRUE,
+        RackAfterShoot                  = TRUE,
+        RequiresEquippedBothHands       = TRUE,
+        TwoHandWeapon                   = TRUE,
+        KnockBackOnNoDeath	            = TRUE,
+        SplatBloodOnNoDeath	            = TRUE,
+        PiercingBullets                 = FALSE,
+        MultipleHitConditionAffected	= FALSE,
+        ShareDamage	                    = FALSE,
+        UseEndurance	                = FALSE,
+        /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingTan;GunPlatingPARP;GunPlatingDOTD;GunPlatingSD,
+        ModelWeaponPart                 = HoloSight HoloSight scope scope,
+        ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
+        ModelWeaponPart                 = WeaponLight WeaponLight side side,
+        ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
+    }
+
     item Chiappa1887
     {
         DisplayCategory                 = Weapon,
         SubCategory	                    = Firearm,
-        Weight	                        = 3.6,
+        Weight	                        = 3.8,
         Type	                        = Weapon,
         DisplayName	                    = Chiappa 1887 Lever-Action Shotgun,
         Icon	                        = Chiappa1887,
@@ -6626,28 +6946,32 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.Chiappa1887_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = leveraction,
         AmmoType                        = Base.ShotgunShells,
         AmmoBox                         = ShotgunShellsBox,
         MaxAmmo                         = 7,
+        ClipSize                        = 7,
         JamGunChance                    = 0.2,
         ProjectileCount	                = 6,
+        AmmoTypeBase                    = Base.ShotgunShells,
+        AmmoTypeAdditional              = Base.ShotgunShellsBirdshot;Base.ShotgunShellsSlug,
         /******************** MODIFIERS ****************/
         SwingTime	                    = 1,
         MinimumSwingTime	            = 1,
         SwingAmountBeforeImpact	        = 0,
         AimingTime                      = 20,
         ReloadTime                      = 38,
-        RecoilDelay                     = 24,
+        RecoilDelay                     = 26,
         MaxDamage	                    = 1.9,
-        MinDamage	                    = 1.3,
+        MinDamage	                    = 1.2,
         MaxRange	                    = 6,
         MinRange	                    = 0.63,
         MinAngle	                    = 0.930,
         MaxHitCount	                    = 4,
-        HitChance                       = 35,     
+        HitChance                       = 40,     
         CriticalChance	                = 35,
         CritDmgMultiplier               = 3,
         AimingPerkCritModifier          = 3,
@@ -6691,6 +7015,7 @@ module Base
         RangeFalloff	                = TRUE,
 		AngleFalloff	                = TRUE,
         IsAimedFirearm	                = TRUE,
+        RackAfterShoot                  = TRUE,
         RequiresEquippedBothHands       = TRUE,
         TwoHandWeapon                   = TRUE,
         KnockBackOnNoDeath	            = TRUE,
@@ -6700,12 +7025,112 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingWood;GunPlatingDragonBall,
         ModelWeaponPart                 = HoloSight HoloSight scope scope,
         ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
         ModelWeaponPart                 = ShellHolder ShellHolder stock stock, 
         ModelWeaponPart                 = WeaponLight WeaponLight side side,
         ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
+    }
+
+    item Chiappa1887Sawnoff
+    {
+        DisplayCategory                 = Weapon,
+        SubCategory	                    = Firearm,
+        Weight	                        = 2.9,
+        Type	                        = Weapon,
+        DisplayName	                    = Chiappa 1887 Lever-Action Sawn-Off Shotgun,
+        Icon	                        = Chiappa1887Sawnoff,
+        WeaponSprite	                = Chiappa1887Sawnoff,
+        ConditionMax	                = 25,
+        ConditionLowerChanceOneIn	    = 150,
+        AttachmentType                  = Rifle,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
+        MeleeSwap                       = Base.Chiappa1887Sawnoff_Melee,
+        /******************** AMMO *********************/
+        WeaponReloadType                = leveraction,
+        AmmoType                        = Base.ShotgunShells,
+        AmmoBox                         = ShotgunShellsBox,
+        MaxAmmo                         = 7,
+        ClipSize                        = 7,
+        JamGunChance                    = 0.2,
+        ProjectileCount	                = 5,
+        AmmoTypeBase                    = Base.ShotgunShells,
+        AmmoTypeAdditional              = Base.ShotgunShellsBirdshot;Base.ShotgunShellsSlug,
+        /******************** MODIFIERS ****************/
+        SwingTime	                    = 1,
+        MinimumSwingTime	            = 1,
+        SwingAmountBeforeImpact	        = 0,
+        AimingTime                      = 30,
+        ReloadTime                      = 40,
+        RecoilDelay                     = 22,
+        MaxDamage	                    = 2.0,
+        MinDamage	                    = 1.3,
+        MaxRange	                    = 5,
+        MinRange	                    = 0.63,
+        MinAngle	                    = 0.900,
+        MaxHitCount	                    = 4,
+        HitChance                       = 50,     
+        CriticalChance	                = 40,
+        CritDmgMultiplier               = 4,
+        AimingPerkCritModifier          = 4,
+        AimingPerkMinAngleModifier      = 0.01,
+        AimingPerkHitChanceModifier     = 5,
+        AimingPerkRangeModifier         = 1,
+        SplatNumber	                    = 6,
+        SplatSize	                    = 3,
+        AimingMod	                    = 2,
+        PushBackMod	                    = 1.2,
+        KnockdownMod	                = 8,
+        DoorDamage	                    = 20,
+        StopPower                       = 10,
+        MetalValue                      = 45,
+        /******************** SOUND ********************/
+        SoundRadius	                    = 110,
+        SoundVolume	                    = 110,
+        SoundGain                       = 1.5,
+        NPCSoundBoost	                = 1.5,
+        SwingSound	                    = JS2000ShotgunShoot,
+        RackSound                       = JS2000ShotgunRack,
+		BringToBearSound                = JS2000ShotgunBringToBear,
+        HitSound                        = BulletHitBody,
+		ClickSound                      = JS2000ShotgunJam,
+		EquipSound                      = JS2000ShotgunEquip,
+		UnequipSound                    = JS2000ShotgunUnEquip,
+        InsertAmmoSound                 = JS2000ShotgunInsertAmmo,
+        EjectAmmoSound                  = JS2000ShotgunEjectAmmo,
+		InsertAmmoStartSound            = JS2000ShotgunInsertAmmoStart,
+		InsertAmmoStopSound             = JS2000ShotgunInsertAmmoStop,
+		EjectAmmoStartSound             = JS2000ShotgunEjectAmmoStart,
+		EjectAmmoStopSound              = JS2000ShotgunEjectAmmoStop,
+        ShellFallSound                  = JS2000ShotgunCartridgeFall,
+        BreakSound                      = JS2000ShotgunBreak,
+        ImpactSound	                    = null,
+        /******************** OPERATORS ****************/
+		SwingAnim	                    = Rifle,
+        RunAnim	                        = Run_Weapon2,
+        IdleAnim	                    = Idle_Weapon2,
+        Ranged	                        = TRUE,
+        RangeFalloff	                = TRUE,
+		AngleFalloff	                = TRUE,
+        IsAimedFirearm	                = TRUE,
+        RackAfterShoot                  = TRUE,
+        RequiresEquippedBothHands       = TRUE,
+        TwoHandWeapon                   = TRUE,
+        KnockBackOnNoDeath	            = TRUE,
+        SplatBloodOnNoDeath	            = TRUE,
+        PiercingBullets                 = FALSE,
+        MultipleHitConditionAffected	= FALSE,
+        ShareDamage	                    = FALSE,
+        UseEndurance	                = FALSE,
+        /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingWood;GunPlatingDragonBall,
+        ModelWeaponPart                 = HoloSight HoloSight scope scope,
+        ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
+        ModelWeaponPart                 = WeaponLight WeaponLight side side,
+        ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
     }
 
     item TrenchGun
@@ -6720,6 +7145,8 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,	
         MeleeSwap                       = Base.TrenchGun_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = shotgun,
@@ -6728,6 +7155,8 @@ module Base
         MaxAmmo                         = 6,
         JamGunChance                    = 0.2,
         ProjectileCount	                = 6,
+        AmmoTypeBase                    = Base.ShotgunShells,
+        AmmoTypeAdditional              = Base.ShotgunShellsBirdshot;Base.ShotgunShellsSlug,
         /******************** MODIFIERS ****************/
         SwingTime	                    = 1,
         MinimumSwingTime	            = 1,
@@ -6803,7 +7232,7 @@ module Base
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
     }
 
-   item BeckerRevolver
+    item BeckerRevolver
     {
         DisplayCategory                 = Weapon,
         SubCategory	                    = Firearm,
@@ -6815,6 +7244,8 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,	
         MeleeSwap                       = Base.BeckerRevolver_Melee,
         /******************** AMMO *********************/
         WeaponReloadType                = shotgun,
@@ -6823,6 +7254,8 @@ module Base
         MaxAmmo                         = 6,
         JamGunChance                    = 0,
         ProjectileCount	                = 5,
+        AmmoTypeBase                    = Base.ShotgunShells,
+        AmmoTypeAdditional              = Base.ShotgunShellsBirdshot;Base.ShotgunShellsSlug,
         /******************** MODIFIERS ****************/
         SwingTime	                    = 1,
         MinimumSwingTime	            = 1,
@@ -6891,6 +7324,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingAztec,
         ModelWeaponPart                 = VertGrip VertGrip foregrip foregrip,
         ModelWeaponPart                 = ShellHolder ShellHolder stock stock, 
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
@@ -6912,6 +7346,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Holster,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.FlintlockPistol_Melee,
         /******************** AMMO *********************/
         WeaponReloadType            	= boltaction,
@@ -6953,20 +7388,13 @@ module Base
         SoundVolume	                    = 85,
         SoundGain                       = 1.5,
         NPCSoundBoost	                = 1.5,
-        SwingSound	                    = FlintlockPistol,
-        RackSound                       = M14Rack,
+        SwingSound	                    = FlintlockShot,
 		BringToBearSound                = M14BringToBear,
         HitSound                        = BulletHitBody,
 		ClickSound                      = M14Jam,
 		EquipSound                      = M14Equip,
 		UnequipSound                    = M14UnEquip,
-        InsertAmmoSound                 = M14InsertAmmo,
-        EjectAmmoSound                  = M14EjectAmmo,
-		InsertAmmoStartSound            = M14InsertAmmoStart,
-		InsertAmmoStopSound             = M14InsertAmmoStop,
-		EjectAmmoStartSound             = M14EjectAmmoStart,
-		EjectAmmoStopSound              = M14EjectAmmoStop,
-        ShellFallSound                  = M14CartridgeFall,
+        InsertAmmoSound                 = FlintlockPistolInsert,
         BreakSound                      = M14Break,
         ImpactSound	                    = null,
         /******************** OPERATORS ****************/
@@ -6987,6 +7415,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingGreenGold;GunPlatingAztec,
         ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
     }
     
@@ -7003,6 +7432,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.Springfield1861_Melee,
         /******************** AMMO *********************/
         WeaponReloadType            	= boltaction,
@@ -7044,20 +7474,13 @@ module Base
         SoundVolume	                    = 110,
         SoundGain                       = 1.5,
         NPCSoundBoost	                = 1.5,
-        SwingSound	                    = M14Shoot,
-        RackSound                       = M14Rack,
+        SwingSound	                    = Springfield1861Shot,
         BringToBearSound                = M14BringToBear,
         HitSound                        = BulletHitBody,
         ClickSound                      = M14Jam,
         EquipSound                      = M14Equip,
         UnequipSound                    = M14UnEquip,
-        InsertAmmoSound                 = M14InsertAmmo,
-        EjectAmmoSound                  = M14EjectAmmo,
-        InsertAmmoStartSound            = M14InsertAmmoStart,
-        InsertAmmoStopSound             = M14InsertAmmoStop,
-        EjectAmmoStartSound             = M14EjectAmmoStart,
-        EjectAmmoStopSound              = M14EjectAmmoStop,
-        ShellFallSound                  = M14CartridgeFall,
+        InsertAmmoSound                 = Springfield1861Insert,
         BreakSound                      = M14Break,
         ImpactSound	                    = null,
         /******************** OPERATORS ****************/
@@ -7078,12 +7501,11 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingPearl,
         ModelWeaponPart                 = Bayonnet Bayonnet bayonet bayonet,
         ModelWeaponPart                 = BayonetImprovised BayonetImprovised bayonet bayonet,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
         ModelWeaponPart                 = UniversalOpticalSight UniversalOpticalSight scope scope,
-        ModelWeaponPart                 = HoloSight HoloSight scope scope,
-        ModelWeaponPart                 = ReflexSight ReflexSight scope scope,
         ModelWeaponPart                 = LaserRed LaserRed side side,
         ModelWeaponPart                 = LaserGreen LaserGreen side side,
         ModelWeaponPart                 = LaserNoLight LaserNoLight side side,
@@ -7108,6 +7530,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.Blunderbuss_Melee,
         /******************** AMMO *********************/
         WeaponReloadType            	= boltaction,
@@ -7149,20 +7572,13 @@ module Base
         SoundVolume	                    = 125,
         SoundGain                       = 1.5,
         NPCSoundBoost	                = 1.5,
-        SwingSound	                    = DoubleBarrelShotgunShoot,
-        RackSound                       = JS2000ShotgunRack,
+        SwingSound	                    = BlunderbussShot,
 		BringToBearSound                = DoubleBarrelShotgunBringToBear,
         HitSound                        = BulletHitBody,
 		ClickSound                      = DoubleBarrelShotgunJam,
 		EquipSound                      = JS2000ShotgunEquip,
 		UnequipSound                    = JS2000ShotgunUnEquip,
-        InsertAmmoSound                 = JS2000ShotgunInsertAmmo,
-        EjectAmmoSound                  = JS2000ShotgunEjectAmmo,
-		InsertAmmoStartSound            = JS2000ShotgunInsertAmmoStart,
-		InsertAmmoStopSound             = JS2000ShotgunInsertAmmoStop,
-		EjectAmmoStartSound             = JS2000ShotgunEjectAmmoStart,
-		EjectAmmoStopSound              = JS2000ShotgunEjectAmmoStop,
-        ShellFallSound                  = JS2000ShotgunCartridgeFall,
+        InsertAmmoSound                 = BlunderbussInsert,
         BreakSound                      = JS2000ShotgunBreak,
         ImpactSound	                    = null,
         /******************** OPERATORS ****************/
@@ -7185,8 +7601,9 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingRedWhite,
         ModelWeaponPart                 = VertGrip VertGrip foregrip foregrip,
-        ModelWeaponPart                 = ShellHolder ShellHolder stock stock, 
+        ModelWeaponPart                 = WeaponLight WeaponLight side side,
     }
 
     item PneumaticBlowgun
@@ -7202,6 +7619,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         MeleeSwap                       = Base.PneumaticBlowgun_Melee,
         /******************** AMMO *********************/
         WeaponReloadType            	= boltaction,
@@ -7243,11 +7661,12 @@ module Base
         SoundRadius	                    = 12,
         SoundGain                       = 1.5,
         NPCSoundBoost	                = 1.5,
-        SwingSound                  	= BlowgunShot,	
+        SwingSound                  	= PneumaticDart,	
         BringToBearSound                = M16BringToBear,
-        RackSound                   	= BlowgunReload,	
         HitSound                        = BulletHitBody,
         ClickSound                      = M16Jam,
+		EquipSound                      = M1911Equip,
+		UnequipSound                    = M1911UnEquip,
         InsertAmmoSound             	= BlowgunInsert,	
         BreakSound                      = BreakMetalItem,
         ImpactSound	                    = null,
@@ -7271,6 +7690,7 @@ module Base
         InsertAllBulletsReload          = TRUE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingSurvivalist,
         ModelWeaponPart                 = LaserRed LaserRed side side,
         ModelWeaponPart                 = LaserGreen LaserGreen side side,
         ModelWeaponPart                 = LaserNoLight LaserNoLight side side,
@@ -7290,6 +7710,7 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
+        FireModePossibilities           = Single,
         /******************** AMMO *********************/
         WeaponReloadType                = handgun,
         AmmoType                        = Base.Tshirt_WhiteTINT,
@@ -7327,20 +7748,13 @@ module Base
         SoundVolume	                    = 50,
         SoundGain                       = 1.5,
         NPCSoundBoost	                = 1.5,
-        SwingSound	                    = M1911Shoot,
-        RackSound                       = M1911Rack,
+        SwingSound	                    = TShirtLaunch,
 		BringToBearSound                = M1911BringToBear,
         HitSound                        = BulletHitBody,
 		ClickSound                      = M1911Jam,
 		EquipSound                      = M1911Equip,
 		UnequipSound                    = M1911UnEquip,
-        InsertAmmoSound                 = M1911InsertAmmo,
-        EjectAmmoSound                  = M1911EjectAmmo,
-		InsertAmmoStartSound            = M1911InsertAmmoStart,
-		InsertAmmoStopSound             = M1911InsertAmmoStop,
-		EjectAmmoStartSound             = M1911EjectAmmoStart,
-		EjectAmmoStopSound              = M1911EjectAmmoStop,
-        ShellFallSound                  = M1911CartridgeFall,
+        InsertAmmoSound                 = TShirtLauncherInsert,
         BreakSound                      = M1911Break,
         ImpactSound	                    = null,
         /******************** OPERATORS ****************/
@@ -7360,5 +7774,6 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS **************/
+        GunPlatingOptions               = GunPlatingPARP;GunPlatingSD;GunPlatingDOTD,
     }
 }

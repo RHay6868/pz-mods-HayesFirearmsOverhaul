@@ -551,3 +551,31 @@ option HFO.XbowComponentInstead
 	page = HFO_Mechanics,
 	translation = HFO_MechanicsXbowComponentInstead,
 }
+
+option HFO.DartBreakChance
+{
+	type = integer,
+	default = 30,
+	min = 0,
+	max = 100,
+	page = HFO_Mechanics,
+	translation = HFO_MechanicsDartBreakChance,
+}
+
+option HFO.DartsLostChance
+{
+	type = integer,
+	default = 20,
+	min = 0,
+	max = 100,
+	page = HFO_Mechanics,
+	translation = HFO_MechanicsDartsLostChance,
+}
+
+option HFO.DartsComponentInstead
+{
+	type = boolean,
+	default = true,
+	page = HFO_Mechanics,
+	translation = HFO_MechanicsDartsComponentInstead,
+}

@@ -28,6 +28,7 @@ require "HFO_SandboxUtils"
 require "HFO_Constants"
 require "TimedActions/ISBaseTimedAction"
 require "TimedActions/ISReloadWeaponAction"
+require "TimedActions/ISAmmoSwapAction"
 require "TimedActions/ISMagSwapAction"
 require "Reloading/ISReloadableWeapon"
 
@@ -319,30 +320,34 @@ end
 
 
 ---===========================================---
---          SWAP AMMO CALIBER FUNCTION         --
+--           AMMO CALIBER SWAP FUNCTION        --
 ---===========================================---
--- THIS IS CURRENTLY BEING BUILT AND A PLACEHOLDER AT THE MOMENT
 
--- Get compatible ammo types for a weapon
+-- Get compatible ammo types for a weapon from modData
 function HFO.ReloadUtils.getCompatibleAmmoTypes(weapon)
+    if not weapon then return {} end
+    
     local md = weapon:getModData()
-    local compatibleTypes = {}
+    local compatibleAmmoTypes = {}
 
-    -- Add original ammo type (always first)
-    local origAmmoType = md.OriginalAmmoType or weapon:getAmmoType()
-    table.insert(compatibleTypes, origAmmoType)
+    -- Add base ammo type (always first)
+    local baseAmmoType = md.AmmoTypeBase or weapon:getAmmoType()
+    table.insert(compatibleAmmoTypes, baseAmmoType)
 
-    -- Add any additional types from modData (semicolon-separated)
-    if md.AdditionalAmmoTypes then
-        for ammoType in string.gmatch(md.AdditionalAmmoTypes, "([^;]+)") do
-            table.insert(compatibleTypes, ammoType)
+    -- Add additional types from modData (semicolon-separated)
+    if md.AmmoTypeAdditional then
+        for ammoType in string.gmatch(md.AmmoTypeAdditional, "([^;]+)") do
+            -- Trim whitespace
+            ammoType = ammoType:match("^%s*(.-)%s*$")
+            if ammoType and ammoType ~= "" then
+                table.insert(compatibleAmmoTypes, ammoType)
+            end
         end
     end
 
-    -- Deduplicate
     local seenAmmoTypes = {}
     local uniqueAmmoTypes = {}
-    for _, ammoType in ipairs(compatibleTypes) do
+    for _, ammoType in ipairs(compatibleAmmoTypes) do
         if not seenAmmoTypes[ammoType] then
             table.insert(uniqueAmmoTypes, ammoType)
             seenAmmoTypes[ammoType] = true
@@ -352,57 +357,55 @@ function HFO.ReloadUtils.getCompatibleAmmoTypes(weapon)
     return uniqueAmmoTypes
 end
 
+-- Get available ammo types that player actually has in inventory
+function HFO.ReloadUtils.getAvailableAmmoTypes(player, weapon)
+    if not player or not weapon then return {} end
 
-function HFO.ReloadUtils.SwapAmmoHotkey(_, reverse)
-    local player, weapon = HFO.Utils.getPlayerAndWeapon()
-    if not player or not weapon then return false end
-    if not HFO.Utils.isAimedFirearm(weapon) or HFO.Utils.isInMeleeMode(weapon) then return end
-    
-    -- Get compatible ammo types for this weapon
     local compatibleAmmoTypes = HFO.ReloadUtils.getCompatibleAmmoTypes(weapon)
-    if #compatibleAmmoTypes <= 1 then return false end
-    
-    -- Get available ammo types that player actually has
+    if #compatibleAmmoTypes <= 1 then return compatibleAmmoTypes end
+
     local availableAmmoTypes = {}
     local inventory = player:getInventory()
     local currentAmmoType = weapon:getAmmoType()
     
     for _, ammoType in ipairs(compatibleAmmoTypes) do
+        -- Include current ammo type or types we have in inventory
         if ammoType == currentAmmoType or inventory:containsTypeRecurse(ammoType) then
             table.insert(availableAmmoTypes, ammoType)
         end
     end
     
-    if #availableAmmoTypes <= 1 then
-        HFO.Utils.debugLog("No alternative ammo available")
-        return false
+    return availableAmmoTypes
+end
+
+-- Main ammo swap hotkey function
+function HFO.ReloadUtils.SwapAmmoHotkey(keyNum, reverse)
+    local player, weapon = HFO.Utils.getPlayerAndWeapon()
+    if not player or not weapon then return false end
+    if not HFO.Utils.isAimedFirearm(weapon) or HFO.Utils.isInMeleeMode(weapon) then return end
+    
+    -- Get available ammo types for this weapon
+    local availableAmmoTypes = HFO.ReloadUtils.getAvailableAmmoTypes(player, weapon)
+    if #availableAmmoTypes <= 1 then 
+        HFO.InnerVoice.say("NoAmmoSwapAvailable")
+        return false 
     end
+    
+    local currentAmmoType = weapon:getAmmoType()
     
     -- Find next ammo type
     local indexed = HFO.Utils.getNextPrevFromList(availableAmmoTypes, currentAmmoType)
     local nextAmmoType = reverse and indexed.prev or indexed.next
     
-    -- Unload current ammo
-    --HFO.ReloadUtils.unloadCurrentAmmo(player, weapon)
-    
-    -- Set new ammo type
-    weapon:setAmmoType(nextAmmoType)
-    
-    -- Apply stat modifiers based on ammo type
-    HFO.Utils.applyAmmoPropertiesToWeapon(weapon, nextAmmoType)
-
-    local key = currentAmmoType .. "->" .. nextAmmoType
-    local mappedCategory = HFO.InnerVoice.map[key]
-    if mappedCategory then
-        HFO.InnerVoice.say(mappedCategory)
+    if not nextAmmoType then return false end
+ 
+    -- Eject magazine if weapon has one
+    if weapon:isContainsClip() then
+        ISTimedActionQueue.add(ISEjectMagazine:new(player, weapon))
     end
     
-    -- Update magazine if needed
-    --HFO.ReloadUtils.updateMagazineForAmmo(weapon, nextAmmoType)
-    
-    -- Provide feedback
-    local ammoName = getItemNameForType(nextAmmoType) or nextAmmoType
-    --HFO.Utils.showMessage(getText("IGUI_HFO_AmmoSwitched") .. " " .. ammoName)
+    -- Queue the ammo swap action
+    ISTimedActionQueue.add(ISAmmoSwapAction:new(player, weapon, nextAmmoType))
     
     return true
 end

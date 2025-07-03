@@ -125,6 +125,24 @@ end
 -- example 1: set model when fiberglass stock is installed and nothing is in the chamber
 -- BWTweaks:changeModelByAttachmentAndRoundChambered("Base.HuntingRifle", "TanPlating", false, "HuntingRifleFGS_NoMag");
 
+-- Wrapper for chambered + ammo material
+function BWTweaks:changeModelByRoundChamberedAndMaterial(fullType, isChambered, material, model)
+    BWTweaks:changeModelBy(fullType, model, {
+        chambered = isChambered,
+        ammoContains = material,
+    });
+end
+
+-- Wrapper for gun plating + chambered + ammo material
+function BWTweaks:changeModelByGunPlatingAndRoundChamberedAndMaterial(fullType, gunPlating, isChambered, material, model)
+    BWTweaks:changeModelBy(fullType, model, {
+        modDataKey = "GunPlating",
+        modDataValue = gunPlating,
+        chambered = isChambered,
+        ammoContains = material,
+    });
+end
+
 function BWTweaks:changeModelByGunPlatingAndRoundChambered(fullType, gunPlating, isChambered, model)
     BWTweaks:changeModelBy(fullType, model, {
         modDataKey = "GunPlating",
@@ -246,18 +264,27 @@ function BWTweaks:checkForModelChange(weapon)
                     end
                 end
 
-                if config["criteria"]["chambered"] ~= nil
-                then
+                if config["criteria"]["chambered"] ~= nil then
                     local isChambered = weapon:haveChamber()
                         and weapon:isRoundChambered()
                         or weapon:getCurrentAmmoCount() > 0;
 
-                    --print("    - config depends on round chambered: " .. tostring(config["criteria"]["chambered"]) .. " vs. " .. tostring(isChambered));
+                    if isChambered ~= config["criteria"]["chambered"] then
+                        fitsConfig = false;
+                    end
+                end
 
-                    if not isChambered == config["criteria"]["chambered"]
-                    then
-                        --print("    -> chambered requirement not fulfilled");
-
+                -- Very simple wood check - just use ammo type
+                if config["criteria"]["ammoContains"] ~= nil and fitsConfig then
+                    local ammoType = weapon:getAmmoType();
+                    if ammoType then
+                        local contains = config["criteria"]["ammoContains"]:lower();
+                        local hasWoodAmmo = ammoType:lower():find(contains, 1, true) ~= nil;
+                        
+                        if not hasWoodAmmo then
+                            fitsConfig = false;
+                        end
+                    else
                         fitsConfig = false;
                     end
                 end

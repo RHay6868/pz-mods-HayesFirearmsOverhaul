@@ -158,19 +158,6 @@ module Base
         IsHidden            : True,
     }
 
-    recipe Place .556 Ammo in Box
-    {
-        556Bullets=60,
-
-        Result              : 556Box,
-        Sound               : BoxOfRoundsOpenOne,
-        Time                : 25.0,
-		StopOnWalk          : False,
-      	CanBeDoneFromFloor  : False,
-        Override            : True,
-        IsHidden            : True,
-    }
-
     recipe Place .223 Ammo in Box
     {
         223Bullets=40,
@@ -197,6 +184,19 @@ module Base
         IsHidden            : True,
     }
 
+    recipe Place .556 Ammo in Box
+    {
+        556Bullets=60,
+
+        Result              : 556Box,
+        Sound               : BoxOfRoundsOpenOne,
+        Time                : 25.0,
+		StopOnWalk          : False,
+      	CanBeDoneFromFloor  : False,
+        Override            : True,
+        IsHidden            : True,
+    }
+
     recipe Place Shotgun Shells in Box
     {
         ShotgunShells=24,
@@ -215,7 +215,7 @@ module Base
 	recipe Saw Off Shotgun
 	{
         Shotgun,
-	   keep [Recipe.GetItemTypes.Saw],
+	    keep [Recipe.GetItemTypes.Saw],
 
         Result              : ShotgunSawnoff,
         Sound               : Sawing,
@@ -231,7 +231,7 @@ module Base
 	recipe Saw Off Double Barrel Shotgun
 	{
         DoubleBarrelShotgun,
-	   keep [Recipe.GetItemTypes.Saw],
+	    keep [Recipe.GetItemTypes.Saw],
 
         Result              : DoubleBarrelShotgunSawnoff,
         Sound               : Sawing,

@@ -70,6 +70,7 @@ function HFO.SandboxUtils.getSafeSandboxVars()
         TShirtLauncher           = s.TShirtLauncher == true,
         CrossbowAmmoMag          = s.CrossbowAmmoMag == true,
         XbowComponentInstead     = s.XbowComponentInstead ~= false,
+        DartsComponentInstead    = s.XbowComponentInstead ~= false,
 
         -- Boolean toggles Firearms
         FirearmsHandguns         = s.FirearmsHandguns ~= false,
@@ -137,6 +138,8 @@ function HFO.SandboxUtils.getSafeSandboxVars()
         XbowMetalBreakChance  = tonumber(s.XbowMetalBreakChance) or 20,
         XbowWoodBreakChance   = tonumber(s.XbowWoodBreakChance) or 50,
         XbowLostChance        = tonumber(s.XbowLostChance) or 10,
+        DartBreakChance       = tonumber(s.DartBreakChance) or 30,
+        DartsLostChance       = tonumber(s.DartsLostChance) or 20,
     }
 
     -- Inject HFE mod flag if sub mod is active

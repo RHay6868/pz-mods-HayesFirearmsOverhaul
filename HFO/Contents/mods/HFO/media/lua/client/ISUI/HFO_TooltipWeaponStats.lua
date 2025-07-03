@@ -63,15 +63,17 @@ function HFO_Tooltip:initStats(item)
         local statsOrder = {
             ["Damage"] = 1,
             ["Range"] = 2,
-            ["Jam Chance"] = 3,
-            ["Hit Chance"] = 4,
-            ["Critical Chance"] = 5,
-            ["Recoil Delay"] = 6,
-            ["Firing Cone"] = 7,
-            ["Aiming Speed"] = 8,
-            ["Reload Speed"] = 9,
-            ["Sound Radius"] = 10,
-            ["Suppressor"] = 11,
+            ["Max Hits"] = 3,
+            ["Projectile Count"] = 4,
+            ["Jam Chance"] = 5,
+            ["Hit Chance"] = 6,
+            ["Critical Chance"] = 7,
+            ["Recoil Delay"] = 8,
+            ["Firing Cone"] = 9,
+            ["Aiming Speed"] = 10,
+            ["Reload Speed"] = 11,
+            ["Sound Radius"] = 12,
+            ["Suppressor"] = 13,
         }
         
         -- Create a temporary array to hold stats for sorting

@@ -242,7 +242,7 @@ module Base
         AmmoType                = Base.Bullets9mm,
         StaticModel             = Mag9mm,
         GunType                 = Base.Pistol; Base.SIGSauer;
-                                Base.PM63RAK; Base.PM63RAK_Grip; Base.PM63RAK_Extended; Base.PM63RAK_GripExtended;,
+                                Base.PM63RAK; Base.PM63RAK_Grip; Base.PM63RAK_Extended; Base.PM63RAK_GripExtended,
         WorldStaticModel        = Mag9mm,
     }
 

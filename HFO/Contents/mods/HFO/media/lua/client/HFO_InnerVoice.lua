@@ -108,24 +108,6 @@ HFO.InnerVoice.map = {
 	MagExtSm      = "MagSwapSmall",
 	MagExtLg      = "MagSwapLarge",
 	MagDrum       = "MagSwapDrum",
-
-	-- Ammo Swaps
-	["Base.223Bullets->Base.556Bullets"] = "AmmoSwap223To556",
-	["Base.556Bullets->Base.223Bullets"] = "AmmoSwap556To223",
-	["Base.308Bullets->Base.762x51Bullets"] = "AmmoSwap308To762",
-	["Base.762x51Bullets->Base.308Bullets"] = "AmmoSwap762To308",
-
-	-- Shotgun swaps (buckshot = Shells, birdshot = ShellsBirdShot, slugs = ShellsSlugs)
-	["Base.ShotgunShells->Base.ShotgunShellsBirdShot"] = "AmmoSwapBuckToBird",
-	["Base.ShotgunShellsBirdShot->Base.ShotgunShells"] = "AmmoSwapBirdToBuck",
-	["Base.ShotgunShellsBirdShot->Base.ShotgunShellsSlugs"] = "AmmoSwapBirdToSlug",
-	["Base.ShotgunShellsSlugs->Base.ShotgunShellsBirdShot"] = "AmmoSwapSlugToBird",
-	["Base.ShotgunShells->Base.ShotgunShellsSlugs"] = "AmmoSwapBuckToSlug",
-	["Base.ShotgunShellsSlugs->Base.ShotgunShells"] = "AmmoSwapSlugToBuck",
-
-	-- Crossbow
-	["Base.CrossbowBolt->Base.WoodCrossbowBolt"] = "AmmoSwapToWoodBolt",
-	["Base.WoodCrossbowBolt->Base.CrossbowBolt"] = "AmmoSwapToSteelBolt"
 }
 
 
@@ -134,6 +116,69 @@ HFO.InnerVoice.map = {
 ---===========================================---
 
 HFO.InnerVoice.LINES = HFO.InnerVoice.LINES or {
+    AmmoSwapDefault = {
+        simple = "Swapped ammo type",
+        verbose = {
+            "Standard rounds loaded",
+            "Back to the basics",
+            "Default caliber in place",
+            "Running what it's made for",
+        },
+    },
+    AmmoSwapBirdshot = {
+        simple = "Loading birdshot",
+        verbose = {
+            "Smaller pellets, wider spread",
+            "Feathers beware",
+            "Loaded up with birdshot",
+            "Great for crowd control, not so much for armor",
+        },
+    },
+    AmmoSwapSlug = {
+        simple = "Loading slugs",
+        verbose = {
+            "One shot, one slug",
+            "These'll punch clean through",
+            "Swapped to slugs — aim matters now",
+            "Forget spread, we’re going solid",
+        },
+    },
+    AmmoSwap556 = {
+        simple = "Swapped to 5.56",
+        verbose = {
+            "Loaded NATO rounds",
+            "Standard 5.56 in the pipe",
+            "Same punch, faster burn",
+            "Nothing wrong with a little military surplus",
+        },
+    },
+    AmmoSwapWoodBolt = {
+        simple = "Wooden bolts loaded",
+        verbose = {
+            "Primitive, but it’ll fly",
+            "Swapped to wood bolts — quiet and simple",
+            "Not fancy, but it’ll do the job",
+            "Back to basics with wood bolts",
+        },
+    },
+    AmmoSwapGeneric = {
+        simple = "Swapped ammo type",
+        verbose = {
+            "New caliber loaded",
+            "Different round, same gun",
+            "Let’s see how this feeds",
+            "Hope this one hits harder",
+        },
+    },
+    NoAmmoSwapAvailable = {
+        simple = "No alternate ammo found",
+        verbose = {
+            "You're stuck with what’s loaded",
+            "No spare ammo types in reach",
+            "Nothing else fits this chamber",
+            "Looks like that’s the only type on hand",
+        },
+    },
     CleanBonusSuccess = {
 		simple = "Weapon cleaned and improved",
 		verbose = {
@@ -453,6 +498,28 @@ HFO.InnerVoice.LINES = HFO.InnerVoice.LINES or {
         simple = "Bolt looks recoverable",
         verbose = {
             "Lucky — got the bolt back.",
+            "Intact and reusable.",
+            "Still good. I’ll take it.",
+            "I see it still sticking out — might get it back.",
+            "Could probably recover that after the kill.",
+            "Nice shot — should be reusable.",
+        },
+    },
+    DartBroke = {
+        simple = "Dart shattered",
+        verbose = {
+            "Snapped on impact. No saving it.",
+            "That one’s toast.",
+            "Too brittle for a second shot.",
+            "Damn — snapped clean.",
+            "Well, that one's done for.",
+            "Definitely not reusing that.",
+        },
+    },
+    DartRecovered = {
+        simple = "Dart looks recoverable",
+        verbose = {
+            "Lucky — got the dart back.",
             "Intact and reusable.",
             "Still good. I’ll take it.",
             "I see it still sticking out — might get it back.",
