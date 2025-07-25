@@ -17,7 +17,6 @@
 --   - Designed for extensibility and clarity.
 --============================================================--
 
-
 require "HFO_Utils"
 require "HFO_SandboxUtils"
 require "HFO_Loot"
@@ -25,6 +24,8 @@ require "HFO_Constants"
 require "HFO_WeaponUtils"
 require "HFO_ReloadUtils"
 require "HFO_WeaponRadial"
+require "BGunTweaker"
+require "BGunModelChange"
 require "ISUI/HFO_TooltipWeaponParts"
 require "ISUI/HFO_TooltipWeaponStats"
 require "ISUI/HFO_WeaponViewer"
@@ -62,7 +63,7 @@ end)
 
 
 function HFO.handleKeypress(keyNum)
-	HFO.Utils.debugLog("Key Pressed: " .. tostring(keyNum))
+	--HFO.Utils.debugLog("Key Pressed: " .. tostring(keyNum))
 
 		if keyNum == HFO.hotkeys.WeaponLight        then HFO.WeaponUtils.WeaponLightHotkey(keyNum)
 	elseif keyNum == HFO.hotkeys.MeleeMode          then HFO.WeaponUtils.MeleeModeHotkey(keyNum)
@@ -85,11 +86,11 @@ end
 ---===========================================---
 
 function HFO.FoldUnfoldHotkey(keyNum)
-	HFO.Utils.runGenericSwap("FoldSwap")
+	HFO.Utils.runGenericSwap("HFO_FoldSwap")
 end
 
 function HFO.IntegratedHotkey(keyNum)
-	HFO.Utils.runGenericSwap("IntegratedSwap")
+	HFO.Utils.runGenericSwap("HFO_IntegratedSwap")
 end
 
 

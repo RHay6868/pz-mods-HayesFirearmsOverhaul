@@ -88,9 +88,9 @@ function HFO.XBow.OnBoltHit(attacker, target, weapon, damage)
 
     local isBroken = (ZombRand(100) < boltData.breakChance) -- randomize bolt break based on sandbox setting
     local md = target:getModData()
-    md.xbowBolts = md.xbowBolts or {}
-    md.xbowBolts[ammo] = md.xbowBolts[ammo] or { broken = {} }
-    table.insert(md.xbowBolts[ammo].broken, isBroken) 
+    md.HFO_xbowBolts = md.HFO_xbowBolts or {}
+    md.HFO_xbowBolts[ammo] = md.HFO_xbowBolts[ammo] or { broken = {} }
+    table.insert(md.HFO_xbowBolts[ammo].broken, isBroken) 
 
     -- Handle InnerVoice dialogue
     local voice = HFO.XBow.InnerVoice
@@ -117,11 +117,11 @@ end
 
 function HFO.XBow.OnZombieDead(zombie)
     local md = zombie:getModData()
-    if not md.xbowBolts then return end
+    if not md.HFO_xbowBolts then return end
 
     local boltConfig = HFO.XBow.getBoltConfig()
 
-    for ammo, boltHits in pairs(md.xbowBolts) do  -- check for table of bolt outcomes
+    for ammo, boltHits in pairs(md.HFO_xbowBolts) do  -- check for table of bolt outcomes
         local boltData = boltConfig[ammo] --
         if boltData and boltHits.broken then
             for i = 1, #boltHits.broken do
@@ -138,7 +138,7 @@ function HFO.XBow.OnZombieDead(zombie)
         end
     end
 
-    md.xbowBolts = nil
+    md.HFO_xbowBolts = nil
 end
 
 

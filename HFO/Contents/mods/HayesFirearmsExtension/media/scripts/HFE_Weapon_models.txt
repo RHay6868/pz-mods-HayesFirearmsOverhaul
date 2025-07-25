@@ -4,7 +4,6 @@ module Base
 	{
 		mesh = Weapons/Firearm/Glock,
 		texture = Weapons/Firearm/Glock,
-		scale = 1,
 
 		attachment world
 		{
@@ -70,7 +69,6 @@ module Base
 	{
 		mesh = Weapons/Firearm/GlockNoMag,
 		texture = Weapons/Firearm/Glock,
-		scale = 1,
 
 		attachment world
 		{
@@ -136,7 +134,6 @@ module Base
 	{
 		mesh = Weapons/Firearm/GlockMelee,
 		texture = Weapons/Firearm/Glock,
-		scale = 1,
 		
 		attachment world
 		{
@@ -6235,7 +6232,7 @@ module Base
 
 		attachment muzzle
 		{
-			offset = -0.0070 0.4450 0.0270,
+			offset = -0.0070 0.3750 0.0270,
 			rotate = -90.0000 0.0000 0.0000,
 		}
 

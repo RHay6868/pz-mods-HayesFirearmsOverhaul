@@ -46,16 +46,17 @@ function ISAmmoSwapAction:perform()
     local swapSuccess = false
 
     -- Store original stats if not already stored (only what we modify)
-    if not md.OriginalStats then
-        md.OriginalStats = {
+    if not md.HFO_PreSwapStats then
+        md.HFO_PreSwapStats = {
             AmmoType = self.weapon:getAmmoType(),
             maxDamage = self.weapon:getMaxDamage(),
             minDamage = self.weapon:getMinDamage(),
             recoilDelay = self.weapon:getRecoilDelay(),
             maxRange = self.weapon:getMaxRange(),
             hitChance = self.weapon:getHitChance(),
+            maxHitCount = self.weapon:getMaxHitCount(),
             projectileCount = self.weapon:getProjectileCount(),
-            minAngle = self.weapon:getMinAngle()
+            minAngle = self.weapon:getMinAngle(),
         }
     end
 
@@ -90,33 +91,53 @@ function ISAmmoSwapAction:perform()
 
     local result = InventoryItemFactory.CreateItem(self.weapon:getType())
     if result then
-        self.weapon:setAmmoType(nextAmmoType)
         result:setAmmoType(nextAmmoType)
-
         local newAmmoBox = ammoBoxes[nextAmmoType]
         if newAmmoBox then
-            self.weapon:setAmmoBox(newAmmoBox)
             result:setAmmoBox(newAmmoBox)
         end
 
-        md.currentAmmoType = nextAmmoType
+        -- Apply projectile count and max hit count BEFORE runGenericSwap
+        local weaponProjectileCount = md.HFO_PreSwapStats.projectileCount
+        local weaponMaxHitCount = md.HFO_PreSwapStats.maxHitCount
         
-        HFO.Utils.runGenericSwap(result)
+        if nextAmmoType == "Base.ShotgunShells" then
+            result:setProjectileCount(weaponProjectileCount)
+            result:setMaxHitCount(weaponMaxHitCount)
+        elseif nextAmmoType == "Base.ShotgunShellsBirdshot" then
+            result:setProjectileCount(weaponProjectileCount + 3)
+            result:setMaxHitCount(weaponMaxHitCount + 2)
+        elseif nextAmmoType == "Base.ShotgunShellsSlug" then
+            result:setProjectileCount(1)
+            result:setMaxHitCount(1)
+        end
+
+        md.HFO_currentAmmoType = nextAmmoType
+        md.HFO_AmmoStatsApplied = nil
+        
+        if HFO and HFO.Utils and HFO.Utils.applyAmmoPropertiesToWeapon then
+        HFO.Utils.applyAmmoPropertiesToWeapon(result, nextAmmoType)
+        end
+            
+        HFO.Utils.applySuffixToWeaponName(result)
+        HFO.Utils.applyWeaponStats(self.weapon, result)
+        HFO.Utils.setWeaponParts(self.weapon, result)
+        HFO.Utils.handleWeaponChamber(self.weapon, result, false)
+        HFO.Utils.handleWeaponJam(self.weapon, result, true)
+        HFO.Utils.finalizeWeaponSwap(self.character, self.weapon, result)
 
         swapSuccess = true
     end
 
-    -- STEP 5: Apply ammo stat modifiers
-    if swapSuccess and HFO and HFO.Utils and HFO.Utils.applyAmmoPropertiesToWeapon then
-        HFO.Utils.applyAmmoPropertiesToWeapon(self.weapon, nextAmmoType)
-    end
-
     -- Begin automatic reload with new ammo type
     if swapSuccess then
-        ISReloadWeaponAction.BeginAutomaticReload(self.character, self.weapon)
+        local newWeapon = self.character:getPrimaryHandItem()
+        if newWeapon then
+            ISReloadWeaponAction.BeginAutomaticReload(self.character, newWeapon)
+        end
 
         -- Voice feedback based on ammo type
-        local baseAmmo = md.AmmoTypeBase
+        local baseAmmo = md.HFO_AmmoTypeBase
         if nextAmmoType == baseAmmo then
             HFO.InnerVoice.say("AmmoSwapDefault")
         elseif nextAmmoType == "Base.ShotgunShellsBirdshot" then

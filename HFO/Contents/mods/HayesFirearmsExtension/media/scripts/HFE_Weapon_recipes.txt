@@ -626,6 +626,7 @@ module Base
         Prop1                : Hammer,
         CanBeDoneFromFloor   : false,
         IsHidden             : True,
+        NeedToBeLearn        : false,
     }
 
     recipe Craft Blunderbuss Ammo with Minie Balls
@@ -639,6 +640,7 @@ module Base
         AnimNode             : Disassemble,
         CanBeDoneFromFloor   : false,
         IsHidden             : True,
+        NeedToBeLearn        : false,
     }
 
     recipe Craft Blunderbuss Ammo with Scrap Metal
@@ -652,6 +654,7 @@ module Base
         AnimNode             : Disassemble,
         CanBeDoneFromFloor   : false,
         IsHidden             : True,
+        NeedToBeLearn        : false,
     }
 
     recipe Craft Blunderbuss Ammo with Nails
@@ -665,6 +668,7 @@ module Base
         AnimNode             : Disassemble,
         CanBeDoneFromFloor   : false,
         IsHidden             : True,
+        NeedToBeLearn        : false,
     }
 
     recipe Craft Blunderbuss Ammo with Screws
@@ -678,6 +682,7 @@ module Base
         AnimNode             : Disassemble,
         CanBeDoneFromFloor   : false,
         IsHidden             : True,
+        NeedToBeLearn        : false,
     }
 
     recipe Craft Blowgun Darts 
@@ -966,7 +971,7 @@ module Base
     {
         BlackIcePlating,
 
-        Result              : GunPlatingMatteBlack,
+        Result              : GunPlatingBlue,
 		Time                : 5.0,
 	   	Category            : HFA,
         IsHidden            : True,

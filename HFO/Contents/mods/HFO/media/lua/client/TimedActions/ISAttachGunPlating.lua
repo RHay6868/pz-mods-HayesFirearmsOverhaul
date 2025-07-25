@@ -11,9 +11,9 @@ function ISAttachGunPlating:isValid()
     if not self.character:getInventory():contains(self.weapon) then return false end
     if not self.character:getInventory():contains(self.gunPlatingItem) then return false end
     -- Check if a gun plating is already attached
-    if self.weapon:getModData().GunPlating then return false end
+    if self.weapon:getModData().HFO_GunPlating then return false end
     -- Verify this weapon can accept this plating
-    local validGunPlating = self.weapon:getModData().GunPlatingOptions
+    local validGunPlating = self.weapon:getModData().HFO_GunPlatingOptions
     if not validGunPlating or not string.find(validGunPlating, self.gunPlatingItem:getType()) then return false end
     return true
 end
@@ -46,14 +46,14 @@ function ISAttachGunPlating:perform()
     self.gunPlatingItem:setJobDelta(0.0);
     
     -- Store the plating type in the weapon's mod data
-    if not self.weapon:getModData().GunPlating then
+    if not self.weapon:getModData().HFO_GunPlating then
         -- Print debug info to see what's being stored
        -- print("HFO: Attaching gun plating to " .. self.weapon:getFullType())
         --print("HFO: Gun Plating item type: " .. self.gunPlatingItem:getType())
         --print("HFO: Gun Plating item full type: " .. self.gunPlatingItem:getFullType())
         
-        self.weapon:getModData().GunPlating = self.gunPlatingItem:getType()
-        --print("HFO: Stored plating as: " .. self.weapon:getModData().GunPlating)
+        self.weapon:getModData().HFO_GunPlating = self.gunPlatingItem:getType()
+        --print("HFO: Stored plating as: " .. self.weapon:getModData().HFO_GunPlating)
         
         -- Remove the plating item from inventory
         self.character:getInventory():Remove(self.gunPlatingItem);

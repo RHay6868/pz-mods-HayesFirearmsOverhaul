@@ -42,7 +42,6 @@ require "TimedActions/ISRemoveGunPlating"
 
 HFO = HFO or {}
 HFO.WeaponUtils = HFO.WeaponUtils or {}
-local sv = HFO.SandboxUtils.get() 
 
 
 ---===========================================---
@@ -84,7 +83,7 @@ function HFO.WeaponUtils.WeaponLight()
     if not stock then return end
 
     local stockType = stock:getType()
-    if HFO.Constants.LightSettingsByStock[stockType] and weapon:getModData().LightOn == true then
+    if HFO.Constants.LightSettingsByStock[stockType] and weapon:getModData().HFO_LightOn == true then
         local settings = HFO.WeaponUtils.getLightSettings(stockType)
 
         if player:isAiming() then
@@ -195,10 +194,10 @@ function HFO.WeaponUtils.getBurstInfo(weapon) -- get burst information from weap
     local mode     	   = weapon:getFireMode()
     local md  	   	   = weapon:getModData()
 
-    local isBurst      = HFO.Constants.BurstModes[mode] ~= nil or md.burstSize ~= nil
-    local burstCount   = md.burstSize or HFO.Constants.BurstModes[mode] or 0
-    local burstDelay   = md.burstDelay or HFO.Constants.BurstDelays[mode] or 20
-    local burstSpeeds  = md.burstSpeeds or HFO.Constants.BurstSpeedStages[mode] or {}
+    local isBurst      = HFO.Constants.BurstModes[mode] ~= nil or md.HFO_burstSize ~= nil
+    local burstCount   = md.HFO_burstSize or HFO.Constants.BurstModes[mode] or 0
+    local burstDelay   = md.HFO_burstDelay or HFO.Constants.BurstDelays[mode] or 20
+    local burstSpeeds  = md.HFO_burstSpeeds or HFO.Constants.BurstSpeedStages[mode] or {}
 
     return isBurst, burstCount, burstDelay, burstSpeeds
 end
@@ -206,7 +205,7 @@ end
 function HFO.WeaponUtils.onBurstWeaponSwing()
     local player, weapon = HFO.Utils.getPlayerAndWeapon()
     if not player or not weapon or not player:isAiming() then
-        HFO.Utils.debugLog("Burst skipped: player not aiming.")
+       -- HFO.Utils.debugLog("Burst skipped: player not aiming.")
         return
     end
 
@@ -216,8 +215,8 @@ function HFO.WeaponUtils.onBurstWeaponSwing()
     local md = weapon:getModData()
     local currentAmmo = weapon:getCurrentAmmoCount()
     
-    if not md.burstTracker then
-        md.burstTracker = {
+    if not md.HFO_burstTracker then
+        md.HFO_burstTracker = {
             startingAmmo  = currentAmmo,
             shotsInBurst  = 1,
             burstSize     = burstSize,
@@ -234,7 +233,7 @@ function HFO.WeaponUtils.onBurstWeaponSwing()
         return
     end
 
-	local tracker  		  = md.burstTracker -- Already mid-burst, track + fire next shot
+	local tracker  		  = md.HFO_burstTracker -- Already mid-burst, track + fire next shot
     tracker.shotsInBurst  = tracker.shotsInBurst + 1 -- Increment shots in burst counter
 
     local shotNum         = tracker.shotsInBurst
@@ -245,7 +244,7 @@ function HFO.WeaponUtils.onBurstWeaponSwing()
     if tracker.shotsInBurst >= tracker.burstSize or currentAmmo <= 1 then
         player:setRecoilDelay(tracker.burstDelay)
         HFO.Utils.debugLog("Burst complete: shot " .. shotNum .. "/" .. tracker.burstSize .. " | Delay: " .. tracker.burstDelay)
-        md.burstTracker = nil
+        md.HFO_burstTracker = nil
     else
         weapon:setRecoilDelay(1)
         HFO.Utils.debugLog("Burst: shot " .. shotNum .. "/" .. tracker.burstSize .. " | Speed: " .. rawSpeed .. " (Scaled: " .. scaledSpeed .. ")")
@@ -260,13 +259,13 @@ function HFO.WeaponUtils.onBurstAttackFinished()
     if not isBurst then return end
 
     local md = weapon:getModData()
-    local tracker = md.burstTracker
+    local tracker = md.HFO_burstTracker
     if not tracker then return end
 
     if weapon:getCurrentAmmoCount() <= 0 or tracker.shotsInBurst >= tracker.burstSize then
         local burstDelay = math.max(1, md.burstDelay or HFO.Constants.BurstDelays[mode] or 20)
         HFO.Utils.debugLog("Burst cleanup (attack finished): Delay " .. tostring(tracker.burstDelay or "NIL"))
-        md.burstTracker = nil
+        md.HFO_burstTracker = nil
     end
 end
 
@@ -278,8 +277,8 @@ function HFO.WeaponUtils.clearBurstTracker(player, weapon)
 
     if player and weapon then
         local md = weapon:getModData()
-        if md and md.burstTracker then
-            md.burstTracker = nil
+        if md and md.HFO_burstTracker then
+            md.HFO_burstTracker = nil
             HFO.Utils.debugLog("Burst tracking reset")
         end
     end
@@ -307,9 +306,9 @@ function HFO.WeaponUtils.MeleeModeHotkey()
 	if not HFO.Utils.isAimedFirearm(weapon) then return end
 
 	HFO.Utils.debugLog("Weapon: " .. tostring(weapon:getFullType()))
-	HFO.Utils.debugLog("MeleeSwap: " .. tostring(weapon:getModData().MeleeSwap))
+	HFO.Utils.debugLog("MeleeSwap: " .. tostring(weapon:getModData().HFO_MeleeSwap))
 
-	local meleeSwap = weapon:getModData().MeleeSwap
+	local meleeSwap = weapon:getModData().HFO_MeleeSwap
 	if not meleeSwap then return end
 
 	local result = InventoryItemFactory.CreateItem(meleeSwap)
@@ -324,6 +323,9 @@ function HFO.WeaponUtils.MeleeModeHotkey()
     HFO.Utils.handleWeaponJam(weapon, result, true)
     
 	HFO.Utils.finalizeWeaponSwap(player, weapon, result)
+
+	-- Handle suppressor sound changes after weapon swap
+	HFO.WeaponUtils.handleSuppressor()
 
 	if isMelee then
 		HFO.InnerVoice.say("SwappedToMelee")
@@ -340,6 +342,8 @@ end
 function HFO.WeaponUtils.handleSuppressor()
 	local player, weapon = HFO.Utils.getPlayerAndWeapon()
 	if not HFO.Utils.isAimedFirearm(weapon) then return end
+
+    if not weapon:isRanged() then return end
 
 	local scriptItem = weapon:getScriptItem()
 	local soundVolume = scriptItem:getSoundVolume()
@@ -382,7 +386,7 @@ end)
 ---===========================================---
 
 function HFO.WeaponUtils.checkForSuppressorBreak()
-	if (sv.SuppressorBreak or 20) >= 20 then return end
+	if (SandboxVars.HFO.SuppressorBreak or 20) >= 20 then return end
 
 	local player, weapon = HFO.Utils.getPlayerAndWeapon()
 	if not HFO.Utils.isAimedFirearm(weapon) then return end
@@ -390,7 +394,7 @@ function HFO.WeaponUtils.checkForSuppressorBreak()
 	local canon = weapon:getCanon()
 	if not (canon and canon:hasTag("Suppressor")) then return end
 
-	local breakChance = 400 * sv.SuppressorBreak
+	local breakChance = 400 * SandboxVars.HFO.SuppressorBreak
 	local maxCondition = canon:getConditionMax()
 	local currentCondition = canon:getCondition()
 	local rollChance = 10 * ((maxCondition - currentCondition) + 1)
@@ -400,7 +404,7 @@ function HFO.WeaponUtils.checkForSuppressorBreak()
 		HFO.InnerVoice.say("SuppressorWearing")
 
 		-- Adjust volume/radius to reflect wear
-        local suppressBoost = sv.SuppressorLevels or 0
+        local suppressBoost = SandboxVars.HFO.SuppressorLevels or 0
         weapon:setSoundVolume(math.floor(weapon:getSoundVolume() * (1 + suppressBoost * 0.01)))
         weapon:setSoundRadius(math.floor(weapon:getSoundRadius() * (1 + suppressBoost * 0.01)))
 
@@ -448,10 +452,10 @@ HFO.WeaponUtils.gunPlatingContextMenu.doWeaponMenu = function(player, context, w
     local md = weapon:getModData()
     
     -- Check if the weapon supports gun plating
-    if not md.GunPlatingOptions then return end
+    if not md.HFO_GunPlatingOptions then return end
     
     -- Get the current attached gun plating (if any)
-    local currentGunPlating = md.GunPlating
+    local currentGunPlating = md.HFO_GunPlating
     
     -- Check for screwdriver - using the SAME method as the timed action
     local hasScrewdriver = inventory:containsTagEval("Screwdriver", predicateNotBroken)
@@ -471,7 +475,7 @@ HFO.WeaponUtils.gunPlatingContextMenu.doWeaponMenu = function(player, context, w
     else
         -- If no gun plating is attached, offer to attach available plating options
         local validGunPlatingTypes = {}
-        for gunPlatingType in string.gmatch(md.GunPlatingOptions, "([^;]+)") do
+        for gunPlatingType in string.gmatch(md.HFO_GunPlatingOptions, "([^;]+)") do
             validGunPlatingTypes[gunPlatingType:trim()] = true
         end
         
@@ -547,7 +551,7 @@ Events.OnFillInventoryObjectContextMenu.Add(function(playerID, context, items)
     
         if item and item:IsWeapon() then
             local md = item:getModData()
-            if md and md.GunPlatingOptions then
+            if md and md.HFO_GunPlatingOptions then
                 HFO.WeaponUtils.gunPlatingContextMenu.doWeaponMenu(playerID, context, item)
             end
         end

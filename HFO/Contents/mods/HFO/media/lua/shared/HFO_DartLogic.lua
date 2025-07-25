@@ -89,9 +89,9 @@ function HFO.Darts.OnDartHit(attacker, target, weapon, damage)
 
     local isBroken = (ZombRand(100) < dartData.breakChance) -- randomize dart break based on sandbox setting
     local md = target:getModData()
-    md.dartsHits = md.dartsHits or {}
-    md.dartsHits[ammo] = md.dartsHits[ammo] or { broken = {} }
-    table.insert(md.dartsHits[ammo].broken, isBroken) 
+    md.HFO_dartsHits = md.HFO_dartsHits or {}
+    md.HFO_dartsHits[ammo] = md.HFO_dartsHits[ammo] or { broken = {} }
+    table.insert(md.HFO_dartsHits[ammo].broken, isBroken) 
 
     -- Handle InnerVoice dialogue
     local voice = HFO.Darts.InnerVoice
@@ -118,11 +118,11 @@ end
 
 function HFO.Darts.OnZombieDead(zombie)
     local md = zombie:getModData()
-    if not md.dartsHits then return end
+    if not md.HFO_dartsHits then return end
 
     local dartConfig = HFO.Darts.getDartsConfig()
 
-    for ammo, dartHits in pairs(md.dartsHits) do  -- check for table of dart outcomes
+    for ammo, dartHits in pairs(md.HFO_dartsHits) do  -- check for table of dart outcomes
         local dartData = dartConfig[ammo] --
         if dartData and dartHits.broken then
             for i = 1, #dartHits.broken do
@@ -139,7 +139,7 @@ function HFO.Darts.OnZombieDead(zombie)
         end
     end
 
-    md.dartsHits = nil
+    md.HFO_dartsHits = nil
 end
 
 

@@ -136,7 +136,7 @@ end
 -- Wrapper for gun plating + chambered + ammo material
 function BWTweaks:changeModelByGunPlatingAndRoundChamberedAndMaterial(fullType, gunPlating, isChambered, material, model)
     BWTweaks:changeModelBy(fullType, model, {
-        modDataKey = "GunPlating",
+        modDataKey = "HFO_GunPlating",
         modDataValue = gunPlating,
         chambered = isChambered,
         ammoContains = material,
@@ -145,7 +145,7 @@ end
 
 function BWTweaks:changeModelByGunPlatingAndRoundChambered(fullType, gunPlating, isChambered, model)
     BWTweaks:changeModelBy(fullType, model, {
-        modDataKey = "GunPlating",
+        modDataKey = "HFO_GunPlating",
         modDataValue = gunPlating,
         chambered = isChambered,
     });
@@ -157,7 +157,7 @@ end
 
 function BWTweaks:changeModelByGunPlating(fullType, gunPlating, model)
     BWTweaks:changeModelBy(fullType, model, {
-        modDataKey = "GunPlating",
+        modDataKey = "HFO_GunPlating",
         modDataValue = gunPlating,
     });
 end
@@ -168,7 +168,7 @@ end
 
 function BWTweaks:changeModelByGunPlatingAndAttachment(fullType, gunPlating, attachmentType, model)
     BWTweaks:changeModelBy(fullType, model, {
-        modDataKey = "GunPlating",
+        modDataKey = "HFO_GunPlating",
         modDataValue = gunPlating,
         attachment = attachmentType,
     });
@@ -180,7 +180,7 @@ end
 
 function BWTweaks:changeModelByGunPlatingAndMagPresent(fullType, gunPlating, isPresent, model)
     BWTweaks:changeModelBy(fullType, model, {
-        modDataKey = "GunPlating",
+        modDataKey = "HFO_GunPlating",
         modDataValue = gunPlating,
         magazine = isPresent,
     });
@@ -192,7 +192,7 @@ end
 
 function BWTweaks:changeModelByGunPlatingAndAttachmentAndMagPresent(fullType, gunPlating, attachmentType, isPresent, model)
     BWTweaks:changeModelBy(fullType, model, {
-        modDataKey = "GunPlating",
+        modDataKey = "HFO_GunPlating",
         modDataValue = gunPlating,
         attachment = attachmentType,
         magazine = isPresent,

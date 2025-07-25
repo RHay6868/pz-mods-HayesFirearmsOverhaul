@@ -441,8 +441,8 @@ function ISToolTipInv:render()
     end
     
     local isWeaponPart = instanceof(self.item, "WeaponPart")
-    
-    if not isWeaponPart then
+
+    if not isWeaponPart or self.item:getPartType() == "Clip" then
         return orig_ISToolTipInv_render(self)
     end
     

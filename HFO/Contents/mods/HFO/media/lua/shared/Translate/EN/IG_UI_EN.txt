@@ -25,6 +25,7 @@ IGUI_EN = {
 	IGUI_HFO_DefaultMag = "Default Mag",
 	IGUI_HFO_ExtSm = "Small Extended Mag",
 	IGUI_HFO_ExtLg = "Large Extended Mag",
+	IGUI_HFO_Drum = "Drum Mag",
 	IGUI_HFO_Buckshot = "Buckshot",
 	IGUI_HFO_Birdshot = "Birdshot",
 	IGUI_HFO_Slug = "Slug",

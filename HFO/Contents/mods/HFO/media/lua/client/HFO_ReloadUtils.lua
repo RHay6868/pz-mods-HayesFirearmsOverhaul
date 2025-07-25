@@ -34,7 +34,6 @@ require "Reloading/ISReloadableWeapon"
 
 HFO = HFO or {}
 HFO.ReloadUtils = HFO.ReloadUtils or {}
-local sv = HFO.SandboxUtils.get()
 
 
 ---===========================================---
@@ -43,33 +42,31 @@ local sv = HFO.SandboxUtils.get()
 
 -- Find a valid speedloader for the given weapon
 function HFO.ReloadUtils.getValidSpeedloader(inventory, weapon)
-    local speedloaders = inventory:getAllEvalRecurse(function(item)
-        return item:getType():contains("SpeedLoader")
-    end)
+    if not inventory or not weapon then return nil end
 
-    if speedloaders:isEmpty() then return nil end
     local weaponType = weapon:getFullType()
+    local bestLoader = nil
+    local bestAmmoCount = 0
 
-    local function trim(str)
-        return str:match("^%s*(.-)%s*$")
-    end
-
-    for i = 0, speedloaders:size() - 1 do
-        local loader = speedloaders:get(i)
-
-        local md = loader:getModData()
-        local compatStr = md and md.SpeedLoadCompatible
-
-        if compatStr then
-            for entry in string.gmatch(compatStr, "[^;]+") do
-                if trim(entry) == weaponType then
-                    return loader
+    local items = inventory:getItems()
+    for i = 0, items:size() - 1 do
+        local item = items:get(i)
+        if item and item:getType():contains("SpeedLoader") then
+            local currentAmmo = item:getCurrentAmmoCount()
+            if currentAmmo > 0 then
+                local md = item:getModData()
+                if md and md.HFO_SpeedLoadCompatible and 
+                   string.find(md.HFO_SpeedLoadCompatible, weaponType, 1, true) then
+                    if currentAmmo > bestAmmoCount then
+                        bestAmmoCount = currentAmmo
+                        bestLoader = item
+                    end
                 end
             end
         end
     end
 
-    return nil
+    return bestLoader
 end
 
 -- Store the original function
@@ -108,11 +105,11 @@ function HFO.ReloadUtils.getAvailableMagTypes(player, weapon)
     if not player or not weapon then return {} end
 
     local md = weapon:getModData()
-    local magBase = md.MagBase
+    local magBase = md.HFO_MagBase
     if not magBase then return {} end
 
     local allTypes = { magBase }
-    for _, field in ipairs({ "MagExtSm", "MagExtLg", "MagDrum" }) do
+    for _, field in ipairs({ "HFO_MagExtSm", "HFO_MagExtLg", "HFO_MagDrum" }) do
         if md[field] then
             table.insert(allTypes, md[field])
         end
@@ -137,7 +134,7 @@ function HFO.ReloadUtils.SwapMagHotkey(keyNum, reverse)
     if not HFO.Utils.isAimedFirearm(weapon) or HFO.Utils.isInMeleeMode(weapon) then return end 
     
     local md = weapon:getModData()
-    if not md.MagBase then return false end -- if there is no MagBase than there are no Extended options
+    if not md.HFO_MagBase then return false end -- if there is no MagBase than there are no Extended options
     
     -- Get all available magazine types
     local magTypes = HFO.ReloadUtils.getAvailableMagTypes(player, weapon)
@@ -157,11 +154,6 @@ function HFO.ReloadUtils.SwapMagHotkey(keyNum, reverse)
 
     if weapon:isContainsClip() then
         ISTimedActionQueue.add(ISEjectMagazine:new(player, weapon))
-    end
-
-    -- Detach current part if necessary
-    if currentPart and currentPart:getFullType() ~= desiredPart then
-        self.weapon:detachWeaponPart(currentPart)
     end
     
     ISTimedActionQueue.add(ISMagSwapAction:new(player, weapon, nextMagType))
@@ -187,7 +179,7 @@ ISInventoryPaneContextMenu.onRemoveUpgradeWeapon = function(weapon, part, player
 
     -- Block clip removal globally
     if part:getPartType() == "Clip" then
-        HFO.InnerVoice.say("MeleeBlockMagazine")
+        HFO.InnerVoice.say("BlockMagazineUpgrade")
         return
     end
 
@@ -274,7 +266,7 @@ function HFO.ReloadUtils.getReloadSpeedModifier(character, weapon)
     for i = 0, weaponParts:size() - 1 do
         local part = weaponParts:get(i)
         if part then
-            local rawValue = part:getModData() and part:getModData().ReloadSpeedModifier
+            local rawValue = part:getModData() and part:getModData().HFO_ReloadSpeedModifier
             local baseModifier = nil
     
             if type(rawValue) == "number" then
@@ -289,7 +281,7 @@ function HFO.ReloadUtils.getReloadSpeedModifier(character, weapon)
         end
     end
 
-    local weaponModRaw = weapon:getModData() and weapon:getModData().ReloadSpeedModifier
+    local weaponModRaw = weapon:getModData() and weapon:getModData().HFO_ReloadSpeedModifier
     local weaponModFinal = tonumber(weaponModRaw)
     if weaponModFinal then
         totalReloadMod = totalReloadMod + weaponModFinal
@@ -310,7 +302,7 @@ ISInventoryPaneContextMenu.onUpgradeWeapon = function(weapon, part, player)
 
 	-- If the part has a reload bonus, cue the voice line
 	local md = part:getModData()
-	local bonus = md and tonumber(md.ReloadSpeedModifier)
+	local bonus = md and tonumber(md.HFO_ReloadSpeedModifier)
 	if bonus and bonus > 0 then
 		HFO.InnerVoice.say("ReloadBoost")
 	end
@@ -331,12 +323,12 @@ function HFO.ReloadUtils.getCompatibleAmmoTypes(weapon)
     local compatibleAmmoTypes = {}
 
     -- Add base ammo type (always first)
-    local baseAmmoType = md.AmmoTypeBase or weapon:getAmmoType()
+    local baseAmmoType = md.HFO_AmmoTypeBase or weapon:getAmmoType()
     table.insert(compatibleAmmoTypes, baseAmmoType)
 
     -- Add additional types from modData (semicolon-separated)
-    if md.AmmoTypeAdditional then
-        for ammoType in string.gmatch(md.AmmoTypeAdditional, "([^;]+)") do
+    if md.HFO_AmmoTypeAdditional then
+        for ammoType in string.gmatch(md.HFO_AmmoTypeAdditional, "([^;]+)") do
             -- Trim whitespace
             ammoType = ammoType:match("^%s*(.-)%s*$")
             if ammoType and ammoType ~= "" then
@@ -360,13 +352,14 @@ end
 -- Get available ammo types that player actually has in inventory
 function HFO.ReloadUtils.getAvailableAmmoTypes(player, weapon)
     if not player or not weapon then return {} end
+    local md = weapon:getModData()
 
     local compatibleAmmoTypes = HFO.ReloadUtils.getCompatibleAmmoTypes(weapon)
     if #compatibleAmmoTypes <= 1 then return compatibleAmmoTypes end
 
     local availableAmmoTypes = {}
     local inventory = player:getInventory()
-    local currentAmmoType = weapon:getAmmoType()
+    local currentAmmoType = md.HFO_currentAmmoType or weapon:getAmmoType()
     
     for _, ammoType in ipairs(compatibleAmmoTypes) do
         -- Include current ammo type or types we have in inventory
@@ -384,6 +377,8 @@ function HFO.ReloadUtils.SwapAmmoHotkey(keyNum, reverse)
     if not player or not weapon then return false end
     if not HFO.Utils.isAimedFirearm(weapon) or HFO.Utils.isInMeleeMode(weapon) then return end
     
+    local md = weapon:getModData()
+
     -- Get available ammo types for this weapon
     local availableAmmoTypes = HFO.ReloadUtils.getAvailableAmmoTypes(player, weapon)
     if #availableAmmoTypes <= 1 then 
@@ -391,7 +386,7 @@ function HFO.ReloadUtils.SwapAmmoHotkey(keyNum, reverse)
         return false 
     end
     
-    local currentAmmoType = weapon:getAmmoType()
+    local currentAmmoType = md.HFO_currentAmmoType or weapon:getAmmoType()
     
     -- Find next ammo type
     local indexed = HFO.Utils.getNextPrevFromList(availableAmmoTypes, currentAmmoType)
@@ -412,6 +407,127 @@ end
 
 
 ---===========================================---
+--  AMMO & MAG CONTINUITY AND STAT RETENTION   --
+---===========================================---
+
+-- Extract the logic into its own function
+function HFO.ReloadUtils.handleMagazineRetention(weapon)
+    if not weapon or not instanceof(weapon, "HandWeapon") or not weapon:isAimedFirearm() then
+        return
+    end
+
+    local clipLoaded = weapon:isContainsClip()
+    local currentMagType = weapon:getModData().HFO_currentMagType
+
+    -- Early exit if no magazine type stored
+    if not currentMagType then return end
+
+    if currentMagType ~= nil then
+        weapon:setMagazineType(currentMagType)
+        local tempItem = InventoryItemFactory.CreateItem(currentMagType)
+        if tempItem then
+            weapon:setMaxAmmo(tempItem:getMaxAmmo())
+        end
+    end
+
+    if clipLoaded then
+        local magBase = weapon:getModData().HFO_MagBase
+        local magExtSm = weapon:getModData().HFO_MagExtSm
+        local magExtLg = weapon:getModData().HFO_MagExtLg
+        local magDrum = weapon:getModData().HFO_MagDrum
+        local magPart
+
+        if not weapon:getClip() then
+            if currentMagType and currentMagType ~= "" then
+                if currentMagType == magExtSm then
+                    magPart = InventoryItemFactory.CreateItem(magExtSm)
+                elseif currentMagType == magExtLg then
+                    magPart = InventoryItemFactory.CreateItem(magExtLg)
+                elseif currentMagType == magDrum then
+                    magPart = InventoryItemFactory.CreateItem(magDrum)
+                end
+            end
+        end
+
+        if magPart and not weapon:getClip() then
+            weapon:attachWeaponPart(magPart)
+        end
+
+    elseif weapon:getClip() then
+        weapon:detachWeaponPart(weapon:getWeaponPart("Clip"))
+    end
+end
+
+function HFO.ReloadUtils.handleAmmoRetention(weapon)
+    if not weapon or not instanceof(weapon, "HandWeapon") or not weapon:isAimedFirearm() then
+        return
+    end
+
+    local md = weapon:getModData()
+    local currentAmmoType = md.HFO_currentAmmoType
+
+    -- Early exit if no ammo type stored or already correct
+    if not currentAmmoType or currentAmmoType == weapon:getAmmoType() then return end
+    
+    if currentAmmoType and currentAmmoType ~= weapon:getAmmoType() then
+        -- Restore core ammo properties
+        weapon:setAmmoType(currentAmmoType)
+        
+        -- Restore projectile count and max hits from baseline
+        if md.HFO_PreSwapStats then
+            local baseProjectiles = md.HFO_PreSwapStats.projectileCount
+            local baseMaxHits = md.HFO_PreSwapStats.maxHitCount
+            
+            if currentAmmoType == "Base.ShotgunShellsBirdshot" then
+                weapon:setProjectileCount(baseProjectiles + 3)
+                weapon:setMaxHitCount(baseMaxHits + 2)
+            elseif currentAmmoType == "Base.ShotgunShellsSlug" then
+                weapon:setProjectileCount(1)
+                weapon:setMaxHitCount(1)
+            else
+                weapon:setProjectileCount(baseProjectiles)
+                weapon:setMaxHitCount(baseMaxHits)
+            end
+        end
+        
+        -- Reapply ammo stat modifiers
+        if HFO.Utils.applyAmmoPropertiesToWeapon then
+            HFO.Utils.applyAmmoPropertiesToWeapon(weapon, currentAmmoType)
+        end
+    end
+
+    -- Mark that we've applied stats for this ammo type
+    md.HFO_AmmoStatsApplied = currentAmmoType
+end
+
+local originalCheckForModelChange = BWTweaks and BWTweaks.checkForModelChange
+
+function BWTweaks:checkForModelChange(weapon)  
+    HFO.ReloadUtils.handleMagazineRetention(weapon)
+    HFO.ReloadUtils.handleAmmoRetention(weapon)
+    HFO.Utils.migrateModData(weapon)
+    HFO.Utils.storePreSwapStats(weapon)
+
+    if originalCheckForModelChange then
+        return originalCheckForModelChange(self, weapon)
+    end
+end
+
+Events.OnGameStart.Add(function()
+    local player, weapon = HFO.Utils.getPlayerAndWeapon()
+    if not HFO.Utils.isAimedFirearm(weapon) then return end
+    
+    if weapon and instanceof(weapon, "HandWeapon") and weapon:isAimedFirearm() then
+        BWTweaks:checkForModelChange(weapon)
+        HFO.ReloadUtils.handleMagazineRetention(weapon)
+        HFO.ReloadUtils.handleAmmoRetention(weapon)
+        HFO.Utils.migrateModData(weapon)
+        HFO.Utils.storePreSwapStats(weapon)
+    end
+end)
+
+
+---===========================================---
 --           CUSTOM JAM CHANCE LOGIC           --
 ---===========================================---
 
@@ -421,7 +537,7 @@ function HFO.ReloadUtils.calculateJamChance(player, weapon, jamSetting)
     if not weapon or not weapon:isRanged() then return 0 end
     
     -- Validate jam setting
-    jamSetting = tonumber(jamSetting or sv.JamChance) or 4
+    jamSetting = tonumber(jamSetting or SandboxVars.HFO.JamChance) or 4
     if jamSetting < 2 or jamSetting > 7 then jamSetting = 4 end
     
     local condition = weapon:getCondition()

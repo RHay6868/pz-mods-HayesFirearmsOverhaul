@@ -6,7 +6,7 @@ function classifyWeaponSize(weapon)
     local wt = weapon:getWeight() or 1
 
     -- Check if the gun is folded (either by ModData flag or naming)
-    local isFolded = weapon:getModData() and weapon:getModData().FoldSwap
+    local isFolded = weapon:getModData() and weapon:getModData().HFO_FoldSwap
     if isFolded or string.find(name, "_Folded") then
         return "small"
     end
@@ -78,10 +78,10 @@ local function isValidMagazineForGun(part, weapon)
     -- List of valid magazine types for this weapon
     local validTypes = {
         weapon:getMagazineType(),                  -- Base magazine
-        weapon:getModData().MagExtSm or "",        -- Small extended magazine
-        weapon:getModData().MagExtLg or "",        -- Large extended magazine
-        weapon:getModData().MagDrum or "",         -- Drum magazine
-        weapon:getModData().MagBase or ""          -- Explicit base magazine override
+        weapon:getModData().HFO_MagExtSm or "",        -- Small extended magazine
+        weapon:getModData().HFO_MagExtLg or "",        -- Large extended magazine
+        weapon:getModData().HFO_MagDrum or "",         -- Drum magazine
+        weapon:getModData().HFO_MagBase or ""          -- Explicit base magazine override
     }
     
     -- Check if part matches any valid magazine type
@@ -129,16 +129,24 @@ end
 
 HFO_WeaponViewer = ISPanel:derive("HFO_WeaponViewer")
 
+
+
 -- Parse plating options safely
 local function parsePlatingOptions(weapon)
-    local base = weapon:getModData().GunBaseModel or (weapon:getWeaponSprite() or weapon:getStaticModel())
+    local md = weapon:getModData()
+    
+    if not md.HFO_GunBaseModel then 
+        md.HFO_GunBaseModel = weapon:getWeaponSprite() or weapon:getStaticModel() 
+    end
+    
+    local base = md.HFO_GunBaseModel -- No need for fallback anymore since we just set it!
     local options = {}
 
     if base and base ~= "" then
         table.insert(options, base) -- base model first
     end
 
-    local raw = weapon:getModData() and weapon:getModData().GunPlatingOptions
+    local raw = md.HFO_GunPlatingOptions
     if raw and raw ~= "" then
         for opt in string.gmatch(raw, "([^;]+)") do
             opt = opt:trim()
@@ -175,7 +183,7 @@ function HFO_WeaponViewer:new(x, y, width, height, weapon)
     
     local options = parsePlatingOptions(weapon)
     o.availablePlatings = options
-    local currentPlating = weapon:getModData().GunPlating or options[1]
+    local currentPlating = weapon:getModData().HFO_GunPlating or options[1]
     local foundIndex = 1
     for i = 1, #options do
         if options[i] == currentPlating then
@@ -184,7 +192,7 @@ function HFO_WeaponViewer:new(x, y, width, height, weapon)
         end
     end
     o.previewPlatingIndex = foundIndex
-    o.originalPlating = weapon:getModData().GunPlating
+    o.originalPlating = weapon:getModData().HFO_GunPlating
     o.platingLabel = nil
     o.leftBtn = nil
     o.rightBtn = nil
@@ -225,7 +233,7 @@ function HFO_WeaponViewer:addWeaponAttachments()
     for i = 0, parts:size() - 1 do
         local part = parts:get(i)
         local modelName = part and part:getStaticModel()
-        local slot = part and part:getModData() and part:getModData().AttachmentSlot -- added moddata in attachment item script since it was the easiest way to do matches
+        local slot = part and part:getModData() and part:getModData().HFO_AttachmentSlot -- added moddata in attachment item script since it was the easiest way to do matches
         if modelName and slot and attachmentPoints[slot] then
             local modelId = "attachment_" .. slot:lower()
             local modelFullType = modelName:find("^Base%.") and modelName or ("Base." .. modelName)
@@ -549,7 +557,9 @@ function HFO_WeaponViewer:updateDetailsPanel()
         ["Condition"] = 13,
         ["Sound Radius"] = 14,
         ["Gun Plating"] = 15,
-        ["Suppressor"] = 16
+        ["Suppressor"] = 16,
+        ["Max Hits"] = 17,
+        ["Projectile Count"] = 18
     }
     
     -- Filter stats to only include those in statOrder
@@ -597,9 +607,9 @@ function HFO_WeaponViewer:updateDetailsPanel()
         local md = wpn:getModData()
         if md then
             local importantKeys = {
-                "GunPlating", "GunPlatingOptions", 
-                "GunBaseModel", "FoldSwap",
-                "MagBase", "MagExtSm", "MagExtLg", "MagDrum"
+                "HFO_GunPlating", "HFO_GunPlatingOptions", 
+                "HFO_GunBaseModel", "HFO_FoldSwap",
+                "HFO_MagBase", "HFO_MagExtSm", "HFO_MagExtLg", "HFO_MagDrum"
             }
             
             -- Process ModData entries directly, without nesting loops
@@ -1006,7 +1016,7 @@ end
 
 function HFO_WeaponViewer:getDisplayName(platingType)
     if not platingType then return "None" end
-    local base = self.weapon:getModData().GunBaseModel or (self.weapon:getWeaponSprite() or self.weapon:getStaticModel())
+    local base = self.weapon:getModData().HFO_GunBaseModel or (self.weapon:getWeaponSprite() or self.weapon:getStaticModel())
     if platingType == base then
         return "Original Plating"
     end
@@ -1048,11 +1058,11 @@ function HFO_WeaponViewer:cyclePlating(direction)
     self.addedAttachments = {} -- Reset attachments list
 
     -- Get temporary model preview without changing the actual weapon
-    local originalPlating = self.weapon:getModData().GunPlating
-    self.weapon:getModData().GunPlating = platingOption
+    local originalPlating = self.weapon:getModData().HFO_GunPlating
+    self.weapon:getModData().HFO_GunPlating = platingOption
     BWTweaks:checkForModelChange(self.weapon)
     local previewModel = self.weapon:getWeaponSprite() or self.weapon:getStaticModel()
-    self.weapon:getModData().GunPlating = originalPlating
+    self.weapon:getModData().HFO_GunPlating = originalPlating
     BWTweaks:checkForModelChange(self.weapon)
     
     -- Create new model and reset view completely

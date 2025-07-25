@@ -56,6 +56,14 @@ Tooltip_EN = {
 	Tooltip_ButtStockWrap					= "Faster Aiming [+6]<br>Wider Shooting Angle [+]<br>Hit Chance [+2]<br>Improved Recoil [-1]<br>Slightly Faster Reloading",
 	Tooltip_ShellHolder						= "Faster Aiming [+5]<br>Generally Faster Reload",
 
+	-- Add these to your Tooltip_EN table:
+
+	Tooltip_22SpeedLoader					= "Quick reload device for revolvers<br>Compatible with: High Standard Sentinel Deluxe Revolver<br>(Speedloader returns empty to inventory after use)",
+	Tooltip_38SpeedLoader5					= "Quick reload device for revolvers<br>Compatible with: Smith & Wesson Model 36<br>(Speedloader returns empty to inventory after use)",
+	Tooltip_38SpeedLoader7					= "Quick reload device for revolvers<br>Compatible with: Ruger GP100 Revolver<br>(Speedloader returns empty to inventory after use)",
+	Tooltip_44SpeedLoader					= "Quick reload device for revolvers<br>Compatible with: Colt Anaconda Revolver<br>(Speedloader returns empty to inventory after use)",
+	Tooltip_45SpeedLoader					= "Quick reload device for revolvers<br>Compatible with: Smith & Wesson Model 625 Reolber, Colt Cavalry Revolver<br>(Speedloader returns empty to inventory after use)",
+
 	Tooltip_Mag22Ext 						= "Extended Mag for:<br>BRuger1022",
 	Tooltip_Mag9Ext 						= "Extended Mag for:<br>Beretta M9",
 	Tooltip_Mag9Drum						= "Drum Mag for:<br>Beretta M9",

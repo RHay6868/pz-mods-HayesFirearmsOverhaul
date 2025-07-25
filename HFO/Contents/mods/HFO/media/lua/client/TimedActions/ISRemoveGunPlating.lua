@@ -10,7 +10,7 @@ function ISRemoveGunPlating:isValid()
     if not self.character:getInventory():containsTagEval("Screwdriver", predicateNotBroken) then return false end
     if not self.character:getInventory():contains(self.weapon) then return false end
     -- Check if a plating is actually attached
-    if not self.weapon:getModData().GunPlating then return false end
+    if not self.weapon:getModData().HFO_GunPlating then return false end
     return true
 end
 
@@ -35,11 +35,11 @@ function ISRemoveGunPlating:perform()
     self.weapon:setJobDelta(0.0);
     
     -- Get the plating type before removing it
-    local gunPlatingType = self.weapon:getModData().GunPlating
+    local gunPlatingType = self.weapon:getModData().HFO_GunPlating
     
     if gunPlatingType then
         -- Clear the plating data
-        self.weapon:getModData().GunPlating = nil
+        self.weapon:getModData().HFO_GunPlating = nil
         
         -- Add the plating item back to the inventory
         self.character:getInventory():AddItem(gunPlatingType);

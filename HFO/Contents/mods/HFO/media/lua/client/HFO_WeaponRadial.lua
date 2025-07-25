@@ -42,7 +42,7 @@ function ISFirearmRadialMenu:getWeapon()  -- a call to pull up the firearms radi
     local weapon = self.character:getPrimaryHandItem()
     if weapon and instanceof(weapon, "HandWeapon") then
         -- Check for weapons in melee mode by examining their modData
-        if weapon:isRanged() or weapon:isAimedFirearm() or (weapon:getModData().MeleeSwap and not weapon:isRanged()) then
+        if weapon:isRanged() or weapon:isAimedFirearm() or (weapon:getModData().HFO_MeleeSwap and not weapon:isRanged()) then
             return weapon
         end
     end
@@ -62,7 +62,7 @@ end
 local ISFirearmRadialMenu_fillMenu_Vanilla = ISFirearmRadialMenu.fillMenu 
 
 function ISFirearmRadialMenu:fillMenu(submenu)
-    HFO.Utils.debugLog("fillMenu called: submenu = " .. tostring(submenu))
+    --HFO.Utils.debugLog("fillMenu called: submenu = " .. tostring(submenu))
     local menu = getPlayerRadialMenu(self.playerNum)
     menu:clear()
 
@@ -96,12 +96,12 @@ function ISFirearmRadialMenu:fillMenu(submenu)
     local md = weapon:getModData()
     local weaponType = weapon:getType()
     local isRanged = weapon:isRanged()
-    local meleeSwap = md.MeleeSwap
-    local foldSwap = md.FoldSwap
-    local integratedSwap = md.IntegratedSwap
+    local meleeSwap = md.HFO_MeleeSwap
+    local foldSwap = md.HFO_FoldSwap
+    local integratedSwap = md.HFO_IntegratedSwap
     local currentMag = weapon:getMagazineType() or ""
     local weaponStock = weapon:getStock()
-    local lightOn = md.LightOn
+    local lightOn = md.HFO_LightOn
     
     -- Add custom menu items
     -- Melee Mode
@@ -197,7 +197,8 @@ function ISFirearmRadialMenu:fillMenu(submenu)
     local availableAmmoTypes = HFO.ReloadUtils.getAvailableAmmoTypes(getSpecificPlayer(self.playerNum), weapon)
     
     if not HFO.Utils.isInMeleeMode(weapon) and #availableAmmoTypes > 1 then
-        local currentAmmoType = weapon:getAmmoType()
+        local md = weapon:getModData()
+        local currentAmmoType = md.HFO_currentAmmoType or weapon:getAmmoType()
         local ammoCycle = HFO.Utils.getNextPrevFromList(availableAmmoTypes, currentAmmoType)
         
         local forwardAmmo = ammoCycle.next
@@ -278,7 +279,7 @@ function ISFirearmRadialMenu.checkWeapon(playerObj)
     end
     
     -- Check for weapons in melee mode that can be toggled back
-    if weapon:getModData().MeleeSwap then
+    if weapon:getModData().HFO_MeleeSwap then
         return true
     end
     

@@ -5,343 +5,343 @@ module Base
     /************************ CANONS ************************/
     item ChokeTubeFull
     {
-        DisplayCategory     = WeaponPart,
-        Weight              = 0.05,
-        Type                = WeaponPart,
-        DisplayName         = Choke Tube Full,
-        Icon                = Shotgun_ChokeFull,
-        PartType            = Canon,
-        MountOn             = Shotgun; ShotgunSawnoff; TrenchGun,
-        WeightModifier      = 0.05,
-        MaxRangeModifier    = 1,		
-        AngleModifier       = 0.05,		
-        DamageModifier      = 0.25,
-        RecoilDelayModifier = -2,
-        AimingTimeModifier  = 4,		
-        MetalValue          = 12,
-        WorldStaticModel    = ChokeFull,
-        Tooltip             = Tooltip_ChokeTubeFull,
+        DisplayCategory         = WeaponPart,
+        Weight                  = 0.05,
+        Type                    = WeaponPart,
+        DisplayName             = Choke Tube Full,
+        Icon                    = Shotgun_ChokeFull,
+        PartType                = Canon,
+        MountOn                 = Shotgun; ShotgunSawnoff; TrenchGun,
+        WeightModifier          = 0.05,
+        MaxRangeModifier        = 1,		
+        AngleModifier           = 0.05,		
+        DamageModifier          = 0.25,
+        RecoilDelayModifier     = -2,
+        AimingTimeModifier      = 4,		
+        MetalValue              = 12,
+        WorldStaticModel        = ChokeFull,
+        Tooltip                 = Tooltip_ChokeTubeFull,
     }
 
     item ChokeTubeImproved
     {
-        DisplayCategory     = WeaponPart,
-        Weight              = 0.1,
-        Type                = WeaponPart,
-        DisplayName         = Choke Tube,
-        Icon                = Shotgun_Choke,
-        PartType            = Canon,
-        MountOn             = Shotgun; ShotgunSawnoff; TrenchGun,
-        WeightModifier      = 0.1,
-        MaxRangeModifier    = 2,	
-        AngleModifier       = 0.025,
-        DamageModifier      = 0.20,
-        RecoilDelayModifier = -4,
-        AimingTimeModifier  = 6,
-        MetalValue          = 12,
-        WorldStaticModel    = Choke,
-        Tooltip             = Tooltip_ChokeTubeImproved,
+        DisplayCategory         = WeaponPart,
+        Weight                  = 0.1,
+        Type                    = WeaponPart,
+        DisplayName             = Choke Tube,
+        Icon                    = Shotgun_Choke,
+        PartType                = Canon,
+        MountOn                 = Shotgun; ShotgunSawnoff; TrenchGun,
+        WeightModifier          = 0.1,
+        MaxRangeModifier        = 2,	
+        AngleModifier           = 0.025,
+        DamageModifier          = 0.20,
+        RecoilDelayModifier     = -4,
+        AimingTimeModifier      = 6,
+        MetalValue              = 12,
+        WorldStaticModel        = Choke,
+        Tooltip                 = Tooltip_ChokeTubeImproved,
     }
 
     item Bayonnet
     {
-        DisplayCategory     = WeaponPart,
-        Weight              = 0.2,
-        Type                = WeaponPart,
-        DisplayName         = Bayonet,
-        Icon                = Bayonet,
-        PartType            = Canon,
-        MountOn             = AssaultRifle2; MosinNagant; TrenchGun; Springfield1861,
-        WeightModifier      = 0.2,
-        RecoilDelayModifier = 5,
-        AimingTimeModifier  = -5,
-        HitChanceModifier   = -5,		
-        ReloadTimeModifier  = 5,
-        MetalValue          = 15,
-        StaticModel         = Bayonet,
-        WorldStaticModel    = Rifle_Bayonet_Ground,
-        AttachmentSlot      = bayonet,
-        Tooltip             = Tooltip_Bayonet,
+        DisplayCategory         = WeaponPart,
+        Weight                  = 0.2,
+        Type                    = WeaponPart,
+        DisplayName             = Bayonet,
+        Icon                    = Bayonet,
+        PartType                = Canon,
+        MountOn                 = AssaultRifle2; MosinNagant; TrenchGun; Springfield1861,
+        WeightModifier          = 0.2,
+        RecoilDelayModifier     = 5,
+        AimingTimeModifier      = -5,
+        HitChanceModifier       = -5,		
+        ReloadTimeModifier      = 5,
+        MetalValue              = 15,
+        StaticModel             = Bayonet,
+        WorldStaticModel        = Rifle_Bayonet_Ground,
+        HFO_AttachmentSlot      = bayonet,
+        Tooltip                 = Tooltip_Bayonet,
     }
 
     item BayonetImprovised
     {
-        DisplayCategory     = WeaponPart,
-        Weight              = 0.2,
-        Type                = WeaponPart,
-        DisplayName         = Bayonet Improvised,
-        Icon                = BayonetImprovised,
-        PartType            = Canon,
-        MountOn             = AssaultRifle2; MosinNagant; AK103; AK74; M1Garand; TrenchGun; EM2; Springfield1861,
-        WeightModifier      = 0.2,
-        RecoilDelayModifier = 4,
-        AimingTimeModifier  = -4,	
-        HitChanceModifier   = -3,		
-        ReloadTimeModifier  = 5,
-        MetalValue          = 15,
-        StaticModel         = BayonetImprovised,
-        WorldStaticModel    = BayonetImprovised,
-        AttachmentSlot      = bayonet,
-        Tooltip             = Tooltip_BayonetImprovised,
+        DisplayCategory         = WeaponPart,
+        Weight                  = 0.2,
+        Type                    = WeaponPart,
+        DisplayName             = Bayonet Improvised,
+        Icon                    = BayonetImprovised,
+        PartType                = Canon,
+        MountOn                 = AssaultRifle2; MosinNagant; AK103; AK74; M1Garand; TrenchGun; EM2; Springfield1861,
+        WeightModifier          = 0.2,
+        RecoilDelayModifier     = 4,
+        AimingTimeModifier      = -4,	
+        HitChanceModifier       = -3,		
+        ReloadTimeModifier      = 5,
+        MetalValue              = 15,
+        StaticModel             = BayonetImprovised,
+        WorldStaticModel        = BayonetImprovised,
+        HFO_AttachmentSlot      = bayonet,
+        Tooltip                 = Tooltip_BayonetImprovised,
     }
 
     item GunLight
     {
-        DisplayCategory     = WeaponPart,
-        Weight              = 0.1,
-        Type                = WeaponPart,
-        DisplayName         = Gun Light,
-        Icon                = Gun_Light,
-        PartType            = Stock,
-        MountOn             = Pistol; Pistol2; Pistol3; SIGSauer;
-                            Glock; FiveSeven; FranchiLF57; FranchiLF57_Folded;
-                            MiniUzi; MiniUzi_Folded; P90; TheNailGun,
-        WeightModifier      = 0.1,
-        AimingTimeModifier  = 5,
-        HitChanceModifier   = 5,	
-        MetalValue          = 15,
-        StaticModel         = GunLight,
-        WorldStaticModel    = Handgun_Light_Ground,
-        AttachmentSlot      = gunlight,
-        Tooltip             = Tooltip_GunLight,
+        DisplayCategory         = WeaponPart,
+        Weight                  = 0.1,
+        Type                    = WeaponPart,
+        DisplayName             = Gun Light,
+        Icon                    = Gun_Light,
+        PartType                = Stock,
+        MountOn                 = Pistol; Pistol2; Pistol3; SIGSauer;
+                                Glock; FiveSeven; FranchiLF57; FranchiLF57_Folded;
+                                MiniUzi; MiniUzi_Folded; P90; TheNailGun,
+        WeightModifier          = 0.1,
+        AimingTimeModifier      = 5,
+        HitChanceModifier       = 5,	
+        MetalValue              = 15,
+        StaticModel             = GunLight,
+        WorldStaticModel        = Handgun_Light_Ground,
+        HFO_AttachmentSlot      = gunlight,
+        Tooltip                 = Tooltip_GunLight,
     }
 
     item Laser
     {
-        DisplayCategory     = WeaponPart,
-        Weight              = 0.2,
-        Type                = WeaponPart,
-        DisplayName         = Laser,
-        Icon                = Laser,
-        PartType            = Stock,
-        MountOn             = Pistol; Pistol2; Pistol3; SIGSauer;
-                            Glock; FiveSeven; FranchiLF57; FranchiLF57_Folded;
-                            MiniUzi; MiniUzi_Folded; P90; TheNailGun,
-        WeightModifier      = 0.2,
-        AimingTimeModifier  = 10,
-        HitChanceModifier   = 5,	
-        MetalValue          = 15,
-        StaticModel         = Laser,
-        WorldStaticModel    = Handgun_Laser_Ground,
-        AttachmentSlot      = laser,
-        Tooltip             = Tooltip_Laser,
+        DisplayCategory         = WeaponPart,
+        Weight                  = 0.2,
+        Type                    = WeaponPart,
+        DisplayName             = Laser,
+        Icon                    = Laser,
+        PartType                = Stock,
+        MountOn                 = Pistol; Pistol2; Pistol3; SIGSauer;
+                                Glock; FiveSeven; FranchiLF57; FranchiLF57_Folded;
+                                MiniUzi; MiniUzi_Folded; P90; TheNailGun,
+        WeightModifier          = 0.2,
+        AimingTimeModifier      = 10,
+        HitChanceModifier       = 5,	
+        MetalValue              = 15,
+        StaticModel             = Laser,
+        WorldStaticModel        = Handgun_Laser_Ground,
+        HFO_AttachmentSlot      = laser,
+        Tooltip                 = Tooltip_Laser,
     }
 
     /************************ SCOPES ************************/
 
     item IronSight
     {
-        DisplayCategory     = WeaponPart,
-        Weight              = 0.1,
-        Type                = WeaponPart,
-        DisplayName         = Iron Sight,
-        Icon                = IronSight,
-        PartType            = Scope,
-        MountOn             = Pistol; Pistol2; Pistol3; SIGSauer; RugerGP100; Revolver; Revolver_Long; 
-                            Revolver_Short; ColtCavalryRevolver; HighStandardSentinel; Glock; FiveSeven; 
-                            FranchiLF57; FranchiLF57_Folded; MiniUzi; MiniUzi_Folded,
-        WeightModifier      = 0.1,
-		AimingTimeModifier  = 4,
-        HitChanceModifier   = 4,
-        MetalValue          = 15,
-        StaticModel         = IronSights,
-        WorldStaticModel    = Rifle_IronSights_Ground,
-        AttachmentSlot      = scope,
-        Tooltip             = Tooltip_IronSight,
+        DisplayCategory         = WeaponPart,
+        Weight                  = 0.1,
+        Type                    = WeaponPart,
+        DisplayName             = Iron Sight,
+        Icon                    = IronSight,
+        PartType                = Scope,
+        MountOn                 = Pistol; Pistol2; Pistol3; SIGSauer; RugerGP100; Revolver; Revolver_Long; 
+                                Revolver_Short; ColtCavalryRevolver; HighStandardSentinel; Glock; FiveSeven; 
+                                FranchiLF57; FranchiLF57_Folded; MiniUzi; MiniUzi_Folded,
+        WeightModifier          = 0.1,
+		AimingTimeModifier      = 4,
+        HitChanceModifier       = 4,
+        MetalValue              = 15,
+        StaticModel             = IronSights,
+        WorldStaticModel        = Rifle_IronSights_Ground,
+        HFO_AttachmentSlot      = scope,
+        Tooltip                 = Tooltip_IronSight,
     }
 
     item x2Scope
     {
-        DisplayCategory     = WeaponPart,
-        Weight              = 0.4,
-        Type                = WeaponPart,
-        DisplayName         = 2x Scope,
-        Icon                = x2Scope,
-        PartType            = Scope,
-        MountOn             = HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2; M4A1; EM2; L85A1;
-                            PLR16; MosinNagantObrez; AK103; AK74; AK74U; AK74U_Folded; L2A1; L2A1_Bipod; Ruger1022;
-                            CrossbowCompound; CrossbowReverseDraw; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; SIG550; MP28; 
-                            VSSVintorez; ASVal; ASVal_Folded; GrozaOTs14; M1Garand; StG44; MosinNagant;
-                            Galil; Galil_Bipod; SVDDragunov; Springfield1861,
-        WeightModifier      = 0.4,
-        MaxRangeModifier    = 3,
-		AimingTimeModifier  = -3,
-		HitChanceModifier   = 3,
-        MetalValue          = 22,
-        StaticModel         = x2Scope,
-        WorldStaticModel    = Rifle_2XScope_Ground,
-        AttachmentSlot      = scope,
-        Tooltip             = Tooltip_2xScope,
+        DisplayCategory         = WeaponPart,
+        Weight                  = 0.4,
+        Type                    = WeaponPart,
+        DisplayName             = 2x Scope,
+        Icon                    = x2Scope,
+        PartType                = Scope,
+        MountOn                 = HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2; M4A1; EM2; L85A1;
+                                PLR16; MosinNagantObrez; AK103; AK74; AK74U; AK74U_Folded; L2A1; L2A1_Bipod; Ruger1022;
+                                CrossbowCompound; CrossbowReverseDraw; BrowningBLR; Marlin39A; HenryRepeatingBigBoy; SIG550; MP28; 
+                                VSSVintorez; ASVal; ASVal_Folded; GrozaOTs14; M1Garand; StG44; MosinNagant;
+                                Galil; Galil_Bipod; SVDDragunov; Springfield1861,
+        WeightModifier          = 0.4,
+        MaxRangeModifier        = 3,
+		AimingTimeModifier      = -3,
+        HitChanceModifier       = 3,
+        MetalValue              = 22,
+        StaticModel             = x2Scope,
+        WorldStaticModel        = Rifle_2XScope_Ground,
+        HFO_AttachmentSlot      = scope,
+        Tooltip                 = Tooltip_2xScope,
     }
 
     item x4Scope
     {
-        DisplayCategory     = WeaponPart,
-        Weight              = 0.8,
-        Type                = WeaponPart,
-        DisplayName         = 4x Scope,
-        Icon                = x4Scope,
-        PartType            = Scope,
-        MountOn             = HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2; M4A1; VSSVintorez; 
-                            ASVal; ASVal_Folded; Ruger1022; AK103; AK74; AK74U; AK74U_Folded; BrowningBLR; 
-                            Marlin39A; HenryRepeatingBigBoy; SIG550; GrozaOTs14; EM2; L85A1; M1Garand; 
-                            StG44; MosinNagant; BarrettM82A1; BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod;
-                            Galil; Galil_Bipod; SVDDragunov; Springfield1861,
-        WeightModifier      = 0.8,
-        MaxRangeModifier    = 5,
-        AimingTimeModifier  = -5,
-		HitChanceModifier   = 5,
-        MetalValue          = 22,
-        StaticModel         = x4Scope,
-        WorldStaticModel    = Rifle_4XScope_Ground,
-        AttachmentSlot      = scope,
-        Tooltip             = Tooltip_4xScope,
+        DisplayCategory         = WeaponPart,
+        Weight                  = 0.8,
+        Type                    = WeaponPart,
+        DisplayName             = 4x Scope,
+        Icon                    = x4Scope,
+        PartType                = Scope,
+        MountOn                 = HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2; M4A1; VSSVintorez; 
+                                ASVal; ASVal_Folded; Ruger1022; AK103; AK74; AK74U; AK74U_Folded; BrowningBLR; 
+                                Marlin39A; HenryRepeatingBigBoy; SIG550; GrozaOTs14; EM2; L85A1; M1Garand; 
+                                StG44; MosinNagant; BarrettM82A1; BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod;
+                                Galil; Galil_Bipod; SVDDragunov; Springfield1861,
+        WeightModifier          = 0.8,
+        MaxRangeModifier        = 5,
+        AimingTimeModifier      = -5,
+        HitChanceModifier       = 5,
+        MetalValue              = 22,
+        StaticModel             = x4Scope,
+        WorldStaticModel        = Rifle_4XScope_Ground,
+        HFO_AttachmentSlot      = scope,
+        Tooltip                 = Tooltip_4xScope,
     }
 
     item x8Scope
     {
-        DisplayCategory     = WeaponPart,
-        Weight              = 1.2,
-        Type                = WeaponPart,
-        DisplayName         = 8x Scope,
-        Icon                = x8Scope,
-        PartType            = Scope,
-        MountOn             = HuntingRifle; VarmintRifle; AssaultRifle2; M1Garand; Marlin39A;
-                            MosinNagant; BarrettM82A1; BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod;
-                            Galil; Galil_Bipod; SVDDragunov,
-        WeightModifier      = 1.2,
-        MaxRangeModifier    = 7,
-        AimingTimeModifier  = -7,
-		HitChanceModifier   = 7,
-        MetalValue          = 22,
-        StaticModel         = x8Scope,
-        WorldStaticModel    = Rifle_8XScope_Ground,
-        AttachmentSlot      = scope,
-        Tooltip             = Tooltip_8xScope,
+        DisplayCategory         = WeaponPart,
+        Weight                  = 1.2,
+        Type                    = WeaponPart,
+        DisplayName             = 8x Scope,
+        Icon                    = x8Scope,
+        PartType                = Scope,
+        MountOn                 = HuntingRifle; VarmintRifle; AssaultRifle2; M1Garand; Marlin39A;
+                                MosinNagant; BarrettM82A1; BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod;
+                                Galil; Galil_Bipod; SVDDragunov,
+        WeightModifier          = 1.2,
+        MaxRangeModifier        = 7,
+        AimingTimeModifier      = -7,
+        HitChanceModifier       = 7,
+        MetalValue              = 22,
+        StaticModel             = x8Scope,
+        WorldStaticModel        = Rifle_8XScope_Ground,
+        HFO_AttachmentSlot      = scope,
+        Tooltip                 = Tooltip_8xScope,
     }
 
     item RedDot
     {
-        DisplayCategory     = WeaponPart,
-        Weight              = 0.2, 
-        Type                = WeaponPart,
-        DisplayName         = Red Dot,
-        Icon                = Red_Dot,
-        PartType            = Scope,
-        MountOn             = Pistol; Pistol2; Pistol3; SIGSauer; RugerGP100; HighStandardSentinel; 
-                            Revolver_Short; Revolver; Revolver_Long; ColtCavalryRevolver; Glock; FiveSeven;
-                            FranchiLF57; FranchiLF57_Folded; MiniUzi; MiniUzi_Folded;
-                            PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended,
-        WeightModifier      = 0.2,
-        AimingTimeModifier  = 8,
-        HitChanceModifier   = 3,
-        AngleModifier       = 0.02,
-        MetalValue          = 15,
-        StaticModel         = RedDot,
-        WorldStaticModel    = Handgun_RedDotScope_Ground,
-        AttachmentSlot      = reddot,
-        Tooltip             = Tooltip_RedDot,
+        DisplayCategory         = WeaponPart,
+        Weight                  = 0.2, 
+        Type                    = WeaponPart,
+        DisplayName             = Red Dot,
+        Icon                    = Red_Dot,
+        PartType                = Scope,
+        MountOn                 = Pistol; Pistol2; Pistol3; SIGSauer; RugerGP100; HighStandardSentinel; 
+                                Revolver_Short; Revolver; Revolver_Long; ColtCavalryRevolver; Glock; FiveSeven;
+                                FranchiLF57; FranchiLF57_Folded; MiniUzi; MiniUzi_Folded;
+                                PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended,
+        WeightModifier          = 0.2,
+        AimingTimeModifier      = 8,
+        HitChanceModifier       = 3,
+        AngleModifier           = 0.02,
+        MetalValue              = 15,
+        StaticModel             = RedDot,
+        WorldStaticModel        = Handgun_RedDotScope_Ground,
+        HFO_AttachmentSlot      = reddot,
+        Tooltip                 = Tooltip_RedDot,
     }
 
     /************************ SLINGS ************************/
 
     item AmmoStraps
     {
-        DisplayCategory     = WeaponPart,
-        Weight              = 0.5,
-        Type                = WeaponPart,
-        DisplayName         = Ammo Straps,
-        Icon                = AmmoStrap,
-        PartType            = Sling,
-        MountOn             = Pistol; Pistol2; Pistol3; Revolver_Short; Revolver; Revolver_Long;
-                            VarmintRifle; HuntingRifle; AssaultRifle; AssaultRifle2; 
-                            Shotgun; DoubleBarrelShotgun; ShotgunSawnOff; DoubleBarrelShotgunSawnOff;
-                            Glock; FiveSeven; Luger; WaltherPPK; Makarov; SIGSauer; JenningsJ22; Derringer;
-                            PLR16; MosinNagantObrez; OA93; TheNailGun; ColtCavalryRevolver; RugerGP100;
-                            HighStandardSentinel; CrossbowCompound; CrossbowReverseDraw; CrossbowPistol;
-                            AK74U; AK74U_Folded; FranchiLF57; FranchiLF57_Folded; MiniUzi; MiniUzi_Folded;
-                            P90; PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended; MP28; ThompsonM1921;
-                            AK103; AK74; HenryRepeatingBigBoy; BrowningBLR; Marlin39A; GrozaOTs14; M1918BAR;
-                            M1918BAR_Bipod; M1Garand; SIG550; StG44; MosinNagant; L2A1; L2A1_Bipod; EM2; 
-                            L85A1; ASVal; ASVal_Folded; M4A1; FG42; FG42_Bipod; MG42; MG42_Bipod; Ruger1022;
-                            BarrettM82A1; BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod; SVDDragunov; Galil;
-                            Galil_Bipod; VSSVintorez; Remington1100; Mossberg500; Mossberg500Super;
-                            Mossberg500Super_Grip; Chiappa1887; Chiappa1887Sawnoff; TrenchGun; BeckerRevolver;
-                            FlintlockPistol; Springfield1861; Blunderbuss; PneumaticBlowgun,
-        WeightModifier      = -0.4,
-        ReloadSpeedModifier = 1.5,
-        WorldStaticModel    = AmmoStrap_Ground,
-        Tooltip             = Tooltip_AmmoStrap,
+        DisplayCategory         = WeaponPart,
+        Weight                  = 0.5,
+        Type                    = WeaponPart,
+        DisplayName             = Ammo Straps,
+        Icon                    = AmmoStrap,
+        PartType                = Sling,
+        MountOn                 = Pistol; Pistol2; Pistol3; Revolver_Short; Revolver; Revolver_Long;
+                                VarmintRifle; HuntingRifle; AssaultRifle; AssaultRifle2; 
+                                Shotgun; DoubleBarrelShotgun; ShotgunSawnOff; DoubleBarrelShotgunSawnOff;
+                                Glock; FiveSeven; Luger; WaltherPPK; Makarov; SIGSauer; JenningsJ22; Derringer;
+                                PLR16; MosinNagantObrez; OA93; TheNailGun; ColtCavalryRevolver; RugerGP100;
+                                HighStandardSentinel; CrossbowCompound; CrossbowReverseDraw; CrossbowPistol;
+                                AK74U; AK74U_Folded; FranchiLF57; FranchiLF57_Folded; MiniUzi; MiniUzi_Folded;
+                                P90; PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended; MP28; ThompsonM1921;
+                                AK103; AK74; HenryRepeatingBigBoy; BrowningBLR; Marlin39A; GrozaOTs14; M1918BAR;
+                                M1918BAR_Bipod; M1Garand; SIG550; StG44; MosinNagant; L2A1; L2A1_Bipod; EM2; 
+                                L85A1; ASVal; ASVal_Folded; M4A1; FG42; FG42_Bipod; MG42; MG42_Bipod; Ruger1022;
+                                BarrettM82A1; BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod; SVDDragunov; Galil;
+                                Galil_Bipod; VSSVintorez; Remington1100; Mossberg500; Mossberg500Super;
+                                Mossberg500Super_Grip; Chiappa1887; Chiappa1887Sawnoff; TrenchGun; BeckerRevolver;
+                                FlintlockPistol; Springfield1861; Blunderbuss; PneumaticBlowgun,
+        WeightModifier          = -0.4,
+        HFO_ReloadSpeedModifier = 0.4,
+        WorldStaticModel        = AmmoStrap_Ground,
+        Tooltip                 = Tooltip_AmmoStrap,
     }
 
     item Sling
     {
-        DisplayCategory     = WeaponPart,
-        Weight              = 0.5,
-        Type                = WeaponPart,
-        DisplayName         = Sling,
-        Icon                = GunSling,
-        PartType            = Sling,
-        MountOn             = Pistol; Pistol2; Pistol3; Revolver_Short; Revolver; Revolver_Long;
-                            VarmintRifle; HuntingRifle; AssaultRifle; AssaultRifle2; 
-                            Shotgun; DoubleBarrelShotgun; ShotgunSawnOff; DoubleBarrelShotgunSawnOff;
-                            Glock; FiveSeven; Luger; WaltherPPK; Makarov; SIGSauer; JenningsJ22; Derringer;
-                            PLR16; MosinNagantObrez; OA93; TheNailGun; ColtCavalryRevolver; RugerGP100;
-                            HighStandardSentinel; CrossbowCompound; CrossbowReverseDraw; CrossbowPistol;
-                            AK74U; AK74U_Folded; FranchiLF57; FranchiLF57_Folded; MiniUzi; MiniUzi_Folded;
-                            P90; PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended; MP28; ThompsonM1921;
-                            AK103; AK74; HenryRepeatingBigBoy; BrowningBLR; Marlin39A; GrozaOTs14; M1918BAR;
-                            M1918BAR_Bipod; M1Garand; SIG550; StG44; MosinNagant; L2A1; L2A1_Bipod; EM2; 
-                            L85A1; ASVal; ASVal_Folded; M4A1; FG42; FG42_Bipod; MG42; MG42_Bipod; Ruger1022;
-                            BarrettM82A1; BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod; SVDDragunov; Galil;
-                            Galil_Bipod; VSSVintorez; Remington1100; Mossberg500; Mossberg500Super; 
-                            Mossberg500Super_Grip; Chiappa1887; Chiappa1887Sawnoff; TrenchGun; BeckerRevolver;
-                            FlintlockPistol; Springfield1861; Blunderbuss; PneumaticBlowgun,
-        WeightModifier      = -0.8,
-        ReloadSpeedModifier = 1.3,
-        Tooltip             = Tooltip_SlingAttachment,
+        DisplayCategory         = WeaponPart,
+        Weight                  = 0.5,
+        Type                    = WeaponPart,
+        DisplayName             = Sling,
+        Icon                    = GunSling,
+        PartType                = Sling,
+        MountOn                 = Pistol; Pistol2; Pistol3; Revolver_Short; Revolver; Revolver_Long;
+                                VarmintRifle; HuntingRifle; AssaultRifle; AssaultRifle2; 
+                                Shotgun; DoubleBarrelShotgun; ShotgunSawnOff; DoubleBarrelShotgunSawnOff;
+                                Glock; FiveSeven; Luger; WaltherPPK; Makarov; SIGSauer; JenningsJ22; Derringer;
+                                PLR16; MosinNagantObrez; OA93; TheNailGun; ColtCavalryRevolver; RugerGP100;
+                                HighStandardSentinel; CrossbowCompound; CrossbowReverseDraw; CrossbowPistol;
+                                AK74U; AK74U_Folded; FranchiLF57; FranchiLF57_Folded; MiniUzi; MiniUzi_Folded;
+                                P90; PM63RAK; PM63RAK_Grip; PM63RAK_Extended; PM63RAK_GripExtended; MP28; ThompsonM1921;
+                                AK103; AK74; HenryRepeatingBigBoy; BrowningBLR; Marlin39A; GrozaOTs14; M1918BAR;
+                                M1918BAR_Bipod; M1Garand; SIG550; StG44; MosinNagant; L2A1; L2A1_Bipod; EM2; 
+                                L85A1; ASVal; ASVal_Folded; M4A1; FG42; FG42_Bipod; MG42; MG42_Bipod; Ruger1022;
+                                BarrettM82A1; BarrettM82A1_Bipod; PGMHecate; PGMHecate_Bipod; SVDDragunov; Galil;
+                                Galil_Bipod; VSSVintorez; Remington1100; Mossberg500; Mossberg500Super; 
+                                Mossberg500Super_Grip; Chiappa1887; Chiappa1887Sawnoff; TrenchGun; BeckerRevolver;
+                                FlintlockPistol; Springfield1861; Blunderbuss; PneumaticBlowgun,
+        WeightModifier          = -0.8,
+        HFO_ReloadSpeedModifier = 0.25,
+        Tooltip                 = Tooltip_SlingAttachment,
     }
 		
     /************************ STOCKS ************************/
 
     item FiberglassStock
     {
-        DisplayCategory     = WeaponPart,
-        Weight              = 1,
-        Type                = WeaponPart,
-        DisplayName         = Fiberglass Stock,
-        Icon                = Fiberglass_Stock,
-        PartType            = Stock,
-        MountOn             = HuntingRifle; VarmintRifle; AssaultRifle2; Shotgun,
-        WeightModifier      = -0.8,
-        WorldStaticModel    = Fiberglass_Stock,
-        Tooltip             = Tooltip_FiberglassStock,
+        DisplayCategory         = WeaponPart,
+        Weight                  = 1,
+        Type                    = WeaponPart,
+        DisplayName             = Fiberglass Stock,
+        Icon                    = Fiberglass_Stock,
+        PartType                = Stock,
+        MountOn                 = HuntingRifle; VarmintRifle; AssaultRifle2; Shotgun,
+        WeightModifier          = -0.8,
+        WorldStaticModel        = Fiberglass_Stock,
+        Tooltip                 = Tooltip_FiberglassStock,
     }
 
     /************************ RECOIL PAD ************************/
 
     item RecoilPad
     {
-        DisplayCategory     = WeaponPart,
-        Weight              = 0.05,
-        Type                = WeaponPart,
-        DisplayName         = Recoil Pad,
-        Icon                = RecoilPad,
-        PartType            = RecoilPad,
-        MountOn             = HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2; Shotgun; 
-                            DoubleBarrelShotgun; CrossbowCompound; CrossbowReverseDraw; AK103; AK74;
-                            HenryRepeatingBigBoy; BrowningBLR; Marlin39A; M1918BAR; M1918BAR_Bipod;
-                            M1Garand; SIG550; MosinNagant; M4A1; BarrettM82A1; BarrettM82A1_Bipod;  
-                            PGMHecate; PGMHecate_Bipod; SVDDragunov; Galil; Galil_Bipod; Remington1100; 
-                            Mossberg500; Chiappa1887; TrenchGun; BeckerRevolver; Springfield1861,
-        WeightModifier      = 0.05,
-        AimingTimeModifier  = 5,
-        RecoilDelayModifier = -1,
-        AngleModifier       = -0.01,
-        ReloadSpeedModifier = 1.1,
-        StaticModel         = RecoilPad,
-        WorldStaticModel    = Rifle_RecoilPad_Ground,
-        AttachmentSlot      = recoilpad,
-        Tooltip             = Tooltip_RecoilPad,
+        DisplayCategory         = WeaponPart,
+        Weight                  = 0.05,
+        Type                    = WeaponPart,
+        DisplayName             = Recoil Pad,
+        Icon                    = RecoilPad,
+        PartType                = RecoilPad,
+        MountOn                 = HuntingRifle; VarmintRifle; AssaultRifle; AssaultRifle2; Shotgun; 
+                                DoubleBarrelShotgun; CrossbowCompound; CrossbowReverseDraw; AK103; AK74;
+                                HenryRepeatingBigBoy; BrowningBLR; Marlin39A; M1918BAR; M1918BAR_Bipod;
+                                M1Garand; SIG550; MosinNagant; M4A1; BarrettM82A1; BarrettM82A1_Bipod;  
+                                PGMHecate; PGMHecate_Bipod; SVDDragunov; Galil; Galil_Bipod; Remington1100; 
+                                Mossberg500; Chiappa1887; TrenchGun; BeckerRevolver; Springfield1861,
+        WeightModifier          = 0.05,
+        AimingTimeModifier      = 5,
+        RecoilDelayModifier     = -1,
+        AngleModifier           = -0.01,
+        HFO_ReloadSpeedModifier = 0.1,
+        StaticModel             = RecoilPad,
+        WorldStaticModel        = Rifle_RecoilPad_Ground,
+        HFO_AttachmentSlot      = recoilpad,
+        Tooltip                 = Tooltip_RecoilPad,
     }
 }

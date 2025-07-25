@@ -39,40 +39,49 @@ end
 
 function ISMagSwapAction:perform()
     local md = self.weapon:getModData()
-    local maps = HFO.Utils.getMagazineInfoMaps(md)
-    local currentPart = self.weapon:getWeaponPart("Clip")
     local nextMagType = self.nextMagType
-    local desiredMag = maps.typeMap[nextMagType]
     local swapSuccess = false
 
-    if desiredMag then
+    if nextMagType then
         local result = InventoryItemFactory.CreateItem(self.weapon:getType())
 
-        if desiredMag ~= md.MagBase then
-            local newPart = InventoryItemFactory.CreateItem(desiredMag)
+        if nextMagType ~= md.HFO_MagBase then
+            local newPart = InventoryItemFactory.CreateItem(nextMagType)
             if newPart then
                 self.weapon:attachWeaponPart(newPart)
                 self.weapon:setMaxAmmo(newPart:getMaxAmmo())
                 self.weapon:setMagazineType(nextMagType)
-                md.currentMagType = nextMagType
+                md.HFO_currentMagType = nextMagType
 
                 result:setMaxAmmo(self.weapon:getMaxAmmo())
                 result:setMagazineType(self.weapon:getMagazineType())
-                HFO.Utils.runGenericSwap(result)
+
+                HFO.Utils.applySuffixToWeaponName(result)
+                HFO.Utils.applyWeaponStats(self.weapon, result)
+                HFO.Utils.setWeaponParts(self.weapon, result)
+                HFO.Utils.handleWeaponChamber(self.weapon, result, false)
+                HFO.Utils.handleWeaponJam(self.weapon, result, true)
+                HFO.Utils.finalizeWeaponSwap(self.character, self.weapon, result)
 
                 swapSuccess = true
             end
         else
-            local baseMagItem = InventoryItemFactory.CreateItem(md.MagBase)
+            local baseMagItem = InventoryItemFactory.CreateItem(md.HFO_MagBase)
             if baseMagItem then
                 self.weapon:setMaxAmmo(baseMagItem:getMaxAmmo())
                 self.weapon:setMagazineType(nextMagType)
-                md.currentMagType = nextMagType
+                md.HFO_currentMagType = nextMagType
 
                 result:setMaxAmmo(self.weapon:getMaxAmmo())
                 result:setMagazineType(self.weapon:getMagazineType())
                 self.character:getInventory():DoRemoveItem(baseMagItem)
-                HFO.Utils.runGenericSwap(result)
+
+                HFO.Utils.applySuffixToWeaponName(result)
+                HFO.Utils.applyWeaponStats(self.weapon, result)
+                HFO.Utils.setWeaponParts(self.weapon, result)
+                HFO.Utils.handleWeaponChamber(self.weapon, result, false)
+                HFO.Utils.handleWeaponJam(self.weapon, result, true)
+                HFO.Utils.finalizeWeaponSwap(self.character, self.weapon, result)
     
                 swapSuccess = true
             end
@@ -81,15 +90,18 @@ function ISMagSwapAction:perform()
 
     -- Begin automatic reload if swap succeeded
     if swapSuccess then
-        ISReloadWeaponAction.BeginAutomaticReload(self.character, self.weapon)
+        local newWeapon = self.character:getPrimaryHandItem()
+        if newWeapon then
+            ISReloadWeaponAction.BeginAutomaticReload(self.character, newWeapon)
+        end
 
-        if nextMagType == md.MagBase then
+        if nextMagType == md.HFO_MagBase then
             HFO.InnerVoice.say("MagSwapDefault")
-        elseif nextMagType == md.MagExtSm then
+        elseif nextMagType == md.HFO_MagExtSm then
             HFO.InnerVoice.say("MagSwapSmall")
-        elseif nextMagType == md.MagExtLg then
+        elseif nextMagType == md.HFO_MagExtLg then
             HFO.InnerVoice.say("MagSwapLarge")
-        elseif nextMagType == md.MagDrum then
+        elseif nextMagType == md.HFO_MagDrum then
             HFO.InnerVoice.say("MagSwapDrum")
         end
     end

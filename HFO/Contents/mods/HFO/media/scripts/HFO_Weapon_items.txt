@@ -301,7 +301,6 @@ module Base
         Icon	                = Mag700Series,
         MaxAmmo                 = 3,
         AmmoType                = Base.308Bullets,
-        CompatibleAmmoType      = Base.762x51Bullets,
         StaticModel             = Mag700Series,
         GunType                 = Base.VarmintRifle; Base.HuntingRifle,
         CompatibleGunType       = Base.L2A1; Base.L2A1_Bipod,

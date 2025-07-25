@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<animNode x_extends="AssaultRifleEmpty.xml">
+<animNode x_extends="AssaultRifleFullAuto.xml">
 	<m_Name>AssaultRifleEmptyFullAuto</m_Name>
 	<m_AnimName>Bob_IdleAimRifle</m_AnimName>
 	<m_SyncTrackingEnabled>false</m_SyncTrackingEnabled>

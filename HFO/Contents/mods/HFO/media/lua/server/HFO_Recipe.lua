@@ -42,8 +42,6 @@ require "HFO_Loot"
 HFO = HFO or {};
 HFO.Recipe = HFO.Recipe or {}
 
-local sv = HFO.SandboxUtils.get() -- still testing some things with sandbox settings
-
 
 ---===========================================---
 --          ADD CUSTOM TAGS FOR ITEMS          --
@@ -88,6 +86,8 @@ end
 ---===========================================---
 
 function Recipe.OnCreate.FirearmCleaning(items, result, player)
+	local sv = HFO.SandboxUtils.get()
+
 	for i = 0, items:size() - 1 do
 		local weapon = items:get(i)
 		if not HFO.Utils.isAimedFirearm(weapon) then
@@ -152,49 +152,152 @@ function Recipe.OnCreate.OpenAmmoCan(items, result, player)
 	local inv = player:getInventory()
 	local spawns = {}
 
+	-- Get fresh enabled items each time (respects current sandbox settings)
+	local enabledItems = HFO.Loot.getEnabledItems()
+	
+	if not enabledItems then
+		HFO.Utils.debugLog("ERROR: getEnabledItems() returned nil!")
+		return
+	end
+
 	-- Step 1: Pull valid ammo pools based on category
 	local ammoPools = {
-		Handguns = HFO.Loot.getEnabledItems("AmmoBox", "Handguns"),
-		Rifles   = HFO.Loot.getEnabledItems("AmmoBox", "Rifles"),
-		Shotguns = HFO.Loot.getEnabledItems("AmmoBox", "Shotguns"),
-		Other    = HFO.Loot.getEnabledItems("AmmoBox", "Other"),
+		Handguns = enabledItems.AmmoBoxHandguns or {},
+		Rifles   = enabledItems.AmmoBoxRifles or {},
+		Shotguns = enabledItems.AmmoBoxShotguns or {},
+		Other    = enabledItems.AmmoBoxOther or {},
 	}
 
 	-- Step 2: Helper to add random ammo
 	local function addRandomAmmo(category, count)
 		local pool = ammoPools[category]
-		if not pool or #pool == 0 then return end
+		
+		if not pool or #pool == 0 then 
+			HFO.Utils.debugLog("No ammo items available for category: " .. category)
+			return 
+		end
 
-		for _ = 1, count do
+		HFO.Utils.debugLog("Adding " .. count .. " " .. category .. " ammo items from pool of " .. #pool)
+		
+		for i = 1, count do
 			local item = pool[ZombRand(#pool) + 1]
-			table.insert(spawns, item) -- Already full ID now!
+			table.insert(spawns, item)
 		end
 	end
 
-	-- Step 3: Determine drop mix
+	-- Step 3: Determine drop mix (reduced quantities)
 	local roll = ZombRand(100)
 
 	if roll <= 20 then
-		addRandomAmmo("Handguns", 8)
-	elseif roll <= 40 then
-		addRandomAmmo("Rifles", 6)
-	elseif roll <= 60 then
-		addRandomAmmo("Shotguns", 5)
-	elseif roll <= 80 then
-		addRandomAmmo("Handguns", 6)
-		addRandomAmmo("Rifles", 6)
-	elseif roll <= 94 then
 		addRandomAmmo("Handguns", 5)
-		addRandomAmmo("Rifles", 5)
+	elseif roll <= 40 then
+		addRandomAmmo("Rifles", 4)
+	elseif roll <= 60 then
 		addRandomAmmo("Shotguns", 4)
-	else -- r 95–99 (5% chance)
+	elseif roll <= 80 then
+		addRandomAmmo("Handguns", 3)
+		addRandomAmmo("Rifles", 2)
+	elseif roll <= 94 then
+		addRandomAmmo("Handguns", 3)
+		addRandomAmmo("Rifles", 2)
+		addRandomAmmo("Shotguns", 2)
+	else -- 95–99 (5% chance)
 		addRandomAmmo("Other", 3)
 	end
 
 	-- Step 4: Add items to inventory
+	HFO.Utils.debugLog("Adding " .. #spawns .. " ammo items to inventory")
+	
 	for _, fullId in ipairs(spawns) do
 		inv:AddItem(fullId)
-		HFO.InnerVoice.say("OpenedAmmoCan")
+	end
+	
+	-- Only say the voice line once
+	if #spawns > 0 then
+		if HFO.InnerVoice and HFO.InnerVoice.say then
+			HFO.InnerVoice.say("OpenedAmmoCan")
+		end
+	else
+		HFO.Utils.debugLog("No ammo spawned from can - check sandbox settings")
+	end
+end
+
+
+---===========================================---
+--           AMMO CAN LOOT RANDOMIZER          --
+---===========================================---
+
+function Recipe.OnCreate.OpenAmmoCan(items, result, player)
+	local inv = player:getInventory()
+	local spawns = {}
+
+	-- Get fresh enabled items each time (respects current sandbox settings)
+	local enabledItems = HFO.Loot.getEnabledItems()
+	
+	if not enabledItems then
+		HFO.Utils.debugLog("ERROR: getEnabledItems() returned nil!")
+		return
+	end
+
+	-- Step 1: Pull valid ammo pools based on category
+	local ammoPools = {
+		Handguns = enabledItems.AmmoBoxHandguns or {},
+		Rifles   = enabledItems.AmmoBoxRifles or {},
+		Shotguns = enabledItems.AmmoBoxShotguns or {},
+		Other    = enabledItems.AmmoBoxOther or {},
+	}
+
+	-- Step 2: Helper to add random ammo
+	local function addRandomAmmo(category, count)
+		local pool = ammoPools[category]
+		
+		if not pool or #pool == 0 then 
+			HFO.Utils.debugLog("No ammo items available for category: " .. category)
+			return 
+		end
+
+		HFO.Utils.debugLog("Adding " .. count .. " " .. category .. " ammo items from pool of " .. #pool)
+		
+		for i = 1, count do
+			local item = pool[ZombRand(#pool) + 1]
+			table.insert(spawns, item)
+		end
+	end
+
+	-- Step 3: Determine drop mix (reduced quantities)
+	local roll = ZombRand(100)
+
+	if roll <= 20 then
+		addRandomAmmo("Handguns", 5)
+	elseif roll <= 40 then
+		addRandomAmmo("Rifles", 4)
+	elseif roll <= 60 then
+		addRandomAmmo("Shotguns", 4)
+	elseif roll <= 80 then
+		addRandomAmmo("Handguns", 3)
+		addRandomAmmo("Rifles", 2)
+	elseif roll <= 94 then
+		addRandomAmmo("Handguns", 3)
+		addRandomAmmo("Rifles", 2)
+		addRandomAmmo("Shotguns", 2)
+	else -- 95–99 (5% chance)
+		addRandomAmmo("Other", 3)
+	end
+
+	-- Step 4: Add items to inventory
+	HFO.Utils.debugLog("Adding " .. #spawns .. " ammo items to inventory")
+	
+	for _, fullId in ipairs(spawns) do
+		inv:AddItem(fullId)
+	end
+	
+	-- Only say the voice line once
+	if #spawns > 0 then
+		if HFO.InnerVoice and HFO.InnerVoice.say then
+			HFO.InnerVoice.say("OpenedAmmoCan")
+		end
+	else
+		HFO.Utils.debugLog("No ammo spawned from can - check sandbox settings")
 	end
 end
 
@@ -203,161 +306,220 @@ end
 --    WEAPON CACHE WEIGHTED LOOT RANDOMIZER    --
 ---===========================================---
 
-local baseSources = { Base = {} }
-
-local function addFromCategory(section, subtype, lootKey)
-    local items = HFO.Loot.getEnabledItems(section, subtype)
-    if not items or #items == 0 then return end
-
-    baseSources.Base[lootKey] = baseSources.Base[lootKey] or {}
-    for _, item in ipairs(items) do
-        table.insert(baseSources.Base[lootKey], item)
-    end
-end 
-
--- AmmoBox categories
-addFromCategory("AmmoBox", "Handguns",  "Ammo")
-addFromCategory("AmmoBox", "Rifles",    "Ammo")
-addFromCategory("AmmoBox", "Shotguns",  "Ammo")
-addFromCategory("AmmoBox", "Other",     "Ammo")
-
--- Ammo mags
-addFromCategory("AmmoMags", "Handguns", "AmmoMags")
-addFromCategory("AmmoMags", "Rifles",   "AmmoMags")
-addFromCategory("AmmoMags", "Other",    "AmmoMags")
-
--- Firearms by broad tier categories
-addFromCategory("Firearms", "Handguns", "Firearms")
-addFromCategory("Firearms", "SMGs",     "ExtensionFirearms")
-addFromCategory("Firearms", "Rifles",   "Firearms")
-addFromCategory("Firearms", "Snipers",  "RareExtensionFirearms")
-addFromCategory("Firearms", "Shotguns", "Firearms")
-addFromCategory("Firearms", "Other",    "ExtensionFirearms")
-
--- Skins
-addFromCategory("FirearmSkins", "Base",      "Skins")
-addFromCategory("FirearmSkins", "Exclusive", "Skins")
-
--- Repair kits
-if HFO.SandboxUtils.get().RepairKits then
-    addFromCategory("Mechanics", "RepairKits", "RepairItems")
+-- Dynamic cache options builder that respects sandbox settings
+function HFO.Recipe.getCacheOptions()
+	local sv = HFO.SandboxUtils.get()	
+	local enabledItems = HFO.Loot.getEnabledItems()
+	local cacheOptions = {
+		-- Basic ammo and mags
+		Ammo = {},
+		AmmoMags = {},
+		
+		-- Firearms by tier
+		Firearms = {},
+		ExtensionFirearms = {},
+		RareExtensionFirearms = {},
+		
+		-- Other items
+		Attachments = {},
+		Skins = {},
+		RepairItems = {}
+	}
+	
+	-- Helper to add items
+	local function addItems(targetTable, sourceTable)
+		if not sourceTable then return end
+		for _, item in ipairs(sourceTable) do
+			table.insert(targetTable, item)
+		end
+	end
+	
+	-- Populate ammo (only if ammo is enabled in sandbox)
+	local sv = HFO.SandboxUtils.get()
+	if HFO.SandboxUtils.isEnumEnabled(sv.Ammo) then
+		addItems(cacheOptions.Ammo, enabledItems.AmmoBoxHandguns)
+		addItems(cacheOptions.Ammo, enabledItems.AmmoBoxRifles)
+		addItems(cacheOptions.Ammo, enabledItems.AmmoBoxShotguns)
+		addItems(cacheOptions.Ammo, enabledItems.AmmoBoxOther)
+		
+		-- Populate ammo mags
+		addItems(cacheOptions.AmmoMags, enabledItems.AmmoMagsHandguns)
+		addItems(cacheOptions.AmmoMags, enabledItems.AmmoMagsRifles)
+		addItems(cacheOptions.AmmoMags, enabledItems.AmmoMagsOther)
+	end
+	
+	-- Populate firearms (only if firearms are enabled)
+	if HFO.SandboxUtils.isEnumEnabled(sv.Firearms) then
+		-- Basic tier firearms
+		addItems(cacheOptions.Firearms, enabledItems.FirearmsHandguns)
+		addItems(cacheOptions.Firearms, enabledItems.FirearmsRifles)
+		addItems(cacheOptions.Firearms, enabledItems.FirearmsShotguns)
+		
+		-- Extension firearms (mid tier)
+		addItems(cacheOptions.ExtensionFirearms, enabledItems.FirearmsSMGs)
+		addItems(cacheOptions.ExtensionFirearms, enabledItems.FirearmsOther)
+		
+		-- Rare extension firearms (high tier)
+		addItems(cacheOptions.RareExtensionFirearms, enabledItems.FirearmsSnipers)
+	end
+	
+	-- Populate attachments (only if accessories are enabled)
+	if HFO.SandboxUtils.isEnumEnabled(sv.Accessories) then
+		addItems(cacheOptions.Attachments, enabledItems.AccessoriesSuppressors)
+		addItems(cacheOptions.Attachments, enabledItems.AccessoriesScopes)
+		addItems(cacheOptions.Attachments, enabledItems.AccessoriesOther)
+	end
+	
+	-- Populate skins (only if firearm skins are enabled)
+	if HFO.SandboxUtils.isEnumEnabled(sv.FirearmSkins) then
+		addItems(cacheOptions.Skins, enabledItems.FirearmSkins)
+	end
+	
+	-- Populate repair items (only if enabled)
+	if sv.RepairKits then
+		addItems(cacheOptions.RepairItems, enabledItems.RepairKits)
+	end
+	if sv.Cleaning then
+		addItems(cacheOptions.RepairItems, enabledItems.Cleaning)
+	end
+	
+	-- Log cache option summary
+	local totalItems = 0
+	for category, items in pairs(cacheOptions) do
+		totalItems = totalItems + #items
+	end
+	HFO.Utils.debugLog("Cache options initialized: " .. totalItems .. " total items across all categories")
+	
+	return cacheOptions
 end
 
--- Register loot
-HFO.Recipe.cacheOptions = {}
-
-function HFO.Recipe.registerLootSources(sourceTable)
-    local seen = {}
-    for moduleName, categories in pairs(sourceTable) do
-        for lootType, items in pairs(categories) do
-            HFO.Recipe.cacheOptions[lootType] = HFO.Recipe.cacheOptions[lootType] or {}
-            for _, itemId in ipairs(items) do
-                local fullId = moduleName .. "." .. itemId
-                if not seen[fullId] then
-                    table.insert(HFO.Recipe.cacheOptions[lootType], fullId)
-                    seen[fullId] = true
-                end
-            end
-        end
-    end
-end
-
-HFO.Recipe.registerLootSources(baseSources)
-
-
+-- Cache loot tables
 HFO.Recipe.cacheLootTables = {
     {
         name = "commonCache",
         weight = 30,
         contents = {
-            { type = "TieredDrop", tier = "common", count = 3, allowDuplicates = false  }
+            { type = "Firearms", count = 1, rolls = 2, allowDuplicates = false },
+            { type = "Ammo", count = 1, rolls = 2 }
         }
     },
     {
         name = "uncommonCache",
         weight = 25,
         contents = {
-            { type = "TieredDrop", tier = "uncommon", count = 2, allowDuplicates = false  }
+            { type = "Firearms", count = 1, rolls = 2, allowDuplicates = false },
+            { type = "Ammo", count = 1, rolls = 3 },
+            { type = "AmmoMags", count = 1, rolls = 1 }
         }
     },
     {
         name = "rareCache",
         weight = 20,
         contents = {
-			{ type = "TieredDrop", tier = "rare", count = 2, allowDuplicates = false },
-			{ type = "Ammo", count = 1 }
+			{ type = "Firearms", count = 1, rolls = 1, allowDuplicates = false },
+			{ type = "ExtensionFirearms", count = 1, rolls = 1, allowDuplicates = false },
+			{ type = "Ammo", count = 1, rolls = 2 },
+			{ type = "Attachments", count = 1, rolls = 1 },
+            { type = "Skins", count = 1, rolls = 1 }
         }
     },
     {
         name = "premiumCache",
         weight = 15,
         contents = {
-			{ type = "TieredDrop", tier = "uncommon", count = 1, allowDuplicates = false },
-			{ type = "TieredDrop", tier = "premium", count = 1, allowDuplicates = false },
-			{ type = "AmmoMags", count = 1 },
-			{ type = "Ammo", count = 1 }
+			{ type = "ExtensionFirearms", count = 1, rolls = 1, allowDuplicates = false },
+			{ type = "Attachments", count = 1, rolls = 1 },
+			{ type = "AmmoMags", count = 1, rolls = 2 },
+			{ type = "Ammo", count = 1, rolls = 2 },
+			{ type = "Skins", count = 1, rolls = 1 }
         }
     },
     {
         name = "legendaryCache",
         weight = 10,
         contents = {
-			{ type = "TieredDrop", tier = "rare", count = 1 },
-			{ type = "TieredDrop", tier = "legendary", count = 1, allowDuplicates = false },
-			{ type = "Ammo", count = 1 },
-			{ type = "AmmoMags", count = 1 }
+			{ type = "RareExtensionFirearms", count = 1, rolls = 1, allowDuplicates = false },
+			{ type = "ExtensionFirearms", count = 1, rolls = 1, allowDuplicates = false },
+			{ type = "Attachments", count = 1, rolls = 2 },
+			{ type = "Ammo", count = 1, rolls = 3 },
+			{ type = "AmmoMags", count = 1, rolls = 1 },
+			{ type = "Skins", count = 1, rolls = 1 },
+			{ type = "RepairItems", count = 1, rolls = 1 }
         }
     }
 }
 
 function Recipe.OnCreate.OpenFirearmCache(items, result, player)
     local inv = player:getInventory()
-    local lootRandom = HFO.Utils.getWeightedRandom(HFO.Recipe.cacheLootTables)
+    local totalItemsAdded = 0
+    
+    -- Select cache type
+    local lootRandom = HFO.Loot.getWeightedRandom(HFO.Recipe.cacheLootTables)
+    if not lootRandom then
+        HFO.Utils.debugLog("ERROR: Failed to select cache type")
+        return
+    end
+    
+    HFO.Utils.debugLog("Opening " .. lootRandom.name .. " cache")
+    
+    -- Get fresh cache options that respect current sandbox settings
+    local cacheOptions = HFO.Recipe.getCacheOptions()
 
 	for _, entry in ipairs(lootRandom.contents) do
         local itemType = entry.type
         local count = entry.count or 1
         local rolls = entry.rolls or count 
         local allowDuplicates = entry.allowDuplicates
-	
-		-- Handle tiered weapons
-		if itemType == "TieredDrop" then
-			itemType = HFO.Utils.getItemsFromTier(entry.tier or "common")
-		end
-	
-        local options = HFO.Recipe.cacheOptions[itemType]
+        
+        local options = cacheOptions[itemType]
         if options and #options > 0 then
-            local selectedItems = {}
-            local maxUnique = #options
+        	HFO.Utils.debugLog("Processing " .. itemType .. ": " .. rolls .. " rolls from " .. #options .. " options")
+        	
+        	local selectedItems = {}
+        	local maxUnique = #options
 
-            -- Guardrails BEFORE the loop
-            if not allowDuplicates and rolls > maxUnique then
-                rolls = maxUnique
-            end
+        	-- Guardrails for unique items
+        	if not allowDuplicates and rolls > maxUnique then
+            	rolls = maxUnique
+            	HFO.Utils.debugLog("Reduced rolls to " .. rolls .. " due to unique constraint")
+        	end
 
-            local attemptsMax = 10
+        	local attemptsMax = 10
 
-            for _ = 1, rolls do
-                local selected = options[ZombRand(#options) + 1]
+        	for rollIndex = 1, rolls do
+            	local selected = options[ZombRand(#options) + 1]
 
-                -- Retry until unique (if needed)
-                if not allowDuplicates and rolls > 1 then
-                    local attempts = 0
-                    while selectedItems[selected] and attempts < attemptsMax do
-                        selected = options[ZombRand(#options) + 1]
-                        attempts = attempts + 1
-                    end
-                end
+            	-- Retry until unique (if needed)
+            	if not allowDuplicates and rolls > 1 then
+                	local attempts = 0
+                	while selectedItems[selected] and attempts < attemptsMax do
+                    	selected = options[ZombRand(#options) + 1]
+                    	attempts = attempts + 1
+                	end
+            	end
 
-                selectedItems[selected] = true
+            	selectedItems[selected] = true
 
-                -- Add multiple copies if allowed
-                for _ = 1, count do
-                    inv:AddItem(selected)
-					HFO.InnerVoice.say("OpenedCache")
-                end
-            end
+            	-- Add multiple copies if specified
+            	for copyIndex = 1, count do
+                	inv:AddItem(selected)
+                	totalItemsAdded = totalItemsAdded + 1
+            	end
+        	end
+        else
+        	HFO.Utils.debugLog("Skipping " .. itemType .. " - no items available (check sandbox settings)")
         end
+    end
+    
+    HFO.Utils.debugLog("Cache opened: " .. totalItemsAdded .. " items added")
+    
+    -- Only say the voice line once
+    if totalItemsAdded > 0 then
+    	if HFO.InnerVoice and HFO.InnerVoice.say then
+    		HFO.InnerVoice.say("Opened" .. lootRandom.name)
+    	end
+    else
+    	HFO.Utils.debugLog("No items added to cache - check sandbox settings")
     end
 end
 

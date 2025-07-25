@@ -36,7 +36,6 @@ HFO.TShirtLauncher = HFO.TShirtLauncher or {}
 ---===========================================---
 
 -- Cooldown timestamp to prevent double-spawns on hit + shoot
-HFO.TShirtLauncher.lastShot = 0
 HFO.TShirtLauncher.shotsSinceLastComment = 0
 HFO.TShirtLauncher.nextCommentAt = ZombRand(3, 11) -- Randomized timer for inner voice dialogue lines
 
@@ -48,6 +47,10 @@ local function isValidShirt(item) -- helper to make sure we have any match no ma
     return item:IsClothing() and not item:isWorn() and string.match(item:getType(), "[Tt]?[Ss]?hirt")
 end
 
+-- Check if weapon has been fired (ammo count went to 0) and needs reload
+local function weaponNeedsReload(weapon)
+    return weapon:getCurrentAmmoCount() == 0
+end
 
 ---===========================================---
 --       TSHIRT LAUNCHER RELOAD MECHANIC       --
@@ -61,12 +64,15 @@ function HFO.TShirtLauncher.SetLaunchableShirt()
     local items = player:getInventory():getItems()
     local md = weapon:getModData()
 
+    -- Clear any previous shot handling flags when reloading
+    md.HFO_shotAlreadyHandled = nil
+
     for i = 0, items:size() - 1 do -- Will grab the first available shirt and make it ammo for your next shot
         local item = items:get(i)
         if isValidShirt(item) then
             local shirtAmmoType = item:getFullType()
             weapon:setAmmoType(shirtAmmoType)
-            md.tShirtToLaunch = shirtAmmoType
+            md.HFO_tShirtToLaunch = shirtAmmoType
             HFO.Utils.debugLog("Loaded shirt: " .. shirtAmmoType)
             return
         end
@@ -96,7 +102,7 @@ end
 function HFO.TShirtLauncher.GetShirtAmmoType(weapon) -- making sure the shirt we used is the same shirt
     if not isTShirtLauncher(weapon) then return nil end
     local md = weapon:getModData()
-    return md and md.tShirtToLaunch
+    return md and md.HFO_tShirtToLaunch
 end
 
 
@@ -105,10 +111,14 @@ end
 ---===========================================---
 
 function HFO.TShirtLauncher.OnHit(attacker, target, weapon, damage)
+    if not isTShirtLauncher(weapon) then return end
+    
     local shirtAmmoType = HFO.TShirtLauncher.GetShirtAmmoType(weapon)
     if not shirtAmmoType then return end
 
-    HFO.TShirtLauncher.lastShot = getTimestampMs()
+    -- Mark weapon's mod data to prevent OnShoot from also dropping a shirt
+    local md = weapon:getModData()
+    md.HFO_shotAlreadyHandled = true
 
     local square = target:getCurrentSquare()
     if square then
@@ -122,7 +132,9 @@ function HFO.TShirtLauncher.OnHit(attacker, target, weapon, damage)
 
     HFO.TShirtLauncher.shotsSinceLastComment = HFO.TShirtLauncher.shotsSinceLastComment + 1 -- inner voice dialogue randomizer
     if HFO.TShirtLauncher.shotsSinceLastComment >= HFO.TShirtLauncher.nextCommentAt then
-        HFO.InnerVoice.say("TShirtHit")
+        if HFO.InnerVoice and HFO.InnerVoice.say then
+            HFO.InnerVoice.say("TShirtHit")
+        end
         HFO.TShirtLauncher.shotsSinceLastComment = 0
         HFO.TShirtLauncher.nextCommentAt = ZombRand(3, 11)
     end
@@ -134,11 +146,19 @@ end
 ---===========================================---
 
 function HFO.TShirtLauncher.OnShoot(wielder, weapon)
+    if not isTShirtLauncher(weapon) then return end
+    
     local shirtAmmoType = HFO.TShirtLauncher.GetShirtAmmoType(weapon)
     if not shirtAmmoType then return end
 
-    if getTimestampMs() - HFO.TShirtLauncher.lastShot < 800 then return end -- to make sure we aren't accidentally getting 2 shirts for 1
+    -- Check if OnHit already handled this shot
+    local md = weapon:getModData()
+    if md.HFO_shotAlreadyHandled then
+        md.HFO_shotAlreadyHandled = nil -- Clear the flag
+        return -- OnHit already dropped the shirt, don't drop another
+    end
 
+    -- This is a miss - drop the shirt at max range
     local maxRange = weapon:getMaxRange() or 10
     local facing = wielder:getForwardDirection()
     local cell = wielder:getCell()
@@ -161,7 +181,9 @@ function HFO.TShirtLauncher.OnShoot(wielder, weapon)
 
         HFO.TShirtLauncher.shotsSinceLastComment = HFO.TShirtLauncher.shotsSinceLastComment + 1 
         if HFO.TShirtLauncher.shotsSinceLastComment >= HFO.TShirtLauncher.nextCommentAt then
-            HFO.InnerVoice.say("TShirtMiss")
+            if HFO.InnerVoice and HFO.InnerVoice.say then
+                HFO.InnerVoice.say("TShirtMiss")
+            end
             HFO.TShirtLauncher.shotsSinceLastComment = 0
             HFO.TShirtLauncher.nextCommentAt = ZombRand(3, 11)
         end

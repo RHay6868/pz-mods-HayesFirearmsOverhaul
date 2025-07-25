@@ -169,6 +169,9 @@ Events.OnGameStart.Add(function()
         { fullType = "Base.ASVal_Folded_Melee", attachment = "Base.Mag9x39ExtLg", model = "ASValFoldedNoMag" },
         { fullType = "Base.EM2", attachment = "Base.Mag762x51ExtLg", model = "EM2NoMag" },
         { fullType = "Base.EM2_Melee", attachment = "Base.Mag762x51ExtLg", model = "EM2NoMag" },
+        { fullType = "Base.PGMHecate", attachment = "Base.Mag50BMGExtSm", model = "PGMHecateNoMag" },
+        { fullType = "Base.PGMHecate_Melee", attachment = "Base.Mag50BMGExtSm", model = "PGMHecateNoMag" },
+        { fullType = "Base.PGMHecate_Bipod", attachment = "Base.Mag50BMGExtSm", model = "PGMHecateBipodNoMag" },
         { fullType = "Base.Galil", attachment = "Base.Mag762x51ExtSm", model = "GalilNoMag" },
         { fullType = "Base.Galil_Melee", attachment = "Base.Mag762x51ExtSm", model = "GalilNoMag" },
         { fullType = "Base.Galil_Bipod", attachment = "Base.Mag762x51ExtSm", model = "GalilBipodNoMag" },
@@ -334,6 +337,9 @@ Events.OnGameStart.Add(function()
     BWTweaks:changeModelByGunPlating("Base.Mossberg500Super", GP("DOTD"), "Mossberg500SuperDOTD");
     BWTweaks:changeModelByGunPlating("Base.Mossberg500Super_Melee", GP("DOTD"), "Mossberg500SuperDOTD");
     BWTweaks:changeModelByGunPlating("Base.Mossberg500Super_Grip", GP("DOTD"), "Mossberg500SuperGrDOTD");
+    --Becker Revolver Shotgun Green
+    BWTweaks:changeModelByGunPlating("Base.BeckerRevolver", GP("Green"), "BeckerRevolverGreen");
+    BWTweaks:changeModelByGunPlating("Base.BeckerRevolver_Melee", GP("Green"), "BeckerRevolverGreen");
     -- TShirt Cannon PARP
     BWTweaks:changeModelByGunPlating("Base.TShirtLauncher", GP("PARP"), "TShirtCannonPARP");
     -- TShirt Cannon SD
@@ -461,6 +467,12 @@ Events.OnGameStart.Add(function()
         ----Rainbow AK74
         { fullType = "Base.AK74", gunPlating = GP("Rainbow"), modelWithMag = "AK74Rainbow", modelWithoutMag = "AK74RainbowNoMag" },
         { fullType = "Base.AK74_Melee", gunPlating = GP("Rainbow"), modelWithMag = "AK74Rainbow", modelWithoutMag = "AK74RainbowNoMag" },
+        ----Yellow Golden Barb Browning BLR
+        { fullType = "Base.BrowningBLR", gunPlating = GP("Yellow"), modelWithMag = "BrowningBLRYellow", modelWithoutMag = "BrowningBLRYellowNoMag" },
+        { fullType = "Base.BrowningBLR_Melee", gunPlating = GP("Yellow"), modelWithMag = "BrowningBLRYellow", modelWithoutMag = "BrowningBLRYellowNoMag" },
+        ----Red White Camo Browning BLR
+        { fullType = "Base.BrowningBLR", gunPlating = GP("RedWhite"), modelWithMag = "BrowningBLRRedWhite", modelWithoutMag = "BrowningBLRRedWhiteNoMag" },
+        { fullType = "Base.BrowningBLR_Melee", gunPlating = GP("RedWhite"), modelWithMag = "BrowningBLRRedWhite", modelWithoutMag = "BrowningBLRRedWhiteNoMag" },
         ----Pink Plating and P90
         { fullType = "Base.P90", gunPlating = GP("Pink"), modelWithMag = "P90Pink", modelWithoutMag = "P90PinkNoMag" },
         { fullType = "Base.P90_Melee", gunPlating = GP("Pink"), modelWithMag = "P90Pink", modelWithoutMag = "P90PinkNoMag" },
@@ -498,6 +510,22 @@ Events.OnGameStart.Add(function()
         { fullType = "Base.BarrettM82A1", gunPlating = GP("ZoidbergSpecial"), modelWithMag = "BarrettM82A1ZoidbergSpecial", modelWithoutMag = "BarrettM82A1ZoidbergSpecialNoMag" },
         { fullType = "Base.BarrettM82A1_Bipod", gunPlating = GP("ZoidbergSpecial"), modelWithMag = "BarrettM82A1ZoidbergSpecialBipod", modelWithoutMag = "BarrettM82A1ZoidbergSpecialBipodNoMag" },
         { fullType = "Base.BarrettM82A1_Melee", gunPlating = GP("ZoidbergSpecial"), modelWithMag = "BarrettM82A1ZoidbergSpecial", modelWithoutMag = "BarrettM82A1ZoidbergSpecialNoMag" },
+        ---Tan PGM Hecate
+        { fullType = "Base.PGMHecate", gunPlating = GP("Tan"), modelWithMag = "PGMHecateTan", modelWithoutMag = "PGMHecateTanNoMag" },
+        { fullType = "Base.PGMHecate_Bipod", gunPlating = GP("Tan"), modelWithMag = "PGMHecateTanBipod", modelWithoutMag = "PGMHecateTanBipodNoMag" },
+        { fullType = "Base.PGMHecate_Melee", gunPlating = GP("Tan"), modelWithMag = "PGMHecateTan", modelWithoutMag = "PGMHecateTanNoMag" },
+        ---Stitches Blue Stitches PGM Hecate
+        { fullType = "Base.PGMHecate", gunPlating = GP("Blue"), modelWithMag = "PGMHecateBlue", modelWithoutMag = "PGMHecateBlueNoMag" },
+        { fullType = "Base.PGMHecate_Bipod", gunPlating = GP("Blue"), modelWithMag = "PGMHecateBlueBipod", modelWithoutMag = "PGMHecateBlueBipodNoMag" },
+        { fullType = "Base.PGMHecate_Melee", gunPlating = GP("Blue"), modelWithMag = "PGMHecateBlue", modelWithoutMag = "PGMHecateBlueNoMag" },
+        ---Frieza DragonBall PGM Hecate
+        { fullType = "Base.PGMHecate", gunPlating = GP("DragonBall"), modelWithMag = "PGMHecateDragonBall", modelWithoutMag = "PGMHecateDragonBallNoMag" },
+        { fullType = "Base.PGMHecate_Bipod", gunPlating = GP("DragonBall"), modelWithMag = "PGMHecateDragonBallBipod", modelWithoutMag = "PGMHecateDragonBallBipodNoMag" },
+        { fullType = "Base.PGMHecate_Melee", gunPlating = GP("DragonBall"), modelWithMag = "PGMHecateDragonBall", modelWithoutMag = "PGMHecateDragonBallNoMag" },
+        ---DZ PGM Hecate
+        { fullType = "Base.PGMHecate", gunPlating = GP("DZ"), modelWithMag = "PGMHecateDZ", modelWithoutMag = "PGMHecateDZNoMag" },
+        { fullType = "Base.PGMHecate_Bipod", gunPlating = GP("DZ"), modelWithMag = "PGMHecateDZBipod", modelWithoutMag = "PGMHecateDZBipodNoMag" },
+        { fullType = "Base.PGMHecate_Melee", gunPlating = GP("DZ"), modelWithMag = "PGMHecateDZ", modelWithoutMag = "PGMHecateDZNoMag" },
         ----Survivalist SVD Dragunov
         { fullType = "Base.SVDDragunov", gunPlating = GP("Survivalist"), modelWithMag = "SVDDragunovSurvivalist", modelWithoutMag = "SVDDragunovSurvivalistNoMag" },
         { fullType = "Base.SVDDragunov_Melee", gunPlating = GP("Survivalist"), modelWithMag = "SVDDragunovSurvivalist", modelWithoutMag = "SVDDragunovSurvivalistNoMag" }, 
@@ -666,8 +694,12 @@ Events.OnGameStart.Add(function()
         "Base.PGMHecate_Melee",
     }
     local gunPlatingPGMHecate = {
-        -- Add actual plating variants when available
+        "GunPlatingTan",
+        "GunPlatingBlue",
+        "GunPlatingDragonBall",
+        "GunPlatingDZ"
     }
+    
 
     -- Suppressor Only
     for _, sup in ipairs(suppressorsSniper) do
@@ -743,10 +775,16 @@ Events.OnGameStart.Add(function()
         BWTweaks:changeModelByRoundChambered(change.fullType, false, change.empty)
     end
 
-    -- Compound Crossbow Attachment Version
+    -- Compound Crossbow Gunplating Changes
     local chamberedGunPlatingChange  = {
         { fullType = "Base.CrossbowCompound", plating = GP("RedWhite"), loaded = "CrossbowCompoundLoadedRedWhite", empty = "CrossbowCompoundRedWhite" },
         { fullType = "Base.CrossbowCompound_Melee", plating = GP("RedWhite"), loaded = "CrossbowCompoundLoadedRedWhite", empty = "CrossbowCompoundRedWhite" },
+        { fullType = "Base.CrossbowReverseDraw", plating = GP("Patriot"), loaded = "CrossbowReverseDrawLoadedPatriot", empty = "CrossbowReverseDrawPatriot" },
+        { fullType = "Base.CrossbowReverseDraw_Melee", plating = GP("Patriot"), loaded = "CrossbowReverseDrawLoadedPatriot", empty = "CrossbowReverseDrawPatriot" },
+        { fullType = "Base.CrossbowReverseDraw", plating = GP("Green"), loaded = "CrossbowReverseDrawLoadedCamo", empty = "CrossbowReverseDrawCamo" },
+        { fullType = "Base.CrossbowReverseDraw_Melee", plating = GP("Green"), loaded = "CrossbowReverseDrawLoadedCamo", empty = "CrossbowReverseDrawCamo" },
+        { fullType = "Base.CrossbowReverseDraw", plating = GP("Blue"), loaded = "CrossbowReverseDrawLoadedBlue", empty = "CrossbowReverseDrawBlue" },
+        { fullType = "Base.CrossbowReverseDraw_Melee", plating = GP("Blue"), loaded = "CrossbowReverseDrawLoadedBlue", empty = "CrossbowReverseDrawBlue" },
     }
     
 
@@ -773,6 +811,13 @@ Events.OnGameStart.Add(function()
     -- Wood + Gun Plating Changes
     local chamberedGunPlatingWoodChange = {
         { fullType = "Base.CrossbowCompound", plating = GP("RedWhite"), material = "wood", loaded = "WoodCrossbowCompoundLoadedRedWhite", empty = "CrossbowCompoundRedWhite" },
+        { fullType = "Base.CrossbowCompound_Melee", plating = GP("RedWhite"), material = "wood", loaded = "WoodCrossbowCompoundLoadedRedWhite", empty = "CrossbowCompoundRedWhite" },
+        { fullType = "Base.CrossbowReverseDraw", plating = GP("Patriot"), material = "wood", loaded = "WoodCrossbowReverseDrawLoadedPatriot", empty = "WoodCrossbowReverseDrawPatriot" },
+        { fullType = "Base.CrossbowReverseDraw_Melee", plating = GP("Patriot"), material = "wood", loaded = "WoodCrossbowReverseDrawLoadedPatriot", empty = "WoodCrossbowReverseDrawPatriot" },
+        { fullType = "Base.CrossbowReverseDraw", plating = GP("Green"), material = "wood", loaded = "WoodCrossbowReverseDrawLoadedCamo", empty = "WoodCrossbowReverseDrawCamo" },
+        { fullType = "Base.CrossbowReverseDraw_Melee", plating = GP("Green"), material = "wood", loaded = "WoodCrossbowReverseDrawLoadedCamo", empty = "WoodCrossbowReverseDrawCamo" },
+        { fullType = "Base.CrossbowReverseDraw", plating = GP("Blue"), material = "wood", loaded = "WoodCrossbowReverseDrawLoadedBlue", empty = "WoodCrossbowReverseDrawBlue" },
+        { fullType = "Base.CrossbowReverseDraw_Melee", plating = GP("Blue"), material = "wood", loaded = "WoodCrossbowReverseDrawLoadedBlue", empty = "WoodCrossbowReverseDrawBlue" },
     }
 
     for _, change in ipairs(chamberedGunPlatingWoodChange) do

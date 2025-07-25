@@ -122,7 +122,6 @@ module Base
         Icon	                = Mag308Clip5,
         MaxAmmo                 = 5,
         AmmoType                = Base.308Bullets,
-        CompatibleAmmoType      = Base.762x51Bullets,
         StaticModel             = Mag308Clip5,
         GunType                 = Base.BrowningBLR,
         CompatibleGunType       = Base.L2A1; Base.L2A1_Bipod,
@@ -339,7 +338,6 @@ module Base
         Icon	                = Mag762x51,
         MaxAmmo                 = 10,
         AmmoType                = Base.762x51Bullets,
-        CompatibleAmmoType      = Base.308Bullets,
         StaticModel             = Mag762x51,
         GunType                 = Base.Galil; Base.Galil_Bipod,
         CompatibleGunType       = Base.HuntingRifle,
@@ -916,8 +914,9 @@ module Base
         MaxAmmo                 = 9,
         AmmoType                = Base.22Bullets,
         StaticModel             = SpeedLoader9,
-        SpeedLoadCompatible     = Base.HighStandardSentinel,
+        HFO_SpeedLoadCompatible = Base.HighStandardSentinel,
         WorldStaticModel        = SpeedLoader9,
+        Tooltip                 = Tooltip_22SpeedLoader,
     }
 
     item 38SpeedLoader5
@@ -931,8 +930,9 @@ module Base
         MaxAmmo                 = 5,
         AmmoType                = Base.Bullets38,
         StaticModel             = SpeedLoader5,
-        SpeedLoadCompatible     = Base.Revolver_Short,
+        HFO_SpeedLoadCompatible = Base.Revolver_Short,
         WorldStaticModel        = SpeedLoader5,
+        Tooltip                 = Tooltip_38SpeedLoader5,
     }
 
     item 38SpeedLoader7
@@ -946,8 +946,9 @@ module Base
         MaxAmmo                 = 7,
         AmmoType                = Base.Bullets38,
         StaticModel             = SpeedLoader7,
-        SpeedLoadCompatible     = Base.RugerGP100,
+        HFO_SpeedLoadCompatible = Base.RugerGP100,
         WorldStaticModel        = SpeedLoader7,
+        Tooltip                 = Tooltip_38SpeedLoader7,
     }
     
     item 44SpeedLoader
@@ -961,8 +962,9 @@ module Base
         MaxAmmo                 = 6,
         AmmoType                = Base.Bullets44,
         StaticModel             = SpeedLoader6x44,
-        SpeedLoadCompatible     = Base.Revolver_Long,
+        HFO_SpeedLoadCompatible = Base.Revolver_Long,
         WorldStaticModel        = SpeedLoader6x44,
+        Tooltip                 = Tooltip_44SpeedLoader,
     }
 
     item 45SpeedLoader
@@ -976,8 +978,9 @@ module Base
         MaxAmmo                 = 6,
         AmmoType                = Base.Bullets45,
         StaticModel             = SpeedLoader6,
-        SpeedLoadCompatible     = Base.Revolver;Base.ColtCavalryRevolver,
+        HFO_SpeedLoadCompatible = Base.Revolver;Base.ColtCavalryRevolver,
         WorldStaticModel        = SpeedLoader6,
+        Tooltip                 = Tooltip_45SpeedLoader,
     }
 
     /****************************** FIREARM CACHES *******************/
@@ -1414,4 +1417,14 @@ module Base
         Tags                = GunPlating,
         Tooltip             = Tooltip_GunPlatingDOTD,
     }
+
+
+    item HFOTestSpawner
+    {
+        DisplayName = HFO Test Spawner,
+        Type = Weapon,
+        Weight = 0.1,
+        Icon = nothing,
+        OnCreate = HFO_TestOnCreate_WeaponSpawn,
+    }    
 }

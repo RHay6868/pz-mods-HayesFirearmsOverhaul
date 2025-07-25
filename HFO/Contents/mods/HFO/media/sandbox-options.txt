@@ -66,9 +66,17 @@ option HFO.FirearmSkins
 option HFO.ExclusiveFirearmSkins
 {
 	type = boolean,
-	default = true,
+	default = false,
 	page = HFO_Loot,
 	translation = HFO_LootExclusiveFirearmSkins,
+}
+
+option HFO.ServerFirearmSkins
+{
+	type = boolean,
+	default = false,
+	page = HFO_Loot,
+	translation = HFO_LootServerFirearmSkins,
 }
 
 option HFO.RepairKits
@@ -90,7 +98,7 @@ option HFO.Cleaning
 option HFO.ColtCavalry
 {
 	type = boolean,
-	default = true,
+	default = false,
 	page = HFO_Loot,
 	translation = HFO_LootColtCavalry,
 }
@@ -98,7 +106,7 @@ option HFO.ColtCavalry
 option HFO.FGMG42
 {
 	type = boolean,
-	default = true,
+	default = false,
 	page = HFO_Loot,
 	translation = HFO_LootFGMG42,
 }
@@ -106,23 +114,15 @@ option HFO.FGMG42
 option HFO.TShirtLauncher
 {
 	type = boolean,
-	default = true,
+	default = false,
 	page = HFO_Loot,
 	translation = HFO_LootTShirtLauncher,
-}
-
-option HFO.CrossbowAmmoMag
-{
-	type = boolean,
-	default = true,
-	page = HFO_Loot,
-	translation = HFO_LootCrossbowAmmoMag,
 }
 
 option HFO.ExtendedSmall
 {
     type = boolean,
-    default = true,
+    default = false,
     page = HFO_SpawnRates,
     translation = HFO_SpawnExtendedSmall,
 }
@@ -130,7 +130,7 @@ option HFO.ExtendedSmall
 option HFO.ExtendedLarge
 {
     type = boolean,
-    default = true,
+    default = false,
     page = HFO_SpawnRates,
     translation = HFO_SpawnExtendedLarge,
 }
@@ -138,7 +138,7 @@ option HFO.ExtendedLarge
 option HFO.ExtendedDrum
 {
     type = boolean,
-    default = true,
+    default = false,
     page = HFO_SpawnRates,
     translation = HFO_SpawnExtendedDrum,
 }
