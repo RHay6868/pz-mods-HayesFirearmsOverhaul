@@ -8,4 +8,5 @@ ContextMenu_EN =
 	ContextMenu_FireMode_SMGBurst = "Burst",
 	ContextMenu_Remove_Weapon_GunPlating = "Remove Weapon Plating",
 	ContextMenu_Apply_Weapon_GunPlating = "Attach Weapon Plating",
+	ContextMenu_Clean_Firearm = "Clean Firearm",
 }

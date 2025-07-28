@@ -236,8 +236,47 @@ function HFO_WeaponViewer:initialise()
     local nameLabel = ISLabel:new(10, 10, 20, self.weapon:getDisplayName(), 1, 1, 1, 1, UIFont.Medium, true)
     self:addChild(nameLabel)
 
+
+    -- Check if weapon needs updating using existing function logic
+    if self.weapon and self.weapon.getModData then
+        local md = self.weapon:getModData()
+        
+        if md.HFO_DataVersion ~= HFO.Utils.DATA_VERSION then
+            local updateBtn = ISButton:new(nameLabel:getRight() + 10, 10, 70, 20, "UPDATE", self, function(button)
+                if self.weapon then
+                    HFO.Utils.initializeNewModData(self.weapon)
+                    -- Refresh to hide the button after initialization
+                    self:refreshLayout()
+                end
+            end)
+            
+            updateBtn:setAnchorLeft(true)
+            updateBtn:setAnchorTop(true)
+            updateBtn:setAnchorRight(false)
+            updateBtn:setAnchorBottom(false)
+            
+            updateBtn.backgroundColor = { r = 0.2, g = 0.6, b = 0.8, a = 1 }
+            updateBtn.backgroundColorMouseOver = { r = 0.3, g = 0.7, b = 0.9, a = 1 }
+            updateBtn.borderColor = { r = 0.3, g = 0.7, b = 0.9, a = 1 }
+            updateBtn:setTooltip("Update weapon with missing data")
+            
+            updateBtn:initialise()
+            self:addChild(updateBtn)
+        end
+    end
+
     if isDebugEnabled() or isAdmin() then
-        local debugBtn = ISButton:new(nameLabel:getRight() + 10, 10, 60, 20, "DEBUG", self, function()
+        local debugX = nameLabel:getRight() + 10
+        
+        -- Check if UPDATE button is present and push DEBUG over
+        if self.weapon and self.weapon.getModData then
+            local md = self.weapon:getModData()
+            if md.HFO_DataVersion ~= HFO.Utils.DATA_VERSION then
+                debugX = debugX + 80 -- Push it over if UPDATE button is there
+            end
+        end
+        
+        local debugBtn = ISButton:new(debugX, 10, 60, 20, "DEBUG", self, function()
             if not self.detailsVisible then
                 self.detailsVisible = true
                 self.detailsPanel:setVisible(true)
@@ -246,18 +285,17 @@ function HFO_WeaponViewer:initialise()
             self:updateDetailsPanel()
             self:refreshLayout()
         end)
-    
+
         debugBtn:setAnchorLeft(true)
         debugBtn:setAnchorTop(true)
         debugBtn:setAnchorRight(false)
         debugBtn:setAnchorBottom(false)
-    
-        -- Optional: recolor for admin flavor
+
         debugBtn.backgroundColor = { r = 0.5, g = 0.2, b = 0.2, a = 1 }
         debugBtn.backgroundColorMouseOver = { r = 0.6, g = 0.2, b = 0.2, a = 1 }
         debugBtn.borderColor = { r = 0.6, g = 0.2, b = 0.2, a = 1 }
         debugBtn:setTooltip("Toggle Debug Details")
-    
+
         debugBtn:initialise()
         self:addChild(debugBtn)
     end

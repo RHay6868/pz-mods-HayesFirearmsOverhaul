@@ -34,6 +34,7 @@
 HFO = HFO or {}
 HFO.Utils = HFO.Utils or {}
 
+HFO.Utils.DATA_VERSION = 1
 
 ---===========================================---
 --          DEBUG TESTING LOG PRINTS           --
@@ -62,6 +63,129 @@ end
 
 
 ---===========================================---
+<<<<<<< Updated upstream
+=======
+--         OLD MODDATA MIGRATION PROCESS       --
+---===========================================---
+
+function HFO.Utils.migrateModData(item)
+    if not item or not item.getModData then return false end
+    
+    local md = item:getModData()
+    if not md or md.HFO_Migrated then return false end
+    
+    -- Migrate the 11 legacy keys
+    local oldKeys = {
+        "currentName", "LightOn", "currentAmmoType", "currentMagType",
+        "MeleeSwap", "FoldSwap", "IntegratedSwap", 
+        "MagBase", "MagExtSm", "MagExtLg", "MagDrum"
+    }
+    
+    for _, key in ipairs(oldKeys) do
+        if md[key] ~= nil then
+            md["HFO_" .. key] = md[key]
+            md[key] = nil -- Clear old key
+        end
+    end
+    
+    md.HFO_Migrated = true
+    return true
+end
+
+---===========================================---
+--   UPDATE NEW MISSING MODDATA ON OLD ITEMS   --
+---===========================================---
+
+function HFO.Utils.initializeNewModData(item)
+    if not item or not item.getModData then 
+        return false 
+    end
+    
+    local md = item:getModData()
+    if md.HFO_DataVersion == HFO.Utils.DATA_VERSION then 
+        return false 
+    end
+    
+    local freshItem = InventoryItemFactory.CreateItem(item:getFullType())
+    if not freshItem then 
+        return false 
+    end
+    
+    local freshMd = freshItem:getModData()
+    local fieldsToCheck = {
+        "HFO_AmmoTypeBase",
+        "HFO_AmmoTypeAdditional", 
+        "HFO_GunPlatingOptions"
+    }
+    
+    local updated = false
+    for _, field in ipairs(fieldsToCheck) do
+        if freshMd[field] and not md[field] then
+            HFO.Utils.debugLog("DEBUG: Adding " .. field .. ": " .. tostring(freshMd[field]))
+            md[field] = freshMd[field]
+            updated = true
+        end
+    end
+    
+    if updated then
+        md.HFO_DataVersion = HFO.Utils.DATA_VERSION
+        HFO.Utils.debugLog("DEBUG: Updated to version " .. tostring(HFO.Utils.DATA_VERSION))
+    end
+    
+    return updated
+end
+
+---===========================================---
+--           UPDATE MODDATA FOR WEAPON         --
+---===========================================---
+
+function HFO.Utils.storePreSwapStats(weapon)
+    if not weapon or not instanceof(weapon, "HandWeapon") or not weapon:isAimedFirearm() then return end
+    local md = weapon:getModData()
+    if md.HFO_PreSwapStats then 
+        --HFO.Utils.debugLog("Baseline already exists, skipping")
+        return 
+    end
+
+    local weaponType = weapon:getFullType()
+    
+    -- Get the base weapon type (strip variant suffixes)
+    local baseWeaponType = weaponType
+    for _, suffixInfo in ipairs(HFO.Constants.SuffixMappings) do
+        if weaponType:find(suffixInfo.swaptype) then
+            baseWeaponType = weaponType:gsub(suffixInfo.swaptype, "")
+            break
+        end
+    end
+    
+    HFO.Utils.debugLog("Creating clean weapon for: " .. baseWeaponType)
+    
+    -- Create a fresh weapon instance to get clean script stats
+    local cleanWeapon = InventoryItemFactory.CreateItem(baseWeaponType)
+    if cleanWeapon then
+        -- Create the baseline table
+        local baseline = {
+            maxDamage = cleanWeapon:getMaxDamage(),
+            minDamage = cleanWeapon:getMinDamage(),
+            aimingTime = cleanWeapon:getAimingTime(),
+            reloadTime = cleanWeapon:getReloadTime(),
+            recoilDelay = cleanWeapon:getRecoilDelay(),
+            hitChance = cleanWeapon:getHitChance(),
+            maxRange = cleanWeapon:getMaxRange(),
+            minAngle = cleanWeapon:getMinAngle(),
+            ammoType = cleanWeapon:getAmmoType(),
+            magazineType = cleanWeapon:getMagazineType(),
+            maxHitCount = cleanWeapon:getMaxHitCount(),        
+            projectileCount = cleanWeapon:getProjectileCount(), 
+        }
+
+        md.HFO_PreSwapStats = baseline
+    end
+end
+
+
+---===========================================---
+>>>>>>> Stashed changes
 --       CYCLE THROUGH INDEX OF OPTIONS        --
 ---===========================================---
 
@@ -409,10 +533,28 @@ end
 --      CACHE AND RESTORE CUSTOM MOD DATA      --
 ---===========================================---
 
+<<<<<<< Updated upstream
 -- Will be updated more thoroughly but currently makes sure we dont miss HFO data on swaps
 function HFO.Utils.cachedHFOModData(obj)
 	local md = obj:getModData()
 	local cache = {}
+=======
+-- instead of hardcoding stat changes in item script adding in chages here for _Bipod, _Folded, _Grip, _Extended, and _GripExtended
+function HFO.Utils.applyVariantModifications(weapon)
+    if not weapon or not HFO.Utils.isAimedFirearm(weapon) then return end
+    local md = weapon:getModData()
+    if md.HFO_VariantApplied then return end -- Already applied
+    
+    local weaponType = weapon:getFullType()
+    
+    local variantSuffix = nil
+    for suffix, mods in pairs(HFO.Constants.VariantModifications) do
+        if weaponType:find(suffix) then
+            variantSuffix = suffix
+            break
+        end
+    end
+>>>>>>> Stashed changes
 
 	for _, key in ipairs(HFO.Constants.TrackedModData) do
 		cache[key] = md[key]
@@ -760,7 +902,7 @@ function HFO.Utils.getRawWeaponStats(weapon, player, options)
 
         reloadSpeed = HFO.ReloadUtils.getReloadSpeedModifier(player, weapon),
 
-        baseSoundRadius = weapon:getSoundRadius(),
+        soundRadius = weapon:getSoundRadius(),
         timesRepaired = weapon.getHaveBeenRepaired and (weapon:getHaveBeenRepaired() - 1) or 0,
 
         weight = weapon:getWeight(),
@@ -792,9 +934,8 @@ function HFO.Utils.getRawWeaponStats(weapon, player, options)
                     name = key:gsub("Suppressor", "") .. " Suppressor",
                     reductionPercent = info.radius or 0,
                 }
-                stats.soundRadius = math.floor(stats.baseSoundRadius * (1 - info.radius / 100))
-                -- Append the reduction description
-                stats.soundRadiusDescription = string.format("(reduced by %d%%)", info.radius)
+                stats.soundRadius = weapon:getSoundRadius()
+                stats.soundRadiusDescription = info.radius and string.format("(reduced by %d%%)", info.radius) or nil
                 break
             end
         end

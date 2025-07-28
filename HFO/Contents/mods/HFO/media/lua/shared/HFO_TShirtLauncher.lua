@@ -35,8 +35,14 @@ HFO.TShirtLauncher = HFO.TShirtLauncher or {}
 --       TSHIRT LAUNCHER HELPER FUNCTIONS      --
 ---===========================================---
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 -- Cooldown timestamp to prevent double-spawns on hit + shoot
 HFO.TShirtLauncher.lastShot = 0
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 HFO.TShirtLauncher.shotsSinceLastComment = 0
 HFO.TShirtLauncher.nextCommentAt = ZombRand(3, 11) -- Randomized timer for inner voice dialogue lines
 
@@ -48,7 +54,13 @@ local function isValidShirt(item) -- helper to make sure we have any match no ma
     return item:IsClothing() and not item:isWorn() and string.match(item:getType(), "[Tt]?[Ss]?hirt")
 end
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 ---===========================================---
 --       TSHIRT LAUNCHER RELOAD MECHANIC       --
 ---===========================================---
@@ -108,7 +120,15 @@ function HFO.TShirtLauncher.OnHit(attacker, target, weapon, damage)
     local shirtAmmoType = HFO.TShirtLauncher.GetShirtAmmoType(weapon)
     if not shirtAmmoType then return end
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     HFO.TShirtLauncher.lastShot = getTimestampMs()
+=======
+=======
+>>>>>>> Stashed changes
+    local md = weapon:getModData()
+    md.HFO_shotAlreadyHandled = true
+>>>>>>> Stashed changes
 
     local square = target:getCurrentSquare()
     if square then
@@ -137,7 +157,15 @@ function HFO.TShirtLauncher.OnShoot(wielder, weapon)
     local shirtAmmoType = HFO.TShirtLauncher.GetShirtAmmoType(weapon)
     if not shirtAmmoType then return end
 
+<<<<<<< Updated upstream
     if getTimestampMs() - HFO.TShirtLauncher.lastShot < 800 then return end -- to make sure we aren't accidentally getting 2 shirts for 1
+=======
+    -- Check if OnHit already handled this shot
+    local md = weapon:getModData()
+    if md.HFO_shotAlreadyHandled then
+        return -- OnHit already dropped the shirt, don't drop another
+    end
+>>>>>>> Stashed changes
 
     local maxRange = weapon:getMaxRange() or 10
     local facing = wielder:getForwardDirection()

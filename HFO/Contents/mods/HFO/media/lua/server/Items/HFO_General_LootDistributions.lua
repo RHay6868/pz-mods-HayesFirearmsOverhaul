@@ -106,15 +106,15 @@ end
 HFO.LootDistro.spawnRateEngine = {
     -- Base values that define the scaling curve
     scalingFactor = 2.0,  
-    minMultiplier = 0.05, 
+    minMultiplier = 0.1, 
     maxMultiplier = 20.0,
     
     -- Curve profiles with predefined modifiers
     curveProfiles = {
-        common = 0.7,    -- Flatter curve
+        common = 0.9,    -- Flatter curve
         standard = 1.0,  -- Standard curve
-        rare = 1.5,      -- Steeper curve
-        veryRare = 2.0   -- Steepest curve
+        rare = 1.15,      -- Steeper curve
+        veryRare = 1.25,   -- Steepest curve
     }
 }
 

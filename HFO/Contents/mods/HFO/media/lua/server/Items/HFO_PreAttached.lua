@@ -28,9 +28,18 @@ WeaponUpgrades = {
     ShotgunSawnoff = {"VertGrip", "ChokeTubeFull", "ChokeTubeImproved"}
 }
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 if getActivatedMods():contains("HayesFirearmsExtensionDEVTEST") then
     WeaponUpgrades["Glock"] = {"CompensatorHandgun", "MuzzleBrakeHandgun", "TacticalGrip", "GunLight", "RedDot", "IronSight", "Laser", "WeaponLightMedium"}
     WeaponUpgrades["FiveSeven"] = {"CompensatorHandgun", "MuzzleBrakeHandgun", "TacticalGrip", "GunLight", "RedDot", "IronSight", "Laser", "WeaponLightMedium"}
+=======
+=======
+>>>>>>> Stashed changes
+if getActivatedMods():contains("HayesFirearmsExtension") then
+    WeaponUpgrades["Glock"] = {"CompensatorHandgun", "MuzzleBrakeHandgun", "PistolScope", "WeaponLightMedium"}
+    WeaponUpgrades["FiveSeven"] = {"CompensatorHandgun", "MuzzleBrakeHandgun", "PistolScope", "WeaponLightMedium"}
+>>>>>>> Stashed changes
     WeaponUpgrades["Luger"] = {"CompensatorHandgun", "MuzzleBrakeHandgun", "TacticalGrip"}
     WeaponUpgrades["WaltherPPK"] = {"CompensatorHandgun", "MuzzleBrakeHandgun", "TacticalGrip"}
     WeaponUpgrades["Makarov"] = {"CompensatorHandgun", "MuzzleBrakeHandgun", "TacticalGrip"}

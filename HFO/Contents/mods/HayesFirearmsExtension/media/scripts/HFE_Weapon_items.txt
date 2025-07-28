@@ -916,7 +916,15 @@ module Base
         MaxAmmo                 = 9,
         AmmoType                = Base.22Bullets,
         StaticModel             = SpeedLoader9,
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
         SpeedLoadCompatible     = Base.HighStandardSentinel,
+=======
+=======
+>>>>>>> Stashed changes
+        GunType                 = Base.HighStandardSentinel,
+        HFO_SpeedLoadCompatible = Base.HighStandardSentinel,
+>>>>>>> Stashed changes
         WorldStaticModel        = SpeedLoader9,
     }
 
@@ -931,7 +939,15 @@ module Base
         MaxAmmo                 = 5,
         AmmoType                = Base.Bullets38,
         StaticModel             = SpeedLoader5,
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
         SpeedLoadCompatible     = Base.Revolver_Short,
+=======
+=======
+>>>>>>> Stashed changes
+        GunType                 = Base.Revolver_Short,
+        HFO_SpeedLoadCompatible = Base.Revolver_Short,
+>>>>>>> Stashed changes
         WorldStaticModel        = SpeedLoader5,
     }
 
@@ -946,7 +962,15 @@ module Base
         MaxAmmo                 = 7,
         AmmoType                = Base.Bullets38,
         StaticModel             = SpeedLoader7,
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
         SpeedLoadCompatible     = Base.RugerGP100,
+=======
+=======
+>>>>>>> Stashed changes
+        GunType                 = Base.RugerGP100,
+        HFO_SpeedLoadCompatible = Base.RugerGP100,
+>>>>>>> Stashed changes
         WorldStaticModel        = SpeedLoader7,
     }
     
@@ -960,9 +984,17 @@ module Base
         Icon	                = SpeedLoader6,
         MaxAmmo                 = 6,
         AmmoType                = Base.Bullets44,
+<<<<<<< Updated upstream
         StaticModel             = SpeedLoader6,
         SpeedLoadCompatible     = Base.Revolver_Long,
         WorldStaticModel        = SpeedLoader6,
+=======
+        StaticModel             = SpeedLoader6x44,
+        GunType                 = Base.Revolver_Long,
+        HFO_SpeedLoadCompatible = Base.Revolver_Long,
+        WorldStaticModel        = SpeedLoader6x44,
+        Tooltip                 = Tooltip_44SpeedLoader,
+>>>>>>> Stashed changes
     }
 
     item 45SpeedLoader
@@ -976,7 +1008,15 @@ module Base
         MaxAmmo                 = 6,
         AmmoType                = Base.Bullets45,
         StaticModel             = SpeedLoader6,
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
         SpeedLoadCompatible     = Base.Revolver;Base.ColtCavalryRevolver,
+=======
+=======
+>>>>>>> Stashed changes
+        GunType                 = Base.Revolver;Base.ColtCavalryRevolver,
+        HFO_SpeedLoadCompatible = Base.Revolver;Base.ColtCavalryRevolver,
+>>>>>>> Stashed changes
         WorldStaticModel        = SpeedLoader6,
     }
 

@@ -140,7 +140,7 @@ function HFO.SandboxUtils.getSafeSandboxVars()
     }
 
     -- Inject HFE mod flag if sub mod is active
-    result.HFE = getActivatedMods():contains("HayesFirearmsExtensionDEVTEST")
+    result.HFE = getActivatedMods():contains("HayesFirearmsExtension")
 
     return result
 end

@@ -409,6 +409,132 @@ end
 
 
 ---===========================================---
+<<<<<<< Updated upstream
+=======
+--  AMMO & MAG CONTINUITY AND STAT RETENTION   --
+---===========================================---
+
+-- Extract the logic into its own function
+function HFO.ReloadUtils.handleMagazineRetention(weapon)
+    if not weapon or not instanceof(weapon, "HandWeapon") or not weapon:isAimedFirearm() then
+        return
+    end
+
+    local clipLoaded = weapon:isContainsClip()
+    local currentMagType = weapon:getModData().HFO_currentMagType
+
+    -- Early exit if no magazine type stored
+    if not currentMagType then return end
+
+    if currentMagType ~= nil then
+        weapon:setMagazineType(currentMagType)
+        local tempItem = InventoryItemFactory.CreateItem(currentMagType)
+        if tempItem then
+            weapon:setMaxAmmo(tempItem:getMaxAmmo())
+        end
+    end
+
+    if clipLoaded then
+        local magBase = weapon:getModData().HFO_MagBase
+        local magExtSm = weapon:getModData().HFO_MagExtSm
+        local magExtLg = weapon:getModData().HFO_MagExtLg
+        local magDrum = weapon:getModData().HFO_MagDrum
+        local magPart
+
+        if not weapon:getClip() then
+            if currentMagType and currentMagType ~= "" then
+                if currentMagType == magExtSm then
+                    magPart = InventoryItemFactory.CreateItem(magExtSm)
+                elseif currentMagType == magExtLg then
+                    magPart = InventoryItemFactory.CreateItem(magExtLg)
+                elseif currentMagType == magDrum then
+                    magPart = InventoryItemFactory.CreateItem(magDrum)
+                end
+            end
+        end
+
+        if magPart and not weapon:getClip() then
+            weapon:attachWeaponPart(magPart)
+        end
+
+    elseif weapon:getClip() then
+        weapon:detachWeaponPart(weapon:getWeaponPart("Clip"))
+    end
+end
+
+function HFO.ReloadUtils.handleAmmoRetention(weapon)
+    if not weapon or not instanceof(weapon, "HandWeapon") or not weapon:isAimedFirearm() then
+        return
+    end
+
+    local md = weapon:getModData()
+    local currentAmmoType = md.HFO_currentAmmoType
+
+    -- Early exit if no ammo type stored or already correct
+    if not currentAmmoType or currentAmmoType == weapon:getAmmoType() then return end
+    
+    if currentAmmoType and currentAmmoType ~= weapon:getAmmoType() then
+        -- Restore core ammo properties
+        weapon:setAmmoType(currentAmmoType)
+        
+        -- Restore projectile count and max hits from baseline
+        if md.HFO_PreSwapStats then
+            local baseProjectiles = md.HFO_PreSwapStats.projectileCount
+            local baseMaxHits = md.HFO_PreSwapStats.maxHitCount
+            
+            if currentAmmoType == "Base.ShotgunShellsBirdshot" then
+                weapon:setProjectileCount(baseProjectiles + 3)
+                weapon:setMaxHitCount(baseMaxHits + 2)
+            elseif currentAmmoType == "Base.ShotgunShellsSlug" then
+                weapon:setProjectileCount(1)
+                weapon:setMaxHitCount(1)
+            else
+                weapon:setProjectileCount(baseProjectiles)
+                weapon:setMaxHitCount(baseMaxHits)
+            end
+        end
+        
+        -- Reapply ammo stat modifiers
+        if HFO.Utils.applyAmmoPropertiesToWeapon then
+            HFO.Utils.applyAmmoPropertiesToWeapon(weapon, currentAmmoType)
+        end
+    end
+
+    -- Mark that we've applied stats for this ammo type
+    md.HFO_AmmoStatsApplied = currentAmmoType
+end
+
+local originalCheckForModelChange = BWTweaks and BWTweaks.checkForModelChange
+
+function BWTweaks:checkForModelChange(weapon)  
+    HFO.ReloadUtils.handleMagazineRetention(weapon)
+    HFO.ReloadUtils.handleAmmoRetention(weapon)
+    HFO.Utils.migrateModData(weapon)
+    HFO.Utils.initializeNewModData(weapon)
+    HFO.Utils.storePreSwapStats(weapon)
+
+    if originalCheckForModelChange then
+        return originalCheckForModelChange(self, weapon)
+    end
+end
+
+Events.OnGameStart.Add(function()
+    local player, weapon = HFO.Utils.getPlayerAndWeapon()
+    if not HFO.Utils.isAimedFirearm(weapon) then return end
+    
+    if weapon and instanceof(weapon, "HandWeapon") and weapon:isAimedFirearm() then
+        BWTweaks:checkForModelChange(weapon)
+        HFO.ReloadUtils.handleMagazineRetention(weapon)
+        HFO.ReloadUtils.handleAmmoRetention(weapon)
+        HFO.Utils.migrateModData(weapon)
+        HFO.Utils.initializeNewModData(weapon)
+        HFO.Utils.storePreSwapStats(weapon)
+    end
+end)
+
+
+---===========================================---
+>>>>>>> Stashed changes
 --           CUSTOM JAM CHANCE LOGIC           --
 ---===========================================---
 

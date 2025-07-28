@@ -1,5 +1,7 @@
 module Base
 {
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
    /****************************** CLEANING FIREARMS ******************************/
 
    recipe Clean Pistol
@@ -923,6 +925,10 @@ module Base
       OnCreate             : Recipe.OnCreate.FirearmCleaning,
    }
 
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
    /****************************** FIXING FIREARMS ******************************/
 
    fixing Fix Glock
@@ -1374,6 +1380,8 @@ module Base
       Fixer    : ColtCavalryRevolver; Aiming=3,
       Fixer    : FirearmLubricant; Aiming=2,
    }
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
    fixing Fix CrossbowCompound
    {
@@ -1385,4 +1393,8 @@ module Base
       Fixer    : DuctTape=3,
       Fixer    : ScrapMetal=3,
    }
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 }

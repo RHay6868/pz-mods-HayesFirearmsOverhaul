@@ -528,6 +528,7 @@ end
 -- Hook into the ISInventoryPaneContextMenu
 Events.OnFillInventoryObjectContextMenu.Add(function(playerID, context, items)
     -- Check if we're dealing with a single item
+<<<<<<< Updated upstream
 	if items and #items == 1 then
 		local item = nil
 	
@@ -542,3 +543,66 @@ Events.OnFillInventoryObjectContextMenu.Add(function(playerID, context, items)
 		end
 	end
 end)
+=======
+    if items and #items == 1 then
+        local item = nil
+    
+        if type(items[1]) == "table" and items[1].items then
+            item = items[1].items[1]
+        else
+            item = items[1]
+        end
+    
+        if item and item:IsWeapon() then
+            local md = item:getModData()
+            if md and md.HFO_GunPlatingOptions then
+                HFO.WeaponUtils.gunPlatingContextMenu.doWeaponMenu(playerID, context, item)
+            end
+        end
+    end
+end)
+
+
+Events.OnFillInventoryObjectContextMenu.Add(function(playerID, context, items)
+    -- Check if we're dealing with a single item (same logic as plating)
+    if items and #items == 1 then
+        local item = nil
+    
+        if type(items[1]) == "table" and items[1].items then
+            item = items[1].items[1]
+        else
+            item = items[1]
+        end
+    
+        if item and HFO.Utils.isAimedFirearm(item) then
+            local playerObj = getSpecificPlayer(playerID)
+            if not playerObj then return end
+            
+            -- Check requirements
+            local inventory = playerObj:getInventory()
+            local hasKit = inventory:getItemCount("FirearmCleaningKit") > 0  -- Fixed: no broken check needed
+            local hasLube = inventory:getItemCount("FirearmLubricant") > 0
+            local hasRags = inventory:getItemCount("RippedSheets") > 0
+            
+            if hasKit and hasLube and hasRags then
+                local option = context:addOption("Clean Firearm", item, function()
+                    ISTimedActionQueue.add(ISCleanFirearm:new(playerObj, item, 400))
+                end)
+                
+                if playerObj:getPerkLevel(Perks.Aiming) < 3 then
+                    option.notAvailable = true
+                    local tooltip = ISWorldObjectContextMenu.addToolTip()
+                    tooltip.description = "Requires Aiming level 3"
+                    option.toolTip = tooltip
+                end
+            end
+        end
+    end
+end)
+
+<<<<<<< Updated upstream
+Events.OnFillInventoryObjectContextMenu.Add(addCleanFirearmOption)
+>>>>>>> Stashed changes
+=======
+Events.OnFillInventoryObjectContextMenu.Add(addCleanFirearmOption)
+>>>>>>> Stashed changes

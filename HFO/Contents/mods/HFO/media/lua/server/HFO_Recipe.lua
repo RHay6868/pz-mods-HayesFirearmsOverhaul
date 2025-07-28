@@ -82,6 +82,8 @@ function GeneralSawnWeapon_OnCreate(items, result, player)
 	end
 end
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 ---===========================================---
 --         CLEANING FIREARMS MECHANICS         --
@@ -144,6 +146,10 @@ function Recipe.OnCreate.FirearmCleaning(items, result, player)
 end
 
 
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 ---===========================================---
 --           AMMO CAN LOOT RANDOMIZER          --
 ---===========================================---
