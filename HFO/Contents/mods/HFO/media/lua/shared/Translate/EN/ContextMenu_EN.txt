@@ -9,4 +9,10 @@ ContextMenu_EN =
 	ContextMenu_Remove_Weapon_GunPlating = "Remove Weapon Plating",
 	ContextMenu_Apply_Weapon_GunPlating = "Attach Weapon Plating",
 	ContextMenu_Clean_Firearm = "Clean Firearm",
+    ContextMenu_Cleaning_Missing_Header = "Missing: ",
+    ContextMenu_Cleaning_Missing_Skill = "Aiming level 3",
+    ContextMenu_Cleaning_Missing_Kit = "Firearm Cleaning Kit",
+    ContextMenu_Cleaning_Missing_Lube = "Firearm Lubricant",
+    ContextMenu_Cleaning_Missing_Rags = "Ripped Sheets",
+    ContextMenu_Cleaning_Missing_Cleanable = "Weapon is already fully clean and repaired",
 }

@@ -16,7 +16,9 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Holster,
-        MeleeSwap                       = Base.Pistol_Melee,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
+        HFO_MeleeSwap                   = Base.Pistol_Melee,
         /******************** AMMO ********************/
         WeaponReloadType                = handgun,
         AmmoType                        = Base.Bullets9mm,
@@ -26,10 +28,10 @@ module Base
         MaxAmmo                         = 15,
         JamGunChance                    = 0.1,
         ProjectileCount	                = 1,
-        MagBase                         = Base.9mmClip,
-        MagExtSm                        = Base.Mag9ExtSm,
-        MagExtLg                        = Base.Mag9ExtLg,
-        MagDrum                         = Base.Mag9Drum,
+        HFO_MagBase                     = Base.9mmClip,
+        HFO_MagExtSm                    = Base.Mag9ExtSm,
+        HFO_MagExtLg                    = Base.Mag9ExtLg,
+        HFO_MagDrum                     = Base.Mag9Drum,
         /******************** MODIFIERS ********************/
         SwingTime	                    = 0.5,
         MinimumSwingTime	            = 0.5,
@@ -92,7 +94,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS ********************/
-        GunPlatingOptions               = GunPlatingPink;GunPlatingPearl,
+        HFO_GunPlatingOptions           = GunPlatingPink;GunPlatingPearl,
         ModelWeaponPart                 = SuppressorPistol SuppressorPistol barrelend barrelend,
         ModelWeaponPart                 = CompensatorHandgun CompensatorHandgun barrelend barrelend,
         ModelWeaponPart                 = MuzzleBrakeHandgun MuzzleBrakeHandgun barrelend barrelend,
@@ -101,6 +103,7 @@ module Base
         ModelWeaponPart                 = TacticalGrip TacticalGrip grip grip,
         ModelWeaponPart                 = GunLight GunLight gunlight gunlight,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = IronSight IronSight scope scope,
         ModelWeaponPart                 = Laser Laser laser laser,
         ModelWeaponPart                 = Mag9ExtSm Mag9ExtSm drum drum,
@@ -120,7 +123,9 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Holster,
-        MeleeSwap                       = Base.Pistol2_Melee,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
+        HFO_MeleeSwap                   = Base.Pistol2_Melee,
         /******************** AMMO ********************/
         WeaponReloadType                = handgun,
         AmmoType                        = Base.Bullets45,
@@ -130,10 +135,10 @@ module Base
         MaxAmmo                         = 7,
         JamGunChance                    = 0.1,
         ProjectileCount	                = 1,
-        MagBase                         = Base.45Clip,
-        MagExtSm                        = Base.Mag45ExtSm,
-        MagExtLg                        = Base.Mag45ExtLg,
-        MagDrum                         = Base.Mag45Drum,
+        HFO_MagBase                     = Base.45Clip,
+        HFO_MagExtSm                    = Base.Mag45ExtSm,
+        HFO_MagExtLg                    = Base.Mag45ExtLg,
+        HFO_MagDrum                     = Base.Mag45Drum,
         /******************** MODIFIERS ********************/
         SwingTime	                    = 0.5,
         MinimumSwingTime	            = 0.5,
@@ -196,7 +201,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS ********************/
-        GunPlatingOptions               = GunPlatingPatriot;GunPlatingAztec,
+        HFO_GunPlatingOptions           = GunPlatingPatriot;GunPlatingAztec,
         ModelWeaponPart                 = SuppressorPistol SuppressorPistol barrelend barrelend,
         ModelWeaponPart                 = CompensatorHandgun CompensatorHandgun barrelend barrelend,
         ModelWeaponPart                 = MuzzleBrakeHandgun MuzzleBrakeHandgun barrelend barrelend,
@@ -205,6 +210,7 @@ module Base
         ModelWeaponPart                 = TacticalGrip TacticalGrip grip grip,
         ModelWeaponPart                 = GunLight GunLight gunlight gunlight,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = IronSight IronSight scope scope,
         ModelWeaponPart                 = Laser Laser laser laser,
         ModelWeaponPart                 = Mag45Drum Mag45Drum drum drum,
@@ -224,7 +230,9 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Holster,
-        MeleeSwap                       = Base.Pistol3_Melee,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
+        HFO_MeleeSwap                   = Base.Pistol3_Melee,
         /******************** AMMO ********************/
         WeaponReloadType                = handgun,
         AmmoType                        = Base.Bullets44,
@@ -234,9 +242,9 @@ module Base
         MaxAmmo                         = 8,
         JamGunChance                    = 0.1,
         ProjectileCount	                = 1,
-        MagBase                         = Base.44Clip,
-        MagExtSm                        = Base.Mag44ExtSm,
-        MagExtLg                        = Base.Mag44ExtLg,
+        HFO_MagBase                     = Base.44Clip,
+        HFO_MagExtSm                    = Base.Mag44ExtSm,
+        HFO_MagExtLg                    = Base.Mag44ExtLg,
         /******************** MODIFIERS ********************/
         SwingTime	                    = 0.5,
         MinimumSwingTime	            = 0.5,
@@ -299,7 +307,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS ********************/
-        GunPlatingOptions               = GunPlatingGoldDE;GunPlatingMysteryMachine;GunPlatingSalvagedRage,
+        HFO_GunPlatingOptions           = GunPlatingGold;GunPlatingMysteryMachine;GunPlatingMatteBlack,
         ModelWeaponPart                 = SuppressorPistol SuppressorPistol barrelend barrelend,
         ModelWeaponPart                 = CompensatorHandgun CompensatorHandgun barrelend barrelend,
         ModelWeaponPart                 = MuzzleBrakeHandgun MuzzleBrakeHandgun barrelend barrelend,
@@ -308,6 +316,7 @@ module Base
         ModelWeaponPart                 = TacticalGrip TacticalGrip grip grip,
         ModelWeaponPart                 = GunLight GunLight gunlight gunlight,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = IronSight IronSight scope scope,
         ModelWeaponPart                 = Laser Laser laser laser,
         ModelWeaponPart                 = Mag44ExtSm Mag44ExtSm drum drum,
@@ -326,7 +335,9 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 120,
         AttachmentType                  = Holster,
-        MeleeSwap                       = Base.Revolver_Short_Melee,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
+        HFO_MeleeSwap                   = Base.Revolver_Short_Melee,
         /******************** AMMO ********************/
         WeaponReloadType                = revolver,
         AmmoType                        = Base.Bullets38,
@@ -399,6 +410,7 @@ module Base
         /******************** ATTACHMENTS ********************/
         ModelWeaponPart                 = TacticalGrip TacticalGrip grip grip,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = IronSight IronSight scope scope,
     }
 
@@ -414,7 +426,9 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 120,
         AttachmentType                  = Holster,
-        MeleeSwap                       = Base.Revolver_Melee,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
+        HFO_MeleeSwap                   = Base.Revolver_Melee,
         /******************** AMMO ********************/
         WeaponReloadType                = revolver,
         AmmoType                        = Base.Bullets45,
@@ -485,9 +499,10 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS ********************/
-        GunPlatingOptions               = GunPlatingPink,
+        HFO_GunPlatingOptions           = GunPlatingPink,
         ModelWeaponPart                 = TacticalGrip TacticalGrip grip grip,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = IronSight IronSight scope scope,
     }
 
@@ -503,7 +518,9 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 120,
         AttachmentType                  = Holster,
-        MeleeSwap                       = Base.Revolver_Long_Melee,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
+        HFO_MeleeSwap                   = Base.Revolver_Long_Melee,
         /******************** AMMO ********************/
         WeaponReloadType                = revolver,
         AmmoType                        = Base.Bullets44,
@@ -574,9 +591,10 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS ********************/
-        GunPlatingOptions               = GunPlatingGold;GunPlatingNerf,
+        HFO_GunPlatingOptions           = GunPlatingGold;GunPlatingNerf,
         ModelWeaponPart                 = TacticalGrip TacticalGrip grip grip,
         ModelWeaponPart                 = RedDot RedDot reddot reddot,
+        ModelWeaponPart                 = PistolScope PistolScope scope scope,
         ModelWeaponPart                 = IronSight IronSight scope scope,
     }
 
@@ -594,7 +612,9 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
-        MeleeSwap                       = Base.VarmintRifle_Melee,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
+        HFO_MeleeSwap                   = Base.VarmintRifle_Melee,
         /******************** AMMO ********************/
         WeaponReloadType                = boltactionbetter,
         AmmoType                        = Base.223Bullets,
@@ -603,7 +623,8 @@ module Base
         MaxAmmo                         = 4,
         JamGunChance                    = 0.1,
         ProjectileCount	                = 1,
-        AdditionalAmmoType              = Base.556Bullets;Base.ShotgunShells,
+        HFO_AmmoTypeBase                = Base.223Bullets,
+        HFO_AmmoTypeAdditional          = Base.556Bullets,
         /******************** MODIFIERS ********************/
         SwingTime	                    = 0.5,
         MinimumSwingTime	            = 0.5,
@@ -669,7 +690,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS ********************/
-        GunPlatingOptions               = GunPlatingDZ;GunPlatingDarkCherry,
+        HFO_GunPlatingOptions           = GunPlatingDZ;GunPlatingDarkCherry,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
@@ -680,7 +701,6 @@ module Base
         ModelWeaponPart                 = x2Scope x2Scope scope scope,
         ModelWeaponPart                 = x4Scope x4Scope scope scope,       
         ModelWeaponPart                 = x8Scope x8Scope scope scope,  
-        ModelWeaponPart                 = IronSight IronSight scope2 scope2,
         ModelWeaponPart                 = SuppressorRifle SuppressorRifle barrelend barrelend,
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
         ModelWeaponPart                 = ButtStockWrap ButtStockWrap buttstock buttstock,
@@ -698,7 +718,9 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
-        MeleeSwap                       = Base.HuntingRifle_Melee,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
+        HFO_MeleeSwap                   = Base.HuntingRifle_Melee,
         /******************** AMMO ********************/
         WeaponReloadType                = boltactionbetter,
         AmmoType                        = Base.308Bullets,
@@ -707,10 +729,8 @@ module Base
         MaxAmmo                         = 3,
         JamGunChance                    = 0.1,
         ProjectileCount	                = 1,
-        OriginalAmmoType                = Base.308Bullets,
-        AdditionalAmmoTypes             = Base.762x51Bullets;Base.ShotgunShells,
-        MagBase                         = Base.308Clip,
-        MagExtSm                        = Base.Mag308ExtSm,
+        HFO_MagBase                     = Base.308Clip,
+        HFO_MagExtSm                    = Base.Mag308ExtSm,
         /******************** MODIFIERS ********************/
         SwingTime	                    = 0.5,
         MinimumSwingTime	            = 0.5,
@@ -776,7 +796,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS ********************/
-        GunPlatingOptions               = GunPlatingDZ;GunPlatingDarkCherry,
+        HFO_GunPlatingOptions           = GunPlatingDZ;GunPlatingDarkCherry,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
         ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = PEMScope PEMScope scope scope,
@@ -787,7 +807,6 @@ module Base
         ModelWeaponPart                 = x2Scope x2Scope scope scope,
         ModelWeaponPart                 = x4Scope x4Scope scope scope,       
         ModelWeaponPart                 = x8Scope x8Scope scope scope,  
-        ModelWeaponPart                 = IronSight IronSight scope2 scope2,
         ModelWeaponPart                 = SuppressorRifle SuppressorRifle barrelend barrelend,
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
         ModelWeaponPart                 = ButtStockWrap ButtStockWrap buttstock buttstock,
@@ -808,7 +827,7 @@ module Base
         AttachmentType                  = Rifle,
         FireMode                        = Single,
         FireModePossibilities           = Single/CustomBurst/FullAuto,
-        MeleeSwap                       = Base.AssaultRifle_Melee,
+        HFO_MeleeSwap                   = Base.AssaultRifle_Melee,
         /******************** AMMO ********************/
         WeaponReloadType                = boltaction,
         AmmoType                        = Base.556Bullets,
@@ -818,9 +837,6 @@ module Base
         MaxAmmo                         = 30,
         JamGunChance                    = 0.1,
         ProjectileCount	                = 1,
-        AdditionalAmmoType              = Base.223Bullets,
-        MagBase                         = Base.556Clip,
-        MagExtSm                        = ,
         /******************** MODIFIERS ********************/
         SwingTime	                    = 0.5,
         MinimumSwingTime	            = 0.5,
@@ -885,6 +901,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS ********************/
+        HFO_GunPlatingOptions           = GunPlatingGold;GunPlatingPARP;GunPlatingSD;GunPlatingDOTD,
         ModelWeaponPart                 = VertGrip VertGrip foregrip foregrip,
         ModelWeaponPart                 = AngleGrip AngleGrip anglegrip anglegrip,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,
@@ -905,7 +922,6 @@ module Base
         ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
         ModelWeaponPart                 = x2Scope x2Scope scope scope,
         ModelWeaponPart                 = x4Scope x4Scope scope scope,
-        ModelWeaponPart                 = IronSight IronSight scope2 scope2,
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
     }
 
@@ -922,7 +938,8 @@ module Base
         ConditionLowerChanceOneIn	    = 150,
         AttachmentType                  = Rifle,
         FireMode                        = Single,
-        MeleeSwap                       = Base.AssaultRifle2_Melee,
+        FireModePossibilities           = Single,
+        HFO_MeleeSwap                   = Base.AssaultRifle2_Melee,
         /******************** AMMO ********************/
         WeaponReloadType                = boltaction,
         AmmoType                        = Base.308Bullets,
@@ -999,6 +1016,7 @@ module Base
         ModelWeaponPart                 = Bayonnet Bayonnet bayonet bayonet,
         ModelWeaponPart                 = BayonetImprovised BayonetImprovised bayonet bayonet,
         ModelWeaponPart                 = SuppressorRifle SuppressorRifle barrelend barrelend,
+        ModelWeaponPart                 = ACOG ACOG scope scope,
         ModelWeaponPart                 = ProOpticScope ProOpticScope scope scope,   
         ModelWeaponPart                 = HoloSight HoloSight scope scope,
         ModelWeaponPart                 = ReflexSight ReflexSight scope scope,     
@@ -1008,7 +1026,6 @@ module Base
         ModelWeaponPart                 = x2Scope x2Scope scope scope,
         ModelWeaponPart                 = x4Scope x4Scope scope scope,
         ModelWeaponPart                 = x8Scope x8Scope scope scope,
-        ModelWeaponPart                 = IronSight IronSight scope2 scope2,
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
         ModelWeaponPart                 = ButtStockWrap ButtStockWrap buttstock buttstock,
     }
@@ -1027,7 +1044,9 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 100,
         AttachmentType                  = Rifle,
-        MeleeSwap                       = Base.Shotgun_Melee,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
+        HFO_MeleeSwap                   = Base.Shotgun_Melee,
         /******************** AMMO ********************/
         WeaponReloadType                = shotgun,
         AmmoType                        = Base.ShotgunShells,
@@ -1036,7 +1055,8 @@ module Base
         ClipSize                        = 6,
         JamGunChance                    = 0.2,
         ProjectileCount	                = 5,
-        AdditionalAmmoType              = Base.ShotgunShellsBirdshot;Base.ShotgunShellsSlug,
+        HFO_AmmoTypeBase                = Base.ShotgunShells,
+        HFO_AmmoTypeAdditional          = Base.ShotgunShellsBirdshot;Base.ShotgunShellsSlug,
         /******************** MODIFIERS ********************/
         SwingTime	                    = 2,
         MinimumSwingTime	            = 2,
@@ -1104,7 +1124,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS ********************/
-        GunPlatingOptions               = GunPlatingTBD,
+        HFO_GunPlatingOptions           = GunPlatingPurple,
         ModelWeaponPart                 = VertGrip VertGrip foregrip foregrip,
         ModelWeaponPart                 = ShellHolder ShellHolder stock stock, 
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
@@ -1112,7 +1132,7 @@ module Base
         ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
     }
 
-	item DoubleBarrelShotgun
+    item DoubleBarrelShotgun
     {
         DisplayCategory                 = Weapon,
         SubCategory	                    = Firearm,
@@ -1124,7 +1144,9 @@ module Base
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 100,
         AttachmentType                  = Rifle,
-        MeleeSwap                       = Base.DoubleBarrelShotgun_Melee,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
+        HFO_MeleeSwap                   = Base.DoubleBarrelShotgun_Melee,
         /******************** AMMO ********************/
         WeaponReloadType                = doublebarrelshotgun,
         AmmoType                        = Base.ShotgunShells,
@@ -1132,6 +1154,8 @@ module Base
         MaxAmmo                         = 2,
         JamGunChance                    = 0,
         ProjectileCount	                = 5,
+        HFO_AmmoTypeBase                = Base.ShotgunShells,
+        HFO_AmmoTypeAdditional          = Base.ShotgunShellsBirdshot;Base.ShotgunShellsSlug,
         /******************** MODIFIERS ********************/
         SwingTime	                    = 2,
         MinimumSwingTime	            = 2,
@@ -1200,7 +1224,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS ********************/
-        GunPlatingOptions               = GunPlatingBespokeEngraved,
+        HFO_GunPlatingOptions           = GunPlatingBespokeEngraved,
         ModelWeaponPart                 = VertGrip VertGrip foregrip foregrip,
         ModelWeaponPart                 = ShellHolder ShellHolder stock stock, 
         ModelWeaponPart                 = RecoilPad RecoilPad recoilpad recoilpad,
@@ -1212,13 +1236,15 @@ module Base
         SubCategory	                    = Firearm,
         Weight	                        = 2.0,
         Type	                        = Weapon,
-        DisplayName	                    = Remington Model 870 Sawnoff Shotgun,
+        DisplayName	                    = Remington Model 870 Sawn-Off Shotgun,
         Icon	                        = ShotgunSawnOff,
         WeaponSprite	                = ShotgunSawnOffNew,
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 100,
         AttachmentType                  = Holster,
-        MeleeSwap                       = Base.ShotgunSawnoff_Melee,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
+        HFO_MeleeSwap                   = Base.ShotgunSawnoff_Melee,
         /******************** AMMO ********************/
         WeaponReloadType                = shotgun,
         AmmoType                        = Base.ShotgunShells,
@@ -1227,6 +1253,8 @@ module Base
         ClipSize                        = 6,
         JamGunChance                    = 0.2,
         ProjectileCount	                = 5,
+        HFO_AmmoTypeBase                = Base.ShotgunShells,
+        HFO_AmmoTypeAdditional          = Base.ShotgunShellsBirdshot;Base.ShotgunShellsSlug,
         /******************** MODIFIERS ********************/
         SwingTime	                    = 2,
         MinimumSwingTime	            = 2,
@@ -1295,25 +1323,27 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS ********************/
-        GunPlatingOptions               = GunPlatingTBD,
+        HFO_GunPlatingOptions           = GunPlatingPurple,
         ModelWeaponPart                 = VertGrip VertGrip foregrip foregrip,
         ModelWeaponPart                 = WeaponLight WeaponLight side side,
         ModelWeaponPart                 = WeaponLightMedium WeaponLightMedium side side,
     }
 
-	item DoubleBarrelShotgunSawnoff
+    item DoubleBarrelShotgunSawnoff
     {
         DisplayCategory                 = Weapon,
         SubCategory	                    = Firearm,
         Weight	                        = 2.1,
         Type	                        = Weapon,
-        DisplayName	                    = Remington SPR 220 Sawnoff Shotgun,
+        DisplayName	                    = Remington SPR 220 Sawn-Off Shotgun,
         Icon	                        = DoubleBarrelShotgunSawnoff,
         WeaponSprite	                = ShotgunDoubleBarrelSawnNew, 
         ConditionMax	                = 25,
         ConditionLowerChanceOneIn	    = 100,
         AttachmentType                  = Holster,
-        MeleeSwap                       = Base.DoubleBarrelShotgunSawnoff_Melee,
+        FireMode                        = Single,
+        FireModePossibilities           = Single,
+        HFO_MeleeSwap                   = Base.DoubleBarrelShotgunSawnoff_Melee,
         /******************** AMMO ********************/
         WeaponReloadType                = doublebarrelshotgunsawn,
         AmmoType                        = Base.ShotgunShells,
@@ -1321,6 +1351,8 @@ module Base
         MaxAmmo                         = 2,
         JamGunChance                    = 0,
         ProjectileCount	                = 5,
+        HFO_AmmoTypeBase                = Base.ShotgunShells,
+        HFO_AmmoTypeAdditional          = Base.ShotgunShellsBirdshot;Base.ShotgunShellsSlug,
         /******************** MODIFIERS ********************/
         SwingTime	                    = 2,
         MinimumSwingTime	            = 2,
@@ -1390,7 +1422,7 @@ module Base
         ShareDamage	                    = FALSE,
         UseEndurance	                = FALSE,
         /******************** ATTACHMENTS ********************/
-        GunPlatingOptions               = GunPlatingBespokeEngraved,
+        HFO_GunPlatingOptions           = GunPlatingBespokeEngraved,
         ModelWeaponPart                 = VertGrip VertGrip foregrip foregrip,
     }
 }

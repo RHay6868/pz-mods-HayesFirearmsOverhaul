@@ -22,7 +22,8 @@ HFO_Tooltip = {
         ShowGunPlating = true
     },
     StatPairs = {},
-    Expanded = false
+    Expanded = false,
+    AlwaysExpanded = false
 }
 
 -- Fix for the initStats function in HFO_Tooltip to use display values
@@ -61,34 +62,45 @@ function HFO_Tooltip:initStats(item)
     if self.Expanded then
         -- Define stats order with numeric values for sorting priority
         local statsOrder = {
-            ["Damage"] = 1,
-            ["Range"] = 2,
-            ["Jam Chance"] = 3,
-            ["Hit Chance"] = 4,
-            ["Critical Chance"] = 5,
-            ["Recoil Delay"] = 6,
-            ["Firing Cone"] = 7,
-            ["Aiming Speed"] = 8,
-            ["Reload Speed"] = 9,
-            ["Sound Radius"] = 10,
-            ["Suppressor"] = 11,
+            ["Damage"] = {order = 1, option = "ShowDamage"},
+            ["Range"] = {order = 2, option = "ShowRange"},
+            ["Max Hits"] = {order = 3, option = "ShowMaxHits"},
+            ["Projectile Count"] = {order = 4, option = "ShowProjectileCount"},
+            ["Jam Chance"] = {order = 5, option = "ShowJamChance"},
+            ["Hit Chance"] = {order = 6, option = "ShowHitChance"},
+            ["Critical Chance"] = {order = 7, option = "ShowCriticalChance"},
+            ["Recoil Delay"] = {order = 8, option = "ShowRecoilDelay"},
+            ["Firing Cone"] = {order = 9, option = "ShowFiringCone"},
+            ["Aiming Speed"] = {order = 10, option = "ShowAimingSpeed"},
+            ["Reload Speed"] = {order = 11, option = "ShowReloadSpeed"},
+            ["Sound Radius"] = {order = 12, option = "ShowSoundRadius"},
+            ["Suppressor"] = {order = 13, option = "ShowSuppressor"},
         }
         
-        -- Create a temporary array to hold stats for sorting
+         -- Create a temporary array to hold stats for sorting
         local orderedStats = {}
         
-        -- Collect all allowed stats
+        -- Collect all allowed stats that are visible
         for _, stat in ipairs(stats) do
             local label = stat.label
-            if statsOrder[label] then
-                table.insert(orderedStats, {
-                    order = statsOrder[label],
-                    label = label,
-                    value = stat.formatted or stat.value
-                })
+            local statConfig = statsOrder[label]
+            if statConfig then
+                -- Check if this stat should be visible
+                local isVisible = true
+                if HFO and HFO.Options and statConfig.option then
+                    isVisible = HFO.Options[statConfig.option]
+                end
+                
+                if isVisible then
+                    table.insert(orderedStats, {
+                        order = statConfig.order,
+                        label = label,
+                        value = stat.formatted or stat.value
+                    })
+                end
             end
         end
-        
+            
         -- Sort by our predefined order
         table.sort(orderedStats, function(a, b) 
             return a.order < b.order 
@@ -102,18 +114,23 @@ function HFO_Tooltip:initStats(item)
             })
         end
 
-        -- Separator
-        table.insert(self.StatPairs, {label = " ", value = " "})
-        table.insert(self.StatPairs, {
-            label = "Press [Shift+E]",
-            value = "to collapse"
-        })
-        table.insert(self.StatPairs, {label = " ", value = " "})
+        -- Only show collapse instruction if NOT always expanded
+        if not self.AlwaysExpanded then
+            table.insert(self.StatPairs, {label = " ", value = " "})
+            table.insert(self.StatPairs, {
+                label = "Press [Shift+E]",
+                value = "to collapse"
+            })
+            table.insert(self.StatPairs, {label = " ", value = " "})
+        end
     else
-        table.insert(self.StatPairs, {
-            label = "Press [Shift+E]",
-            value = "to expand"
-        })
+        -- Only show expand instruction if NOT always expanded
+        if not self.AlwaysExpanded then
+            table.insert(self.StatPairs, {
+                label = "Press [Shift+E]",
+                value = "to expand"
+            })
+        end
     end
 
     return true
@@ -295,6 +312,20 @@ end
 -- Add keyboard toggle
 Events.OnKeyPressed.Add(function(key)
     if key == Keyboard.KEY_E and isKeyDown(Keyboard.KEY_LSHIFT) then
-        HFO_Tooltip.Expanded = not HFO_Tooltip.Expanded
+        -- Don't allow toggling if always expanded
+        if not HFO_Tooltip.AlwaysExpanded then
+            HFO_Tooltip.Expanded = not HFO_Tooltip.Expanded
+        end
     end
+end)
+
+Events.OnGameStart.Add(function()
+    if HFO and HFO.Options then
+        HFO_Tooltip.AlwaysExpanded = HFO.Options.AlwaysExpandedTooltips or false
+        
+        if HFO_Tooltip.AlwaysExpanded then
+            HFO_Tooltip.Expanded = true
+        end
+    end
+    print("HFO: Tooltip options initialized")
 end)

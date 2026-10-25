@@ -106,12 +106,15 @@ function ISAmmoSwapAction:perform()
         if nextAmmoType == "Base.ShotgunShells" then
             result:setProjectileCount(weaponProjectileCount)
             result:setMaxHitCount(weaponMaxHitCount)
+            result:setPiercingBullets(false)
         elseif nextAmmoType == "Base.ShotgunShellsBirdshot" then
             result:setProjectileCount(weaponProjectileCount + 3)
             result:setMaxHitCount(weaponMaxHitCount + 2)
+            result:setPiercingBullets(false)
         elseif nextAmmoType == "Base.ShotgunShellsSlug" then
             result:setProjectileCount(1)
             result:setMaxHitCount(1)
+            result:setPiercingBullets(true)
         end
 
         md.HFO_currentAmmoType = nextAmmoType

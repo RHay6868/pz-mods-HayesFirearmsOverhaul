@@ -1,4 +1,18 @@
--- gun things 3: the crrangedabbening
+--============================================================--
+--                BWTweaks: Attachment Switches               --
+--============================================================--
+-- Author: bikinihorst
+-- Purpose:
+--   Context-menu toggles to swap installed attachments on a weapon.
+--   Lets modders define pairs of parts (A/B) and switch between them
+--   without redefining the whole item.
+-- Used by:
+--   Hayes Firearms Overhaul (HFO) – integration layer only; logic here
+--   remains authored by bikinihorst.
+-- License / Permissions:
+--   Used with permission of the author. All rights reserved by bikinihorst.
+--============================================================--
+
 
 BWTweaks = BWTweaks or {};
 

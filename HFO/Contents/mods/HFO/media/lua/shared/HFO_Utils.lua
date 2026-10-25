@@ -31,10 +31,11 @@
 --   - All public functions are exposed under `HFO.Utils`
 --============================================================--
 
+
 HFO = HFO or {}
 HFO.Utils = HFO.Utils or {}
 
-HFO.Utils.DATA_VERSION = 1
+HFO.Utils.DATA_VERSION = 2
 
 ---===========================================---
 --          DEBUG TESTING LOG PRINTS           --
@@ -63,13 +64,12 @@ end
 
 
 ---===========================================---
-<<<<<<< Updated upstream
-=======
 --         OLD MODDATA MIGRATION PROCESS       --
 ---===========================================---
 
 function HFO.Utils.migrateModData(item)
     if not item or not item.getModData then return false end
+    if not HFO.Utils.isAimedFirearm(item) then return false end
     
     local md = item:getModData()
     if not md or md.HFO_Migrated then return false end
@@ -100,24 +100,26 @@ function HFO.Utils.initializeNewModData(item)
     if not item or not item.getModData then 
         return false 
     end
+
+    if not HFO.Utils.isAimedFirearm(item) then return false end
     
     local md = item:getModData()
     if md.HFO_DataVersion == HFO.Utils.DATA_VERSION then 
         return false 
     end
-    
+
     local freshItem = InventoryItemFactory.CreateItem(item:getFullType())
     if not freshItem then 
         return false 
     end
-    
+
     local freshMd = freshItem:getModData()
     local fieldsToCheck = {
         "HFO_AmmoTypeBase",
         "HFO_AmmoTypeAdditional", 
         "HFO_GunPlatingOptions"
     }
-    
+
     local updated = false
     for _, field in ipairs(fieldsToCheck) do
         if freshMd[field] and not md[field] then
@@ -126,13 +128,13 @@ function HFO.Utils.initializeNewModData(item)
             updated = true
         end
     end
-    
-    if updated then
-        md.HFO_DataVersion = HFO.Utils.DATA_VERSION
-        HFO.Utils.debugLog("DEBUG: Updated to version " .. tostring(HFO.Utils.DATA_VERSION))
-    end
-    
-    return updated
+
+    -- ALWAYS update the version number when this function runs
+    -- This prevents "forever update button" issue
+    md.HFO_DataVersion = HFO.Utils.DATA_VERSION
+    HFO.Utils.debugLog("DEBUG: Updated to version " .. tostring(HFO.Utils.DATA_VERSION))
+
+    return true  -- Always return true since we updated the version
 end
 
 ---===========================================---
@@ -143,7 +145,7 @@ function HFO.Utils.storePreSwapStats(weapon)
     if not weapon or not instanceof(weapon, "HandWeapon") or not weapon:isAimedFirearm() then return end
     local md = weapon:getModData()
     if md.HFO_PreSwapStats then 
-        --HFO.Utils.debugLog("Baseline already exists, skipping")
+        HFO.Utils.debugLog("Baseline already exists, skipping")
         return 
     end
 
@@ -185,7 +187,6 @@ end
 
 
 ---===========================================---
->>>>>>> Stashed changes
 --       CYCLE THROUGH INDEX OF OPTIONS        --
 ---===========================================---
 
@@ -353,8 +354,8 @@ end
 function HFO.Utils.isInMeleeMode(weapon) -- At times need to handle situations when firearms are in melee mode
     if not weapon then return false end
     local md = weapon:getModData()
-    local result = not weapon:isRanged() and md and md.MeleeSwap ~= nil
-    HFO.Utils.debugLog("isInMeleeMode for " .. tostring(weapon:getFullType()) .. ": " .. tostring(result))
+    local result = not weapon:isRanged() and md and md.HFO_MeleeSwap ~= nil
+    --HFO.Utils.debugLog("isInMeleeMode for " .. tostring(weapon:getFullType()) .. ": " .. tostring(result))
     return result
 end
 
@@ -384,11 +385,11 @@ function HFO.Utils.applySuffixToWeaponName(weapon, suffixType)
     local md  = weapon:getModData()
 
     -- Preserve original name if not already set
-    if not md.currentName then
-        md.currentName = HFO.Utils.sanitizeWeaponName(weapon:getName())
+    if not md.HFO_currentName then
+        md.HFO_currentName = HFO.Utils.sanitizeWeaponName(weapon:getName())
     end
 
-    local baseName = HFO.Utils.sanitizeWeaponName(md.currentName)
+    local baseName = HFO.Utils.sanitizeWeaponName(md.HFO_currentName)
     local suffix   = HFO.Utils.getSuffix(suffixType or weapon:getType())
     local newName  = baseName .. suffix
 
@@ -407,6 +408,7 @@ function HFO.Utils.applyWeaponStats(weapon, result, isMelee)
 
     result:setHaveBeenRepaired(weapon:getHaveBeenRepaired())
     result:setFireMode(weapon:getFireMode())
+    result:setCondition(weapon:getCondition())
 
     if weapon:isContainsClip() ~= nil then
         result:setContainsClip(weapon:isContainsClip())
@@ -417,31 +419,31 @@ function HFO.Utils.applyWeaponStats(weapon, result, isMelee)
         result:setCurrentAmmoCount(weapon:getCurrentAmmoCount())
     end
 
-    result:setCondition(weapon:getCondition())
-
-    md.LightOn = weaponModData.LightOn == true
+    md.HFO_LightOn = weaponModData.HFO_LightOn == true
 
     -- Only apply melee logic if EXPLICITLY told it's a melee variant
     if isMelee then
         local scriptItem  = result:getScriptItem()
-        local meleeRange  = scriptItem and scriptItem:getMaxRange() or result:getMaxRange()
-        local maxDamage   = result:getMaxDamage()
-        local minDamage   = result:getMinDamage()
+        local meleeRange  = scriptItem and scriptItem:getMaxRange()  or result:getMaxRange()
+        local maxDamage   = scriptItem and scriptItem:getMaxDamage() or result:getMaxDamage()
+        local minDamage   = scriptItem and scriptItem:getMinDamage() or result:getMinDamage()
+        local minAngle    = scriptItem and scriptItem:getMinAngle()  or result:getMinAngle()
         local critChance  = result:getCriticalChance()
         local impactSound = result:getImpactSound()
 
         local canon = result:getCanon()
         if canon and (string.find(canon:getType(), "Bayonnet") or string.find(canon:getType(), "Bayonet")) then
-            maxDamage     = 1
-            minDamage     = 0.6
-            critChance    = 10
-            meleeRange    = meleeRange + 0.4
-            impactSound   = "HuntingKnifeHit"
+            maxDamage   = 1
+            minDamage   = 0.6
+            critChance  = 10
+            meleeRange  = meleeRange + 0.4
+            impactSound = "HuntingKnifeHit"
         end
 
         result:setMaxRange(meleeRange)
         result:setMaxDamage(maxDamage)
         result:setMinDamage(minDamage)
+        result:setMinAngle(minAngle)
         result:setCriticalChance(critChance)
         result:setImpactSound(impactSound)
     end
@@ -515,30 +517,33 @@ end
 
 function HFO.Utils.handleWeaponChamber(weapon, result, isToMelee)
     local wasChambered = weapon:haveChamber() and weapon:isRoundChambered()
-    weapon:getModData().HFO_WasChambered = wasChambered
     
-    if result:haveChamber() then
-        if not isToMelee and result:isAimedHandWeapon() then
-            result:setRoundChambered(wasChambered)
-        else
-            result:setRoundChambered(false) -- Melee mode or fallback case
+    if isToMelee then
+        -- Going TO melee: store the ranged weapon's chambered state for later
+        weapon:getModData().HFO_WasChambered = wasChambered
+        if result:haveChamber() then
+            result:setRoundChambered(false)
+        end
+    else
+        -- Going TO ranged: restore the original chambered state
+        if result:haveChamber() then
+            local storedChamberedState = weapon:getModData().HFO_WasChambered
+            if storedChamberedState ~= nil then
+                result:setRoundChambered(storedChamberedState)
+            else
+                result:setRoundChambered(wasChambered)
+            end
         end
     end
     
-    return wasChambered -- Return this in case the caller needs it
+    return wasChambered
 end
 
 
 ---===========================================---
---      CACHE AND RESTORE CUSTOM MOD DATA      --
+--        DYNAMIC HANDLING OF VARIANTS         --
 ---===========================================---
 
-<<<<<<< Updated upstream
--- Will be updated more thoroughly but currently makes sure we dont miss HFO data on swaps
-function HFO.Utils.cachedHFOModData(obj)
-	local md = obj:getModData()
-	local cache = {}
-=======
 -- instead of hardcoding stat changes in item script adding in chages here for _Bipod, _Folded, _Grip, _Extended, and _GripExtended
 function HFO.Utils.applyVariantModifications(weapon)
     if not weapon or not HFO.Utils.isAimedFirearm(weapon) then return end
@@ -554,24 +559,85 @@ function HFO.Utils.applyVariantModifications(weapon)
             break
         end
     end
->>>>>>> Stashed changes
 
-	for _, key in ipairs(HFO.Constants.TrackedModData) do
-		cache[key] = md[key]
-	end
-
-	return cache
+    -- EXCLUDE MELEE VARIANTS - they're handled separately
+    if weaponType:find("_Melee") then
+        md.HFO_VariantApplied = true
+        return
+    end
+    
+    -- If no variant found, it's a base weapon - no modifications needed
+    if not variantSuffix then
+        md.HFO_VariantApplied = true
+        return
+    end
+    
+    local mods = HFO.Constants.VariantModifications[variantSuffix]
+    
+    -- Apply each modification
+    if mods.aimingTime then weapon:setAimingTime(weapon:getAimingTime() + mods.aimingTime) end
+    if mods.reloadTime then weapon:setReloadTime(weapon:getReloadTime() + mods.reloadTime) end
+    if mods.recoilDelay then weapon:setRecoilDelay(weapon:getRecoilDelay() + mods.recoilDelay) end
+    if mods.maxRange then weapon:setMaxRange(weapon:getMaxRange() + mods.maxRange) end
+    if mods.minAngle then weapon:setMinAngle(weapon:getMinAngle() + mods.minAngle) end
+    if mods.hitChance then weapon:setHitChance(weapon:getHitChance() + mods.hitChance) end
+    if mods.criticalChance then weapon:setCriticalChance(weapon:getCriticalChance() + mods.criticalChance) end
+    
+    md.HFO_VariantApplied = true
+    md.HFO_VariantType = variantSuffix
+    
+    HFO.Utils.debugLog("Applied " .. variantSuffix .. " modifications to " .. weapon:getDisplayName())
 end
 
-function HFO.Utils.restoreHFOModData(result, cache)
-	if not cache then return end
-	local md = result:getModData()
+---===========================================---
+--            CAPTURE NON-HFO MODDATA          --
+---===========================================---
 
-	for _, key in ipairs(HFO.Constants.TrackedModData) do
-		if cache[key] ~= nil then
-			md[key] = cache[key]
-		end
-	end
+-- My attempt to be modder friendly to intentionally make sure to track outside moddata across swaps
+function HFO.Utils.captureExternalModData(weapon)
+    local allModData = weapon:getModData()
+    local externalModData = {}
+    
+    for key, value in pairs(allModData) do
+        if not string.match(key, "^HFO_") then
+            externalModData[key] = value
+        end
+    end
+
+    return externalModData
+end
+
+
+---===========================================---
+--         PINPOINT MODDATA TRANSFERRING       --
+---===========================================---
+
+function HFO.Utils.smartDataTransfer(weapon, result)
+    local weaponMD = weapon:getModData()
+    local resultMD = result:getModData()
+    
+    -- Capture external data FIRST (before any HFO changes)
+    local externalData = HFO.Utils.captureExternalModData(weapon)
+    
+    -- Copy only the modData that should persist across swaps
+    local persistentKeys = {
+        "HFO_currentName", "HFO_LightOn", "HFO_Migrated", "HFO_PreSwapStats", "HFO_GunPlatingOptions",
+        "HFO_GunPlating", "HFO_GunBaseModel", "HFO_AdminEdited", "HFO_currentMagType", "HFO_currentAmmoType",
+    }
+
+    for _, key in ipairs(persistentKeys) do
+        if weaponMD[key] ~= nil then
+            resultMD[key] = weaponMD[key]
+        end
+    end
+    
+    -- Apply variant modifications now that HFO data is in place
+    HFO.Utils.applyVariantModifications(result)
+    
+    -- Apply external data LAST (so other mods can override HFO if needed)
+    for key, value in pairs(externalData) do
+        resultMD[key] = value
+    end
 end
 
 
@@ -581,22 +647,12 @@ end
 
 -- Where we grab our HFO data, copy all other moddata, reapply our HFO data and finishing our updated weapon 
 function HFO.Utils.finalizeWeaponSwap(player, weapon, result) 
-
-	local cached = HFO.Utils.cachedHFOModData(result)
-	HFO.Utils.debugLog("Cached MeleeSwap: " .. tostring(cached and cached.MeleeSwap or "nil"))
-
-    -- Preserve all existing modData
-    result:copyModData(weapon:getModData()) 
-
-    HFO.Utils.debugLog("restoreHFOModData")
-	HFO.Utils.restoreHFOModData(result, cached)  -- restore the cached modData for HFO mechanics
-    HFO.Utils.debugLog(">>> Running finalizeWeaponSwap")
-
+    HFO.Utils.smartDataTransfer(weapon, result) 
     BWTweaks:checkForModelChange(result)
     HFO.Utils.handleEquippedWeapon(player, weapon, result)
-    HFO.Utils.checkHotbar(weapon, result)
     player:getInventory():AddItem(result)
     player:getInventory():DoRemoveItem(weapon)
+    HFO.Utils.checkHotbar(weapon, result)
 end
 
 
@@ -634,34 +690,91 @@ function HFO.Utils.getMagazineInfoMaps(md)
     local iconMap = {}
     local typeMap = {} 
 
-    if md.MagBase then
-        nameMap[md.MagBase] = getText("IGUI_HFO_DefaultMag")
-        iconMap[md.MagBase] = "HFO_swap_base"
-        typeMap[md.MagBase] = md.MagBase
+    if md.HFO_MagBase then
+        nameMap[md.HFO_MagBase] = getText("IGUI_HFO_DefaultMag")
+        iconMap[md.HFO_MagBase] = "HFO_swap_base"
+        typeMap[md.HFO_MagBase] = md.HFO_MagBase
     end
 
-    if md.MagExtSm then
-        nameMap[md.MagExtSm] = getText("IGUI_HFO_ExtSm")
-        iconMap[md.MagExtSm] = "HFO_swap_sm"
-        typeMap[md.MagExtSm] = md.MagExtSm
+    if md.HFO_MagExtSm then
+        nameMap[md.HFO_MagExtSm] = getText("IGUI_HFO_ExtSm")
+        iconMap[md.HFO_MagExtSm] = "HFO_swap_sm"
+        typeMap[md.HFO_MagExtSm] = md.HFO_MagExtSm
     end
 
-    if md.MagExtLg then
-        nameMap[md.MagExtLg] = getText("IGUI_HFO_ExtLg")
-        iconMap[md.MagExtLg] = "HFO_swap_lg"
-        typeMap[md.MagExtLg] = md.MagExtLg
+    if md.HFO_MagExtLg then
+        nameMap[md.HFO_MagExtLg] = getText("IGUI_HFO_ExtLg")
+        iconMap[md.HFO_MagExtLg] = "HFO_swap_lg"
+        typeMap[md.HFO_MagExtLg] = md.HFO_MagExtLg
     end
 
-    if md.MagDrum then
-        nameMap[md.MagDrum] = getText("IGUI_HFO_Drum")
-        iconMap[md.MagDrum] = "HFO_swap_drum"
-        typeMap[md.MagDrum] = md.MagDrum
+    if md.HFO_MagDrum then
+        nameMap[md.HFO_MagDrum] = getText("IGUI_HFO_Drum")
+        iconMap[md.HFO_MagDrum] = "HFO_swap_drum"
+        typeMap[md.HFO_MagDrum] = md.HFO_MagDrum
     end
 
     return {
         nameMap = nameMap,
         iconMap = iconMap,
         typeMap = typeMap 
+    }
+end
+
+
+---===========================================---
+--               AMMO INFO MAPS                --
+---===========================================---
+
+-- Get ammo display info for radial menus (following magazine pattern)
+function HFO.Utils.getAmmoInfoMaps(weapon)
+    if not weapon then return {} end
+    
+    local availableAmmoTypes = HFO.ReloadUtils.getAvailableAmmoTypes(getSpecificPlayer(0), weapon)
+    local nameMap = {}
+    local iconMap = {}
+    
+    for _, ammoType in ipairs(availableAmmoTypes) do
+        -- Try to get custom names first, then fall back to item display name
+        local displayName = nil
+        local iconName = nil
+        
+        -- Custom names and icons for common ammo types
+        if ammoType == "Base.ShotgunShells" then
+            displayName = getText("IGUI_HFO_Buckshot") or "Buckshot"
+            iconName = "Item_Rounds12GaugeBuck"
+        elseif ammoType == "Base.ShotgunShellsBirdshot" then
+            displayName = getText("IGUI_HFO_Birdshot") or "Birdshot"
+            iconName = "Item_Rounds12GaugeBirdshot"
+        elseif ammoType == "Base.ShotgunShellsSlug" then
+            displayName = getText("IGUI_HFO_Slug") or "Slug"
+            iconName = "Item_Rounds12GaugeSlug"
+        elseif ammoType == "Base.CrossbowBolt" then
+            displayName = getText("IGUI_HFO_MetalBolt") or "Metal Bolt"
+            iconName = "Item_RoundsCrossbowBolt"
+        elseif ammoType == "Base.WoodCrossbowBolt" then
+            displayName = getText("IGUI_HFO_WoodBolt") or "Wood Bolt"
+            iconName = "Item_RoundsWoodCrossbowBolt"
+        elseif ammoType == "Base.223Bullets" then
+            displayName = getText("IGUI_HFO_223") or ".223 Round"
+            iconName = "Item_Rounds223"
+        elseif ammoType == "Base.556Bullets" then
+            displayName = getText("IGUI_HFO_556") or "5.56 Round"
+            iconName = "Item_Rounds556"
+        else
+            -- Fallback to item script info
+            local item = getScriptManager():FindItem(ammoType)
+            displayName = item and item:getDisplayName() or ammoType
+            iconName = item and item:getIcon() or "Bullets"
+        end
+        
+        nameMap[ammoType] = displayName
+        iconMap[ammoType] = iconName
+    end
+    
+    return {
+        nameMap = nameMap,
+        iconMap = iconMap
     }
 end
 
@@ -722,6 +835,12 @@ function HFO.Utils.getDisplayNameFromFullType(fullType)
     return fullType
 end
 
+function HFO.Utils.stripWeaponPrefix(name)
+    if not name or type(name) ~= "string" then return name end
+       local withoutPrefix = name:match("^%S+%s+(.+)")
+    return withoutPrefix or name
+end
+
 -- Skip suffix on [Melee] [Bipod] [Folded] and other variants for streamlined mount on list
 function HFO.Utils.shouldSkipSuffix(fullType)
     if not fullType then return false end
@@ -742,12 +861,44 @@ function HFO.Utils.getValidMagazineTypes(weapon)
     local md = weapon:getModData() or {}
     return {
         weapon:getMagazineType(),
-        md.MagExtSm or "",
-        md.MagExtLg or "",
-        md.MagDrum or "",
-        md.MagBase or ""
+        md.HFO_MagExtSm or "",
+        md.HFO_MagExtLg or "",
+        md.HFO_MagDrum or "",
+        md.HFO_MagBase or ""
     }
 end
+
+
+-- Get the correct projectile count considering weapon type and current ammo
+function HFO.Utils.getCorrectProjectileCount(weapon)
+    if not weapon then return 1 end
+    
+    -- Get baseline projectile count from lookup table
+    local baselineCount = HFO.Constants.WeaponProjectileCounts[weapon:getFullType()]
+    if not baselineCount then
+        -- Fallback to API (even though it's broken) for non-shotguns
+        return weapon:getProjectileCount()
+    end
+    
+    -- Check current ammo type and modify accordingly
+    local currentAmmo = weapon:getAmmoType()
+    if not currentAmmo then return baselineCount end
+    
+    if currentAmmo == "Base.ShotgunShells" then
+        -- Buckshot - use baseline
+        return baselineCount
+    elseif currentAmmo == "Base.ShotgunShellsBirdshot" then
+        -- Birdshot - baseline + 3
+        return baselineCount + 3
+    elseif currentAmmo == "Base.ShotgunShellsSlug" then
+        -- Slug - always 1
+        return 1
+    end
+    
+    -- Default to baseline for unknown ammo types
+    return baselineCount
+end
+
 
 -- Get accurate adjusted weapon stats based on player skills
 function HFO.Utils.getAdjustedWeaponStats(player, weapon)
@@ -770,11 +921,7 @@ function HFO.Utils.getAdjustedWeaponStats(player, weapon)
     adjustedStats.maxRange   = baseRange + (rangeMod * halfLevel)
 
     local critMod    = weapon:getAimingPerkCritModifier()
-    local baseCrit   = 0
-    if weapon.getFullType then
-        local scriptItem = InventoryItemFactory.CreateItem(weapon:getFullType())
-        baseCrit = scriptItem and scriptItem.getCriticalChance and scriptItem:getCriticalChance() or 0
-    end
+    local baseCrit   = weapon:getCriticalChance()
 
     -- Calculate crit chance and clamp between 10 and 90 as to mirror the core game
     local critChance = baseCrit + (critMod * halfLevel) + (aimingLevel * 3)
@@ -906,6 +1053,9 @@ function HFO.Utils.getRawWeaponStats(weapon, player, options)
         timesRepaired = weapon.getHaveBeenRepaired and (weapon:getHaveBeenRepaired() - 1) or 0,
 
         weight = weapon:getWeight(),
+
+        maxHits = weapon:getMaxHitCount(),
+        projectileCount = HFO.Utils.getCorrectProjectileCount(weapon),
     }
 
     -- Ammo
@@ -915,32 +1065,46 @@ function HFO.Utils.getRawWeaponStats(weapon, player, options)
     end
 
     -- Gun Plating
-    if md.GunPlating and options.includePlating ~= false then
-        if type(md.GunPlating) == "string" and md.GunPlating ~= "" then
-            stats.gunPlating = md.GunPlating
+    if md.HFO_GunPlating and options.includePlating ~= false then
+        if type(md.HFO_GunPlating) == "string" and md.HFO_GunPlating ~= "" then
+            stats.gunPlating = md.HFO_GunPlating
         end
     end
 
-    -- Suppressor
+
+    -- Set base sound radius ALWAYS (outside suppressor check)
+    stats.soundRadius = weapon:getSoundRadius()
+
+    -- Suppressor detection and stats
     local canonPart = (options.previewPart and options.previewPart:getPartType() == "Canon")
         and options.previewPart
         or (weapon.getCanon and weapon:getCanon())
 
     if canonPart and canonPart:hasTag("Suppressor") then
-        for key, info in pairs(HFO.Constants.SuppressorLevels) do
-            if canonPart:getType():find(key) then
-                stats.suppressor = {
-                    type = key,
-                    name = key:gsub("Suppressor", "") .. " Suppressor",
-                    reductionPercent = info.radius or 0,
-                }
-                stats.soundRadius = weapon:getSoundRadius()
-                stats.soundRadiusDescription = info.radius and string.format("(reduced by %d%%)", info.radius) or nil
-                break
-            end
+        local suppressorType = canonPart:getType()
+        local reductionPercent, suppressorName
+        
+        -- Direct sandbox variable calls (matching your handleSuppressor function)
+        if string.find(suppressorType, "SuppressorPistol") then
+            reductionPercent = SandboxVars.HFO.PistolSuppressionLevels or 30
+            suppressorName = "Pistol Suppressor"
+        elseif string.find(suppressorType, "SuppressorRifle") then
+            reductionPercent = SandboxVars.HFO.RifleSuppressionLevels or 40
+            suppressorName = "Rifle Suppressor"
+        elseif string.find(suppressorType, "SuppressorSniper") then
+            reductionPercent = SandboxVars.HFO.SniperSuppressionLevels or 50
+            suppressorName = "Sniper Suppressor"
         end
-    else
-        stats.soundRadius = stats.baseSoundRadius
+        
+        if reductionPercent then
+            stats.suppressor = {
+                type = suppressorType,
+                name = suppressorName,
+                reductionPercent = reductionPercent,
+            }
+            -- Use the actual sandbox percentage in the description
+            stats.soundRadiusDescription = string.format("(reduced by %d%%)", reductionPercent)
+        end
     end
 
     return stats
@@ -982,6 +1146,16 @@ function HFO.Utils.formatWeaponStats(rawStats)
     if rawStats.damage then
         add("Damage", rawStats.damage, "core", {formatted = rawStats.damage, raw = rawStats.damage})
     end
+
+    -- Max Hits - how many entities a projectile can hit
+    if rawStats.maxHits then
+        add("Max Hits", rawStats.maxHits, "core", {formatted = tostring(rawStats.maxHits), raw = rawStats.maxHits})
+    end
+
+    -- Projectile Count - how many projectiles fired per shot
+    if rawStats.projectileCount then
+        add("Projectile Count", rawStats.projectileCount, "core", {formatted = tostring(rawStats.projectileCount), raw = rawStats.projectileCount})
+    end    
 
     -- Now handle Sound Radius with the description in one place only
     if rawStats.soundRadius then
@@ -1239,132 +1413,147 @@ end
 
 
 ---===========================================---
---       AMMO INFO MAPS AND STAT UPDATES       --
+--             AMMO STAT SWAP SYSTEM           --
 ---===========================================---
 
--- Currently the next thing in development is configuring ammo caliber swapping
-
-HFO.Utils.AmmoTierIndex = {
-    -- Rifle rounds
-    ["Base.223Bullets"] = 1,
-    ["Base.556Bullets"] = 2,
-    ["Base.308Bullets"] = 3,
-    ["Base.762x51Bullets"] = 4,
-
-    -- Shotgun rounds
-    ["Base.ShotgunShellsBirdShot"] = 1,
-    ["Base.ShotgunShells"] = 2,
-    ["Base.ShotgunShellsSlugs"] = 3,
-
-    -- Crossbow bolts
-    ["Base.WoodCrossbowBolt"] = 1,
-    ["Base.CrossbowBolt"] = 2,
-}
-
-local function AmmoStats(stats)
-    return {
-        maxDamage = stats.maxDamage or 0,
-        minDamage = stats.minDamage or 0,
-        recoil = stats.recoil or 0,
-        penetration = stats.penetration or 0,
-        maxRange = stats.maxRange or 0,
-        stoppingPower = stats.stoppingPower or 0,
-        projectileCount = stats.projectileCount or 0,
-        criticalChance = stats.criticalChance or 0,
-        minAngle = stats.minAngle or 0,
-        maxHitCount = stats.maxHitCount or 0,
-        hitChance = stats.hitChance or 0
+-- Apply ammo-specific stat modifications
+function HFO.Utils.applyAmmoPropertiesToWeapon(weapon, newAmmoType)
+    if not weapon or not newAmmoType then return end
+    
+    -- Store original stats if not already done
+    HFO.Utils.storePreSwapStats(weapon)
+    
+    local md = weapon:getModData()
+    local preSwapStats = md.HFO_PreSwapStats
+    
+    -- Simple stat modifications based on ammo type
+    -- Using addition/subtraction to avoid rounding errors from multiplication
+    local ammoMods = {
+        -- Rifle calibers
+        ["Base.223Bullets"] = { -- baseline
+            damageAdjustment = 0.0,
+            rangeAdjustment = 0.0,
+            recoilAdjustment = 0,
+            hitChanceAdjustment = 0,
+            minAngleAdjustment = 0.0 -- baseline
+        },
+        ["Base.556Bullets"] = { -- slightly better
+            damageAdjustment = 0.1,
+            rangeAdjustment = 2.0,
+            recoilAdjustment = -4, -- negative = faster reload
+            hitChanceAdjustment = 5,
+            minAngleAdjustment = -0.005 -- tighter spread
+        },
+        
+        -- Shotgun shells
+        ["Base.ShotgunShells"] = { -- baseline buckshot
+            damageAdjustment = 0.0,
+            rangeAdjustment = 0.0,
+            recoilAdjustment = 0,
+            hitChanceAdjustment = 0,
+            minAngleAdjustment = 0.0 -- baseline
+        },
+        ["Base.ShotgunShellsBirdshot"] = { -- less damage, more spread
+            damageAdjustment = -0.8,
+            rangeAdjustment = -5,
+            recoilAdjustment = 5,
+            hitChanceAdjustment = 0,
+            minAngleAdjustment = -0.02 -- wider spread for birdshot
+        },
+        ["Base.ShotgunShellsSlug"] = { -- single high-damage projectile
+            damageAdjustment = 0.8,
+            rangeAdjustment = 8.0,
+            recoilAdjustment = -5,
+            hitChanceAdjustment = 20,
+            minAngleAdjustment = 0.03, -- tighter for single projectile
+            piercing = true
+        },
+        
+        -- Crossbow bolts
+        ["Base.CrossbowBolt"] = { -- baseline
+            damageAdjustment = 0.0,
+            rangeAdjustment = 0.0,
+            recoilAdjustment = 0,
+            hitChanceAdjustment = 0,
+            minAngleAdjustment = 0.0 -- baseline
+        },
+        ["Base.WoodCrossbowBolt"] = { -- cheaper but less effective
+            damageAdjustment = -0.5,
+            rangeAdjustment = -3.0,
+            recoilAdjustment = 5,
+            hitChanceAdjustment = -10,
+            minAngleAdjustment = -0.005 -- slightly less accurate
+        }
     }
+    
+    local mods = ammoMods[newAmmoType]
+    if not mods then return end -- Unknown ammo type
+    
+    -- Apply modifications using addition/subtraction from original stats
+    weapon:setMaxDamage(preSwapStats.maxDamage + mods.damageAdjustment)
+    weapon:setMinDamage(preSwapStats.minDamage + mods.damageAdjustment)
+    weapon:setMaxRange(preSwapStats.maxRange + mods.rangeAdjustment)
+    weapon:setRecoilDelay(preSwapStats.recoilDelay + mods.recoilAdjustment)
+    weapon:setHitChance(math.min(100, math.max(0, preSwapStats.hitChance + mods.hitChanceAdjustment)))
+    
+    -- Apply minAngle modification
+    if mods.minAngleAdjustment then
+        weapon:setMinAngle(preSwapStats.minAngle + mods.minAngleAdjustment)
+    end
+    
+    -- Set projectile count if specified (this one is absolute, not additive)
+    if mods.projectileCount then
+        weapon:setProjectileCount(mods.projectileCount)
+    end
+    
+    -- Update current ammo type in modData
+    md.HFO_currentAmmoType = newAmmoType
 end
 
-HFO.Utils.AmmoProperties = {
-    -- Base modifiers for common ammo types that will be swappable
-    ["Base.223Bullets"] = AmmoStats{}, --Baseline 0 stats across the board
-    ["Base.556Bullets"] = AmmoStats{
-        minDamage = 0.1, maxDamage = 0.2, maxRange = 2, recoilDelay = 4, hitChance = 5,
-        criticalChance = 10, minAngle = -0.005
-    },
-    ["Base.308Bullets"] = AmmoStats{
-        minDamage = 0.2, maxDamage = 0.3, maxRange = 3, recoilDelay = 5, hitChance = 8,
-        criticalChance = 15, minAngle = -0.01
-    },
-    ["Base.762x51Bullets"] = AmmoStats{
-        minDamage = 0.3, maxDamage = 0.4, maxRange = 4, recoilDelay = 6, hitChance = 10,
-        criticalChance = 20, minAngle = -0.01
-    },
-    ["Base.ShotgunShells"] = AmmoStats{}, -- baseline for shotgun shells so whatever the gun stats are
-    ["Base.ShotgunShellsBirdShot"] = AmmoStats{
-        minDamage = -0.3, maxDamage = -0.3, maxRange = -3, recoilDelay = 10, hitChance = 10,
-        criticalChance = -10, minAngle = -0.02, projectileCount = 3, maxHitCount = 2
-    },
-    ["Base.ShotgunShellsSlugs"] = AmmoStats{
-        minDamage = 0.3, maxDamage = 0.3, maxRange = 5, recoilDelay = 5, hitChance = 30,
-        criticalChance = 20, minAngle = 0.04, projectileCount = 1, maxHitCount = 1
-    },
-    ["Base.CrossbowBolt"] = AmmoStats{}, -- baseline for crossbow bolts since this was the first made
-    ["Base.WoodCrossbowBolt"] = AmmoStats{
-        minDamage = -0.2, maxDamage = -0.2, maxRange = -1, recoilDelay = -3, hitChance = 5,
-        criticalChance = -10, minAngle = -0.005
-    }
+
+
+---===========================================---
+--            CLEANUP OF SLINGS/STRAPS          --
+---===========================================---
+
+local BaseLightHandgunSet = {
+    ["Base.JenningsJ22"] = true,
+    ["Base.Derringer"]   = true,
 }
 
+-- Helpers: always give to the specific player; otherwise vanish
+function HFO.Utils.removeHandgunSlings(weapon)
+    if not weapon then return end
+    local fullType = weapon:getFullType()
+    if not HFO.Constants.Items.BaseHandgunSet[fullType] then return end
 
-function HFO.Utils.applyAmmoPropertiesToWeapon(weapon, newAmmoType)
-    local md = weapon:getModData()
-    local originalStats = md.OriginalStats
-    local originalAmmoType = originalStats.OriginalAmmoType or weapon:getAmmoType()
-
-    local indexMap = HFO.Utils.AmmoTierIndex
-    local origIndex = indexMap[originalAmmoType] or 1
-    local newIndex = indexMap[newAmmoType] or 1
-    local indexRatio = newIndex / origIndex
-
-    local newProps = HFO.Utils.AmmoProperties[newAmmoType] or {}
-    local origProps = HFO.Utils.AmmoProperties[originalAmmoType] or {}
-
-    -- Defensive fill for all expected keys
-    for _, key in ipairs({
-        "maxDamage", "minDamage", "recoil", "penetration", "maxRange",
-        "stoppingPower", "criticalChance", "minAngle", "maxHitCount",
-        "hitChance", "projectileCount"
-    }) do
-        newProps[key] = newProps[key] or 0
-        origProps[key] = origProps[key] or 0
+    local sling = weapon:getWeaponPart("Sling")
+    if sling and sling:getFullType() == "Base.Sling" then
+        weapon:detachWeaponPart(sling)
+        local player = HFO.Utils.safeGetPlayer(0)
+        if player and player:getInventory() then
+            player:getInventory():AddItem(sling)
+        end
+        HFO.Utils.debugLog("Removed sling from handgun: " .. fullType)
     end
+    weapon:getModData().HFO_SlingCleanupDone = true
+end
 
-    -- Utility: float scaling with clamping (damage, range)
-    local function scaleFloat(base, delta, ratio, exp, clampMin, clampMax)
-        local scaled = base * (1 + delta) * (ratio ^ (exp or 1))
-        return math.min(math.max(scaled, clampMin or 0), clampMax or scaled)
+function HFO.Utils.removeAmmoStrapsFromLightHandguns(weapon)
+    if not weapon then return end
+    local fullType = weapon:getFullType()
+    if not BaseLightHandgunSet[fullType] then return end
+
+    local strap = weapon:getWeaponPart("Sling") -- ensure key matches your part
+    if strap and strap:getFullType() == "Base.AmmoStraps" then
+        weapon:detachWeaponPart(strap)
+        local player = HFO.Utils.safeGetPlayer(0)
+        if player and player:getInventory() then
+            player:getInventory():AddItem(strap)
+        end
+        HFO.Utils.debugLog("Removed ammo strap from light handgun: " .. fullType)
     end
-
-    -- Utility: int scaling with clamping (hit chance, stopping power)
-    local function scaleClampedInt(base, delta, ratio, exp, clampMin, clampMax)
-        local val = math.floor(base * (1 + delta) * (ratio ^ (exp or 1)))
-        return math.min(math.max(val, clampMin or 0), clampMax or val)
-    end
-
-    weapon:setMaxDamage(scaleFloat(originalStats.maxDamage, newProps.maxDamage - origProps.maxDamage, indexRatio, 1.2, 0, 4))
-    weapon:setMinDamage(scaleFloat(originalStats.minDamage, newProps.minDamage - origProps.minDamage, indexRatio, 1.2, 0, 4))
-    weapon:setRecoilDelay(math.max(7, math.floor(originalStats.recoilDelay * (1 + newProps.recoil - origProps.recoil) * (1 / indexRatio) ^ 1.1)))
-    weapon:setMaxRange(scaleFloat(originalStats.maxRange, newProps.maxRange - origProps.maxRange, indexRatio, 0.9))
-    weapon:setStopPower(scaleClampedInt(originalStats.stoppingPower, newProps.stoppingPower - origProps.stoppingPower, indexRatio, 1.1, 0, 100))
-    weapon:setCriticalChance(scaleClampedInt(originalStats.criticalChance, newProps.criticalChance - origProps.criticalChance, indexRatio, 0.8, 0, 100))
-    weapon:setHitChance(scaleClampedInt(originalStats.hitChance, newProps.hitChance - origProps.hitChance, indexRatio, 0.9, 0, 100))
-    weapon:setMaxHitCount(math.max(1, math.floor(originalStats.maxHitCount * (1 + newProps.maxHitCount - origProps.maxHitCount) * (indexRatio))))
-
-    if newProps.projectileCount and newProps.projectileCount > 0 then
-        weapon:setProjectileCount(math.max(1, math.floor(newProps.projectileCount)))
-    else
-        weapon:setProjectileCount(originalStats.projectileCount)
-    end
-
-    local angle = originalStats.minAngle * (1 + newProps.minAngle - origProps.minAngle) * (indexRatio ^ 0.8)
-    weapon:setMinAngle(math.max(0.8, math.min(1.0, angle)))
-
-    weapon:setPiercingBullets(newProps.penetration == 1)
-
-    md.currentAmmoType = newAmmoType
+    weapon:getModData().HFO_AmmoStrapCleanupDone = true
 end
 
 

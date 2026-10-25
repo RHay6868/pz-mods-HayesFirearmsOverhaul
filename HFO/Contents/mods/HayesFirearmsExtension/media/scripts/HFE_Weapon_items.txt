@@ -49,12 +49,12 @@ module Base
         Weight	                = 0.05,
         Type	                = Normal,
         DisplayName	            = .22 LR Magazine [10],
-        Icon	                = Mag22,
+        Icon	                = Mag22x10,
         MaxAmmo                 = 10,
         AmmoType                = Base.22Bullets,
-        StaticModel             = Mag22,
+        StaticModel             = Mag22x10,
         GunType                 = Base.Ruger1022,
-        WorldStaticModel        = Mag22,
+        WorldStaticModel        = Mag22x10,
     }
 
     item 3006Bullets
@@ -119,14 +119,13 @@ module Base
         Weight	                = 0.2,
         Type	                = Normal,
         DisplayName	            = .308 Magazine [5],
-        Icon	                = Mag700Series,
+        Icon	                = Mag308Clip5,
         MaxAmmo                 = 5,
         AmmoType                = Base.308Bullets,
-        CompatibleAmmoType      = Base.762x51Bullets,
-        StaticModel             = Mag700Series,
+        StaticModel             = Mag308Clip5,
         GunType                 = Base.BrowningBLR,
         CompatibleGunType       = Base.L2A1; Base.L2A1_Bipod,
-        WorldStaticModel        = Mag700Series,
+        WorldStaticModel        = Mag308Clip5,
     }
 
     item 380Bullets
@@ -264,7 +263,7 @@ module Base
         WorldStaticModel        = MagP90,
     }
 
-	item 762Bullets
+    item 762Bullets
     {
         DisplayCategory         = Ammo,
         Count	                = 5,
@@ -304,7 +303,7 @@ module Base
         WorldStaticModel        = Mag762,
     }
 
-	item 762x51Bullets
+    item 762x51Bullets
     {
         DisplayCategory         = Ammo,
         Count	                = 5,
@@ -339,7 +338,6 @@ module Base
         Icon	                = Mag762x51,
         MaxAmmo                 = 10,
         AmmoType                = Base.762x51Bullets,
-        CompatibleAmmoType      = Base.308Bullets,
         StaticModel             = Mag762x51,
         GunType                 = Base.Galil; Base.Galil_Bipod,
         CompatibleGunType       = Base.HuntingRifle,
@@ -487,7 +485,7 @@ module Base
         PlaceMultipleSound      = BoxOfRoundsPlaceAll,
     }
 
-	item 792x33Bullets
+    item 792x33Bullets
     {
         DisplayCategory         = Ammo,
         Count	                = 5,
@@ -612,7 +610,7 @@ module Base
         WorldStaticModel        = MagBox9mm,
     }
 
-	item 9x39Bullets
+    item 9x39Bullets
     {
         DisplayCategory         = Ammo,
         Count	                = 5,
@@ -916,16 +914,10 @@ module Base
         MaxAmmo                 = 9,
         AmmoType                = Base.22Bullets,
         StaticModel             = SpeedLoader9,
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        SpeedLoadCompatible     = Base.HighStandardSentinel,
-=======
-=======
->>>>>>> Stashed changes
         GunType                 = Base.HighStandardSentinel,
         HFO_SpeedLoadCompatible = Base.HighStandardSentinel,
->>>>>>> Stashed changes
         WorldStaticModel        = SpeedLoader9,
+        Tooltip                 = Tooltip_22SpeedLoader,
     }
 
     item 38SpeedLoader5
@@ -939,16 +931,10 @@ module Base
         MaxAmmo                 = 5,
         AmmoType                = Base.Bullets38,
         StaticModel             = SpeedLoader5,
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        SpeedLoadCompatible     = Base.Revolver_Short,
-=======
-=======
->>>>>>> Stashed changes
         GunType                 = Base.Revolver_Short,
         HFO_SpeedLoadCompatible = Base.Revolver_Short,
->>>>>>> Stashed changes
         WorldStaticModel        = SpeedLoader5,
+        Tooltip                 = Tooltip_38SpeedLoader5,
     }
 
     item 38SpeedLoader7
@@ -962,16 +948,10 @@ module Base
         MaxAmmo                 = 7,
         AmmoType                = Base.Bullets38,
         StaticModel             = SpeedLoader7,
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        SpeedLoadCompatible     = Base.RugerGP100,
-=======
-=======
->>>>>>> Stashed changes
         GunType                 = Base.RugerGP100,
         HFO_SpeedLoadCompatible = Base.RugerGP100,
->>>>>>> Stashed changes
         WorldStaticModel        = SpeedLoader7,
+        Tooltip                 = Tooltip_38SpeedLoader7,
     }
     
     item 44SpeedLoader
@@ -981,20 +961,14 @@ module Base
         Weight	                = 0.2,
         Type	                = Normal,
         DisplayName	            = .44 Magnum Speed Loader,
-        Icon	                = SpeedLoader6,
+        Icon	                = SpeedLoader6x44,
         MaxAmmo                 = 6,
         AmmoType                = Base.Bullets44,
-<<<<<<< Updated upstream
-        StaticModel             = SpeedLoader6,
-        SpeedLoadCompatible     = Base.Revolver_Long,
-        WorldStaticModel        = SpeedLoader6,
-=======
         StaticModel             = SpeedLoader6x44,
         GunType                 = Base.Revolver_Long,
         HFO_SpeedLoadCompatible = Base.Revolver_Long,
         WorldStaticModel        = SpeedLoader6x44,
         Tooltip                 = Tooltip_44SpeedLoader,
->>>>>>> Stashed changes
     }
 
     item 45SpeedLoader
@@ -1008,16 +982,10 @@ module Base
         MaxAmmo                 = 6,
         AmmoType                = Base.Bullets45,
         StaticModel             = SpeedLoader6,
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        SpeedLoadCompatible     = Base.Revolver;Base.ColtCavalryRevolver,
-=======
-=======
->>>>>>> Stashed changes
         GunType                 = Base.Revolver;Base.ColtCavalryRevolver,
         HFO_SpeedLoadCompatible = Base.Revolver;Base.ColtCavalryRevolver,
->>>>>>> Stashed changes
         WorldStaticModel        = SpeedLoader6,
+        Tooltip                 = Tooltip_45SpeedLoader,
     }
 
     /****************************** FIREARM CACHES *******************/
@@ -1032,35 +1000,6 @@ module Base
         WorldStaticModel        = FirearmCache,
         Tooltip                 = Tooltip_FirearmCache,
     }    
-
-
-    /****************************** RECIPE_MAGAZINES ******************************/
-
-    item FG42RifleItemsMagazine
-	{
-        DisplayCategory         = SkillBook,
-		Weight	                = 0.1,
-        Type	                = Literature,
-		DisplayName	            = FG and MG 42 Recipes,
-		Icon	                = FG42Magazine,
-		TeachedRecipes          = Create FG 42 Paratrooper Rifle;Create Iron Sights for FG 42 Paratrooper Rifle;Create Scope for FG 42 Paratrooper Rifle;Make 7.92 Ammo;Create Magazine Clip for FG 42 Paratrooper Rifle;Create Drum Magazine for MG42;Create MG42,
-		StaticModel             = Magazine,
-		WorldStaticModel        = FG42Magazine_Ground,
-        Tooltip                 = Tooltip_item_FG42ItemsMagazine,
-	}
-
-    item CompoundCrossbowMagazine
-	{
-        DisplayCategory         = SkillBook,
-		Weight	                = 0.1,
-        Type	                = Literature,
-		DisplayName	            = Compound Crossbow Recipes,
-		Icon	                = CompoundCrossbowMagazine,
-		TeachedRecipes          = Craft Crossbow Bolts,
-		StaticModel             = Magazine,
-		WorldStaticModel        = CompoundCrossbowMagazine_Ground,
-        Tooltip                 = Tooltip_item_CompoundCrossbowMagazine,
-	}
 
     /****************************** GUN PLATING ******************************/
 
@@ -1100,138 +1039,6 @@ module Base
         Tooltip             = Tooltip_GunPlatingRed,
     }
 
-    item GunPlatingPatriot
-    {
-        DisplayCategory     = Material,
-        Weight              = 0.05,
-        Type                = Normal,
-        DisplayName         = Gun Plating [Patriot],
-        Icon                = GunPlatingBlue,
-        WorldStaticModel    = GunPlatingBlue,
-        Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingPatriot,
-    }
-
-    item GunPlatingGold
-    {
-        DisplayCategory     = Material,
-        Weight              = 0.05,
-        Type                = Normal,
-        DisplayName         = Gun Plating [Gold],
-        Icon                = GunPlatingGold,
-        WorldStaticModel    = GunPlatingGold,
-        Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingGold,
-    }
-
-    item GunPlatingGoldDE
-    {
-        DisplayCategory     = Material,
-        Weight              = 0.05,
-        Type                = Normal,
-        DisplayName         = Gun Plating [Gold Desert Eagle],
-        Icon                = GunPlatingGold,
-        WorldStaticModel    = GunPlatingGold,
-        Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingGoldDE,
-    }
-
-    item GunPlatingGoldShotgun
-    {
-        DisplayCategory     = Material,
-        Weight              = 0.05,
-        Type                = Normal,
-        DisplayName         = Gun Plating [Gold Shotgun],
-        Icon                = GunPlatingGold,
-        WorldStaticModel    = GunPlatingGold,
-        Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingGoldShotgun,
-    }
-
-    item GunPlatingRainbow
-    {
-        DisplayCategory     = Material,
-        Weight              = 0.05,
-        Type                = Normal,
-        DisplayName         = Gun Plating [Rainbow],
-        Icon                = GunPlatingRainbow,
-        WorldStaticModel    = GunPlatingRainbow,
-        Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingRainbow,
-    }
-
-    item GunPlatingRainbowAnodized
-    {
-        DisplayCategory     = Material,
-        Weight              = 0.05,
-        Type                = Normal,
-        DisplayName         = Gun Plating [Rainbow Anodized],
-        Icon                = GunPlatingRainbow,
-        WorldStaticModel    = GunPlatingRainbow,
-        Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingRainbowAnodized,
-    }
-
-    item GunPlatingDZ
-    {
-        DisplayCategory     = Material,
-        Weight              = 0.05,
-        Type                = Normal,
-        DisplayName         = Gun Plating [DZ],
-        Icon                = GunPlatingBlue,
-        WorldStaticModel    = GunPlatingBlue,
-        Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingDZ,
-    }
-
-    item GunPlatingDarkCherry
-    {
-        DisplayCategory     = Material,
-        Weight              = 0.05,
-        Type                = Normal,
-        DisplayName         = Gun Plating [Dark Cherry],
-        Icon                = GunPlatingDarkCherry,
-        WorldStaticModel    = GunPlatingDarkCherry,
-        Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingDarkCherry,
-    }
-
-    item GunPlatingWinterCamo
-    {
-        DisplayCategory     = Material,
-        Weight              = 0.05,
-        Type                = Normal,
-        DisplayName         = Gun Plating [Winter Camo],
-        Icon                = GunPlatingWhiteCamo,
-        WorldStaticModel    = GunPlatingWhiteCamo,
-        Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingWinterCamo,
-    }
-
-    item GunPlatingMatteBlack
-    {
-        DisplayCategory     = Material,
-        Weight              = 0.05,
-        Type                = Normal,
-        DisplayName         = Gun Plating [Matte Black],
-        Icon                = GunPlatingMatteBlack,
-        WorldStaticModel    = GunPlatingMatteBlack,
-        Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingMatteBlack,
-    }
-
-    item GunPlatingWoodStyle
-    {
-        DisplayCategory     = Material,
-        Weight              = 0.05,
-        Type                = Normal,
-        DisplayName         = Gun Plating [Wood Style],
-        Icon                = GunPlatingWoodStyled,
-        WorldStaticModel    = GunPlatingWoodStyled,
-        Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingWoodStyle,
-    }
-
     item GunPlatingPink
     {
         DisplayCategory     = Material,
@@ -1242,18 +1049,6 @@ module Base
         WorldStaticModel    = GunPlatingPink,
         Tags                = GunPlating,
         Tooltip             = Tooltip_GunPlatingPink,
-    }
-
-    item GunPlatingCrabShell
-    {
-        DisplayCategory     = Material,
-        Weight              = 0.05,
-        Type                = Normal,
-        DisplayName         = Gun Plating [Crab Shell],
-        Icon                = GunPlatingCrabShell,
-        WorldStaticModel    = GunPlatingCrabShell,
-        Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingCrabShell,
     }
 
     item GunPlatingYellow
@@ -1280,6 +1075,18 @@ module Base
         Tooltip             = Tooltip_GunPlatingGreen,
     }
 
+    item GunPlatingPurple
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Purple],
+        Icon                = GunPlatingPurple,
+        WorldStaticModel    = GunPlatingPurple,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingPurple,
+    }
+
     item GunPlatingRedWhite
     {
         DisplayCategory     = Material,
@@ -1304,52 +1111,124 @@ module Base
         Tooltip             = Tooltip_GunPlatingGreenGold,
     }
 
-    item GunPlatingSteelDamascus
+    item GunPlatingPearl
     {
         DisplayCategory     = Material,
         Weight              = 0.05,
         Type                = Normal,
-        DisplayName         = Gun Plating [Steel Damascus],
-        Icon                = GunPlatingSteelDamascus,
-        WorldStaticModel    = GunPlatingSteelDamascus,
+        DisplayName         = Gun Plating [Pearl],
+        Icon                = GunPlatingPearl,
+        WorldStaticModel    = GunPlatingPearl,
         Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingSteelDamascus,
+        Tooltip             = Tooltip_GunPlatingPearl,
     }
 
-    item GunPlatingSalvagedRage
+    item GunPlatingAztec
     {
         DisplayCategory     = Material,
         Weight              = 0.05,
         Type                = Normal,
-        DisplayName         = Gun Plating [Salvaged Rage],
-        Icon                = GunPlatingSalvagedRage,
-        WorldStaticModel    = GunPlatingSalvagedRage,
+        DisplayName         = Gun Plating [Aztec],
+        Icon                = GunPlatingAztec,
+        WorldStaticModel    = GunPlatingAztec,
         Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingSalvagedRage,
+        Tooltip             = Tooltip_GunPlatingAztec,
     }
 
-    item GunPlatingZoidbergSpecial
+    item GunPlatingPatriot
     {
         DisplayCategory     = Material,
         Weight              = 0.05,
         Type                = Normal,
-        DisplayName         = Gun Plating [Zoidberg Special],
-        Icon                = GunPlatingZoidbergSpecial,
-        WorldStaticModel    = GunPlatingZoidbergSpecial,
+        DisplayName         = Gun Plating [Patriot],
+        Icon                = GunPlatingBlue,
+        WorldStaticModel    = GunPlatingBlue,
         Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingZoidbergSpecial,
+        Tooltip             = Tooltip_GunPlatingPatriot,
     }
-    
-    item GunPlatingShenron
+
+    item GunPlatingGold
     {
         DisplayCategory     = Material,
         Weight              = 0.05,
         Type                = Normal,
-        DisplayName         = Gun Plating [Shenron],
-        Icon                = GunPlatingShenron,
-        WorldStaticModel    = GunplatingShenron,
+        DisplayName         = Gun Plating [Gold],
+        Icon                = GunPlatingGold,
+        WorldStaticModel    = GunPlatingGold,
         Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingShenron,
+        Tooltip             = Tooltip_GunPlatingGold,
+    }
+
+    item GunPlatingRainbow
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Rainbow],
+        Icon                = GunPlatingRainbow,
+        WorldStaticModel    = GunPlatingRainbow,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingRainbow,
+    }
+
+    item GunPlatingDarkCherry
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Dark Cherry],
+        Icon                = GunPlatingDarkCherry,
+        WorldStaticModel    = GunPlatingDarkCherry,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingDarkCherry,
+    }
+
+    item GunPlatingWood
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Wood],
+        Icon                = GunPlatingWood,
+        WorldStaticModel    = GunPlatingWood,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingWood,
+    }
+
+    item GunPlatingWinterCamo
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Winter Camo],
+        Icon                = GunPlatingWhiteCamo,
+        WorldStaticModel    = GunPlatingWhiteCamo,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingWinterCamo,
+    }
+
+    item GunPlatingMatteBlack
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Matte Black],
+        Icon                = GunPlatingMatteBlack,
+        WorldStaticModel    = GunPlatingMatteBlack,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingMatteBlack,
+    }
+
+    item GunPlatingDragonBall
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [DragonBall],
+        Icon                = GunPlatingDragonBall,
+        WorldStaticModel    = GunplatingDragonBall,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingDragonBall,
     }
 
     item GunPlatingNerf
@@ -1388,6 +1267,18 @@ module Base
         Tooltip             = Tooltip_GunPlatingSurvivalist,
     }
 
+    item GunPlatingSalvagedRage
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [Salvaged Rage],
+        Icon                = GunPlatingSalvagedRage,
+        WorldStaticModel    = GunPlatingSalvagedRage,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingSalvagedRage,
+    }
+
     item GunPlatingMysteryMachine
     {
         DisplayCategory     = Material,
@@ -1400,64 +1291,40 @@ module Base
         Tooltip             = Tooltip_GunPlatingMysteryMachine,
     }
 
-    item GunPlatingSalvagedBlack
+    item GunPlatingCrabShell
     {
         DisplayCategory     = Material,
         Weight              = 0.05,
         Type                = Normal,
-        DisplayName         = Gun Plating [Salvaged Black],
-        Icon                = GunPlatingSalvagedRage,
-        WorldStaticModel    = GunPlatingSalvagedRage,
+        DisplayName         = Gun Plating [Crab Shell],
+        Icon                = GunPlatingCrabShell,
+        WorldStaticModel    = GunPlatingCrabShell,
         Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingSalvagedBlack,
+        Tooltip             = Tooltip_GunPlatingCrabShell,
     }
 
-    item GunPlatingPearl
+    item GunPlatingSteelDamascus
     {
         DisplayCategory     = Material,
         Weight              = 0.05,
         Type                = Normal,
-        DisplayName         = Gun Plating [Pearl],
-        Icon                = GunPlatingPearl,
-        WorldStaticModel    = GunPlatingPearl,
+        DisplayName         = Gun Plating [Steel Damascus],
+        Icon                = GunPlatingSteelDamascus,
+        WorldStaticModel    = GunPlatingSteelDamascus,
         Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingPearl,
+        Tooltip             = Tooltip_GunPlatingSteelDamascus,
     }
 
-    item GunPlatingAztec
+    item GunPlatingZoidbergSpecial
     {
         DisplayCategory     = Material,
         Weight              = 0.05,
         Type                = Normal,
-        DisplayName         = Gun Plating [Aztec],
-        Icon                = GunPlatingAztec,
-        WorldStaticModel    = GunPlatingAztec,
+        DisplayName         = Gun Plating [Zoidberg Special],
+        Icon                = GunPlatingZoidbergSpecial,
+        WorldStaticModel    = GunPlatingZoidbergSpecial,
         Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingAztec,
-    }
-
-    item GunPlatingPlank
-    {
-        DisplayCategory     = Material,
-        Weight              = 0.05,
-        Type                = Normal,
-        DisplayName         = Gun Plating [Plank],
-        Icon                = GunPlatingWoodStyled,
-        WorldStaticModel    = GunPlatingWoodStyled,
-        Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingPlank,
-    }
-
-    item GunPlatingBlackIce
-    {
-        DisplayCategory     = Material,
-        Weight              = 0.05,
-        Type                = Normal,
-        DisplayName         = Gun Plating [Black Ice],
-        Icon                = GunPlatingBlackIce,
-        WorldStaticModel    = GunPlatingBlackIce,
-        Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingBlackIce,
+        Tooltip             = Tooltip_GunPlatingZoidbergSpecial,
     }
 
     item GunPlatingBlackDeath
@@ -1496,18 +1363,6 @@ module Base
         Tooltip             = Tooltip_GunPlatingGildedAge,
     }
 
-    item GunPlatingTBD
-    {
-        DisplayCategory     = Material,
-        Weight              = 0.05,
-        Type                = Normal,
-        DisplayName         = Gun Plating [TBD],
-        Icon                = GunPlatingTBD,
-        WorldStaticModel    = GunPlatingTBD,
-        Tags                = GunPlating,
-        Tooltip             = Tooltip_GunPlatingTBD,
-    }
-
     item GunPlatingCannabis
     {
         DisplayCategory     = Material,
@@ -1518,5 +1373,53 @@ module Base
         WorldStaticModel    = GunPlatingGreen,
         Tags                = GunPlating,
         Tooltip             = Tooltip_GunPlatingCannabis,
+    }
+
+    item GunPlatingDZ
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [DZ],
+        Icon                = GunPlatingBlue,
+        WorldStaticModel    = GunPlatingBlue,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingDZ,
+    }
+
+    item GunPlatingPARP
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [PARP],
+        Icon                = GunPlatingPARP,
+        WorldStaticModel    = GunPlatingPARP,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingPARP,
+    }
+
+    item GunPlatingSD
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [SD],
+        Icon                = GunPlatingSD,
+        WorldStaticModel    = GunPlatingSD,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingSD,
+    }
+
+    item GunPlatingDOTD
+    {
+        DisplayCategory     = Material,
+        Weight              = 0.05,
+        Type                = Normal,
+        DisplayName         = Gun Plating [DOTD],
+        Icon                = GunPlatingDOTD,
+        WorldStaticModel    = GunPlatingDOTD,
+        Tags                = GunPlating,
+        Tooltip             = Tooltip_GunPlatingDOTD,
     }
 }

@@ -81,7 +81,6 @@ function HFO.Loot.getEnabledItems()
         RepairKits = {},
         Cleaning = {},
         FirearmCache = {},
-        Magazines = {},
         Cases = {}  
     }
     
@@ -141,15 +140,15 @@ function HFO.Loot.getEnabledItems()
         {"Ammo", "AmmoShotguns", items.Ammo.Shotguns, "Ammo"},
         {"Ammo", "AmmoShotguns", items.AmmoBox.Shotguns, "AmmoBoxShotguns"},
         
-        {"Ammo", "AmmoOther", items.Ammo.Other, "Ammo"},
-        {"Ammo", "AmmoOther", items.AmmoBox.Other, "AmmoBoxOther"},
+        {"Ammo", "AmmoOther", items.Ammo.Other, "Ammo", {Meme = "MemeWeapons"}},
+        {"Ammo", "AmmoOther", items.AmmoBox.Other, "AmmoBoxOther", {Meme = "MemeWeapons"}},
         {"Ammo", "AmmoOther", items.AmmoMags.Other, "AmmoMagsOther"},
         
         {"Accessories", "AccessoriesSuppressors", items.Accessories.Suppressors, "AccessoriesSuppressors"},
         {"Accessories", "AccessoriesScopes", items.Accessories.Scopes, "AccessoriesScopes", {FGMG = "FGMG42"}},
         {"Accessories", "AccessoriesOther", items.Accessories.Other, "AccessoriesOther"},
         
-        {"FirearmSkins", nil, items.FirearmSkins, "FirearmSkins", {Exclusive = "ExclusiveFirearmSkins"}}
+        {"FirearmSkins", nil, items.FirearmSkins, "FirearmSkins", {Exclusive = "ExclusiveFirearmSkins", Server = "ServerFirearmSkins"}}
     }
     
     for _, section in ipairs(sections) do
@@ -195,14 +194,6 @@ function HFO.Loot.getEnabledItems()
     
     if HFO.SandboxUtils.isEnumEnabled(sv.FirearmCache) then
         ProcessSection(items.SpecialItems.FirearmCache, nil, "FirearmCache")
-    end
-    
-    if sv.FGMG42 then
-        AddItemsToTable(result.Magazines, items.SpecialItems.Magazines.FGMG)
-    end
-    
-    if sv.CrossbowAmmoMag then
-        AddItemsToTable(result.Magazines, items.SpecialItems.Magazines.Crossbow)
     end
     
     local caseTypes = {"RifleCases", "ShotgunCases", "PistolCases", "RevolverCases"}
@@ -405,14 +396,14 @@ HFO.TierWeights = {
 function HFO.Loot.getItemsFromTier(tier)
     local weights = HFO.TierWeights[tier]
     if not weights then return nil end
-    local selected = HFO.Utils.getWeightedRandom(weights)
+    local selected = HFO.Loot.getWeightedRandom(weights)
     return selected and selected.type
 end
 
 
 function HFO.Loot.filterExistingFromCache(cacheKey, typelist)
 	local result = {}
-	local pool = HFO.cacheOptions[cacheKey]
+	local pool = HFO.Recipe.cacheOptions[cacheKey]
 	if not pool then return result end
 
 	for _, item in ipairs(typelist) do

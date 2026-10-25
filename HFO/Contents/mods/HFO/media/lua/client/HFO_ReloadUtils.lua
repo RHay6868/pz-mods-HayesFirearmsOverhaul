@@ -28,12 +28,12 @@ require "HFO_SandboxUtils"
 require "HFO_Constants"
 require "TimedActions/ISBaseTimedAction"
 require "TimedActions/ISReloadWeaponAction"
+require "TimedActions/ISAmmoSwapAction"
 require "TimedActions/ISMagSwapAction"
 require "Reloading/ISReloadableWeapon"
 
 HFO = HFO or {}
 HFO.ReloadUtils = HFO.ReloadUtils or {}
-local sv = HFO.SandboxUtils.get()
 
 
 ---===========================================---
@@ -42,33 +42,31 @@ local sv = HFO.SandboxUtils.get()
 
 -- Find a valid speedloader for the given weapon
 function HFO.ReloadUtils.getValidSpeedloader(inventory, weapon)
-    local speedloaders = inventory:getAllEvalRecurse(function(item)
-        return item:getType():contains("SpeedLoader")
-    end)
+    if not inventory or not weapon then return nil end
 
-    if speedloaders:isEmpty() then return nil end
     local weaponType = weapon:getFullType()
+    local bestLoader = nil
+    local bestAmmoCount = 0
 
-    local function trim(str)
-        return str:match("^%s*(.-)%s*$")
-    end
-
-    for i = 0, speedloaders:size() - 1 do
-        local loader = speedloaders:get(i)
-
-        local md = loader:getModData()
-        local compatStr = md and md.SpeedLoadCompatible
-
-        if compatStr then
-            for entry in string.gmatch(compatStr, "[^;]+") do
-                if trim(entry) == weaponType then
-                    return loader
+    local items = inventory:getItems()
+    for i = 0, items:size() - 1 do
+        local item = items:get(i)
+        if item and item:getType():contains("SpeedLoader") then
+            local currentAmmo = item:getCurrentAmmoCount()
+            if currentAmmo > 0 then
+                local md = item:getModData()
+                if md and md.HFO_SpeedLoadCompatible and 
+                   string.find(md.HFO_SpeedLoadCompatible, weaponType, 1, true) then
+                    if currentAmmo > bestAmmoCount then
+                        bestAmmoCount = currentAmmo
+                        bestLoader = item
+                    end
                 end
             end
         end
     end
 
-    return nil
+    return bestLoader
 end
 
 -- Store the original function
@@ -107,11 +105,11 @@ function HFO.ReloadUtils.getAvailableMagTypes(player, weapon)
     if not player or not weapon then return {} end
 
     local md = weapon:getModData()
-    local magBase = md.MagBase
+    local magBase = md.HFO_MagBase
     if not magBase then return {} end
 
     local allTypes = { magBase }
-    for _, field in ipairs({ "MagExtSm", "MagExtLg", "MagDrum" }) do
+    for _, field in ipairs({ "HFO_MagExtSm", "HFO_MagExtLg", "HFO_MagDrum" }) do
         if md[field] then
             table.insert(allTypes, md[field])
         end
@@ -136,7 +134,7 @@ function HFO.ReloadUtils.SwapMagHotkey(keyNum, reverse)
     if not HFO.Utils.isAimedFirearm(weapon) or HFO.Utils.isInMeleeMode(weapon) then return end 
     
     local md = weapon:getModData()
-    if not md.MagBase then return false end -- if there is no MagBase than there are no Extended options
+    if not md.HFO_MagBase then return false end -- if there is no MagBase than there are no Extended options
     
     -- Get all available magazine types
     local magTypes = HFO.ReloadUtils.getAvailableMagTypes(player, weapon)
@@ -156,11 +154,6 @@ function HFO.ReloadUtils.SwapMagHotkey(keyNum, reverse)
 
     if weapon:isContainsClip() then
         ISTimedActionQueue.add(ISEjectMagazine:new(player, weapon))
-    end
-
-    -- Detach current part if necessary
-    if currentPart and currentPart:getFullType() ~= desiredPart then
-        self.weapon:detachWeaponPart(currentPart)
     end
     
     ISTimedActionQueue.add(ISMagSwapAction:new(player, weapon, nextMagType))
@@ -186,7 +179,7 @@ ISInventoryPaneContextMenu.onRemoveUpgradeWeapon = function(weapon, part, player
 
     -- Block clip removal globally
     if part:getPartType() == "Clip" then
-        HFO.InnerVoice.say("MeleeBlockMagazine")
+        HFO.InnerVoice.say("BlockMagazineUpgrade")
         return
     end
 
@@ -205,6 +198,11 @@ if not HFO.ReloadUtils.ReloadSpeedPatched then
 
     ISReloadWeaponAction.setReloadSpeed = function(character, rack)
         local reloadSpeed = 1.0
+        local gun = character:getPrimaryHandItem()
+        local maxSpeed = tonumber(SandboxVars.HFO.ReloadSpeedMax) or 3.0
+
+        -- Safety clamp: max between 1.0 and 10.0
+        maxSpeed = math.max(1.0, math.min(maxSpeed, 10.0))
 
         local reloadingLevel = character:getPerkLevel(Perks.Reloading)
         local panicLevel = character:getMoodles():getMoodleLevel(MoodleType.Panic)
@@ -215,9 +213,11 @@ if not HFO.ReloadUtils.ReloadSpeedPatched then
             reloadSpeed = reloadSpeed + (reloadingLevel * 0.07)
             reloadSpeed = reloadSpeed - (panicLevel * 0.05)
         end
+        local afterSkillPanic = reloadSpeed
 
-        -- Vanilla Ammo Strap Logic
-        local gun = character:getPrimaryHandItem()
+        -- Vanilla Ammo Strap Logic- DISABLED for HFO
+        -- We use HFO_ReloadSpeedModifier on attachments instead
+        --[[
         local strap = character:getWornItem("AmmoStrap")
         local hasFastTag = character:hasEquippedTag("ReloadFastShells") or character:hasEquippedTag("ReloadFastBullets")
         local isShotgun = gun and gun:getAmmoType() == "Base.ShotgunShells"
@@ -235,22 +235,32 @@ if not HFO.ReloadUtils.ReloadSpeedPatched then
 
         if hasStrapBonus then
             reloadSpeed = reloadSpeed * 1.15
-        end
+        end]]
 
-        -- Inject the ability to use custom ModData to influence animation speed... ReloadSpeedModifer on Attachments
+        -- Track attachment modifier contribution
+        local attachmentModifier = 1.0
         if HFO and HFO.ReloadUtils and HFO.ReloadUtils.getReloadSpeedModifier then
-            local modifier = HFO.ReloadUtils.getReloadSpeedModifier(character, gun)
-            reloadSpeed = reloadSpeed * modifier
+            attachmentModifier = HFO.ReloadUtils.getReloadSpeedModifier(character, gun)
+            reloadSpeed = reloadSpeed * attachmentModifier
         end
+        local afterAttachment = reloadSpeed
 
+        -- Track vehicle penalty
+        local inVehicle = false
         local vehicle = character:getVehicle()
         if vehicle and vehicle:getDriver() == character then
+            inVehicle = true
             reloadSpeed = reloadSpeed * 0.8
         end
+        local afterVehicle = reloadSpeed
 
-        reloadSpeed = math.max(0.1, math.min(reloadSpeed, 3.0))
+        -- Apply sandbox-configured max clamp 
+        local beforeClamp = reloadSpeed
+        reloadSpeed = math.max(0.1, math.min(reloadSpeed, maxSpeed))
+        local afterClamp = reloadSpeed
 
-        character:setVariable("ReloadSpeed", reloadSpeed * GameTime.getAnimSpeedFix())
+        local finalValue = reloadSpeed * GameTime.getAnimSpeedFix()
+        character:setVariable("ReloadSpeed", finalValue)
     end
 
     -- Set flag to prevent future re-patching
@@ -264,7 +274,7 @@ end
 
 -- Find weapon parts with the ReloadSpeedModifier to apply speed bonus to reload with diminishing returns
 function HFO.ReloadUtils.getReloadSpeedModifier(character, weapon)
-    local totalReloadMod  = 1.0
+    local totalReloadMod = 1.0
     if not weapon then return totalReloadMod end
 
     local weaponParts = weapon:getAllWeaponParts()
@@ -273,30 +283,28 @@ function HFO.ReloadUtils.getReloadSpeedModifier(character, weapon)
     for i = 0, weaponParts:size() - 1 do
         local part = weaponParts:get(i)
         if part then
-            local rawValue = part:getModData() and part:getModData().ReloadSpeedModifier
+            local rawValue = part:getModData() and part:getModData().HFO_ReloadSpeedModifier
             local baseModifier = nil
     
             if type(rawValue) == "number" then
-                baseModifier  = rawValue 
+                baseModifier = rawValue 
             elseif type(rawValue) == "string" then
-                baseModifier = tonumber(string.match(rawValue , "[%d%.%-]+")) -- safe extraction
+                baseModifier = tonumber(string.match(rawValue, "[%d%.%-]+"))
             end
     
             if baseModifier then
-                totalReloadMod = totalReloadMod  + baseModifier 
+                totalReloadMod = totalReloadMod + baseModifier 
             end
         end
     end
 
-    local weaponModRaw = weapon:getModData() and weapon:getModData().ReloadSpeedModifier
+    local weaponModRaw = weapon:getModData() and weapon:getModData().HFO_ReloadSpeedModifier
     local weaponModFinal = tonumber(weaponModRaw)
     if weaponModFinal then
         totalReloadMod = totalReloadMod + weaponModFinal
     end
 
-    -- Apply diminishing returns curve
-    local finalReloadModifier = 1 + ((totalReloadMod - 1) ^ 0.8)
-    return finalReloadModifier
+    return totalReloadMod 
 end
 
 -- context call to indicate reload animation will be faster
@@ -309,7 +317,7 @@ ISInventoryPaneContextMenu.onUpgradeWeapon = function(weapon, part, player)
 
 	-- If the part has a reload bonus, cue the voice line
 	local md = part:getModData()
-	local bonus = md and tonumber(md.ReloadSpeedModifier)
+	local bonus = md and tonumber(md.HFO_ReloadSpeedModifier)
 	if bonus and bonus > 0 then
 		HFO.InnerVoice.say("ReloadBoost")
 	end
@@ -319,30 +327,34 @@ end
 
 
 ---===========================================---
---          SWAP AMMO CALIBER FUNCTION         --
+--           AMMO CALIBER SWAP FUNCTION        --
 ---===========================================---
--- THIS IS CURRENTLY BEING BUILT AND A PLACEHOLDER AT THE MOMENT
 
--- Get compatible ammo types for a weapon
+-- Get compatible ammo types for a weapon from modData
 function HFO.ReloadUtils.getCompatibleAmmoTypes(weapon)
+    if not weapon then return {} end
+    
     local md = weapon:getModData()
-    local compatibleTypes = {}
+    local compatibleAmmoTypes = {}
 
-    -- Add original ammo type (always first)
-    local origAmmoType = md.OriginalAmmoType or weapon:getAmmoType()
-    table.insert(compatibleTypes, origAmmoType)
+    -- Add base ammo type (always first)
+    local baseAmmoType = md.HFO_AmmoTypeBase or weapon:getAmmoType()
+    table.insert(compatibleAmmoTypes, baseAmmoType)
 
-    -- Add any additional types from modData (semicolon-separated)
-    if md.AdditionalAmmoTypes then
-        for ammoType in string.gmatch(md.AdditionalAmmoTypes, "([^;]+)") do
-            table.insert(compatibleTypes, ammoType)
+    -- Add additional types from modData (semicolon-separated)
+    if md.HFO_AmmoTypeAdditional then
+        for ammoType in string.gmatch(md.HFO_AmmoTypeAdditional, "([^;]+)") do
+            -- Trim whitespace
+            ammoType = ammoType:match("^%s*(.-)%s*$")
+            if ammoType and ammoType ~= "" then
+                table.insert(compatibleAmmoTypes, ammoType)
+            end
         end
     end
 
-    -- Deduplicate
     local seenAmmoTypes = {}
     local uniqueAmmoTypes = {}
-    for _, ammoType in ipairs(compatibleTypes) do
+    for _, ammoType in ipairs(compatibleAmmoTypes) do
         if not seenAmmoTypes[ammoType] then
             table.insert(uniqueAmmoTypes, ammoType)
             seenAmmoTypes[ammoType] = true
@@ -352,65 +364,64 @@ function HFO.ReloadUtils.getCompatibleAmmoTypes(weapon)
     return uniqueAmmoTypes
 end
 
+-- Get available ammo types that player actually has in inventory
+function HFO.ReloadUtils.getAvailableAmmoTypes(player, weapon)
+    if not player or not weapon then return {} end
+    local md = weapon:getModData()
 
-function HFO.ReloadUtils.SwapAmmoHotkey(_, reverse)
-    local player, weapon = HFO.Utils.getPlayerAndWeapon()
-    if not player or not weapon then return false end
-    if not HFO.Utils.isAimedFirearm(weapon) or HFO.Utils.isInMeleeMode(weapon) then return end
-    
-    -- Get compatible ammo types for this weapon
     local compatibleAmmoTypes = HFO.ReloadUtils.getCompatibleAmmoTypes(weapon)
-    if #compatibleAmmoTypes <= 1 then return false end
-    
-    -- Get available ammo types that player actually has
+    if #compatibleAmmoTypes <= 1 then return compatibleAmmoTypes end
+
     local availableAmmoTypes = {}
     local inventory = player:getInventory()
-    local currentAmmoType = weapon:getAmmoType()
+    local currentAmmoType = md.HFO_currentAmmoType or weapon:getAmmoType()
     
     for _, ammoType in ipairs(compatibleAmmoTypes) do
+        -- Include current ammo type or types we have in inventory
         if ammoType == currentAmmoType or inventory:containsTypeRecurse(ammoType) then
             table.insert(availableAmmoTypes, ammoType)
         end
     end
     
-    if #availableAmmoTypes <= 1 then
-        HFO.Utils.debugLog("No alternative ammo available")
-        return false
+    return availableAmmoTypes
+end
+
+-- Main ammo swap hotkey function
+function HFO.ReloadUtils.SwapAmmoHotkey(keyNum, reverse)
+    local player, weapon = HFO.Utils.getPlayerAndWeapon()
+    if not player or not weapon then return false end
+    if not HFO.Utils.isAimedFirearm(weapon) or HFO.Utils.isInMeleeMode(weapon) then return end
+    
+    local md = weapon:getModData()
+
+    -- Get available ammo types for this weapon
+    local availableAmmoTypes = HFO.ReloadUtils.getAvailableAmmoTypes(player, weapon)
+    if #availableAmmoTypes <= 1 then 
+        HFO.InnerVoice.say("NoAmmoSwapAvailable")
+        return false 
     end
+    
+    local currentAmmoType = md.HFO_currentAmmoType or weapon:getAmmoType()
     
     -- Find next ammo type
     local indexed = HFO.Utils.getNextPrevFromList(availableAmmoTypes, currentAmmoType)
     local nextAmmoType = reverse and indexed.prev or indexed.next
     
-    -- Unload current ammo
-    --HFO.ReloadUtils.unloadCurrentAmmo(player, weapon)
-    
-    -- Set new ammo type
-    weapon:setAmmoType(nextAmmoType)
-    
-    -- Apply stat modifiers based on ammo type
-    HFO.Utils.applyAmmoPropertiesToWeapon(weapon, nextAmmoType)
-
-    local key = currentAmmoType .. "->" .. nextAmmoType
-    local mappedCategory = HFO.InnerVoice.map[key]
-    if mappedCategory then
-        HFO.InnerVoice.say(mappedCategory)
+    if not nextAmmoType then return false end
+ 
+    -- Eject magazine if weapon has one
+    if weapon:isContainsClip() then
+        ISTimedActionQueue.add(ISEjectMagazine:new(player, weapon))
     end
     
-    -- Update magazine if needed
-    --HFO.ReloadUtils.updateMagazineForAmmo(weapon, nextAmmoType)
-    
-    -- Provide feedback
-    local ammoName = getItemNameForType(nextAmmoType) or nextAmmoType
-    --HFO.Utils.showMessage(getText("IGUI_HFO_AmmoSwitched") .. " " .. ammoName)
+    -- Queue the ammo swap action
+    ISTimedActionQueue.add(ISAmmoSwapAction:new(player, weapon, nextAmmoType))
     
     return true
 end
 
 
 ---===========================================---
-<<<<<<< Updated upstream
-=======
 --  AMMO & MAG CONTINUITY AND STAT RETENTION   --
 ---===========================================---
 
@@ -494,9 +505,11 @@ function HFO.ReloadUtils.handleAmmoRetention(weapon)
             end
         end
         
-        -- Reapply ammo stat modifiers
-        if HFO.Utils.applyAmmoPropertiesToWeapon then
-            HFO.Utils.applyAmmoPropertiesToWeapon(weapon, currentAmmoType)
+        -- Only apply stat modifiers on the ranged firearm, not on the _Melee item
+        if not HFO.Utils.isInMeleeMode(weapon) then
+            if HFO.Utils.applyAmmoPropertiesToWeapon then
+                HFO.Utils.applyAmmoPropertiesToWeapon(weapon, currentAmmoType)
+            end
         end
     end
 
@@ -506,12 +519,38 @@ end
 
 local originalCheckForModelChange = BWTweaks and BWTweaks.checkForModelChange
 
-function BWTweaks:checkForModelChange(weapon)  
+function BWTweaks:checkForModelChange(weapon)
+    if not HFO.Utils.isAimedFirearm(weapon) then
+        if originalCheckForModelChange then
+            return originalCheckForModelChange(self, weapon)
+        end
+        return
+    end
+
+    local md = weapon:getModData()
+
+    -- Remove slings from ALL pistols
+    if not md.HFO_SlingCleanupDone then
+        HFO.Utils.removeHandgunSlings(weapon)
+    end
+    
+    -- Remove ammo straps from only Jennings and Derringer
+    if not md.HFO_AmmoStrapCleanupDone then
+        HFO.Utils.removeAmmoStrapsFromLightHandguns(weapon)
+    end
+
     HFO.ReloadUtils.handleMagazineRetention(weapon)
     HFO.ReloadUtils.handleAmmoRetention(weapon)
-    HFO.Utils.migrateModData(weapon)
-    HFO.Utils.initializeNewModData(weapon)
-    HFO.Utils.storePreSwapStats(weapon)
+
+    if not md.HFO_Migrated then
+        HFO.Utils.migrateModData(weapon)
+    end
+    if md.HFO_DataVersion ~= HFO.Utils.DATA_VERSION then
+        HFO.Utils.initializeNewModData(weapon)
+    end
+    if not md.HFO_PreSwapStats then
+        HFO.Utils.storePreSwapStats(weapon)
+    end
 
     if originalCheckForModelChange then
         return originalCheckForModelChange(self, weapon)
@@ -522,37 +561,31 @@ Events.OnGameStart.Add(function()
     local player, weapon = HFO.Utils.getPlayerAndWeapon()
     if not HFO.Utils.isAimedFirearm(weapon) then return end
     
-    if weapon and instanceof(weapon, "HandWeapon") and weapon:isAimedFirearm() then
+    if weapon and instanceof(weapon, "HandWeapon") then
         BWTweaks:checkForModelChange(weapon)
-        HFO.ReloadUtils.handleMagazineRetention(weapon)
-        HFO.ReloadUtils.handleAmmoRetention(weapon)
-        HFO.Utils.migrateModData(weapon)
-        HFO.Utils.initializeNewModData(weapon)
-        HFO.Utils.storePreSwapStats(weapon)
     end
 end)
 
 
 ---===========================================---
->>>>>>> Stashed changes
 --           CUSTOM JAM CHANCE LOGIC           --
 ---===========================================---
 
 -- Create a dedicated function to calculate jam chance based on condition percentage
-function HFO.ReloadUtils.calculateJamChance(player, weapon, jamSetting)
+function HFO.ReloadUtils.calculateJamChance(player, weapon)
     -- Early exits with zero chance
     if not weapon or not weapon:isRanged() then return 0 end
-    
-    -- Validate jam setting
-    jamSetting = tonumber(jamSetting or sv.JamChance) or 4
-    if jamSetting < 2 or jamSetting > 7 then jamSetting = 4 end
+
+    -- Get jam setting directly from sandbox vars 
+    local jamSetting = tonumber(SandboxVars.HFO.JamChance) or 4
+    if jamSetting <= 1 then return 0 end -- early exit for no jam
+
+    if jamSetting < 2 or jamSetting > 7 then jamSetting = 4 end -- clamp for weird edge case of sandbox ini going outside values
     
     local condition = weapon:getCondition()
     local maxCondition = weapon:getConditionMax()
-    
-    -- Early exits
-    if jamSetting <= 1 then return 0 end
-    if maxCondition <= 0 or condition >= maxCondition then return 0 end
+
+    if condition >= maxCondition then return 0 end
     if weapon:getJamGunChance() <= 0 or weapon:getCurrentAmmoCount() <= 0 then return 0 end
     
     -- Get settings based on difficulty
@@ -562,8 +595,12 @@ function HFO.ReloadUtils.calculateJamChance(player, weapon, jamSetting)
     local thresholdPercent = settings.thresholdPercent
     local extraBaseJam = settings.extraBaseJamChance or 0
     
-    -- Calculate jam chance
-    local conditionPenalty = (thresholdPercent - conditionPercent) * scalingFactor
+    -- Calculate jam chance - only apply penalty if below threshold
+    local conditionPenalty = 0
+    if conditionPercent < thresholdPercent then
+        conditionPenalty = (thresholdPercent - conditionPercent) * scalingFactor
+    end
+    
     local baseChance = weapon:getJamGunChance() + extraBaseJam
     local totalJamChance = baseChance + conditionPenalty
     
@@ -580,64 +617,91 @@ function HFO.ReloadUtils.calculateJamChance(player, weapon, jamSetting)
 end
 
 -- Function to check if a weapon should jam based on calculated chance
-function HFO.ReloadUtils.shouldWeaponJam(player, weapon, jamSetting)
-    local jamChance = HFO.ReloadUtils.calculateJamChance(player, weapon, jamSetting)
+function HFO.ReloadUtils.shouldWeaponJam(player, weapon)
+    local jamChance = HFO.ReloadUtils.calculateJamChance(player, weapon)
+    if jamChance <= 0 then return false end
+    
     local jamThreshold = jamChance * 10 -- Convert to per-1000 value
     local roll = ZombRand(1000)
     return roll < jamThreshold
 end
 
--- Modified patch function that uses the standalone functions
-function HFO.ReloadUtils.patchJamChance()
-    if HFO.ReloadUtils._patched then return end
+-- Hook into OnWeaponSwingHitPoint to intercept BEFORE vanilla onShoot
+function HFO.ReloadUtils.setupJamSystem()
+    if HFO.ReloadUtils.HFO_jamPatched then return end
     
-    HFO.ReloadUtils.originalOnShoot = ISReloadWeaponAction.onShoot
+    -- Remove the vanilla onShoot from the event
+    Events.OnWeaponSwingHitPoint.Remove(ISReloadWeaponAction.onShoot)
     
-    function HFO.ReloadUtils.customOnShoot(player, weapon)
-        if not weapon or not weapon:isRanged() then
-            if HFO.ReloadUtils.originalOnShoot then 
-                HFO.ReloadUtils.originalOnShoot(player, weapon) 
-            end
+    -- Add our interceptor that runs first
+    Events.OnWeaponSwingHitPoint.Add(function(player, weapon)
+        if not weapon or not weapon:isRanged() then return end
+        if getDebug() and getDebugOptions():getBoolean("Cheat.Player.UnlimitedAmmo") then
             return
         end
         
-        local wasJammedBefore = weapon:isJammed()
-        
-        if HFO.ReloadUtils.originalOnShoot then 
-            HFO.ReloadUtils.originalOnShoot(player, weapon) 
+        -- === VANILLA LOGIC (preserved exactly) ===
+        if weapon:haveChamber() then
+            weapon:setRoundChambered(false);
+        end
+        if weapon:isRackAfterShoot() then
+            if weapon:haveChamber() then
+                weapon:setSpentRoundChambered(true);
+            end
+        else
+            if not weapon:isManuallyRemoveSpentRounds() then
+                if weapon:getShellFallSound() then
+                    player:getEmitter():playSound(weapon:getShellFallSound())
+                end
+            end
+            if weapon:getCurrentAmmoCount() >= weapon:getAmmoPerShoot() then
+                if weapon:haveChamber() then
+                    weapon:setRoundChambered(true);
+                end
+                weapon:setCurrentAmmoCount(weapon:getCurrentAmmoCount() - weapon:getAmmoPerShoot())
+            end
+        end
+        if weapon:isManuallyRemoveSpentRounds() then
+            weapon:setSpentRoundCount(weapon:getSpentRoundCount() + weapon:getAmmoPerShoot())
         end
         
-        if not wasJammedBefore and weapon:isJammed() then
-            weapon:setJammed(false)
+        -- Apply our custom jam logic
+        if weapon:getCondition() < weapon:getConditionMax() and 
+           weapon:getJamGunChance() > 0 and 
+           weapon:getCurrentAmmoCount() > 0 then
+            
+            if HFO.ReloadUtils.shouldWeaponJam(player, weapon) then
+                weapon:setJammed(true)
+                
+                -- Trigger inner voice
+                if HFO.InnerVoice and HFO.InnerVoice.say then
+                    HFO.InnerVoice.say("WeaponJammed")
+                end
+            end
         end
-        
-        if HFO.ReloadUtils.shouldWeaponJam(player, weapon) then
-            weapon:setJammed(true)
-            HFO.InnerVoice.say("WeaponJammed")
-        end
-    end
+    end)
     
-    ISReloadWeaponAction.onShoot = HFO.ReloadUtils.customOnShoot
-    HFO.ReloadUtils._patched = true
+    HFO.ReloadUtils.HFO_jamPatched = true
+    HFO.Utils.debugLog("[HFO] Jam system successfully installed")
 end
-
 
 ---===========================================---
 --     JAM CHANCE SCALING SANDBOX SETTINGS     --
 ---===========================================---
 
--- Difficulty presets remain the same
+-- Difficulty presets
 function HFO.ReloadUtils.getJamSettingsForDifficulty(level)
     local presets = {
-        [2] = { scalingFactor = 0.020, thresholdPercent = 80 },
-        [3] = { scalingFactor = 0.040, thresholdPercent = 84 },
-        [4] = { scalingFactor = 0.060, thresholdPercent = 88 },
-        [5] = { scalingFactor = 0.080, thresholdPercent = 92 },
-        [6] = { scalingFactor = 0.100, thresholdPercent = 94 },
-        [7] = { scalingFactor = 0.150, thresholdPercent = 96, extraBaseJamChance = 1 },
+        [1] = { scalingFactor = 0.000, thresholdPercent = 100 }, -- No jams
+        [2] = { scalingFactor = 0.020, thresholdPercent = 80 },  -- Very Easy
+        [3] = { scalingFactor = 0.040, thresholdPercent = 84 },  -- Easy
+        [4] = { scalingFactor = 0.060, thresholdPercent = 88 },  -- Normal
+        [5] = { scalingFactor = 0.080, thresholdPercent = 92 },  -- Hard
+        [6] = { scalingFactor = 0.100, thresholdPercent = 94 },  -- Very Hard
+        [7] = { scalingFactor = 0.150, thresholdPercent = 96, extraBaseJamChance = 1 }, -- Extreme
     }
     return presets[level] or presets[4]
 end
 
 -- Apply patch at game start
-Events.OnGameStart.Add(HFO.ReloadUtils.patchJamChance)
+Events.OnGameStart.Add(HFO.ReloadUtils.setupJamSystem)

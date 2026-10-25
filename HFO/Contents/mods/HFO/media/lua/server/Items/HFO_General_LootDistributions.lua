@@ -87,6 +87,18 @@ end
 HFO.LootDistro.specialItemMultipliers = {
     ["50BMGBox"] = 0.7,
     ["50BMGClip"] = 0.7,
+    ["ShotgunShellsBirdshotBox"] = 0.6,
+    ["ShotgunShellsSlugBox"] = 0.6,
+    ["MinieBallBox"] = 0.2,
+    ["BlunderbussBulletsBox"] = 0.1,
+    ["BlowgunDartBox"] = 0.3,
+    ["MinieBall"] = 0.2,
+    ["BlunderbussBullets"] = 0.2,
+    ["BlowgunDart"] = 0.3,
+    ["FlintlockPistol"] = 0.3,
+    ["Springfield1861"] = 0.2,
+    ["Blunderbuss"] = 0.2,
+    ["PneumaticBlowgun"] = 0.3,
 }
 
 function HFO.LootDistro:buildRateMap(itemList, baseChance)
@@ -166,7 +178,6 @@ function HFO.LootDistro.spawnRateEngine:calculateRate(options)
 end
 
 function HFO.LootDistro:processCategory(config)
-    local sv = config.sv
     local itemList = config.itemList
     if not itemList or #itemList == 0 then return end
 
@@ -177,7 +188,7 @@ function HFO.LootDistro:processCategory(config)
     local baseRate = HFO.LootDistro.spawnRateEngine:calculateRate({
         baseRate = config.baseRate,                     
         categorySetting = config.categorySetting or 4,  
-        globalLoot = sv.Loot,                           
+        globalLoot = SandboxVars.HFO.Loot,                           
         spawnRateSlider = config.spawnRateSlider, 
         rarity = config.rarity or "standard",           
     })
@@ -202,7 +213,6 @@ HFO.LootDistro.CategoryLocations = {
     Cleaning = "Mechanics",
     RepairKits = "Mechanics",
     FirearmCache = "CacheandCases",
-    Magazines = "Magazines",
     Cases = "CacheandCases"
 }
 
@@ -210,74 +220,68 @@ HFO.LootDistro.CategoryLocations = {
 ---===========================================---
 --                   FIREARMS                  --
 ---===========================================---
-function HFO.LootDistro.CategoryConfig.FirearmsHandguns(sv, enabledTables)
-    HFO.LootDistro:processCategory({
-        sv = sv,                                        -- Connect to sandbox settings
+function HFO.LootDistro.CategoryConfig.FirearmsHandguns(enabledTables)
+    HFO.LootDistro:processCategory({                                       -- Connect to sandbox settings
         itemList = enabledTables.FirearmsHandguns,      -- Grab from enabled Loot Table Firearms Handguns
         locationType = "Firearms",                      -- Connect to mapped location for Firearms
         baseRate = 2.5,                                 -- Establish base rate for spawns for this category
-        categorySetting = sv.Firearms,                  -- Grab overall category sandbox loot setting
-        spawnRateSlider  = sv.FirearmsHandgunsRates,    -- Grab Handgun specific sandbox loot setting
+        categorySetting = SandboxVars.HFO.Firearms,                  -- Grab overall category sandbox loot setting
+        spawnRateSlider  = SandboxVars.HFO.FirearmsHandgunsRates,    -- Grab Handgun specific sandbox loot setting
         rarity = "standard",                            -- Curve used for impact of global and category multipliers from defaults
     })
 end
 
-function HFO.LootDistro.CategoryConfig.FirearmsSMGs(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.FirearmsSMGs(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.FirearmsSMGs,
         locationType = "Firearms",
         baseRate = 1.4,
-        categorySetting = sv.Firearms,
-        spawnRateSlider  = sv.FirearmsSMGsRates,
+        categorySetting = SandboxVars.HFO.Firearms,
+        spawnRateSlider  = SandboxVars.HFO.FirearmsSMGsRates,
         rarity = "rare",
     })
 end
 
-function HFO.LootDistro.CategoryConfig.FirearmsRifles(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.FirearmsRifles(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.FirearmsRifles,
         locationType = "Firearms",
         baseRate = 2.0,
-        categorySetting = sv.Firearms,
-        spawnRateSlider  = sv.FirearmsRiflesRates,
+        categorySetting = SandboxVars.HFO.Firearms,
+        spawnRateSlider  = SandboxVars.HFO.FirearmsRiflesRates,
         rarity = "standard",
     })
 end
 
-function HFO.LootDistro.CategoryConfig.FirearmsSnipers(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.FirearmsSnipers(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.FirearmsSnipers,
         locationType = "Firearms",
         baseRate = 1.2,
-        categorySetting = sv.Firearms,
-        spawnRateSlider  = sv.FirearmsSnipersRates,
+        categorySetting = SandboxVars.HFO.Firearms,
+        spawnRateSlider  = SandboxVars.HFO.FirearmsSnipersRates,
         rarity = "rare",
     })
 end
 
-function HFO.LootDistro.CategoryConfig.FirearmsShotguns(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.FirearmsShotguns(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.FirearmsShotguns,
         locationType = "Firearms",
         baseRate = 1.6,
-        categorySetting = sv.Firearms,
-        spawnRateSlider  = sv.FirearmsShotgunsRates,
+        categorySetting = SandboxVars.HFO.Firearms,
+        spawnRateSlider  = SandboxVars.HFO.FirearmsShotgunsRates,
         rarity = "rare",
     })
 end
 
-function HFO.LootDistro.CategoryConfig.FirearmsOther(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.FirearmsOther(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.FirearmsOther,
         locationType = "Firearms",
         baseRate = 0.5,
-        categorySetting = sv.Firearms,
-        spawnRateSlider  = sv.FirearmsOtherRates,
+        categorySetting = SandboxVars.HFO.Firearms,
+        spawnRateSlider  = SandboxVars.HFO.FirearmsOtherRates,
         rarity = "veryRare",
     })
 end
@@ -285,86 +289,79 @@ end
 ---===========================================---
 --        AMMO BOXES AND AMMO MAGAZINES        --
 ---===========================================---
-function HFO.LootDistro.CategoryConfig.AmmoBoxHandguns(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.AmmoBoxHandguns(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.AmmoBoxHandguns,
         locationType = "Ammo",
         baseRate = 2.0,
-        categorySetting = sv.Ammo,
-        spawnRateSlider  = sv.AmmoHandgunsRates,
+        categorySetting = SandboxVars.HFO.Ammo,
+        spawnRateSlider  = SandboxVars.HFO.AmmoHandgunsRates,
         rarity = "standard",
     })
 end
 
-function HFO.LootDistro.CategoryConfig.AmmoMagsHandguns(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.AmmoMagsHandguns(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.AmmoMagsHandguns,
         locationType = "Ammo",
         baseRate = 2.0,
-        categorySetting = sv.Ammo,
-        spawnRateSlider  = sv.AmmoHandgunsRates,
+        categorySetting = SandboxVars.HFO.Ammo,
+        spawnRateSlider  = SandboxVars.HFO.AmmoHandgunsRates,
         rarity = "standard",
     })
 end
 
-function HFO.LootDistro.CategoryConfig.AmmoBoxRifles(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.AmmoBoxRifles(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.AmmoBoxRifles,
         locationType = "Ammo",
         baseRate = 1.6,
-        categorySetting = sv.Ammo,
-        spawnRateSlider  = sv.AmmoRiflesRates,
+        categorySetting = SandboxVars.HFO.Ammo,
+        spawnRateSlider  = SandboxVars.HFO.AmmoRiflesRates,
         rarity = "standard",
     })
 end
 
-function HFO.LootDistro.CategoryConfig.AmmoMagsRifles(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.AmmoMagsRifles(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.AmmoMagsRifles,
         locationType = "Ammo",
         baseRate = 1.6,
-        categorySetting = sv.Ammo,
-        spawnRateSlider  = sv.AmmoRiflesRates,
+        categorySetting = SandboxVars.HFO.Ammo,
+        spawnRateSlider  = SandboxVars.HFO.AmmoRiflesRates,
         rarity = "standard",
     })
 end
 
-function HFO.LootDistro.CategoryConfig.AmmoBoxShotguns(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.AmmoBoxShotguns(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.AmmoBoxShotguns,
         locationType = "Ammo",
         baseRate = 1.2,
-        categorySetting = sv.Ammo,
-        spawnRateSlider  = sv.AmmoShotgunsRates,
+        categorySetting = SandboxVars.HFO.Ammo,
+        spawnRateSlider  = SandboxVars.HFO.AmmoShotgunsRates,
         rarity = "standard",
     })
 end
 
-function HFO.LootDistro.CategoryConfig.AmmoBoxOther(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.AmmoBoxOther(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.AmmoBoxOther,
         locationType = "Ammo",
         baseRate = 0.3,
-        categorySetting = sv.Ammo,
-        spawnRateSlider  = sv.AmmoOtherRates,
+        categorySetting = SandboxVars.HFO.Ammo,
+        spawnRateSlider  = SandboxVars.HFO.AmmoOtherRates,
         rarity = "veryRare",
     })
 end
 
-function HFO.LootDistro.CategoryConfig.AmmoMagsOther(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.AmmoMagsOther(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.AmmoMagsOther,
         locationType = "Ammo",
         baseRate = 0.3,
-        categorySetting = sv.Ammo,
-        spawnRateSlider  = sv.AmmoOtherRates,
+        categorySetting = SandboxVars.HFO.Ammo,
+        spawnRateSlider  = SandboxVars.HFO.AmmoOtherRates,
         rarity = "veryRare",
     })
 end
@@ -372,38 +369,35 @@ end
 ---===========================================---
 --    ACCESSORIES / WEAPON PART ATTACHMENTS    --
 ---===========================================---
-function HFO.LootDistro.CategoryConfig.AccessoriesSuppressors(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.AccessoriesSuppressors(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.AccessoriesSuppressors,
         locationType = "Accessories",
         baseRate = 0.6,
-        categorySetting = sv.Accessories,
-        spawnRateSlider  = sv.AccessoriesSuppressorsRates,
+        categorySetting = SandboxVars.HFO.Accessories,
+        spawnRateSlider  = SandboxVars.HFO.AccessoriesSuppressorsRates,
         rarity = "veryRare",
     })
 end
 
-function HFO.LootDistro.CategoryConfig.AccessoriesScopes(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.AccessoriesScopes(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.AccessoriesScopes,
         locationType = "Accessories",
         baseRate = 0.8,
-        categorySetting = sv.Accessories,
-        spawnRateSlider  = sv.AccessoriesScopesRates,
+        categorySetting = SandboxVars.HFO.Accessories,
+        spawnRateSlider  = SandboxVars.HFO.AccessoriesScopesRates,
         rarity = "rare",
     })
 end
 
-function HFO.LootDistro.CategoryConfig.AccessoriesOther(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.AccessoriesOther(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.AccessoriesOther,
         locationType = "Accessories",
         baseRate = 0.9,
-        categorySetting = sv.Accessories,
-        spawnRateSlider  = sv.AccessoriesOtherRates,
+        categorySetting = SandboxVars.HFO.Accessories,
+        spawnRateSlider  = SandboxVars.HFO.AccessoriesOtherRates,
         rarity = "rare",
     })
 end
@@ -411,46 +405,42 @@ end
 ---===========================================---
 --        EXTENDED MAGS AND SPEEDLOADERS       --
 ---===========================================---
-function HFO.LootDistro.CategoryConfig.ExtendedSmall(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.ExtendedSmall(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.ExtendedSmall,
         locationType = "Extended",
         baseRate = 0.2,
-        categorySetting = sv.Extended,
+        categorySetting = SandboxVars.HFO.Extended,
         rarity = "rare",
     })
 end
 
-function HFO.LootDistro.CategoryConfig.ExtendedLarge(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.ExtendedLarge(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.ExtendedLarge,
         locationType = "Extended",
         baseRate = 0.1,
-        categorySetting = sv.Extended,
+        categorySetting = SandboxVars.HFO.Extended,
         rarity = "veryRare",
     })
 end
 
-function HFO.LootDistro.CategoryConfig.ExtendedDrum(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.ExtendedDrum(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.ExtendedDrum,
         locationType = "Extended",
         baseRate = 0.05,
-        categorySetting = sv.Extended,
+        categorySetting = SandboxVars.HFO.Extended,
         rarity = "veryRare",
     })
 end
 
-function HFO.LootDistro.CategoryConfig.SpeedLoaders(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.SpeedLoaders(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.SpeedLoaders,
         locationType = "Extended",
         baseRate = 0.3,
-        categorySetting = sv.Loot,
+        categorySetting = SandboxVars.HFO.Loot,
         rarity = "rare",
     })
 end
@@ -458,13 +448,12 @@ end
 ---===========================================---
 --                FIREARM SKINS                --
 ---===========================================---
-function HFO.LootDistro.CategoryConfig.FirearmSkins(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.FirearmSkins(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.FirearmSkins,
         locationType = "FirearmSkins",
         baseRate = 0.5,
-        categorySetting = sv.FirearmSkins,
+        categorySetting = SandboxVars.HFO.FirearmSkins,
         rarity = "rare",
     })
 end
@@ -472,13 +461,12 @@ end
 ---===========================================---
 --               CLEANING ITEMS                --
 ---===========================================---
-function HFO.LootDistro.CategoryConfig.Cleaning(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.Cleaning(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.Cleaning,
         locationType = "Cleaning",
         baseRate = 2.5,
-        categorySetting = sv.CleanRepairSpawns,
+        categorySetting = SandboxVars.HFO.CleanRepairSpawns,
         rarity = "standard",
     })
 end
@@ -486,13 +474,12 @@ end
 ---===========================================---
 --                 REPAIR KITS                 --
 ---===========================================---
-function HFO.LootDistro.CategoryConfig.RepairKits(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.RepairKits(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.RepairKits,
         locationType = "RepairKits",
         baseRate = 1.0,
-        categorySetting = sv.CleanRepairSpawns,
+        categorySetting = SandboxVars.HFO.CleanRepairSpawns,
         rarity = "standard",
     })
 end
@@ -500,41 +487,25 @@ end
 ---===========================================---
 --               FIREARM CACHES                --
 ---===========================================---
-function HFO.LootDistro.CategoryConfig.FirearmCache(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.FirearmCache(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.FirearmCache,
         locationType = "FirearmCache",
         baseRate = 0.4,
-        categorySetting = sv.FirearmCache,
+        categorySetting = SandboxVars.HFO.FirearmCache,
         rarity = "rare",
-    })
-end
-
----===========================================---
---                  MAGAZINES                  --
----===========================================---
-function HFO.LootDistro.CategoryConfig.Magazines(sv, enabledTables)
-    HFO.LootDistro:processCategory({
-        sv = sv,
-        itemList = enabledTables.Magazines,
-        locationType = "Magazines",
-        baseRate = 0.2,
-        categorySetting = sv.Loot,
-        rarity = "veryRare",
     })
 end
 
 ---===========================================---
 --                    CASES                    --
 ---===========================================---
-function HFO.LootDistro.CategoryConfig.Cases(sv, enabledTables)
+function HFO.LootDistro.CategoryConfig.Cases(enabledTables)
     HFO.LootDistro:processCategory({
-        sv = sv,
         itemList = enabledTables.Cases,
         locationType = "Cases",
         baseRate = 0.5,
-        categorySetting = sv.Loot,
+        categorySetting = SandboxVars.HFO.Loot,
         rarity = "rare",
     })
 end
@@ -673,12 +644,11 @@ Events.OnPreDistributionMerge.Add(function()
     HFO.LootDistro.RemovedItems = {}
 
     -- Add HFO loot
-    local sv = HFO.SandboxUtils.get()
     local enabledTables = HFO.Loot.getEnabledItems()
     
     for categoryName, applyFunc in pairs(HFO.LootDistro.CategoryConfig) do
         if type(applyFunc) == "function" then
-            applyFunc(sv, enabledTables) 
+            applyFunc(enabledTables) 
         end
     end
 end)

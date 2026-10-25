@@ -86,13 +86,6 @@ local function initializeMeleeStats()
     local meleeExceptions = {
         ["Base.PM63RAK_Grip_Melee"] = true,
         ["Base.PM63RAK_GripExtended_Melee"] = true,
-        ["Base.M1918BAR_Bipod_Melee"] = true,
-        ["Base.L2A1_Bipod_Melee"] = true,
-        ["Base.FG42_Bipod_Melee"] = true,
-        ["Base.MG42_Bipod_Melee"] = true,
-        ["Base.BarrettM82A1_Bipod_Melee"] = true,
-        ["Base.McMillanTAC50_Bipod_Melee"] = true,
-        ["Base.Galil_Bipod_Melee"] = true,
     }
 
     for fullName, _ in pairs(firearmsStats) do

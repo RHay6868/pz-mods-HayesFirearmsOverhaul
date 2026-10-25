@@ -6,8 +6,17 @@ function ISCleanFirearm:isValid()
     if not self.character:getInventory():contains(self.weapon) then return false end
     if not HFO.Utils.isAimedFirearm(self.weapon) then return false end
     if self.character:getInventory():getItemCount("FirearmCleaningKit") < 1 then return false end
-    if self.character:getInventory():getItemCount("FirearmLubricant") < 1 then return false end
     if self.character:getInventory():getItemCount("RippedSheets") < 1 then return false end
+    
+    -- Check for FirearmLubricant with enough uses - main inventory only
+    local lubricant = self.character:getInventory():getFirstTypeEval("FirearmLubricant", 
+        function(item) return item:getUsedDelta() >= 0.1 end)
+    if not lubricant then return false end
+    
+    if self.weapon:getCondition() >= self.weapon:getConditionMax() and self.weapon:getHaveBeenRepaired() <= 1 then
+        return false
+    end
+
     return true
 end
 
@@ -33,7 +42,11 @@ function ISCleanFirearm:perform()
     local sv = HFO.SandboxUtils.get()
     
     -- Consume materials
-    self.character:getInventory():RemoveOneOf("FirearmLubricant")
+    local lubricant = self.character:getInventory():getFirstTypeEval("FirearmLubricant", 
+        function(item) return item:getUsedDelta() >= 0.1 end)
+    if lubricant then
+        lubricant:Use() -- This consumes exactly 0.1 delta as defined by UseDelta in item script
+    end
     self.character:getInventory():RemoveOneOf("RippedSheets")
     self.character:getInventory():AddItem("Base.RippedSheetsDirty")
     

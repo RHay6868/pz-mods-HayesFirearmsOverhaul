@@ -1,4 +1,18 @@
--- crabby gun things: part 2
+--============================================================--
+--            BWTweaks: Model Change & Hooks (Core)           --
+--============================================================--
+-- Author: bikinihorst
+-- Purpose:
+--   Change weapon (or item) models based on runtime state:
+--   attachments installed, magazine presence, chambered round,
+--   modData flags, and simple ammo-type matching. Includes
+--   wrappers and hooks into common TimedActions/events.
+-- Used by:
+--   Hayes Firearms Overhaul (HFO) – integration layer only;
+--   logic in this file remains authored by bikinihorst.
+-- License / Permissions:
+--   Used with permission of the author. All rights reserved by bikinihorst.
+--============================================================--
 
 require "TimedActions/ISUpgradeWeapon";
 require "TimedActions/ISRemoveWeaponUpgrade";
@@ -125,9 +139,27 @@ end
 -- example 1: set model when fiberglass stock is installed and nothing is in the chamber
 -- BWTweaks:changeModelByAttachmentAndRoundChambered("Base.HuntingRifle", "TanPlating", false, "HuntingRifleFGS_NoMag");
 
+-- Wrapper for chambered + ammo material
+function BWTweaks:changeModelByRoundChamberedAndMaterial(fullType, isChambered, material, model)
+    BWTweaks:changeModelBy(fullType, model, {
+        chambered = isChambered,
+        ammoContains = material,
+    });
+end
+
+-- Wrapper for gun plating + chambered + ammo material
+function BWTweaks:changeModelByGunPlatingAndRoundChamberedAndMaterial(fullType, gunPlating, isChambered, material, model)
+    BWTweaks:changeModelBy(fullType, model, {
+        modDataKey = "HFO_GunPlating",
+        modDataValue = gunPlating,
+        chambered = isChambered,
+        ammoContains = material,
+    });
+end
+
 function BWTweaks:changeModelByGunPlatingAndRoundChambered(fullType, gunPlating, isChambered, model)
     BWTweaks:changeModelBy(fullType, model, {
-        modDataKey = "GunPlating",
+        modDataKey = "HFO_GunPlating",
         modDataValue = gunPlating,
         chambered = isChambered,
     });
@@ -139,7 +171,7 @@ end
 
 function BWTweaks:changeModelByGunPlating(fullType, gunPlating, model)
     BWTweaks:changeModelBy(fullType, model, {
-        modDataKey = "GunPlating",
+        modDataKey = "HFO_GunPlating",
         modDataValue = gunPlating,
     });
 end
@@ -150,7 +182,7 @@ end
 
 function BWTweaks:changeModelByGunPlatingAndAttachment(fullType, gunPlating, attachmentType, model)
     BWTweaks:changeModelBy(fullType, model, {
-        modDataKey = "GunPlating",
+        modDataKey = "HFO_GunPlating",
         modDataValue = gunPlating,
         attachment = attachmentType,
     });
@@ -162,7 +194,7 @@ end
 
 function BWTweaks:changeModelByGunPlatingAndMagPresent(fullType, gunPlating, isPresent, model)
     BWTweaks:changeModelBy(fullType, model, {
-        modDataKey = "GunPlating",
+        modDataKey = "HFO_GunPlating",
         modDataValue = gunPlating,
         magazine = isPresent,
     });
@@ -174,7 +206,7 @@ end
 
 function BWTweaks:changeModelByGunPlatingAndAttachmentAndMagPresent(fullType, gunPlating, attachmentType, isPresent, model)
     BWTweaks:changeModelBy(fullType, model, {
-        modDataKey = "GunPlating",
+        modDataKey = "HFO_GunPlating",
         modDataValue = gunPlating,
         attachment = attachmentType,
         magazine = isPresent,
@@ -246,18 +278,27 @@ function BWTweaks:checkForModelChange(weapon)
                     end
                 end
 
-                if config["criteria"]["chambered"] ~= nil
-                then
+                if config["criteria"]["chambered"] ~= nil then
                     local isChambered = weapon:haveChamber()
                         and weapon:isRoundChambered()
                         or weapon:getCurrentAmmoCount() > 0;
 
-                    --print("    - config depends on round chambered: " .. tostring(config["criteria"]["chambered"]) .. " vs. " .. tostring(isChambered));
+                    if isChambered ~= config["criteria"]["chambered"] then
+                        fitsConfig = false;
+                    end
+                end
 
-                    if not isChambered == config["criteria"]["chambered"]
-                    then
-                        --print("    -> chambered requirement not fulfilled");
-
+                -- Very simple wood check - just use ammo type
+                if config["criteria"]["ammoContains"] ~= nil and fitsConfig then
+                    local ammoType = weapon:getAmmoType();
+                    if ammoType then
+                        local contains = config["criteria"]["ammoContains"]:lower();
+                        local hasWoodAmmo = ammoType:lower():find(contains, 1, true) ~= nil;
+                        
+                        if not hasWoodAmmo then
+                            fitsConfig = false;
+                        end
+                    else
                         fitsConfig = false;
                     end
                 end
@@ -328,7 +369,9 @@ end
 
 Events.OnGameStart.Add(function()
     getPlayer():getInventory():containsEvalRecurse(function(item)
-        BWTweaks:checkForModelChange(item);
+        if instanceof(item, "HandWeapon") then
+            BWTweaks:checkForModelChange(item);
+        end
     end);
 end);
 

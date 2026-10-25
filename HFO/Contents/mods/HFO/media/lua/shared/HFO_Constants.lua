@@ -39,30 +39,24 @@
 
 HFO = HFO or {}
 HFO.Constants = HFO.Constants or {}
-local sv = HFO.SandboxUtils.get()
 
 
 ---===========================================---
 --      MOD DATA SPECIFIC CONSTANTS     --
 ---===========================================---
--- NEED to plan out the swap process of modData to HFO_ prefix and create 
 -- function to swap old moddata to new moddata as a lot of things have changed
 
 HFO.Constants.TrackedModData = {
-    "MeleeSwap", "FoldSwap",  "IntegratedSwap",  "currentName",  
-    "MagBase",  "MagNone", "MagExtSm",  "MagExtLg",  "MagDrum", "currentMagType",
-    "AdditionalAmmoTypes",  "currentAmmoType", "OriginalAmmoType",
+    "HFO_currentName", "HFO_LightOn", "HFO_currentAmmoType", "HFO_currentMagType",
+    "HFO_MeleeSwap", "HFO_FoldSwap", "HFO_IntegratedSwap", 
+    "HFO_MagBase", "HFO_MagExtSm", "HFO_MagExtLg", "HFO_MagDrum",
+    "HFO_Migrated", "HFO_WasChambered", "HFO_AmmoTypeBase", "HFO_AmmoTypeAdditional", "HFO_tShirtToLaunch",
+    "HFO_AttachmentSlot", "HFO_ReloadSpeedModifier", "HFO_PreSwapStats",
+    "HFO_xbowBolts", "HFO_dartsHits", "HFO_burstSize", "HFO_burstDelay",
+    "HFO_burstSpeeds", "HFO_burstTracker", "HFO_SpeedLoadCompatible", 
+    "HFO_InnerVoiceLevel", "HFO_GunPlatingOptions", "HFO_GunPlating", 
+    "HFO_GunBaseModel", "HFO_AdminEdited", "HFO_VariantApplied",
 }
-
--- Default fallback logic for missing modData fields (used during first-time captures)
-HFO.Constants.ModDataFallbacks = {
-    currentAmmoType     = function(weapon) return weapon:getAmmoType() end,
-    currentMagType      = function(weapon) return weapon:getMagazineType() end,
-    currentName         = function(weapon) return weapon:getName() end,
-    MagBase             = function(weapon) return weapon:getMagazineType() end,
-    MagNone             = function(_)      return "NoMag" end,
-}
-
 
 ---===========================================---
 --             UTILITY FOR CUSTOM UI           --
@@ -129,6 +123,49 @@ HFO.Constants.SuffixMappings = {
     { swaptype = "_Folded",         suffix = " [Folded]"         },
 }
 
+
+-- Define stat modifications for each variant
+HFO.Constants.VariantModifications = {
+    ["_GripExtended"] = {
+        aimingTime = 2,
+        reloadTime = -7,
+        recoilDelay = 1,
+        maxRange = 2,
+        minAngle = -0.025,
+        hitChance = 10
+    },
+    ["_Extended"] = {
+        aimingTime = -3,
+        reloadTime = -7,
+        recoilDelay = 2,
+        maxRange = 2,
+        minAngle = -0.025,
+        hitChance = 5
+    },
+    ["_Grip"] = {
+        aimingTime = 5,
+        reloadTime = 2,
+        recoilDelay = -2,
+        maxRange = 2,
+        minAngle = 0.01,
+        hitChance = 5
+    },
+    ["_Folded"] = {
+        aimingTime = 10,
+        reloadTime = -5,
+        maxRange = -2,
+        hitChance = -5
+    },
+    ["_Bipod"] = {
+        aimingTime = 5,
+        reloadTime = 5,
+        minAngle = -0.01,
+        hitChance = 5,
+        criticalChance = 5
+    }
+    -- _Melee is handled separately in your existing melee logic
+}
+
 -- Weapon part check used to transfer attachments during weapon swaps
 HFO.Constants.WeaponAttachmentParts = {
     { get = "getScope",     attach = "attachWeaponPart", partType = "scope" },
@@ -186,20 +223,36 @@ HFO.Constants.BurstSpeedStages = {
 
 HFO.Constants.SuppressorLevels = {
     SuppressorPistol = {
-        volume = sv.PistolSuppressionLevels or 30,
-        radius = sv.PistolSuppressionLevels or 30,
+        volume = SandboxVars.HFO.PistolSuppressionLevels or 30,
+        radius = SandboxVars.HFO.PistolSuppressionLevels or 30,
         swing  = "SuppressorPistol"
     },
     SuppressorRifle = {
-        volume = sv.RifleSuppressionLevels or 40,
-        radius = sv.RifleSuppressionLevels or 40,
+        volume = SandboxVars.HFO.RifleSuppressionLevels or 40,
+        radius = SandboxVars.HFO.RifleSuppressionLevels or 40,
         swing  = "SuppressorRifle"
     },
     SuppressorSniper = {
-        volume = sv.SniperSuppressionLevels or 50,
-        radius = sv.SniperSuppressionLevels or 50,
+        volume = SandboxVars.HFO.SniperSuppressionLevels or 50,
+        radius = SandboxVars.HFO.SniperSuppressionLevels or 50,
         swing  = "SuppressorSniper"
     }
+}
+
+-- Weapon baseline projectile counts 
+HFO.Constants.WeaponProjectileCounts = {
+    ["Base.Shotgun"] = 5,
+    ["Base.DoubleBarrelShotgun"] = 5,
+    ["Base.ShotgunSawnoff"] = 5,
+    ["Base.DoubleBarrelShotgunSawnoff"] = 5,
+    ["Base.Mossberg500"] = 6,
+    ["Base.Mossberg500Super"] = 6,
+    ["Base.Mossberg500Super_Grip"] = 6,
+    ["Base.Chiappa1887"] = 6,
+    ["Base.Chiappa1887Sawnoff"] = 6,
+    ["Base.TrenchGun"] = 6,
+    ["Base.BeckerRevolver"] = 5,
+    ["Base.Blunderbuss"] = 8,
 }
 
 -- Ammo-specific stat overrides still being configured
@@ -246,10 +299,6 @@ HFO.Constants.LootLocations = {
         "GunStoreDisplayCase", "GunStoreShelf", "PawnShopGunsSpecial", 
         "PawnShopCases", "PlankStashMisc", "PoliceEvidence",
     },
-    Magazines = {
-        "BookstoreBooks", "BookstoreMisc", "CrateMagazines", "CrateBooks", 
-        "GunStoreMagazineRack", "LibraryBooks", "MagazineRackMixed", "PostOfficeMagazines", 
-    },
 }
 
 
@@ -261,7 +310,7 @@ HFO.Constants.Items = {
     Firearms = {
         Handguns = {
             Base = { "Pistol", "Pistol2", "Pistol3", "Revolver_Short", "Revolver_Long", "Revolver" },
-            HFE = {"Glock", "FiveSeven", "Luger", "WaltherPPK", "Makarov", "Derringer", "PLR16", "MosinNagantObrez", 
+            HFE = {"Glock", "FiveSeven", "Luger", "WaltherPPK", "Makarov", "Derringer", "PLR16", "MosinNagantObrez", "OA93", 
                 "SIGSauer", "JenningsJ22",  "RugerGP100", "HighStandardSentinel" },
             ColtCavalry = { "ColtCavalryRevolver" }, 
         },
@@ -277,16 +326,16 @@ HFO.Constants.Items = {
         },
         Snipers = {
             Base = {},
-            HFE = { "MosinNagant", "BarrettM82A1", "McMillanTAC50", "SVDDragunov", "Galil", "VSSVintorez" },
+            HFE = { "MosinNagant", "BarrettM82A1", "PGMHecate", "SVDDragunov", "Galil", "VSSVintorez" },
         },
         Shotguns = {
             Base = {"Shotgun", "DoubleBarrelShotgun" },
-            HFE = { "Remington1100", "Mossberg500", "Chiappa1887", "TrenchGun", "BeckerRevolver" },
+            HFE = { "Remington1100", "Mossberg500", "Mossberg500Super", "Chiappa1887", "TrenchGun", "BeckerRevolver" },
         },
         Other = {
             Base = {},
-            HFE = { "CrossbowCompound", "CrossbowReverseDraw", "CrossbowPistol", "TheNailGun", "FlintlockPistol",
-             "Springfield1861", "Blunderbuss", "PneumaticBlowgun" },
+            HFE = { "CrossbowCompound", "CrossbowReverseDraw", "CrossbowPistol", "TheNailGun" },
+            Meme = {"FlintlockPistol", "Springfield1861", "Blunderbuss", "PneumaticBlowgun" },
             TShirt = { "TShirtLauncher" },
         },
     },
@@ -307,7 +356,8 @@ HFO.Constants.Items = {
         },
         Other = { 
             Base = { },
-            HFE = { "CrossbowBolt", "WoodCrossbowBolt", "MinieBall", "BlunderbussBullets", "BlowgunDart" },
+            HFE = { "CrossbowBolt", "WoodCrossbowBolt" },
+            Meme = {"MinieBall", "BlunderbussBullets", "BlowgunDart" },
         },
     },
 
@@ -327,7 +377,8 @@ HFO.Constants.Items = {
         },
         Other = { 
             Base = { },
-            HFE = { "CrossbowBoltBox", "WoodCrossbowBoltBox", "MinieBallBox", "BlunderbussBulletsBox", "BlowgunDartBox" },
+            HFE = { "CrossbowBoltBox", "WoodCrossbowBoltBox" },
+            Meme = { "MinieBallBox", "BlunderbussBulletsBox", "BlowgunDartBox" },
         },
     },
 
@@ -338,7 +389,7 @@ HFO.Constants.Items = {
         },
         Rifles = {
             Base = { "223Clip", "308Clip", "M14Clip", "556Clip" },
-            HFE = { "22Clip10","3006BlocClip", "3006Clip", "545Clip", "P90Clip", "762Clip", "762x51Clip", "762x54rClip",
+            HFE = { "22Clip10","3006BlocClip", "3006Clip", "308Clip5", "545Clip", "P90Clip", "762Clip", "762x51Clip", "762x54rClip",
                  "762x54rStripperClip", "792x33Clip", "50BMGClip", "9x39Clip" , "45Clip20", "9x39Clip20", "762x51Clip20", "762x51Clip30" },
             FGMG = { "792Clip", "792Drum" },
         },
@@ -356,7 +407,7 @@ HFO.Constants.Items = {
         },
         Scopes = {
             Base = { "IronSight", "x2Scope", "x4Scope", "x8Scope", "RedDot" },
-            HFE = { "PEMScope", "PSO1Scope", "UniversalOpticalSight", "HoloSight", "ReflexSight", "ProOpticScope", "CarryHandle" },
+            HFE = { "ACOG", "PEMScope", "PSO1Scope", "UniversalOpticalSight", "HoloSight", "ReflexSight", "ProOpticScope", "PistolScope", "CarryHandle" },
             FGMG = {"IronSightsFG42", "ScopeFG42"},    
         },
         Other = {
@@ -369,22 +420,27 @@ HFO.Constants.Items = {
 
     FirearmSkins = {
         Base = {},
-        HFE = { "GunPlatingTan", "GunPlatingBlue", "GunPlatingRed", "GunPlatingGold", "GunPlatingPatriot", "GunPlatingRainbow", "GunPlatingDZ", "GunPlatingDarkCherry", "GunPlatingWinterCamo",
-                "GunPlatingMatteBlack", "GunPlatingWoodStyle", "GunPlatingPink", "GunPlatingRedWhite", "GunPlatingGreenGold", "GunPlatingAztec", "GunPlatingYellow", "GunPlatingPearl" },
-        Exclusive = { "GunPlatingGoldDE", "GunPlatingGoldShotgun", "GunPlatingRainbowAnodized", "GunPlatingGreen", "GunPlatingSteelDamascus", 
-                "GunPlatingSalvagedRage", "GunPlatingZoidbergSpecial", "GunPlatingShenron", "GunPlatingNerf", "GunPlatingBespokeEngraved", "GunPlatingSurvivalist", 
-                "GunPlatingMysteryMachine", "GunPlatingSalvagedBlack", "GunPlatingPlank", "GunPlatingBlackIce", "GunPlatingBlackDeath",
-                "GunPlatingOrnateIvory", "GunPlatingGildedAge", "GunPlatingTBD", "GunPlatingCannabis" },
+        HFE = { "GunPlatingTan", "GunPlatingBlue", "GunPlatingRed", "GunPlatingPink", "GunPlatingYellow", "GunPlatingGreen", "GunPlatingPurple",
+                "GunPlatingRedWhite", "GunPlatingGreenGold", "GunPlatingPearl", "GunPlatingAztec", "GunPlatingPatriot", "GunPlatingGold", 
+                "GunPlatingRainbow", "GunPlatingDarkCherry", "GunPlatingWood", "GunPlatingWinterCamo", "GunPlatingMatteBlack", "GunPlatingDragonBall",
+                "GunPlatingNerf", "GunPlatingBespokeEngraved", "GunPlatingSalvagedRage", "GunPlatingDZ", 
+        },
+        Exclusive = { "GunPlatingSteelDamascus", "GunPlatingZoidbergSpecial", "GunPlatingSurvivalist", "GunPlatingCrabShell",
+                    "GunPlatingMysteryMachine", "GunPlatingBlackDeath", "GunPlatingOrnateIvory","GunPlatingGildedAge", "GunPlatingCannabis",
+        },
+        Server = {
+                    "GunPlatingPARP", "GunPlatingSD", "GunPlatingDOTD", 
+        },
     },
 
     Extended = {
         Base = {},
         HFE = {},
-        ExtendedSmall = { "Mag22ExtSm", "Mag9ExtSm", "MagLugerExtSm", "Mag380ExtSm", "Mag44ExtSm", "Mag45ExtSm", "MagMosinNagantExtSm",
+        ExtendedSmall = {"Mag9ExtSm", "MagLugerExtSm", "Mag380ExtSm", "Mag44ExtSm", "Mag45ExtSm", "MagMosinNagantExtSm",
                         "MagM1GarandExtSm", "Mag308ExtSm", "MagSVDExtSm", "Mag50BMGExtSm", "Mag762x51ExtSm", "Mag9x39ExtSm" },
-        ExtendedLarge = { "Mag22ExtLg", "Mag9ExtLg", "Mag57ExtLg", "MagLugerExtLg", "Mag380ExtLg", "Mag44ExtLg", "Mag45ExtLg", 
+        ExtendedLarge = { "Mag9ExtLg", "Mag57ExtLg", "MagLugerExtLg", "Mag380ExtLg", "Mag44ExtLg", "Mag45ExtLg", 
                         "Mag223ExtLg", "MagPM63RAKExtLg", "Mag3006ExtLg", "MagMP28ExtLg", "Mag9x39ExtLg", "Mag762x51ExtLg" },
-        ExtendedDrum = {  "Mag9Drum", "Mag57Drum", "MagLugerDrum", "Mag380Drum", "Mag45Drum",  },
+        ExtendedDrum = {  "Mag9Drum", "Mag57Drum", "MagLugerDrum", "Mag380Drum", "Mag45Drum", "Mag45TommyDrum"  },
         SpeedLoaders = { "22SpeedLoader", "38SpeedLoader5", "38SpeedLoader7", "44SpeedLoader", "45SpeedLoader" },
     },
 
@@ -404,12 +460,6 @@ HFO.Constants.Items = {
             Base = {},
             HFE = { "FirearmCache" },
         },
-        Magazines = {
-            Base = {},
-            HFE = {},
-            FGMG = { "FG42RifleItemsMagazine" },
-            Crossbow = { "CompoundCrossbowMagazine" },
-        },
         RifleCases = {
             Base = { "RifleCase1", "RifleCase2", "RifleCase3" },
             HFE = {},
@@ -428,3 +478,14 @@ HFO.Constants.Items = {
         }
     }
 }
+
+HFO.Constants.Items.BaseHandgunSet = (function()
+    local handgunSet = {}
+    for _, handgunNames in pairs(HFO.Constants.Items.Firearms.Handguns) do
+        for _, handgunName in ipairs(handgunNames) do
+            handgunSet["Base." .. handgunName] = true
+        end
+    end
+    HFO.Utils.debugLog("[Init] Built BaseHandgunSet (" .. tostring(#(HFO.Constants.Items.Firearms.Handguns.Base or {})) .. " base + sandbox groups).")
+    return handgunSet
+end)()

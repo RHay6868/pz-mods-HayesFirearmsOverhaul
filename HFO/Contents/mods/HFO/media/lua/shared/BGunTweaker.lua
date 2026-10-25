@@ -1,4 +1,15 @@
--- gun tweaks act 1
+--============================================================--
+--                 BGunTweaker / BWTweaks Core                --
+--============================================================--
+-- Author: bikinihorst
+-- Purpose:
+--   Framework for batch/single weapon tweaks, mounting attachment
+--   extensions, and scripted parameter updates without redefining
+--   full items. Used by Hayes Firearms Overhaul for weapon stat
+--   and attachment integration.
+-- License / Permissions:
+--   Used with permission of the author. All rights reserved by bikinihorst.
+--============================================================--
 
 BWTweaks = BWTweaks or {};
 

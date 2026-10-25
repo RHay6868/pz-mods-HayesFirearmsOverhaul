@@ -42,7 +42,6 @@ require "TimedActions/ISRemoveGunPlating"
 
 HFO = HFO or {}
 HFO.WeaponUtils = HFO.WeaponUtils or {}
-local sv = HFO.SandboxUtils.get() 
 
 
 ---===========================================---
@@ -64,7 +63,7 @@ function HFO.WeaponUtils.WeaponLightHotkey()
 
 	local stockType = stock:getType()
 	if HFO.Constants.LightSettingsByStock[stockType] then
-        local lightState = HFO.Utils.toggleModDataBool(weapon, "LightOn")
+        local lightState = HFO.Utils.toggleModDataBool(weapon, "HFO_LightOn")
 		HFO.Utils.debugLog("Toggled weapon light: " .. tostring(lightState))
     end
 end
@@ -84,7 +83,7 @@ function HFO.WeaponUtils.WeaponLight()
     if not stock then return end
 
     local stockType = stock:getType()
-    if HFO.Constants.LightSettingsByStock[stockType] and weapon:getModData().LightOn == true then
+    if HFO.Constants.LightSettingsByStock[stockType] and weapon:getModData().HFO_LightOn == true then
         local settings = HFO.WeaponUtils.getLightSettings(stockType)
 
         if player:isAiming() then
@@ -189,44 +188,54 @@ end
 --           BURST FIREMODE FUNCTION           --
 ---===========================================---
 
-function HFO.WeaponUtils.getBurstInfo(weapon) -- get burst information from weapon
-    if not weapon then return false, 0, 20, {} end
+function HFO.WeaponUtils.getBurstInfo(weapon)
+    if not weapon or type(weapon.getFireMode) ~= "function" then 
+        return false, 0, 20, {} 
+    end
 
-    local mode     	   = weapon:getFireMode()
-    local md  	   	   = weapon:getModData()
+    local mode = weapon:getFireMode()
+    if not mode then return false, 0, 20, {} end
 
-    local isBurst      = HFO.Constants.BurstModes[mode] ~= nil or md.burstSize ~= nil
-    local burstCount   = md.burstSize or HFO.Constants.BurstModes[mode] or 0
-    local burstDelay   = md.burstDelay or HFO.Constants.BurstDelays[mode] or 20
-    local burstSpeeds  = md.burstSpeeds or HFO.Constants.BurstSpeedStages[mode] or {}
+    local md = weapon:getModData() -- always a table in PZ
+
+    local burstModes       = HFO.Constants.BurstModes       or {}
+    local burstDelays      = HFO.Constants.BurstDelays      or {}
+    local burstSpeedStages = HFO.Constants.BurstSpeedStages or {}
+
+    local isBurst     = burstModes[mode] ~= nil or md.HFO_burstSize ~= nil
+    local burstCount  = md.HFO_burstSize   or burstModes[mode]      or 0
+    local burstDelay  = md.HFO_burstDelay  or burstDelays[mode]     or 20
+    local burstSpeeds = md.HFO_burstSpeeds or burstSpeedStages[mode] or {}
 
     return isBurst, burstCount, burstDelay, burstSpeeds
 end
 
 function HFO.WeaponUtils.onBurstWeaponSwing()
     local player, weapon = HFO.Utils.getPlayerAndWeapon()
-    if not player or not weapon or not player:isAiming() then
-        HFO.Utils.debugLog("Burst skipped: player not aiming.")
-        return
-    end
+    if not player or not weapon or not player:isAiming() then return end
+    if not HFO.Utils.isAimedFirearm(weapon) then return end
+    if HFO.Utils.isInMeleeMode(weapon) then return end
 
-    local isBurst, burstSize, burstDelay, burstSpeeds = HFO.WeaponUtils.getBurstInfo(weapon) -- Get all burst info at once
-    if not isBurst then return end
+    -- Early ammo exit
+    local currentAmmo = weapon:getCurrentAmmoCount()
+    if not currentAmmo or currentAmmo <= 0 then return end
+
+    local isBurst, burstSize, burstDelay, burstSpeeds = HFO.WeaponUtils.getBurstInfo(weapon)
+    if not isBurst or burstSize <= 0 then return end
 
     local md = weapon:getModData()
-    local currentAmmo = weapon:getCurrentAmmoCount()
     
-    if not md.burstTracker then
-        md.burstTracker = {
-            startingAmmo  = currentAmmo,
-            shotsInBurst  = 1,
-            burstSize     = burstSize,
-            burstDelay    = burstDelay,
-            burstSpeeds   = burstSpeeds,
+    if not md.HFO_burstTracker then
+        md.HFO_burstTracker = {
+            startingAmmo = currentAmmo,
+            shotsInBurst = 1,
+            burstSize    = burstSize,
+            burstDelay   = burstDelay,
+            burstSpeeds  = burstSpeeds,
         }
 
-        local rawSpeed    = burstSpeeds[1] or burstSpeeds[burstSize] or 5.0
-        local scaledSpeed = rawSpeed * GameTime.getAnimSpeedFix()
+        local rawSpeed = burstSpeeds[1] or burstSpeeds[burstSize] or 5.0
+        local scaledSpeed = rawSpeed * (GameTime.getAnimSpeedFix() or 1.0)
         player:setVariable("autoShootSpeed", scaledSpeed)
 
         HFO.Utils.debugLog("Burst started: shot 1/" .. burstSize .. " | Speed: " .. rawSpeed .. " (Scaled: " .. scaledSpeed .. ")")
@@ -234,18 +243,19 @@ function HFO.WeaponUtils.onBurstWeaponSwing()
         return
     end
 
-	local tracker  		  = md.burstTracker -- Already mid-burst, track + fire next shot
+	local tracker  		  = md.HFO_burstTracker -- Already mid-burst, track + fire next shot
     tracker.shotsInBurst  = tracker.shotsInBurst + 1 -- Increment shots in burst counter
-
     local shotNum         = tracker.shotsInBurst
-    local rawSpeed        = tracker.burstSpeeds[shotNum] or tracker.burstSpeeds[burstSize] or 5.0
-    local scaledSpeed     = rawSpeed * GameTime.getAnimSpeedFix()
+
+    local rawSpeed = tracker.burstSpeeds[shotNum] or tracker.burstSpeeds[tracker.burstSize] or 5.0
+    local scaledSpeed = rawSpeed * (GameTime.getAnimSpeedFix() or 1.0)
     player:setVariable("autoShootSpeed", scaledSpeed)
 
-    if tracker.shotsInBurst >= tracker.burstSize or currentAmmo <= 1 then
+    currentAmmo = weapon:getCurrentAmmoCount() or 0
+    if shotNum >= tracker.burstSize or currentAmmo <= 1 then
         player:setRecoilDelay(tracker.burstDelay)
         HFO.Utils.debugLog("Burst complete: shot " .. shotNum .. "/" .. tracker.burstSize .. " | Delay: " .. tracker.burstDelay)
-        md.burstTracker = nil
+        md.HFO_burstTracker = nil
     else
         weapon:setRecoilDelay(1)
         HFO.Utils.debugLog("Burst: shot " .. shotNum .. "/" .. tracker.burstSize .. " | Speed: " .. rawSpeed .. " (Scaled: " .. scaledSpeed .. ")")
@@ -255,18 +265,22 @@ end
 function HFO.WeaponUtils.onBurstAttackFinished()
     local player, weapon = HFO.Utils.getPlayerAndWeapon()
     if not player or not weapon then return end
-
-    local isBurst, _, burstDelay, _ = HFO.WeaponUtils.getBurstInfo(weapon)
-    if not isBurst then return end
+    if not HFO.Utils.isAimedFirearm(weapon) then return end
+    if HFO.Utils.isInMeleeMode(weapon) then return end
 
     local md = weapon:getModData()
-    local tracker = md.burstTracker
+    local tracker = md.HFO_burstTracker
     if not tracker then return end
 
-    if weapon:getCurrentAmmoCount() <= 0 or tracker.shotsInBurst >= tracker.burstSize then
-        local burstDelay = math.max(1, md.burstDelay or HFO.Constants.BurstDelays[mode] or 20)
-        HFO.Utils.debugLog("Burst cleanup (attack finished): Delay " .. tostring(tracker.burstDelay or "NIL"))
-        md.burstTracker = nil
+    local isBurst, _, burstDelay = HFO.WeaponUtils.getBurstInfo(weapon)
+    if not isBurst then return end
+
+    local currentAmmo = weapon:getCurrentAmmoCount() or 0
+    if currentAmmo <= 0 or tracker.shotsInBurst >= tracker.burstSize then
+        -- Prefer tracker’s delay, fall back to the info we already retrieved.
+        local finalDelay = math.max(1, tracker.burstDelay or burstDelay or 20)
+        HFO.Utils.debugLog("Burst cleanup (attack finished): Delay " .. tostring(finalDelay))
+        md.HFO_burstTracker = nil
     end
 end
 
@@ -278,8 +292,8 @@ function HFO.WeaponUtils.clearBurstTracker(player, weapon)
 
     if player and weapon then
         local md = weapon:getModData()
-        if md and md.burstTracker then
-            md.burstTracker = nil
+        if md and md.HFO_burstTracker then
+            md.HFO_burstTracker = nil
             HFO.Utils.debugLog("Burst tracking reset")
         end
     end
@@ -306,23 +320,34 @@ function HFO.WeaponUtils.MeleeModeHotkey()
 	local player, weapon = HFO.Utils.getPlayerAndWeapon()
 	if not HFO.Utils.isAimedFirearm(weapon) then return end
 
-	HFO.Utils.debugLog("Weapon: " .. tostring(weapon:getFullType()))
-	HFO.Utils.debugLog("MeleeSwap: " .. tostring(weapon:getModData().MeleeSwap))
+    -- Block outgoing swap (firearm -> melee) if disabled, but always allow return swap
+    local sv = HFO.SandboxUtils.get()
+    if not sv.MeleeModeEnabled and weapon:isRanged() then
+        HFO.InnerVoice.say("MeleeModeDisabled")
+        return
+    end
 
-	local meleeSwap = weapon:getModData().MeleeSwap
+	HFO.Utils.debugLog("Weapon: " .. tostring(weapon:getFullType()))
+	HFO.Utils.debugLog("MeleeSwap: " .. tostring(weapon:getModData().HFO_MeleeSwap))
+
+	local meleeSwap = weapon:getModData().HFO_MeleeSwap
 	if not meleeSwap then return end
 
 	local result = InventoryItemFactory.CreateItem(meleeSwap)
 	if not result then return end
 
-	local isMelee = not result:isRanged()  --  Check the result you're swapping TO
+	local isMelee = not result:isRanged()
 
 	HFO.Utils.applySuffixToWeaponName(result)
 	HFO.Utils.setWeaponParts(weapon, result)
 	HFO.Utils.applyWeaponStats(weapon, result, isMelee)
-    local wasChambered = HFO.Utils.handleWeaponChamber(weapon, result, false)
+    local wasChambered = HFO.Utils.handleWeaponChamber(weapon, result, isMelee)
     HFO.Utils.handleWeaponJam(weapon, result, true)
+    
 	HFO.Utils.finalizeWeaponSwap(player, weapon, result)
+
+	-- Handle suppressor sound changes after weapon swap
+	HFO.WeaponUtils.handleSuppressor()
 
 	if isMelee then
 		HFO.InnerVoice.say("SwappedToMelee")
@@ -336,9 +361,12 @@ end
 --             SUPPRESSOR FUNCTION             --
 ---===========================================---
 
+
 function HFO.WeaponUtils.handleSuppressor()
 	local player, weapon = HFO.Utils.getPlayerAndWeapon()
 	if not HFO.Utils.isAimedFirearm(weapon) then return end
+
+    if not weapon:isRanged() then return end
 
 	local scriptItem = weapon:getScriptItem()
 	local soundVolume = scriptItem:getSoundVolume()
@@ -350,14 +378,29 @@ function HFO.WeaponUtils.handleSuppressor()
 
 	if canon and canon:hasTag("Suppressor") then
 		if canon:getCondition() > 0 then
-			for keyword, suppress in pairs(HFO.Constants.SuppressorLevels) do
-				if string.find(canon:getType(), keyword) then
-					soundVolume = math.floor(soundVolume * (1 - suppress.volume / 100))
-					soundRadius = math.floor(soundRadius * (1 - suppress.radius / 100))
-					swingSound = suppress.swing
-					suppressorApplied = true
-					break
-				end
+			local suppressorType = canon:getType()
+			local volumeReduction, radiusReduction, newSwingSound
+			
+			-- Direct sandbox variable calls based on suppressor type
+			if string.find(suppressorType, "SuppressorPistol") then
+				volumeReduction = SandboxVars.HFO.PistolSuppressionLevels or 30
+				radiusReduction = SandboxVars.HFO.PistolSuppressionLevels or 30
+				newSwingSound = "SuppressorPistol"
+			elseif string.find(suppressorType, "SuppressorRifle") then
+				volumeReduction = SandboxVars.HFO.RifleSuppressionLevels or 40
+				radiusReduction = SandboxVars.HFO.RifleSuppressionLevels or 40
+				newSwingSound = "SuppressorRifle"
+			elseif string.find(suppressorType, "SuppressorSniper") then
+				volumeReduction = SandboxVars.HFO.SniperSuppressionLevels or 50
+				radiusReduction = SandboxVars.HFO.SniperSuppressionLevels or 50
+				newSwingSound = "SuppressorSniper"
+			end
+			
+			if volumeReduction then
+				soundVolume = math.floor(soundVolume * (1 - volumeReduction / 100))
+				soundRadius = math.floor(soundRadius * (1 - radiusReduction / 100))
+				swingSound = newSwingSound
+				suppressorApplied = true
 			end
 		else
             HFO.Utils.detachBrokenPart(player, weapon, canon, swingSound)
@@ -368,6 +411,32 @@ function HFO.WeaponUtils.handleSuppressor()
 	weapon:setSoundRadius(soundRadius)
 	weapon:setSwingSound(swingSound)
 end
+
+Events.OnEquipPrimary.Add(function(player, weapon)
+    if not weapon or not HFO.Utils.isAimedFirearm(weapon) then return end
+    local sv = HFO.SandboxUtils.get()
+    if not sv.MeleeModeEnabled and HFO.Utils.isInMeleeMode(weapon) then
+        -- Defer by one update tick so equip animation settles first
+        local function doSwap()
+            Events.OnPlayerUpdate.Remove(doSwap)
+            HFO.WeaponUtils.MeleeModeHotkey()
+        end
+        Events.OnPlayerUpdate.Add(doSwap)
+    end
+end)
+
+Events.OnGameStart.Add(function()
+    local player, weapon = HFO.Utils.getPlayerAndWeapon()
+    if not weapon or not HFO.Utils.isAimedFirearm(weapon) then return end
+    local sv = HFO.SandboxUtils.get()
+    if not sv.MeleeModeEnabled and HFO.Utils.isInMeleeMode(weapon) then
+        local function doSwap()
+            Events.OnPlayerUpdate.Remove(doSwap)
+            HFO.WeaponUtils.MeleeModeHotkey()
+        end
+        Events.OnPlayerUpdate.Add(doSwap)
+    end
+end)
 
 Events.OnEquipPrimary.Add(HFO.WeaponUtils.handleSuppressor)
 
@@ -381,7 +450,7 @@ end)
 ---===========================================---
 
 function HFO.WeaponUtils.checkForSuppressorBreak()
-	if (sv.SuppressorBreak or 20) >= 20 then return end
+	if (SandboxVars.HFO.SuppressorBreak or 20) >= 20 then return end
 
 	local player, weapon = HFO.Utils.getPlayerAndWeapon()
 	if not HFO.Utils.isAimedFirearm(weapon) then return end
@@ -389,7 +458,7 @@ function HFO.WeaponUtils.checkForSuppressorBreak()
 	local canon = weapon:getCanon()
 	if not (canon and canon:hasTag("Suppressor")) then return end
 
-	local breakChance = 400 * sv.SuppressorBreak
+	local breakChance = 400 * SandboxVars.HFO.SuppressorBreak
 	local maxCondition = canon:getConditionMax()
 	local currentCondition = canon:getCondition()
 	local rollChance = 10 * ((maxCondition - currentCondition) + 1)
@@ -399,7 +468,7 @@ function HFO.WeaponUtils.checkForSuppressorBreak()
 		HFO.InnerVoice.say("SuppressorWearing")
 
 		-- Adjust volume/radius to reflect wear
-        local suppressBoost = sv.SuppressorLevels or 0
+        local suppressBoost = SandboxVars.HFO.SuppressorLevels or 0
         weapon:setSoundVolume(math.floor(weapon:getSoundVolume() * (1 + suppressBoost * 0.01)))
         weapon:setSoundRadius(math.floor(weapon:getSoundRadius() * (1 + suppressBoost * 0.01)))
 
@@ -433,46 +502,56 @@ end)
 
 HFO.WeaponUtils.gunPlatingContextMenu = {}
 
+-- Use the same predicate function as in your timed actions
+local function predicateNotBroken(item)
+    -- Safer version with nil check
+    if not item then return false end
+    return not item:isBroken()
+end
+
 -- Add context menu options for gun plating
 HFO.WeaponUtils.gunPlatingContextMenu.doWeaponMenu = function(player, context, weapon)
     local playerObj = getSpecificPlayer(player)
     local inventory = playerObj:getInventory()
+    local md = weapon:getModData()
     
     -- Check if the weapon supports gun plating
-    if not weapon:getModData().GunPlatingOptions then return end
+    if not md.HFO_GunPlatingOptions then return end
     
     -- Get the current attached gun plating (if any)
-    local currentGunPlating = weapon:getModData().GunPlating
+    local currentGunPlating = md.HFO_GunPlating
+    
+    -- Check for screwdriver - using the SAME method as the timed action
+    local hasScrewdriver = inventory:containsTagEval("Screwdriver", predicateNotBroken)
     
     -- If we have a plating attached, offer to remove it
     if currentGunPlating then
         local removeOption = context:addOption(getText("ContextMenu_Remove_Weapon_GunPlating"), weapon, HFO.WeaponUtils.gunPlatingContextMenu.onRemoveGunPlating, playerObj)
         
         -- Check if we have a screwdriver
-        if not inventory:containsTagEval("Screwdriver", function(item) return not item:isBroken() end) then
+        if not hasScrewdriver then
             removeOption.notAvailable = true
             removeOption.toolTip = ISToolTip:new()
             removeOption.toolTip:setVisible(true)
             removeOption.toolTip:setName(getText("ContextMenu_Remove_Weapon_GunPlating"))
             removeOption.toolTip:setTexture("Item_Screwdriver")
-            removeOption.toolTip:setDescription(getText("Tooltip_NeedScrewdriver"))
         end
     else
         -- If no gun plating is attached, offer to attach available plating options
         local validGunPlatingTypes = {}
-        for gunPlatingType in string.gmatch(weapon:getModData().GunPlatingOptions, "([^;]+)") do
+        for gunPlatingType in string.gmatch(md.HFO_GunPlatingOptions, "([^;]+)") do
             validGunPlatingTypes[gunPlatingType:trim()] = true
         end
         
         -- Find all gun plating items in the inventory
-		local gunPlatingItems = ArrayList.new()
-		local items = inventory:getItems()
-		for i = 0, items:size() - 1 do
-			local item = items:get(i)
-			if item:hasTag("GunPlating") then
-				gunPlatingItems:add(item)
-			end
-		end
+        local gunPlatingItems = ArrayList.new()
+        local items = inventory:getItems()
+        for i = 0, items:size() - 1 do
+            local item = items:get(i)
+            if item:hasTag("GunPlating") then
+                gunPlatingItems:add(item)
+            end
+        end
 
         if gunPlatingItems and gunPlatingItems:size() > 0 then
             -- Check if we have at least one valid plating item before creating the menu
@@ -489,23 +568,20 @@ HFO.WeaponUtils.gunPlatingContextMenu.doWeaponMenu = function(player, context, w
             end
 
             if #validGunPlatingItems > 0 then
-                -- Define a callback to avoid nil function errors
-                local dummyCallback = function() end
-
-                local gunPlatingMenu = context:addOption(getText("ContextMenu_Apply_Weapon_GunPlating"), weapon, dummyCallback)
+                -- Create submenu
+                local gunPlatingMenu = context:addOption(getText("ContextMenu_Apply_Weapon_GunPlating"), nil, nil)
                 local gunPlatingSubMenu = ISContextMenu:getNew(context)
                 context:addSubMenu(gunPlatingMenu, gunPlatingSubMenu)
 
                 for _, gunPlatingItem in ipairs(validGunPlatingItems) do
                     local option = gunPlatingSubMenu:addOption(gunPlatingItem:getDisplayName(), weapon, HFO.WeaponUtils.gunPlatingContextMenu.onAttachGunPlating, playerObj, gunPlatingItem)
 
-                    if not inventory:containsTagEval("Screwdriver", function(item) return not item:isBroken() end) then
+                    if not hasScrewdriver then
                         option.notAvailable = true
                         option.toolTip = ISToolTip:new()
                         option.toolTip:setVisible(true)
                         option.toolTip:setName(gunPlatingItem:getDisplayName())
                         option.toolTip:setTexture("Item_Screwdriver")
-                        option.toolTip:setDescription(getText("Tooltip_NeedScrewdriver"))
                     end
                 end
             end
@@ -528,22 +604,6 @@ end
 -- Hook into the ISInventoryPaneContextMenu
 Events.OnFillInventoryObjectContextMenu.Add(function(playerID, context, items)
     -- Check if we're dealing with a single item
-<<<<<<< Updated upstream
-	if items and #items == 1 then
-		local item = nil
-	
-		if type(items[1]) == "table" and items[1].items then
-			item = items[1].items[1]
-		else
-			item = items[1]
-		end
-	
-		if item and item:IsWeapon() and item:getModData().GunPlatingOptions then
-			HFO.WeaponUtils.gunPlatingContextMenu.doWeaponMenu(playerID, context, item)
-		end
-	end
-end)
-=======
     if items and #items == 1 then
         local item = nil
     
@@ -564,7 +624,6 @@ end)
 
 
 Events.OnFillInventoryObjectContextMenu.Add(function(playerID, context, items)
-    -- Check if we're dealing with a single item (same logic as plating)
     if items and #items == 1 then
         local item = nil
     
@@ -578,31 +637,59 @@ Events.OnFillInventoryObjectContextMenu.Add(function(playerID, context, items)
             local playerObj = getSpecificPlayer(playerID)
             if not playerObj then return end
             
-            -- Check requirements
             local inventory = playerObj:getInventory()
-            local hasKit = inventory:getItemCount("FirearmCleaningKit") > 0  -- Fixed: no broken check needed
-            local hasLube = inventory:getItemCount("FirearmLubricant") > 0
+            local hasKit = inventory:getItemCount("FirearmCleaningKit") > 0
+            local hasLubeWithUses = inventory:getFirstTypeEval("FirearmLubricant", 
+                function(item) return item:getUsedDelta() >= 0.1 end) ~= nil
+            local hasAnyLube = inventory:getItemCount("FirearmLubricant") > 0
             local hasRags = inventory:getItemCount("RippedSheets") > 0
-            
-            if hasKit and hasLube and hasRags then
+            local hasSkill = playerObj:getPerkLevel(Perks.Aiming) >= 3
+            local isCleanable = item:getCondition() < item:getConditionMax() or item:getHaveBeenRepaired() > 1
+
+            -- Show option if they have either cleaning kit OR any firearm lubricant
+            if hasKit or hasAnyLube then
                 local option = context:addOption("Clean Firearm", item, function()
+                    -- Give voice feedback for missing requirements
+                if not hasKit then
+                    HFO.InnerVoice.say("CleanNeedKit")
+                    return
+                end
+                if not hasLubeWithUses then
+                    HFO.InnerVoice.say("CleanNeedLube") 
+                    return
+                end
+                if not hasRags then
+                    HFO.InnerVoice.say("CleanNeedRags")
+                    return
+                end
+                if not hasSkill then
+                    HFO.InnerVoice.say("CleanNeedSkill")
+                    return
+                end
+                if not isCleanable then
+                    HFO.InnerVoice.say("CleanNoNeed")
+                    return
+                end
+                    
                     ISTimedActionQueue.add(ISCleanFirearm:new(playerObj, item, 400))
                 end)
                 
-                if playerObj:getPerkLevel(Perks.Aiming) < 3 then
+                -- Show tooltip for missing requirements
+                if not (hasKit and hasLubeWithUses and hasRags and hasSkill and isCleanable) then
                     option.notAvailable = true
                     local tooltip = ISWorldObjectContextMenu.addToolTip()
-                    tooltip.description = "Requires Aiming level 3"
+                    local missing = {}
+                    if not hasSkill then table.insert(missing, getText("ContextMenu_Cleaning_Missing_Skill")) end
+                    if not hasKit then table.insert(missing, getText("ContextMenu_Cleaning_Missing_Kit")) end
+                    if not hasLubeWithUses then table.insert(missing, getText("ContextMenu_Cleaning_Missing_Lube")) end
+                    if not hasRags then table.insert(missing, getText("ContextMenu_Cleaning_Missing_Rags")) end
+                    if not isCleanable then table.insert(missing, getText("ContextMenu_Cleaning_Missing_Cleanable")) end
+
+                    local header = getText("ContextMenu_Cleaning_Missing_Header")
+                    tooltip.description = header .. "<LINE>- " .. table.concat(missing, "<LINE>- ")
                     option.toolTip = tooltip
                 end
             end
         end
     end
 end)
-
-<<<<<<< Updated upstream
-Events.OnFillInventoryObjectContextMenu.Add(addCleanFirearmOption)
->>>>>>> Stashed changes
-=======
-Events.OnFillInventoryObjectContextMenu.Add(addCleanFirearmOption)
->>>>>>> Stashed changes

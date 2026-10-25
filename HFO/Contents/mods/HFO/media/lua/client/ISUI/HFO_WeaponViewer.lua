@@ -6,24 +6,68 @@ function classifyWeaponSize(weapon)
     local wt = weapon:getWeight() or 1
 
     -- Check if the gun is folded (either by ModData flag or naming)
-    local isFolded = weapon:getModData() and weapon:getModData().FoldSwap
+    local isFolded = weapon:getModData() and weapon:getModData().HFO_FoldSwap
     if isFolded or string.find(name, "_Folded") then
-        return "medium"
+        return "small"
     end
 
     -- Specific overrides
-    if string.find(name, "Barrett") then
-        return "large"
+    local forceSmallWeapons = {
+        "P90", "PM63RAK", 
+    }
+    for _, weaponName in ipairs(forceSmallWeapons) do
+        if string.find(name, weaponName) then
+            return "small"
+        end
     end
 
-    -- Standard classification
-    if wt <= 2.3 then
-        return "small"
-    elseif wt <= 5 then
-        return "medium"
-    else
-        return "large"
+    local forceMediumWeapons = {
+        "PLR16", "MosinNagantObrez", "CrossbowCompound", "ASVal", 
+        "FG42_Bipod", "Ruger1022", "PneumaticBlowgun"
+    }
+    for _, weaponName in ipairs(forceMediumWeapons) do
+        if string.find(name, weaponName) then
+            return "medium"
+        end
     end
+
+    local forceLargeWeapons = {
+        "AK103", "AK74", "HenryRepeatingBigBoy", "BrowningBLR", 
+        "Marlin39A", "MosinNagant", "M1Garand", "SVDDragunov", "Springfield1861"
+    }
+    for _, weaponName in ipairs(forceLargeWeapons) do
+        if string.find(name, weaponName) then
+            return "large"
+        end
+    end
+
+    -- Standard classification with more granular sizing
+    if wt <= 2.5 then
+        return "small"   -- All pistols and light weapons
+    elseif wt <= 5.0 then
+        return "medium"  -- SMGs, carbines, medium rifles
+    elseif wt <= 8.0 then
+        return "large"   -- Full-size rifles
+    else
+        return "xlarge"  -- Heavy weapons (MG42, Barrett, etc.)
+    end
+end
+
+-- A few guns models are flipped due to item script setup
+function flipModelFix(weapon)
+    local name = weapon:getFullType() or ""
+    
+    local weaponNeedingFlip = {
+        "P90", "MiniUzi", "CrossbowPistol"
+    }
+    
+    for _, weaponName in ipairs(weaponNeedingFlip) do
+        if string.find(name:upper(), weaponName:upper()) then
+            return true
+        end
+    end
+    
+    return false
 end
 
 local function isValidMagazineForGun(part, weapon)
@@ -34,10 +78,10 @@ local function isValidMagazineForGun(part, weapon)
     -- List of valid magazine types for this weapon
     local validTypes = {
         weapon:getMagazineType(),                  -- Base magazine
-        weapon:getModData().MagExtSm or "",        -- Small extended magazine
-        weapon:getModData().MagExtLg or "",        -- Large extended magazine
-        weapon:getModData().MagDrum or "",         -- Drum magazine
-        weapon:getModData().MagBase or ""          -- Explicit base magazine override
+        weapon:getModData().HFO_MagExtSm or "",        -- Small extended magazine
+        weapon:getModData().HFO_MagExtLg or "",        -- Large extended magazine
+        weapon:getModData().HFO_MagDrum or "",         -- Drum magazine
+        weapon:getModData().HFO_MagBase or ""          -- Explicit base magazine override
     }
     
     -- Check if part matches any valid magazine type
@@ -85,16 +129,24 @@ end
 
 HFO_WeaponViewer = ISPanel:derive("HFO_WeaponViewer")
 
+
+
 -- Parse plating options safely
 local function parsePlatingOptions(weapon)
-    local base = weapon:getModData().GunBaseModel or (weapon:getWeaponSprite() or weapon:getStaticModel())
+    local md = weapon:getModData()
+    
+    if not md.HFO_GunBaseModel then 
+        md.HFO_GunBaseModel = weapon:getWeaponSprite() or weapon:getStaticModel() 
+    end
+    
+    local base = md.HFO_GunBaseModel -- No need for fallback anymore since we just set it!
     local options = {}
 
     if base and base ~= "" then
         table.insert(options, base) -- base model first
     end
 
-    local raw = weapon:getModData() and weapon:getModData().GunPlatingOptions
+    local raw = md.HFO_GunPlatingOptions
     if raw and raw ~= "" then
         for opt in string.gmatch(raw, "([^;]+)") do
             opt = opt:trim()
@@ -107,26 +159,31 @@ local function parsePlatingOptions(weapon)
     return options
 end
 
+local function getScaledFont(baseSize)
+    local screenW = getCore():getScreenWidth()
+    if screenW >= 2560 then
+        if baseSize == UIFont.Small then return UIFont.Medium
+        elseif baseSize == UIFont.Medium then return UIFont.Large
+        end
+    end
+    return baseSize
+end
+
 function HFO_WeaponViewer:new(x, y, width, height, weapon)
     local o = ISPanel.new(self, x, y, width, height)
-    local baseX = 90.0
-    if weapon:getSwingAnim() == "Handgun" then
-        baseX = (baseX + 180) % 360 -- flip for handguns
-    end
+    
     o.backgroundColor = {r=0.1, g=0.1, b=0.1, a=0.9}
     o.borderColor = {r=0.6, g=0.6, b=0.6, a=0.95}
-    o.viewRotation = { x = baseX, y = 180.0, z = 90.0 }
-    o.resetViewRotation = { x = baseX, y = 180.0, z = 90.0 }
-    o.viewOrigin = { x = -60.0, y = 0.0 }
+    
     o.addedAttachments = {} 
     o.title = weapon:getDisplayName() or "Inspect Weapon"
     o.isHandgun = (weapon:getSwingAnim() == "Handgun")
-    o.sizeClass = classifyWeaponSize(weapon)
     o.modelId = "weaponModel"
     o.weapon = weapon
+    
     local options = parsePlatingOptions(weapon)
     o.availablePlatings = options
-    local currentPlating = weapon:getModData().GunPlating or options[1]
+    local currentPlating = weapon:getModData().HFO_GunPlating or options[1]
     local foundIndex = 1
     for i = 1, #options do
         if options[i] == currentPlating then
@@ -135,7 +192,7 @@ function HFO_WeaponViewer:new(x, y, width, height, weapon)
         end
     end
     o.previewPlatingIndex = foundIndex
-    o.originalPlating = weapon:getModData().GunPlating
+    o.originalPlating = weapon:getModData().HFO_GunPlating
     o.platingLabel = nil
     o.leftBtn = nil
     o.rightBtn = nil
@@ -151,7 +208,7 @@ end
 
 function HFO_WeaponViewer:addWeaponAttachments()
     if not self.weapon then return end
-    local weaponModelName = self.weapon:getWeaponSprite() or self.weapon:getStaticModel() --Get Parent Model of Weapon for attachment points
+    local weaponModelName =  self.weapon:getStaticModel() or self.weapon:getWeaponSprite() --Get Parent Model of Weapon for attachment points
     if not weaponModelName then return end
 
     local weaponFullType = "Base." .. weaponModelName
@@ -176,7 +233,7 @@ function HFO_WeaponViewer:addWeaponAttachments()
     for i = 0, parts:size() - 1 do
         local part = parts:get(i)
         local modelName = part and part:getStaticModel()
-        local slot = part and part:getModData() and part:getModData().AttachmentSlot -- added moddata in attachment item script since it was the easiest way to do matches
+        local slot = part and part:getModData() and part:getModData().HFO_AttachmentSlot -- added moddata in attachment item script since it was the easiest way to do matches
         if modelName and slot and attachmentPoints[slot] then
             local modelId = "attachment_" .. slot:lower()
             local modelFullType = modelName:find("^Base%.") and modelName or ("Base." .. modelName)
@@ -206,25 +263,58 @@ function HFO_WeaponViewer:removeWeaponAttachments()
     self.addedAttachments = newAttachments
 end
 
+
+
 function HFO_WeaponViewer:initialise()
     ISPanel.initialise(self)
     local padding, sceneHeight = 10, 260
     self.sizeClass = classifyWeaponSize(self.weapon)
+
     local screenW, screenH = getCore():getScreenWidth(), getCore():getScreenHeight()
 
-    if self.sizeClass == "small" then
-        self.zoomLevel, self.viewOrigin = 18, { x = -80, y = -10 }
-        self:setWidth(math.min(500, screenW * 0.5))
-    elseif self.sizeClass == "large" then
-        self.zoomLevel, self.viewOrigin = 13, { x = -200, y = -10 }
-        self:setWidth(math.min(900, screenW * 0.75))
-    else
-        self.zoomLevel, self.viewOrigin = 15, { x = -140, y = -10 }
-        self:setWidth(math.min(700, screenW * 0.6))
+    local resolutionScale = math.min(screenW / 1280, screenH / 720)
+    resolutionScale = math.max(0.7, math.min(resolutionScale, 2.5))
+    
+    local hasBarrel = self.weapon:getCanon() ~= nil
+    local useRifleOrientation = flipModelFix(self.weapon)
+    local baseX = 90.0
+
+    local weaponName = self.weapon:getFullType() or ""
+
+    if (self.weapon:getSwingAnim() == "Handgun" or useRifleOrientation) and not string.find(weaponName:lower(), "obrez") then
+        baseX = (baseX + 180) % 360
     end
+
+    self.viewRotation = { x = baseX, y = 180.0, z = 90.0 }
+    self.resetViewRotation = { x = baseX, y = 180.0, z = 90.0 }
+    
+    local sizeConfigs = {
+        small  = { zoom = 17, origin = { x = -90, y = -10 }, baseWidth = 500, widthFactor = 0.45 },
+        medium = { zoom = 15, origin = { x = -110, y = -10 }, baseWidth = 600, widthFactor = 0.5 },
+        large  = { zoom = 14, origin = { x = -160, y = 0 }, baseWidth = 750, widthFactor = 0.55 },
+        xlarge = { zoom = 14, origin = { x = -200, y = 0 }, baseWidth = 900, widthFactor = 0.6 },
+    }
+    local cfg = sizeConfigs[self.sizeClass] or sizeConfigs["medium"]
+    self.zoomLevel = cfg.zoom
+    self.viewOrigin = { 
+        x = cfg.origin.x * resolutionScale, 
+        y = cfg.origin.y * resolutionScale 
+    }
+    self:setWidth(math.min(math.floor(cfg.baseWidth * resolutionScale), screenW * cfg.widthFactor))
+
+    -- Apply barrel attachment adjustments
+    if hasBarrel then
+        self:setWidth(self:getWidth() + math.floor(80 * resolutionScale))
+        self.viewOrigin.x = self.viewOrigin.x - 20
+    end
+    
+    -- Scale scene height with resolution but keep reasonable bounds
+    sceneHeight = math.floor(sceneHeight * math.max(0.8, resolutionScale))
+    sceneHeight = math.max(250, math.min(sceneHeight, 400))
+    
     self:setHeight(sceneHeight + 160)
-    self:setX(math.floor(screenW * 0.04))
-    self:setY(math.floor(screenH * 0.04))
+    self:setX(math.floor(screenW * 0.03))
+    self:setY(math.floor(screenH * 0.03))
 
     self.closeBtn = ISButton:new(self.width - 30, 8, 20, 20, "X", self, function()
         self:removeFromUIManager()
@@ -232,10 +322,17 @@ function HFO_WeaponViewer:initialise()
     end)
     self.closeBtn:initialise()
     self:addChild(self.closeBtn)
-
-    local nameLabel = ISLabel:new(10, 10, 20, self.weapon:getDisplayName(), 1, 1, 1, 1, UIFont.Medium, true)
+    
+    local nameLabel = ISLabel:new(10, 10, 20, self.weapon:getDisplayName(), 1, 1, 1, 1, getScaledFont(UIFont.Medium), true)
     self:addChild(nameLabel)
 
+    -- Remove any existing UPDATE and DEBUG buttons to prevent duplicates
+    for i = #self.children, 1, -1 do
+        local child = self.children[i]
+        if child and (child.title == "UPDATE" or child.title == "DEBUG") then
+            self:removeChild(child)
+        end
+    end
 
     -- Check if weapon needs updating using existing function logic
     if self.weapon and self.weapon.getModData then
@@ -310,7 +407,7 @@ function HFO_WeaponViewer:initialise()
         platingYOffset = 30  -- we will apply this later once scene exists
 
         -- Static label
-        local title = ISLabel:new(10, platingY, 20, "Cycle Gun Plating:", 1, 1, 1, 1, UIFont.Medium, true)
+        local title = ISLabel:new(10, platingY, 20, "Cycle Gun Plating:", 1, 1, 1, 1, getScaledFont(UIFont.Small), true)
         self:addChild(title)
 
         -- Left button
@@ -322,7 +419,7 @@ function HFO_WeaponViewer:initialise()
         self.rightBtn:initialise(); self:addChild(self.rightBtn)
 
         -- Dynamic plating name label
-        self.platingLabel = ISLabel:new(self.rightBtn:getRight() + 10, platingY, 20, currentPlatingName, 0.2, 0.7, 0.7, 1, UIFont.Medium, true)
+        self.platingLabel = ISLabel:new(self.rightBtn:getRight() + 10, platingY, 20, currentPlatingName, 0.2, 0.7, 0.7, 1, getScaledFont(UIFont.Small), true)
         self:addChild(self.platingLabel)
     end
 
@@ -349,17 +446,13 @@ function HFO_WeaponViewer:initialise()
     -- Create the weapon model - IMPORTANT: do this in the right order
     local modelScript = self.weapon:getWeaponSprite() or self.weapon:getStaticModel()
     if modelScript then
-        local fullType = "Base." .. modelScript
-        -- First create the model
+        -- Strip "Base." if it's already present to avoid duplication
+        local baseName = modelScript:gsub("^Base%.", "")
+        local fullType = "Base." .. baseName
+
         self.scene.javaObject:fromLua2("createModel", self.modelId, fullType)
-        -- Then add it to our tracked attachments list
         table.insert(self.addedAttachments, self.modelId)
-        -- Configure the model
-        self.scene.javaObject:fromLua2("setModelUseWorldAttachment", self.modelId, false)
-        self.scene.javaObject:fromLua2("setModelWeaponRotationHack", self.modelId, true)
-        -- Add attachments AFTER model is created and configured
         self:addWeaponAttachments()
-        -- Set the view
         self:setView(self.viewRotation.x, self.viewRotation.y, self.viewRotation.z)
         self.scene.javaObject:fromLua1("setZoom", self.zoomLevel)
         self.scene.javaObject:fromLua2("dragView", self.viewOrigin.x, self.viewOrigin.y)
@@ -368,7 +461,7 @@ function HFO_WeaponViewer:initialise()
     -- Basic tooltip about wheel zoom and sliders
     local tooltipY = 38 + platingYOffset + sceneHeight
     self:addChild(ISLabel:new(padding, tooltipY, 30,
-    "Mouse Wheel to Zoom | Click and Drag to Move Model", 0.8, 0.8, 0.8, 1, UIFont.Small, true))
+    "Mouse Wheel to Zoom | Click and Drag to Move Model", 0.8, 0.8, 0.8, 1, getScaledFont(UIFont.Small), true))
 
     -- Layout calculations for controls section
     self.controlsY = 38 + sceneHeight + 30 + platingYOffset
@@ -404,7 +497,7 @@ function HFO_WeaponViewer:initialise()
         local axis = props[i]
         local y = self.controlsY + (i - 1) * 28
     
-        self:addChild(ISLabel:new(sliderCol, y + 4, 20, axis:upper() .. ":", 1, 1, 1, 1, UIFont.Small, true))
+        self:addChild(ISLabel:new(sliderCol, y + 4, 20, axis:upper() .. ":", 1, 1, 1, 1, getScaledFont(UIFont.Small), true))
     
         local slider = ISSliderPanel:new(sliderCol + 25, y, controlsWidth - buttonWidth - 55, 24, self, function(_, val)
             local v = val
@@ -509,7 +602,9 @@ function HFO_WeaponViewer:updateDetailsPanel()
         ["Condition"] = 13,
         ["Sound Radius"] = 14,
         ["Gun Plating"] = 15,
-        ["Suppressor"] = 16
+        ["Suppressor"] = 16,
+        ["Max Hits"] = 17,
+        ["Projectile Count"] = 18
     }
     
     -- Filter stats to only include those in statOrder
@@ -557,9 +652,9 @@ function HFO_WeaponViewer:updateDetailsPanel()
         local md = wpn:getModData()
         if md then
             local importantKeys = {
-                "GunPlating", "GunPlatingOptions", 
-                "GunBaseModel", "FoldSwap",
-                "MagBase", "MagExtSm", "MagExtLg", "MagDrum"
+                "HFO_GunPlating", "HFO_GunPlatingOptions", 
+                "HFO_GunBaseModel", "HFO_FoldSwap",
+                "HFO_MagBase", "HFO_MagExtSm", "HFO_MagExtLg", "HFO_MagDrum"
             }
             
             -- Process ModData entries directly, without nesting loops
@@ -626,14 +721,14 @@ function HFO_WeaponViewer:updateDetailsPanel()
         end
 
         -- Create label (right-aligned)
-        local label = ISLabel:new(xLabel + labelWidth, y, rowHeight, displayLabel .. ":", labelColor[1], labelColor[2], labelColor[3], 1, UIFont.Small, false)
+        local label = ISLabel:new(xLabel + labelWidth, y, rowHeight, displayLabel .. ":", labelColor[1], labelColor[2], labelColor[3], 1, getScaledFont(UIFont.Small), false)
         if displayLabel ~= labelText then
             label:setTooltip(labelText .. ":")
         end
         self.detailsPanel:addChild(label)
 
         -- Create value (left-aligned)
-        local value = ISLabel:new(xValue, y, rowHeight, valueText, valueColor[1], valueColor[2], valueColor[3], 1, UIFont.Small, true)
+        local value = ISLabel:new(xValue, y, rowHeight, valueText, valueColor[1], valueColor[2], valueColor[3], 1, getScaledFont(UIFont.Small), true)
         if d.fullValue or #valueText > 20 then
             value:setTooltip(d.fullValue or d.value)
         end
@@ -750,8 +845,8 @@ function HFO_WeaponViewer:updateAttachmentsPanel()
     local rows = math.ceil(#attachments / columns)
     local iconSize = 32  
     local iconBoxSize = 48  
-    local headerFont = UIFont.Medium
-    local contentFont = UIFont.Small
+    local headerFont = getScaledFont(UIFont.Medium)
+    local contentFont = getScaledFont(UIFont.Small)
 
     for i, att in ipairs(attachments) do
         local col = (i - 1) % columns
@@ -807,7 +902,7 @@ function HFO_WeaponViewer:updateAttachmentsPanel()
 
         -- Create an enhanced tooltip for the current attachment if it exists
         if att.item then
-                -- For attached parts, create a comparison that shows what the stats would be without it
+            -- For attached parts, create a comparison that shows what the stats would be without it
             local statsTooltip = getPartStatsTooltip(att.item, true) -- Pass true to indicate reverse mode
             iconPanel:setTooltip(statsTooltip)
         else
@@ -966,7 +1061,7 @@ end
 
 function HFO_WeaponViewer:getDisplayName(platingType)
     if not platingType then return "None" end
-    local base = self.weapon:getModData().GunBaseModel or (self.weapon:getWeaponSprite() or self.weapon:getStaticModel())
+    local base = self.weapon:getModData().HFO_GunBaseModel or (self.weapon:getWeaponSprite() or self.weapon:getStaticModel())
     if platingType == base then
         return "Original Plating"
     end
@@ -1008,11 +1103,11 @@ function HFO_WeaponViewer:cyclePlating(direction)
     self.addedAttachments = {} -- Reset attachments list
 
     -- Get temporary model preview without changing the actual weapon
-    local originalPlating = self.weapon:getModData().GunPlating
-    self.weapon:getModData().GunPlating = platingOption
+    local originalPlating = self.weapon:getModData().HFO_GunPlating
+    self.weapon:getModData().HFO_GunPlating = platingOption
     BWTweaks:checkForModelChange(self.weapon)
     local previewModel = self.weapon:getWeaponSprite() or self.weapon:getStaticModel()
-    self.weapon:getModData().GunPlating = originalPlating
+    self.weapon:getModData().HFO_GunPlating = originalPlating
     BWTweaks:checkForModelChange(self.weapon)
     
     -- Create new model and reset view completely
@@ -1023,8 +1118,7 @@ function HFO_WeaponViewer:cyclePlating(direction)
         -- THEN add to tracking list
         table.insert(self.addedAttachments, self.modelId)
         -- Configure model
-        self.scene.javaObject:fromLua2("setModelUseWorldAttachment", self.modelId, false)
-        self.scene.javaObject:fromLua2("setModelWeaponRotationHack", self.modelId, true)
+
         -- Add attachments
         self:addWeaponAttachments()
         -- Reset view
@@ -1032,12 +1126,7 @@ function HFO_WeaponViewer:cyclePlating(direction)
     end
 end
 
--- When closing the viewer, ensure we don't modify the weapon
+-- Also add this to the removeFromUIManager function
 function HFO_WeaponViewer:removeFromUIManager()
-    if self.weapon:getModData().GunPlating ~= self.originalPlating then
-        self.weapon:getModData().GunPlating = self.originalPlating
-        BWTweaks:checkForModelChange(self.weapon)
-    end
-    
     ISPanel.removeFromUIManager(self)
 end

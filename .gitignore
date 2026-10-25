@@ -1,27 +1,55 @@
-# OS junk
+# =========================================================
+# Project Zomboid mod repo .gitignore
+# Game assets (textures, models, sounds) are NOT ignored.
+# =========================================================
+
+# ---- OS clutter ----
 .DS_Store
 Thumbs.db
 ehthumbs.db
-Desktop.ini
+desktop.ini
+$RECYCLE.BIN/
 
-# Editor & IDE settings
-.vscode/
-.idea/
-*.sublime-workspace
-*.sublime-project
-
-# Temporary & backup files
+# ---- Editor clutter ----
+*.swp
+*.swo
 *~
-*.bak
-*.tmp
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 
-# Log files and runtime
+# ---- Local vanilla game reference ----
+# Extracted vanilla B42 scripts/lua for syntax lookups.
+# Never commit The Indie Stone assets.
+reference/
+
+# ---- Game runtime output ----
 *.log
-logs/
+console.txt
+coop-console.txt
+DebugLog*.txt
 
-# Build artifacts (ZIPs or packs)
+# ---- Art tool backups (sources stay, autosaves go) ----
+*.blend1
+*.blend2
+*.psd.bak
+*.kra~
+*.aseprite.bak
+*.xcf~
+
+# ---- Build / packaging output ----
+dist/
+build/
 *.zip
+*.7z
+*.rar
 
-# Steam Workshop or personal install paths (local only)
-Zomboid/mods/
-mods/**/modData/
+# ---- Scratch and agent working files ----
+scratch/
+.agent-tmp/
+
+# ---- Secrets (should never exist here) ----
+.env
+*.pem
+*.key

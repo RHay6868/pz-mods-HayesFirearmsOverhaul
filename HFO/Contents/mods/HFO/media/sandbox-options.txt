@@ -66,9 +66,17 @@ option HFO.FirearmSkins
 option HFO.ExclusiveFirearmSkins
 {
 	type = boolean,
-	default = true,
+	default = false,
 	page = HFO_Loot,
 	translation = HFO_LootExclusiveFirearmSkins,
+}
+
+option HFO.ServerFirearmSkins
+{
+	type = boolean,
+	default = false,
+	page = HFO_Loot,
+	translation = HFO_LootServerFirearmSkins,
 }
 
 option HFO.RepairKits
@@ -90,7 +98,7 @@ option HFO.Cleaning
 option HFO.ColtCavalry
 {
 	type = boolean,
-	default = true,
+	default = false,
 	page = HFO_Loot,
 	translation = HFO_LootColtCavalry,
 }
@@ -98,31 +106,31 @@ option HFO.ColtCavalry
 option HFO.FGMG42
 {
 	type = boolean,
-	default = true,
+	default = false,
 	page = HFO_Loot,
 	translation = HFO_LootFGMG42,
+}
+
+option HFO.MemeWeapons
+{
+    type = boolean,
+    default = true,
+    page = HFO_Loot,
+    translation = HFO_LootMemeWeapons,
 }
 
 option HFO.TShirtLauncher
 {
 	type = boolean,
-	default = true,
+	default = false,
 	page = HFO_Loot,
 	translation = HFO_LootTShirtLauncher,
-}
-
-option HFO.CrossbowAmmoMag
-{
-	type = boolean,
-	default = true,
-	page = HFO_Loot,
-	translation = HFO_LootCrossbowAmmoMag,
 }
 
 option HFO.ExtendedSmall
 {
     type = boolean,
-    default = true,
+    default = false,
     page = HFO_SpawnRates,
     translation = HFO_SpawnExtendedSmall,
 }
@@ -130,7 +138,7 @@ option HFO.ExtendedSmall
 option HFO.ExtendedLarge
 {
     type = boolean,
-    default = true,
+    default = false,
     page = HFO_SpawnRates,
     translation = HFO_SpawnExtendedLarge,
 }
@@ -138,7 +146,7 @@ option HFO.ExtendedLarge
 option HFO.ExtendedDrum
 {
     type = boolean,
-    default = true,
+    default = false,
     page = HFO_SpawnRates,
     translation = HFO_SpawnExtendedDrum,
 }
@@ -385,6 +393,14 @@ option HFO.AccessoriesOtherRates
     translation = HFO_SpawnAccessoriesOtherRates,
 }
 
+option HFO.MeleeModeEnabled
+{
+    type = boolean,
+    default = true,
+    page = HFO_Mechanics,
+    translation = HFO_MechanicsMeleeModeEnabled,
+}
+
 option HFO.DamageStats
 {
 	type = integer,
@@ -423,6 +439,16 @@ option HFO.MeleeDamageStats
 	max = 50,
 	page = HFO_Mechanics,
 	translation = HFO_MechanicsMeleeDamageStats,
+}
+
+option HFO.ReloadSpeedMax
+{
+	type = double,
+	default = 3,
+	min = 1,
+	max = 10,
+	page = HFO_Mechanics,
+	translation = HFO_MechanicsReloadSpeedMax,
 }
 
 option HFO.JamChance
@@ -550,4 +576,32 @@ option HFO.XbowComponentInstead
 	default = true,
 	page = HFO_Mechanics,
 	translation = HFO_MechanicsXbowComponentInstead,
+}
+
+option HFO.DartBreakChance
+{
+	type = integer,
+	default = 30,
+	min = 0,
+	max = 100,
+	page = HFO_Mechanics,
+	translation = HFO_MechanicsDartBreakChance,
+}
+
+option HFO.DartsLostChance
+{
+	type = integer,
+	default = 20,
+	min = 0,
+	max = 100,
+	page = HFO_Mechanics,
+	translation = HFO_MechanicsDartsLostChance,
+}
+
+option HFO.DartsComponentInstead
+{
+	type = boolean,
+	default = true,
+	page = HFO_Mechanics,
+	translation = HFO_MechanicsDartsComponentInstead,
 }
